@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 void equipe (void){
+    system("clear||cls");
+    printf("\n");
     printf("⎸=====================================================⎸\n");
     printf("⎸                     SIG-Parking                     ⎸\n");
     printf("⎸=====================================================⎸\n");
@@ -17,4 +19,7 @@ void equipe (void){
     printf("⎸=====================================================⎸\n");
     printf("⎸ -Git:https://github.com/Eriky-Rayan/SIG-Parking.git ⎸\n");
     printf("⎸=====================================================⎸\n");
+    printf("\n");
+    printf("\t\t >>Aperte qualquer tecla para continuar");
+    getchar();
 }
