@@ -23,3 +23,16 @@ void equipe (void){
     printf("\t\t >>Aperte qualquer tecla para continuar");
     getchar();
 }
+
+void menu_cad (void){
+    system("clear||cls");
+    printf("\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸                     SIG-Parking                     ⎸\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸                  Menu de Cadastro                   ⎸\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸ -Cadastrar Usuário(a)                               ⎸\n");
+    printf("⎸ -Cadastrar Veículo                                  ⎸\n");
+    printf("⎸=====================================================⎸\n");
+}
