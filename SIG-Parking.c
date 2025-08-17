@@ -6,6 +6,7 @@ void menu_principal(void);
 void estacionamentos(void);
 void dono_veiculo(void);
 void equipe(void);
+void sobre(void);
 
 int main(void) {
     int tela = 5;
@@ -96,6 +97,7 @@ void dono_veiculo(void) {
 }
 
 void equipe (void) {
+    char op;
     system("clear||cls");
     printf("\n");
     printf("⎸=====================================================⎸\n");
@@ -114,4 +116,33 @@ void equipe (void) {
     printf("⎸ -Git:https://github.com/Eriky-Rayan/SIG-Parking.git ⎸\n");
     printf("⎸=====================================================⎸\n");
     printf("\t >>Aperte '0' para voltar ao Menu Principal: ");
+}
+
+void sobre (void){
+    char op;
+    system("clear||cls");
+    printf("\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸                     SIG-Parking                     ⎸\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸                     Tela Sobre                      ⎸\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸Sistema de Controle de Estacionamentos Para Carros e ⎸\n");
+    printf("⎸Motos                                                ⎸\n");
+    printf("⎸                                                     ⎸\n");
+    printf("⎸-Programa para fins didáticos de ilustração,         ⎸\n"); 
+    printf("⎸utilizado como exemplo de codificação de             ⎸\n"); 
+    printf("⎸funcionalidades em linguagem C, durante a disciplina ⎸\n");  
+    printf("⎸DCT1106 - Programação                                ⎸\n");  
+    printf("⎸do curso de Bacharelado em Sistemas de Informação da ⎸\n");  
+    printf("⎸Universidade Federal do Rio Grande do Norte.         ⎸\n");  
+    printf("⎸O programa contém os principais módulos e            ⎸\n");  
+    printf("⎸funcionalidades que serão exigidos na avaliação dos  ⎸\n");  
+    printf("⎸projetos a serem desenvolvidos pelos alunos ao longo ⎸\n"); 
+    printf("⎸da disciplina. Todos os dados e informações          ⎸\n");  
+    printf("⎸utilizados neste programa são fictícios.             ⎸\n");
+    printf("⎸=====================================================⎸\n");
+    printf("\n");
+    printf("\t\t >>Aperte qualquer tecla para continuar");
+    getchar();
 }
