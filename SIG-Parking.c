@@ -23,7 +23,7 @@ void menu_principal(void) {
     printf("⎸ 1 - Módulo Automóveis                               ⎸\n");
     printf("⎸ 2 - Módulo Estacionamentos                          ⎸\n");
     printf("⎸ 3 - Módulo Donos dos Automóveis                     ⎸\n");
-    printf("⎸ 5 - Módulo Equipe do projeto                        ⎸\n");
+    printf("⎸ 5 - Módulo Equipe do Projeto                        ⎸\n");
     printf("⎸ 6 - Sair                                            ⎸\n");
     printf("⎸=====================================================⎸\n");
     printf("\t\t >>Escolha uma opção: ");
