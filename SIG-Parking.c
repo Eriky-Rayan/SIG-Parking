@@ -60,7 +60,6 @@ void estacionamentos(void) {
 }
 
 void equipe (void) {
-    char op;
     system("clear||cls");
     printf("\n");
     printf("⎸=====================================================⎸\n");
