@@ -34,7 +34,30 @@ void menu_principal(void) {
     getchar();
 }
 
-void equipe (void){
+void estacionamentos(void) {
+    char op;
+    system("clear||cls");
+    printf("\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸                     SIG-Parking                     ⎸\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸                Módulo Estacionamentos               ⎸\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸ 1 - Cadastrar Estacionamento                        ⎸\n");
+    printf("⎸ 2 - Exibir dados do Estacionamento                  ⎸\n");
+    printf("⎸ 3 - Alterar dados do Estacionamento                 ⎸\n");
+    printf("⎸ 4 - Excluir Estacionamento                          ⎸\n");
+    printf("⎸ 0 - Voltar ao Menu Principal                        ⎸\n");
+    printf("⎸=====================================================⎸\n");
+    printf("\t\t >>Escolha uma opção: ");
+    scanf("%c", &op);
+    getchar();
+    printf("\n");
+    printf("\t\t >>Aperte qualquer tecla para continuar");
+    getchar();
+}
+
+void equipe (void) {
     system("clear||cls");
     printf("\n");
     printf("⎸=====================================================⎸\n");
