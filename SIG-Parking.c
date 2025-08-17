@@ -4,11 +4,13 @@
 
 void menu_principal(void);
 void estacionamentos(void);
+void dono_veiculo(void);
 void equipe(void);
 
 int main(void) {
     menu_principal();
     estacionamentos();
+    dono_veiculo();
     equipe();
     return 0;
 }
@@ -25,8 +27,8 @@ void menu_principal(void) {
     printf("⎸ 1 - Módulo Automóveis                               ⎸\n");
     printf("⎸ 2 - Módulo Estacionamentos                          ⎸\n");
     printf("⎸ 3 - Módulo Donos dos Automóveis                     ⎸\n");
-    printf("⎸ 4 - Módulo Equipe do Projeto                        ⎸\n");
-    printf("⎸ 0 - Sair                                            ⎸\n");
+    printf("⎸ 5 - Módulo Equipe do Projeto                        ⎸\n");
+    printf("⎸ 6 - Sair                                            ⎸\n");
     printf("⎸=====================================================⎸\n");
     printf("\t\t >>Escolha uma opção: ");
     scanf("%c", &op);
@@ -49,6 +51,29 @@ void estacionamentos(void) {
     printf("⎸ 2 - Exibir dados do Estacionamento                  ⎸\n");
     printf("⎸ 3 - Alterar dados do Estacionamento                 ⎸\n");
     printf("⎸ 4 - Excluir Estacionamento                          ⎸\n");
+    printf("⎸ 0 - Voltar ao Menu Principal                        ⎸\n");
+    printf("⎸=====================================================⎸\n");
+    printf("\t\t >>Escolha uma opção: ");
+    scanf("%c", &op);
+    getchar();
+    printf("\n");
+    printf("\t\t >>Aperte qualquer tecla para continuar");
+    getchar();
+}
+
+void dono_veiculo(void) {
+    char op;
+    system("clear||cls");
+    printf("\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸                     SIG-Parking                     ⎸\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸              Módulo Donos dos Automóveis            ⎸\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸ 1 - Cadastrar Dono de Automóvel                     ⎸\n");
+    printf("⎸ 2 - Exibir dados do Dono de Automóvel               ⎸\n");
+    printf("⎸ 3 - Alterar dados do Dono de Automóvel              ⎸\n");
+    printf("⎸ 4 - Excluir Dono de Automóvel                       ⎸\n");
     printf("⎸ 0 - Voltar ao Menu Principal                        ⎸\n");
     printf("⎸=====================================================⎸\n");
     printf("\t\t >>Escolha uma opção: ");
