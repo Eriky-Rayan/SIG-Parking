@@ -2,10 +2,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+//você encontrará as seguintes funções ao decorrer desse código.
+//you will find the following functions throughout this code.
 void menu_principal(void);
 void estacionamentos(void);
 void dono_veiculo(void);
 void equipe(void);
+void sobre(void);
 
 int main(void) {
     menu_principal();
@@ -85,6 +88,7 @@ void dono_veiculo(void) {
 }
 
 void equipe (void) {
+    char op;
     system("clear||cls");
     printf("\n");
     printf("⎸=====================================================⎸\n");
@@ -101,6 +105,38 @@ void equipe (void) {
     printf("⎸ -GitHub:https://github.com/Isaac-Ribeiro            ⎸\n");
     printf("⎸=====================================================⎸\n");
     printf("⎸ -Git:https://github.com/Eriky-Rayan/SIG-Parking.git ⎸\n");
+    printf("⎸=====================================================⎸\n");
+    printf("\t\t >>Escolha uma opção: ");
+    scanf("%c", &op);
+    getchar();
+    printf("\n");
+    printf("\t\t >>Aperte qualquer tecla para continuar");
+    getchar();
+}
+
+void sobre (void){
+    char op;
+    system("clear||cls");
+    printf("\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸                     SIG-Parking                     ⎸\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸                     Tela Sobre                      ⎸\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸Sistema de Controle de Estacionamentos Para Carros e ⎸\n");
+    printf("⎸Motos                                                ⎸\n");
+    printf("⎸                                                     ⎸\n");
+    printf("⎸-Programa para fins didáticos de ilustração,         ⎸\n"); 
+    printf("⎸utilizado como exemplo de codificação de             ⎸\n"); 
+    printf("⎸funcionalidades em linguagem C, durante a disciplina ⎸\n");  
+    printf("⎸DCT1106 - Programação                                ⎸\n");  
+    printf("⎸do curso de Bacharelado em Sistemas de Informação da ⎸\n");  
+    printf("⎸Universidade Federal do Rio Grande do Norte.         ⎸\n");  
+    printf("⎸O programa contém os principais módulos e            ⎸\n");  
+    printf("⎸funcionalidades que serão exigidos na avaliação dos  ⎸\n");  
+    printf("⎸projetos a serem desenvolvidos pelos alunos ao longo ⎸\n"); 
+    printf("⎸da disciplina. Todos os dados e informações          ⎸\n");  
+    printf("⎸utilizados neste programa são fictícios.             ⎸\n");
     printf("⎸=====================================================⎸\n");
     printf("\n");
     printf("\t\t >>Aperte qualquer tecla para continuar");
