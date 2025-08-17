@@ -8,15 +8,43 @@ void dono_veiculo(void);
 void equipe(void);
 
 int main(void) {
-    menu_principal();
-    estacionamentos();
-    dono_veiculo();
-    equipe();
+    int tela = 5;
+    char op;
+
+    while (tela != 0) {
+        if (tela == 5) {
+            menu_principal();
+            scanf(" %c", &op);
+            getchar();
+
+            if (op == '1') tela = 1;
+            else if (op == '2') tela = 2;
+            else if (op == '3') tela = 3;
+            else if (op == '4') tela = 4;
+            else tela = 0;
+        } else if (tela == 1) {
+            // Módulo Automóveis
+        } else if (tela == 2) {
+            estacionamentos();
+            scanf(" %c", &op);
+            getchar();
+            if (op == '0') tela = 5; 
+        } else if (tela == 3) {
+            dono_veiculo();
+            scanf(" %c", &op);
+            getchar();
+            if (op == '0') tela = 5; 
+        } else if (tela == 4) {
+            equipe();
+            scanf(" %c", &op);
+            getchar();
+            if (op == '0') tela = 5; 
+        }
+    }
     return 0;
 }
 
 void menu_principal(void) {
-    char op;
     system("clear||cls");
     printf("\n");
     printf("⎸=====================================================⎸\n");
@@ -27,19 +55,13 @@ void menu_principal(void) {
     printf("⎸ 1 - Módulo Automóveis                               ⎸\n");
     printf("⎸ 2 - Módulo Estacionamentos                          ⎸\n");
     printf("⎸ 3 - Módulo Donos dos Automóveis                     ⎸\n");
-    printf("⎸ 5 - Módulo Equipe do Projeto                        ⎸\n");
-    printf("⎸ 6 - Sair                                            ⎸\n");
+    printf("⎸ 4 - Módulo Equipe do Projeto                        ⎸\n");
+    printf("⎸ 0 - Sair                                            ⎸\n");
     printf("⎸=====================================================⎸\n");
-    printf("\t\t >>Escolha uma opção: ");
-    scanf("%c", &op);
-    getchar();
-    printf("\n");
-    printf("\t\t >>Aperte qualquer tecla para continuar");
-    getchar();
+    printf("\t >>Escolha uma opção: ");
 }
 
 void estacionamentos(void) {
-    char op;
     system("clear||cls");
     printf("\n");
     printf("⎸=====================================================⎸\n");
@@ -53,16 +75,10 @@ void estacionamentos(void) {
     printf("⎸ 4 - Excluir Estacionamento                          ⎸\n");
     printf("⎸ 0 - Voltar ao Menu Principal                        ⎸\n");
     printf("⎸=====================================================⎸\n");
-    printf("\t\t >>Escolha uma opção: ");
-    scanf("%c", &op);
-    getchar();
-    printf("\n");
-    printf("\t\t >>Aperte qualquer tecla para continuar");
-    getchar();
+    printf("\t >>Escolha uma opção: ");
 }
 
 void dono_veiculo(void) {
-    char op;
     system("clear||cls");
     printf("\n");
     printf("⎸=====================================================⎸\n");
@@ -76,12 +92,7 @@ void dono_veiculo(void) {
     printf("⎸ 4 - Excluir Dono de Automóvel                       ⎸\n");
     printf("⎸ 0 - Voltar ao Menu Principal                        ⎸\n");
     printf("⎸=====================================================⎸\n");
-    printf("\t\t >>Escolha uma opção: ");
-    scanf("%c", &op);
-    getchar();
-    printf("\n");
-    printf("\t\t >>Aperte qualquer tecla para continuar");
-    getchar();
+    printf("\t >>Escolha uma opção: ");
 }
 
 void equipe (void) {
@@ -102,7 +113,5 @@ void equipe (void) {
     printf("⎸=====================================================⎸\n");
     printf("⎸ -Git:https://github.com/Eriky-Rayan/SIG-Parking.git ⎸\n");
     printf("⎸=====================================================⎸\n");
-    printf("\n");
-    printf("\t\t >>Aperte qualquer tecla para continuar");
-    getchar();
+    printf("\t >>Aperte '0' para voltar ao Menu Principal: ");
 }
