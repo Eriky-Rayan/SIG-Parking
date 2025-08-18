@@ -6,17 +6,17 @@
 //Function Signature
 
 void menu_principal(void);
+void veiculos(void);
 void estacionamentos(void);
 void dono_veiculo(void);
 void equipe(void);
 void sobre(void);
-void veiculos(void);
 
 //código Principal
 //main Code
 
 int main(void) {
-    int tela = 5;
+    int tela = 6;
     char op;
 
     while (tela != 0) {
@@ -35,21 +35,27 @@ int main(void) {
             veiculos();
             scanf(" %c", &op);
             getchar();
+            if (op == '0') tela = 6;
         } else if (tela == 2) {
             estacionamentos();
             scanf(" %c", &op);
             getchar();
-            if (op == '0') tela = 5; 
+            if (op == '0') tela = 6; 
         } else if (tela == 3) {
             dono_veiculo();
             scanf(" %c", &op);
             getchar();
-            if (op == '0') tela = 5; 
+            if (op == '0') tela = 6; 
         } else if (tela == 4) {
             equipe();
             scanf(" %c", &op);
             getchar();
-            if (op == '0') tela = 5; 
+            if (op == '0') tela = 6; 
+        } else if (tela == 5) {
+            sobre();
+            scanf(" %c", &op);
+            getchar();
+            if (op == '0') tela = 6;
         }
     }
     return 0;
@@ -67,6 +73,7 @@ void menu_principal(void) {
     printf("⎸ 2 - Módulo Estacionamentos                          ⎸\n");
     printf("⎸ 3 - Módulo Donos dos Veículos                       ⎸\n");
     printf("⎸ 4 - Módulo Equipe do Projeto                        ⎸\n");
+    printf("⎸ 5 - Sobre o Sistema                                 ⎸\n");
     printf("⎸ 0 - Sair                                            ⎸\n");
     printf("⎸=====================================================⎸\n");
     printf("\n");
