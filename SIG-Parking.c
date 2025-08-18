@@ -6,9 +6,14 @@
 //Function Signature
 
 void menu_principal(void);
+
 void veiculos(void);
+void add_veiculos(void);
+
 void estacionamentos(void);
+
 void dono_veiculo(void);
+
 void equipe(void);
 void sobre(void);
 
@@ -35,7 +40,12 @@ int main(void) {
             veiculos();
             scanf(" %c", &op);
             getchar();
-            if (op == '0') tela = 6;
+            if (op == '1') {
+                add_veiculos();
+                getchar();
+                tela = 6;
+            }
+            else if (op == '0') tela = 6;
         } else if (tela == 2) {
             estacionamentos();
             scanf(" %c", &op);
@@ -60,6 +70,9 @@ int main(void) {
     }
     return 0;
 }
+
+//Definição das Funções
+//Function Definition
 
 void menu_principal(void) {
     system("clear||cls");
@@ -96,6 +109,29 @@ void veiculos(void){
     printf("⎸=====================================================⎸\n");
     printf("\n");
     printf("\t >>Escolha uma opção: ");
+}
+
+void add_veiculos(void){
+    system("clear||cls");
+    printf("\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸                     SIG-Parking                     ⎸\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸         Módulo Veículos - Cadastrar veículo         ⎸\n");
+    printf("⎸=====================================================⎸\n");
+    printf("  Digite os dados do veículo a ser cadastrado:         \n");
+    printf("\n");
+    printf(" >>Tipo de Veículo (Carro/Moto): ");
+    printf("\n");
+    printf(" >>Placa do Veículo: ");
+    printf("\n");
+    printf(" >>Nome do Veículo: ");
+    printf("\n");
+    printf(" >>Cor do Veículo: ");
+    printf("\n");
+    printf(" >>Nº do estacionamento: ");
+    printf("\n");
+    printf(" >>Nº do Dono do Veículo: ");
 }
 
 void estacionamentos(void) {
