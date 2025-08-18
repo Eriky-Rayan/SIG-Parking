@@ -15,6 +15,7 @@ void exclu_veiculo(void);
 
 void estacionamentos(void);
 void add_estacionamentos(void);
+void alterar_estacionamento(void);
 
 void dono_veiculo(void);
 void add_dono_veiculo(void);
@@ -75,6 +76,11 @@ int main(void) {
             getchar();
             if (op == '1') {
                 add_estacionamentos();
+                getchar();
+                tela = 2;
+            }
+            else if (op == '2') {
+                alterar_estacionamento();
                 getchar();
                 tela = 2;
             }
@@ -170,13 +176,9 @@ void add_veiculos(void) {
     printf("⎸                        Módulo Veículos - Cadastrar veículo                       ⎸\n");
     printf("⎸==================================================================================⎸\n");
     printf("\n");
-    printf("  Digite a placa do veículo a ser cadastrado:         \n");
+    printf(" -Digite a placa do veículo a ser cadastrado:         \n");
     printf("\n");
     printf(" >>Tipo de Veículo (Carro/Moto): ");
-    printf("\n");
-    printf(" >>Placa do Veículo: ");
-    printf("\n");
-    printf(" >>Nome do Veículo: ");
     printf("\n");
     printf(" >>Cor do Veículo: ");
     printf("\n");
@@ -208,15 +210,11 @@ void alterar_veiculo(void){
     printf("⎸                        Módulo Veículos - Alterar Dados                           ⎸\n");
     printf("⎸==================================================================================⎸\n");
     printf("\n");
-    printf("  Digite a placa do veículo a ser alterado:        \n");
+    printf(" -Digite a placa do veículo a ser alterado:        \n");
     printf("\n");
     printf("  Digite os novos dados do veículo.                \n");
     printf("\n");
     printf(" >>Tipo de Veículo (Carro/Moto): ");
-    printf("\n");
-    printf(" >>Placa do Veículo: ");
-    printf("\n");
-    printf(" >>Nome do Veículo: ");
     printf("\n");
     printf(" >>Cor do Veículo: ");
     printf("\n");
@@ -267,11 +265,28 @@ void add_estacionamentos(void) {
     printf("⎸                 Módulo Estacionamentos - Cadastrar Estacionamento                ⎸\n");
     printf("⎸==================================================================================⎸\n");
     printf("\n");
-    printf("  Digite os dados do estacionamento a ser cadastrado:  \n");
+    printf(" >>Digite a vaga onde o veículo se encontra:  \n");
     printf("\n");
-    printf(" >>Tipo do Estacionamento (Carro/Moto): ");
+    printf(" >>Tipo do estacionamento (Carro/Moto): ");
     printf("\n");
-    printf(" >>\n");
+    printf(" >>Digite a placa do veículo: ");
+}
+
+void alterar_estacionamento(void){
+    system("clear||cls");
+    printf("\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("⎸                                   SIG-Parking                                    ⎸\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("⎸                 Módulo Estacionamentos - Alterar Estacionamento                  ⎸\n");
+    printf("⎸==================================================================================⎸\n");
+    printf(" >>Digite o número da vaga:");
+    printf("\n");
+    printf(" -Digite os novos dados do estacionamento");
+    printf("\n");
+    printf(" >>Tipo do estacionamento (Carro/Moto): ");
+    printf("\n");
+    printf(" >>Digite a placa do veículo: ");
 }
 
 void dono_veiculo(void) {
@@ -302,11 +317,9 @@ void add_dono_veiculo(void) {
     printf("⎸                  Módulo Donos dos Veículos - Cadastrar Dono                      ⎸\n");
     printf("⎸==================================================================================⎸\n");
     printf("\n");
-    printf(" Digite o CPF do dono do veículo a ser cadastrado:  \n");
+    printf(" >>Digite o CPF do dono do veículo a ser cadastrado:  \n");
     printf("\n");
-    printf(" >>Nome do Dono: ");
-    printf("\n");
-    printf(" >>Telefone do Dono: ");
+    printf(" >>Telefone do dono: ");
     printf("\n");
 }
 
@@ -336,9 +349,7 @@ void alterar_dono_veiculo(void){
     printf("\n");
     printf(" Digite os novos dados do dono do veículo.");
     printf("\n");
-    printf(" >>Nome do Dono: ");
-    printf("\n");
-    printf(" >>Telefone do Dono: ");
+    printf(" >>Telefone do dono: ");
     printf("\n");
 }
 
@@ -389,17 +400,13 @@ void sobre(void) {
     printf("⎸-Sistema de Controle de Estacionamentos Para Carros e                             ⎸\n");
     printf("⎸ Motos-                                                                           ⎸\n");
     printf("⎸                                                                                  ⎸\n");
-    printf("⎸-Programa para fins didáticos de ilustração,                                      ⎸\n"); 
-    printf("⎸utilizado como exemplo de codificação de                                          ⎸\n"); 
-    printf("⎸funcionalidades em linguagem C, durante a disciplina                              ⎸\n");  
-    printf("⎸DCT1106 - Programação                                                             ⎸\n");  
-    printf("⎸do curso de Bacharelado em Sistemas de Informação da                              ⎸\n");  
-    printf("⎸Universidade Federal do Rio Grande do Norte.                                      ⎸\n");  
-    printf("⎸O programa contém os principais módulos e                                         ⎸\n");  
-    printf("⎸funcionalidades que serão exigidos na avaliação dos                               ⎸\n");  
-    printf("⎸projetos a serem desenvolvidos pelos alunos ao longo                              ⎸\n"); 
-    printf("⎸da disciplina. Todos os dados e informações                                       ⎸\n");  
-    printf("⎸utilizados neste programa são fictícios.                                          ⎸\n");
+    printf("⎸-Programa para fins didáticos de ilustração, utilizado como exemplo de            ⎸\n"); 
+    printf("⎸ codificação de funcionalidades em linguagem C, durante a disciplina              ⎸\n"); 
+    printf("⎸ DCT1106 - Programação do curso de Bacharelado em Sistemas de Informação da       ⎸\n");  
+    printf("⎸ Universidade Federal do Rio Grande do Norte. O programa contém os principais     ⎸\n");  
+    printf("⎸ módulos e funcionalidades que serão exigidos na avaliação dos projetos a serem   ⎸\n");  
+    printf("⎸ desenvolvidos pelos alunos ao longo da disciplina. Todos os dados e informações  ⎸\n");  
+    printf("⎸ utilizados neste programa são fictícios.                                         ⎸\n");  
     printf("⎸==================================================================================⎸\n");
     printf("\n");
     printf("\t >>Aperte '0' para voltar ao Menu Principal: ");
