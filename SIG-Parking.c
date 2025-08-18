@@ -15,9 +15,7 @@ void exclu_veiculo(void);
 
 void estacionamentos(void);
 void add_estacionamentos(void);
-void exib_estacionamentos(void);
 void alterar_estacionamentos(void);
-void exclu_estacionamentos(void);
 
 void dono_veiculo(void);
 void add_dono_veiculo(void);
@@ -47,26 +45,36 @@ int main(void) {
             else if (op == '4') tela = 4;
             else if (op == '5') tela = 5;
             else tela = 0;
+            printf("\t\t\t>>> Tecle <ENTER> para encerrar programa...\n");
+            getchar();
         } else if (tela == 1) {
             veiculos();
             scanf(" %c", &op);
             getchar();
             if (op == '1') {
+                printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+                getchar();
                 add_veiculos();
                 getchar();
                 tela = 1;
             }
             else if (op == '2') {
+                printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+                getchar();
                 exib_veiculo();
                 getchar();
                 tela = 1;
             }
             else if (op == '3') {
+                printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+                getchar();
                 alterar_veiculo();
                 getchar();
                 tela = 1;
             }
             else if (op == '4') {
+                printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+                getchar();
                 exclu_veiculo();
                 getchar();
                 tela = 1;
@@ -77,22 +85,16 @@ int main(void) {
             scanf(" %c", &op);
             getchar();
             if (op == '1') {
+                printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+                getchar();
                 add_estacionamentos();
                 getchar();
                 tela = 2;
             }
             else if (op == '2') {
-                exib_estacionamentos();
+                printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
                 getchar();
-                tela = 2;
-            }
-            else if ( op == '3') {
-                alterar_estacionamentos();
-                getchar();
-                tela = 2;
-            }
-            else if (op == '4') {
-                exclu_estacionamentos();
+                alterar_estacionamento();
                 getchar();
                 tela = 2;
             }
@@ -102,21 +104,29 @@ int main(void) {
             scanf(" %c", &op);
             getchar();
             if (op == '1') {
+                printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+                getchar();
                 add_dono_veiculo();
                 getchar();
                 tela = 3;
             }
             else if (op == '2') {
+                printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+                getchar();
                 exib_dono_veiculo();
                 getchar();
                 tela = 3;
             }
             else if (op == '3') {
+                printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+                getchar();
                 alterar_dono_veiculo();
                 getchar();
                 tela = 3;
             }
             else if (op == '4') {
+                printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+                getchar();
                 exclu_dono_veiculo();
                 getchar();
                 tela = 3;
