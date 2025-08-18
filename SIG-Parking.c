@@ -10,6 +10,7 @@ void menu_principal(void);
 void veiculos(void);
 void add_veiculos(void);
 void exib_veiculo(void);
+void alterar_veiculo(void);
 
 void estacionamentos(void);
 void add_estacionamentos(void);
@@ -17,6 +18,7 @@ void add_estacionamentos(void);
 void dono_veiculo(void);
 void add_dono_veiculo(void);
 void exib_dono_veiculo(void);
+void alterar_dono_veiculo(void);
 
 void equipe(void);
 void sobre(void);
@@ -49,8 +51,13 @@ int main(void) {
                 getchar();
                 tela = 1;
             }
-            else if (op == '2'){
+            else if (op == '2') {
                 exib_veiculo();
+                getchar();
+                tela = 1;
+            }
+            else if (op == '3') {
+                alterar_veiculo();
                 getchar();
                 tela = 1;
             }
@@ -74,8 +81,13 @@ int main(void) {
                 getchar();
                 tela = 3;
             }
-            else if (op == '2'){
+            else if (op == '2') {
                 exib_dono_veiculo();
+                getchar();
+                tela = 3;
+            }
+            else if (op == '3') {
+                alterar_dono_veiculo();
                 getchar();
                 tela = 3;
             }
@@ -171,7 +183,34 @@ void exib_veiculo(void){
     printf("⎸          Módulo Veículos - Exibir veículo           ⎸\n");
     printf("⎸=====================================================⎸\n");
     printf("\n");
-    printf(" >>Digite a placa do veículo a ser exibido:         \n");
+    printf(" >>Digite a placa do veículo a ser exibido:            \n");
+    printf("\n");
+}
+
+void alterar_veiculo(void){
+    system("clear||cls");
+    printf("\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸                     SIG-Parking                     ⎸\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸           Módulo Veículos - Alterar Dados           ⎸\n");
+    printf("⎸=====================================================⎸\n");
+    printf("\n");
+    printf("  Digite os dados do veículo a ser alterado:     \n");
+    printf("\n");
+    printf("Digite os novos dados do veículo.                \n");
+    printf("\n");
+    printf(" >>Tipo de Veículo (Carro/Moto): ");
+    printf("\n");
+    printf(" >>Placa do Veículo: ");
+    printf("\n");
+    printf(" >>Nome do Veículo: ");
+    printf("\n");
+    printf(" >>Cor do Veículo: ");
+    printf("\n");
+    printf(" >>Nº do estacionamento: ");
+    printf("\n");
+    printf(" >>CPF do Dono do Veículo: ");
     printf("\n");
 }
 
@@ -259,6 +298,27 @@ void exib_dono_veiculo(void) {
     printf("⎸=====================================================⎸\n");
     printf("\n");
     printf(" >>Digite o CPF do dono a ser exibido: \n");
+    printf("\n");
+}
+
+void alterar_dono_veiculo(void){
+    system("clear||cls");
+    printf("\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸                     SIG-Parking                     ⎸\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸      Módulo Donos dos Veículos - Alterar Dados      ⎸\n");
+    printf("⎸=====================================================⎸\n");
+    printf("\n");
+    printf(" Digite os dados do dono do veículo a ser alterado:    \n");
+    printf("\n");
+    printf("Digite os novos dados do dono do veículo.");
+    printf("\n");
+    printf(" >>Nome do Dono: ");
+    printf("\n");
+    printf(" >>CPF do Dono: ");
+    printf("\n");
+    printf(" >>Telefone do Dono: ");
     printf("\n");
 }
 
