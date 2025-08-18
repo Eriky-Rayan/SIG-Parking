@@ -11,6 +11,7 @@ void veiculos(void);
 void add_veiculos(void);
 void exib_veiculo(void);
 void alterar_veiculo(void);
+void exclu_veiculo(void);
 
 void estacionamentos(void);
 void add_estacionamentos(void);
@@ -19,6 +20,7 @@ void dono_veiculo(void);
 void add_dono_veiculo(void);
 void exib_dono_veiculo(void);
 void alterar_dono_veiculo(void);
+void exclu_dono_veiculo(void);
 
 void equipe(void);
 void sobre(void);
@@ -196,9 +198,9 @@ void alterar_veiculo(void){
     printf("⎸           Módulo Veículos - Alterar Dados           ⎸\n");
     printf("⎸=====================================================⎸\n");
     printf("\n");
-    printf("  Digite os dados do veículo a ser alterado:     \n");
+    printf("  Digite a placa do veículo a ser alterado:        \n");
     printf("\n");
-    printf("Digite os novos dados do veículo.                \n");
+    printf("  Digite os novos dados do veículo.                \n");
     printf("\n");
     printf(" >>Tipo de Veículo (Carro/Moto): ");
     printf("\n");
@@ -211,6 +213,19 @@ void alterar_veiculo(void){
     printf(" >>Nº do estacionamento: ");
     printf("\n");
     printf(" >>CPF do Dono do Veículo: ");
+    printf("\n");
+}
+
+void exclu_veiculo(void){
+    system("clear||cls");
+    printf("\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸                     SIG-Parking                     ⎸\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸          Módulo Veículos - Excluir Dados            ⎸\n");
+    printf("⎸=====================================================⎸\n");
+    printf("\n");
+    printf(" >>Digite a placa do veículo a ser excluido: \n");
     printf("\n");
 }
 
@@ -312,13 +327,26 @@ void alterar_dono_veiculo(void){
     printf("\n");
     printf(" Digite os dados do dono do veículo a ser alterado:    \n");
     printf("\n");
-    printf("Digite os novos dados do dono do veículo.");
+    printf(" Digite os novos dados do dono do veículo.");
     printf("\n");
     printf(" >>Nome do Dono: ");
     printf("\n");
     printf(" >>CPF do Dono: ");
     printf("\n");
     printf(" >>Telefone do Dono: ");
+    printf("\n");
+}
+
+void exclu_dono_veiculo(void){
+    system("clear||cls");
+    printf("\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸                     SIG-Parking                     ⎸\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸      Módulo Donos dos Veículos - Excluir Dados      ⎸\n");
+    printf("⎸=====================================================⎸\n");
+    printf("\n");
+    printf(" >>Digite o CPF do dono a ser excluido: \n");
     printf("\n");
 }
 
