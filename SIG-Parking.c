@@ -15,7 +15,8 @@ void exclu_veiculo(void);
 
 void estacionamentos(void);
 void add_estacionamentos(void);
-void alterar_estacionamento(void);
+void exib_estacionamentos(void);
+void alterar_estacionamentos(void);
 
 void dono_veiculo(void);
 void add_dono_veiculo(void);
@@ -80,7 +81,17 @@ int main(void) {
                 tela = 2;
             }
             else if (op == '2') {
-                alterar_estacionamento();
+                exib_estacionamentos();
+                getchar();
+                tela = 2;
+            }
+            else if ( op == '3') {
+                alterar_estacionamentos();
+                getchar();
+                tela = 2;
+            }
+            else if (op == '4') {
+                //excluir estacionamentos
                 getchar();
                 tela = 2;
             }
@@ -276,7 +287,20 @@ void add_estacionamentos(void) {
     printf(" >>Digite a placa do veículo: ");
 }
 
-void alterar_estacionamento(void){
+void exib_estacionamentos(void){
+    system("clear||cls");
+    printf("\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("⎸                                   SIG-Parking                                    ⎸\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("⎸                 Módulo Estacionamentos - Exibir Estacionamento                   ⎸\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("\n");
+    printf(" >>Digite o número do estacionamento que deseja ver: ");
+    printf("\n");
+}
+
+void alterar_estacionamentos(void){
     system("clear||cls");
     printf("\n");
     printf("⎸==================================================================================⎸\n");
@@ -284,6 +308,7 @@ void alterar_estacionamento(void){
     printf("⎸==================================================================================⎸\n");
     printf("⎸                 Módulo Estacionamentos - Alterar Estacionamento                  ⎸\n");
     printf("⎸==================================================================================⎸\n");
+    printf("\n");
     printf(" >>Digite o número da vaga:");
     printf("\n");
     printf(" -Digite os novos dados do estacionamento");
