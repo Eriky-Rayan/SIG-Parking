@@ -11,8 +11,10 @@ void veiculos(void);
 void add_veiculos(void);
 
 void estacionamentos(void);
+void add_estacionamentos(void);
 
 void dono_veiculo(void);
+void add_dono_veiculo(void);
 
 void equipe(void);
 void sobre(void);
@@ -43,18 +45,28 @@ int main(void) {
             if (op == '1') {
                 add_veiculos();
                 getchar();
-                tela = 6;
+                tela = 1;
             }
             else if (op == '0') tela = 6;
         } else if (tela == 2) {
             estacionamentos();
             scanf(" %c", &op);
             getchar();
+            if (op == '1') {
+                add_estacionamentos();
+                getchar();
+                tela = 2;
+            }
             if (op == '0') tela = 6; 
         } else if (tela == 3) {
             dono_veiculo();
             scanf(" %c", &op);
             getchar();
+            if (op == '1') {
+                add_dono_veiculo();
+                getchar();
+                tela = 3;
+            }
             if (op == '0') tela = 6; 
         } else if (tela == 4) {
             equipe();
@@ -131,7 +143,8 @@ void add_veiculos(void){
     printf("\n");
     printf(" >>Nº do estacionamento: ");
     printf("\n");
-    printf(" >>Nº do Dono do Veículo: ");
+    printf(" >>CPF do Dono do Veículo: ");
+    printf("\n");
 }
 
 void estacionamentos(void) {
@@ -152,6 +165,22 @@ void estacionamentos(void) {
     printf("\t >>Escolha uma opção: ");
 }
 
+void add_estacionamentos(void){
+    system("clear||cls");
+    printf("\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸                     SIG-Parking                     ⎸\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸ Módulo Estacionamentos - Cadastrar Estacionamento   ⎸\n");
+    printf("⎸=====================================================⎸\n");
+    printf("  Digite os dados do estacionamento a ser cadastrado:  \n");
+    printf("\n");
+    printf(" >>Tipo do Estacionamento (Carro/Moto): ");
+    printf("\n");
+    printf(" >>Número do Estacionamento: ");
+    printf("\n");
+}
+
 void dono_veiculo(void) {
     system("clear||cls");
     printf("\n");
@@ -168,6 +197,24 @@ void dono_veiculo(void) {
     printf("⎸=====================================================⎸\n");
     printf("\n");
     printf("\t >>Escolha uma opção: ");
+}
+
+void add_dono_veiculo(void) {
+    system("clear||cls");
+    printf("\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸                     SIG-Parking                     ⎸\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸      Módulo Donos dos Veículos - Cadastrar Dono     ⎸\n");
+    printf("⎸=====================================================⎸\n");
+    printf(" Digite os dados do dono do veículo a ser cadastrado:  \n");
+    printf("\n");
+    printf(" >>Nome do Dono: ");
+    printf("\n");
+    printf(" >>CPF do Dono: ");
+    printf("\n");
+    printf(" >>Telefone do Dono: ");
+    printf("\n");
 }
 
 void equipe(void) {
