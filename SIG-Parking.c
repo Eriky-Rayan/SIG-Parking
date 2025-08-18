@@ -67,6 +67,11 @@ int main(void) {
                 getchar();
                 tela = 3;
             }
+            else if (op == '2'){
+                exbi_dono_veiculo();
+                getchar();
+                tela = 3;
+            }
             if (op == '0') tela = 6; 
         } else if (tela == 4) {
             equipe();
@@ -217,6 +222,18 @@ void add_dono_veiculo(void) {
     printf("\n");
 }
 
+void exbi_dono_veiculo(void){
+    system("clear||cls");
+    printf("\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸                     SIG-Parking                     ⎸\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸      Módulo Donos dos Veículos - Exibir Dados       ⎸\n");
+    printf("⎸=====================================================⎸\n");
+    printf(" >>Digite o CPF do Dono Que Quer Exibir: \n");
+    printf("\n");
+}
+
 void equipe(void) {
     system("clear||cls");
     printf("\n");
@@ -236,7 +253,7 @@ void equipe(void) {
     printf("⎸ -Git:https://github.com/Eriky-Rayan/SIG-Parking.git ⎸\n");
     printf("⎸=====================================================⎸\n");
     printf("\n");
-    printf("\t >>Aperte '0' para voltar ao Menu Principal: ");
+    printf("\t >>Aperte '0' Para Voltar ao Menu Principal: ");
 }
 
 void sobre(void){
@@ -263,5 +280,5 @@ void sobre(void){
     printf("⎸utilizados neste programa são fictícios.             ⎸\n");
     printf("⎸=====================================================⎸\n");
     printf("\n");
-    printf("\t >>Aperte '0' para voltar ao Menu Principal: ");
+    printf("\t >>Aperte '0' Para Voltar ao Menu Principal: ");
 }
