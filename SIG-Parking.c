@@ -63,6 +63,11 @@ int main(void) {
                 getchar();
                 tela = 1;
             }
+            else if (op == '4') {
+                exclu_veiculo();
+                getchar();
+                tela = 1;
+            }
             else if (op == '0') tela = 6;
         } else if (tela == 2) {
             estacionamentos();
@@ -90,6 +95,11 @@ int main(void) {
             }
             else if (op == '3') {
                 alterar_dono_veiculo();
+                getchar();
+                tela = 3;
+            }
+            else if (op == '4') {
+                exclu_dono_veiculo();
                 getchar();
                 tela = 3;
             }
