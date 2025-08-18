@@ -15,7 +15,7 @@ void exclu_veiculo(void);
 
 void estacionamentos(void);
 void add_estacionamentos(void);
-void alterar_estacionamento(void);
+void alterar_estacionamentos(void);
 
 void dono_veiculo(void);
 void add_dono_veiculo(void);
@@ -212,7 +212,7 @@ void add_veiculos(void) {
     printf("\n");
 }
 
-void exib_veiculo(void){
+void exib_veiculo(void) {
     system("clear||cls");
     printf("\n");
     printf("⎸==================================================================================⎸\n");
@@ -225,7 +225,7 @@ void exib_veiculo(void){
     printf("\n");
 }
 
-void alterar_veiculo(void){
+void alterar_veiculo(void) {
     system("clear||cls");
     printf("\n");
     printf("⎸==================================================================================⎸\n");
@@ -250,7 +250,7 @@ void alterar_veiculo(void){
     printf("\n");
 }
 
-void exclu_veiculo(void){
+void exclu_veiculo(void) {
     system("clear||cls");
     printf("\n");
     printf("⎸==================================================================================⎸\n");
@@ -298,7 +298,20 @@ void add_estacionamentos(void) {
     printf(" >>Digite a placa do veículo: ");
 }
 
-void alterar_estacionamento(void){
+void exib_estacionamentos(void) {
+    system("clear||cls");
+    printf("\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("⎸                                   SIG-Parking                                    ⎸\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("⎸                 Módulo Estacionamentos - Exibir Estacionamento                   ⎸\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("\n");
+    printf(" >>Digite o número do estacionamento que deseja ver: ");
+    printf("\n");
+}
+
+void alterar_estacionamentos(void) {
     system("clear||cls");
     printf("\n");
     printf("⎸==================================================================================⎸\n");
@@ -306,6 +319,7 @@ void alterar_estacionamento(void){
     printf("⎸==================================================================================⎸\n");
     printf("⎸                 Módulo Estacionamentos - Alterar Estacionamento                  ⎸\n");
     printf("⎸==================================================================================⎸\n");
+    printf("\n");
     printf(" >>Digite o número da vaga:");
     printf("\n");
     printf(" -Digite os novos dados do estacionamento");
@@ -313,6 +327,19 @@ void alterar_estacionamento(void){
     printf(" >>Tipo do estacionamento (Carro/Moto): ");
     printf("\n");
     printf(" >>Digite a placa do veículo: ");
+    printf("\n");
+}
+
+void exclu_estacionamentos(void) {
+    system("clear||cls");
+    printf("\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("⎸                                   SIG-Parking                                    ⎸\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("⎸                 Módulo Estacionamentos - Excluir Estacionamento                   ⎸\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("\n");
+    printf(" >>Digite o número do estacionamento que deseja excluir: ");
     printf("\n");
 }
 
@@ -367,7 +394,7 @@ void exib_dono_veiculo(void) {
     printf("\n");
 }
 
-void alterar_dono_veiculo(void){
+void alterar_dono_veiculo(void) {
     system("clear||cls");
     printf("\n");
     printf("⎸==================================================================================⎸\n");
@@ -388,7 +415,7 @@ void alterar_dono_veiculo(void){
     printf("\n");
 }
 
-void exclu_dono_veiculo(void){
+void exclu_dono_veiculo(void) {
     system("clear||cls");
     printf("\n");
     printf("⎸==================================================================================⎸\n");
