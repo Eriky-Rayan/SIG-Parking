@@ -176,9 +176,11 @@ void add_veiculos(void) {
     printf("⎸                        Módulo Veículos - Cadastrar veículo                       ⎸\n");
     printf("⎸==================================================================================⎸\n");
     printf("\n");
-    printf(" -Digite a placa do veículo a ser cadastrado:         \n");
+    printf(" >>Digite a placa do veículo a ser cadastrado:         \n");
     printf("\n");
     printf(" >>Tipo de Veículo (Carro/Moto): ");
+    printf("\n");
+    printf(" >>Modelo do veículo: ");
     printf("\n");
     printf(" >>Cor do Veículo: ");
     printf("\n");
@@ -210,11 +212,13 @@ void alterar_veiculo(void){
     printf("⎸                        Módulo Veículos - Alterar Dados                           ⎸\n");
     printf("⎸==================================================================================⎸\n");
     printf("\n");
-    printf(" -Digite a placa do veículo a ser alterado:        \n");
+    printf(" >>Digite a placa do veículo a ser alterado:        \n");
     printf("\n");
-    printf("  Digite os novos dados do veículo.                \n");
+    printf(" -Digite os novos dados do veículo-                \n");
     printf("\n");
     printf(" >>Tipo de Veículo (Carro/Moto): ");
+    printf("\n");
+    printf(" >>Modelo do veículo: ");
     printf("\n");
     printf(" >>Cor do Veículo: ");
     printf("\n");
@@ -287,6 +291,7 @@ void alterar_estacionamento(void){
     printf(" >>Tipo do estacionamento (Carro/Moto): ");
     printf("\n");
     printf(" >>Digite a placa do veículo: ");
+    printf("\n");
 }
 
 void dono_veiculo(void) {
@@ -321,6 +326,10 @@ void add_dono_veiculo(void) {
     printf("\n");
     printf(" >>Telefone do dono: ");
     printf("\n");
+    printf(" >>Nome do dono: ");
+    printf("\n");
+    printf(" >>Quantidade de veículos: ");
+    printf("\n");
 }
 
 void exib_dono_veiculo(void) {
@@ -345,11 +354,15 @@ void alterar_dono_veiculo(void){
     printf("⎸                   Módulo Donos dos Veículos - Alterar Dados                      ⎸\n");
     printf("⎸==================================================================================⎸\n");
     printf("\n");
-    printf(" Digite o CPF do dono do veículo a ser alterado:    \n");
+    printf(" >>Digite o CPF do dono do veículo a ser alterado:    \n");
     printf("\n");
-    printf(" Digite os novos dados do dono do veículo.");
+    printf(" -Digite os novos dados do dono do veículo-");
     printf("\n");
     printf(" >>Telefone do dono: ");
+    printf("\n");
+    printf(" >>Nome do dono: ");
+    printf("\n");
+    printf(" >>Quantidade de veículos cadastrados: ");
     printf("\n");
 }
 
