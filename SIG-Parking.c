@@ -63,11 +63,29 @@ void menu_principal(void) {
     printf("⎸=====================================================⎸\n");
     printf("⎸                   Menu Principal                    ⎸\n");
     printf("⎸=====================================================⎸\n");
-    printf("⎸ 1 - Módulo Automóveis                               ⎸\n");
+    printf("⎸ 1 - Módulo Veículos                                 ⎸\n");
     printf("⎸ 2 - Módulo Estacionamentos                          ⎸\n");
-    printf("⎸ 3 - Módulo Donos dos Automóveis                     ⎸\n");
+    printf("⎸ 3 - Módulo Donos dos Veículos                       ⎸\n");
     printf("⎸ 4 - Módulo Equipe do Projeto                        ⎸\n");
     printf("⎸ 0 - Sair                                            ⎸\n");
+    printf("⎸=====================================================⎸\n");
+    printf("\n");
+    printf("\t >>Escolha uma opção: ");
+}
+
+void veiculos(void){
+    system("clear||cls");
+    printf("\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸                     SIG-Parking                     ⎸\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸                   Módulo Veículos                   ⎸\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸ 1 - Cadastrar Veículo                               ⎸\n");
+    printf("⎸ 2 - Exibir Dados do Veículo                         ⎸\n");
+    printf("⎸ 3 - Alterar Dados do Veículo                        ⎸\n");
+    printf("⎸ 4 - Excluir Veículo                                 ⎸\n");
+    printf("⎸ 0 - Voltar ao Menu Principal                        ⎸\n");
     printf("⎸=====================================================⎸\n");
     printf("\n");
     printf("\t >>Escolha uma opção: ");
@@ -140,7 +158,7 @@ void sobre(void){
     printf("⎸                     Tela Sobre                      ⎸\n");
     printf("⎸=====================================================⎸\n");
     printf("⎸-Sistema de Controle de Estacionamentos Para Carros e⎸\n");
-    printf("⎸ Motos-                                               ⎸\n");
+    printf("⎸ Motos-                                              ⎸\n");
     printf("⎸                                                     ⎸\n");
     printf("⎸-Programa para fins didáticos de ilustração,         ⎸\n"); 
     printf("⎸utilizado como exemplo de codificação de             ⎸\n"); 
@@ -156,22 +174,4 @@ void sobre(void){
     printf("⎸=====================================================⎸\n");
     printf("\n");
     printf("\t >>Aperte '0' para voltar ao Menu Principal: ");
-}
-
-void veiculos(void){
-    system("clear||cls");
-    printf("\n");
-    printf("⎸=====================================================⎸\n");
-    printf("⎸                     SIG-Parking                     ⎸\n");
-    printf("⎸=====================================================⎸\n");
-    printf("⎸                   Módulo Veículos                   ⎸\n");
-    printf("⎸=====================================================⎸\n");
-    printf("⎸ 1 - Cadastrar Veículo                               ⎸\n");
-    printf("⎸ 2 - Exibir Dados do Veículo                         ⎸\n");
-    printf("⎸ 3 - Alterar Dados do Veículo                        ⎸\n");
-    printf("⎸ 4 - Excluir Veículo                                 ⎸\n");
-    printf("⎸ 0 - Voltar ao Menu Principal                        ⎸\n");
-    printf("⎸=====================================================⎸\n");
-    printf("\n");
-    printf("\t >>Escolha uma opção: ");
 }
