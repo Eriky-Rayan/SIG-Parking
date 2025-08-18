@@ -6,17 +6,24 @@
 //Function Signature
 
 void menu_principal(void);
+
+void veiculos(void);
+void add_veiculos(void);
+
 void estacionamentos(void);
+void add_estacionamentos(void);
+
 void dono_veiculo(void);
+void add_dono_veiculo(void);
+
 void equipe(void);
 void sobre(void);
-void veiculos(void);
 
 //código Principal
 //main Code
 
 int main(void) {
-    int tela = 5;
+    int tela = 6;
     char op;
 
     while (tela != 0) {
@@ -35,25 +42,54 @@ int main(void) {
             veiculos();
             scanf(" %c", &op);
             getchar();
+            if (op == '1') {
+                add_veiculos();
+                getchar();
+                tela = 1;
+            }
+            else if (op == '0') tela = 6;
         } else if (tela == 2) {
             estacionamentos();
             scanf(" %c", &op);
             getchar();
-            if (op == '0') tela = 5; 
+            if (op == '1') {
+                add_estacionamentos();
+                getchar();
+                tela = 2;
+            }
+            if (op == '0') tela = 6; 
         } else if (tela == 3) {
             dono_veiculo();
             scanf(" %c", &op);
             getchar();
-            if (op == '0') tela = 5; 
+            if (op == '1') {
+                add_dono_veiculo();
+                getchar();
+                tela = 3;
+            }
+            else if (op == '2'){
+                exbi_dono_veiculo();
+                getchar();
+                tela = 3;
+            }
+            if (op == '0') tela = 6; 
         } else if (tela == 4) {
             equipe();
             scanf(" %c", &op);
             getchar();
-            if (op == '0') tela = 5; 
+            if (op == '0') tela = 6; 
+        } else if (tela == 5) {
+            sobre();
+            scanf(" %c", &op);
+            getchar();
+            if (op == '0') tela = 6;
         }
     }
     return 0;
 }
+
+//Definição das Funções
+//Function Definition
 
 void menu_principal(void) {
     system("clear||cls");
@@ -63,14 +99,57 @@ void menu_principal(void) {
     printf("⎸=====================================================⎸\n");
     printf("⎸                   Menu Principal                    ⎸\n");
     printf("⎸=====================================================⎸\n");
-    printf("⎸ 1 - Módulo Automóveis                               ⎸\n");
+    printf("⎸ 1 - Módulo Veículos                                 ⎸\n");
     printf("⎸ 2 - Módulo Estacionamentos                          ⎸\n");
-    printf("⎸ 3 - Módulo Donos dos Automóveis                     ⎸\n");
+    printf("⎸ 3 - Módulo Donos dos Veículos                       ⎸\n");
     printf("⎸ 4 - Módulo Equipe do Projeto                        ⎸\n");
+    printf("⎸ 5 - Sobre o Sistema                                 ⎸\n");
     printf("⎸ 0 - Sair                                            ⎸\n");
     printf("⎸=====================================================⎸\n");
     printf("\n");
     printf("\t >>Escolha uma opção: ");
+}
+
+void veiculos(void){
+    system("clear||cls");
+    printf("\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸                     SIG-Parking                     ⎸\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸                   Módulo Veículos                   ⎸\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸ 1 - Cadastrar Veículo                               ⎸\n");
+    printf("⎸ 2 - Exibir Dados do Veículo                         ⎸\n");
+    printf("⎸ 3 - Alterar Dados do Veículo                        ⎸\n");
+    printf("⎸ 4 - Excluir Veículo                                 ⎸\n");
+    printf("⎸ 0 - Voltar ao Menu Principal                        ⎸\n");
+    printf("⎸=====================================================⎸\n");
+    printf("\n");
+    printf("\t >>Escolha uma opção: ");
+}
+
+void add_veiculos(void){
+    system("clear||cls");
+    printf("\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸                     SIG-Parking                     ⎸\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸         Módulo Veículos - Cadastrar veículo         ⎸\n");
+    printf("⎸=====================================================⎸\n");
+    printf("  Digite os dados do veículo a ser cadastrado:         \n");
+    printf("\n");
+    printf(" >>Tipo de Veículo (Carro/Moto): ");
+    printf("\n");
+    printf(" >>Placa do Veículo: ");
+    printf("\n");
+    printf(" >>Nome do Veículo: ");
+    printf("\n");
+    printf(" >>Cor do Veículo: ");
+    printf("\n");
+    printf(" >>Nº do estacionamento: ");
+    printf("\n");
+    printf(" >>CPF do Dono do Veículo: ");
+    printf("\n");
 }
 
 void estacionamentos(void) {
@@ -91,6 +170,22 @@ void estacionamentos(void) {
     printf("\t >>Escolha uma opção: ");
 }
 
+void add_estacionamentos(void){
+    system("clear||cls");
+    printf("\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸                     SIG-Parking                     ⎸\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸ Módulo Estacionamentos - Cadastrar Estacionamento   ⎸\n");
+    printf("⎸=====================================================⎸\n");
+    printf("  Digite os dados do estacionamento a ser cadastrado:  \n");
+    printf("\n");
+    printf(" >>Tipo do Estacionamento (Carro/Moto): ");
+    printf("\n");
+    printf(" >>Número do Estacionamento: ");
+    printf("\n");
+}
+
 void dono_veiculo(void) {
     system("clear||cls");
     printf("\n");
@@ -107,6 +202,36 @@ void dono_veiculo(void) {
     printf("⎸=====================================================⎸\n");
     printf("\n");
     printf("\t >>Escolha uma opção: ");
+}
+
+void add_dono_veiculo(void) {
+    system("clear||cls");
+    printf("\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸                     SIG-Parking                     ⎸\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸      Módulo Donos dos Veículos - Cadastrar Dono     ⎸\n");
+    printf("⎸=====================================================⎸\n");
+    printf(" Digite os dados do dono do veículo a ser cadastrado:  \n");
+    printf("\n");
+    printf(" >>Nome do Dono: ");
+    printf("\n");
+    printf(" >>CPF do Dono: ");
+    printf("\n");
+    printf(" >>Telefone do Dono: ");
+    printf("\n");
+}
+
+void exbi_dono_veiculo(void){
+    system("clear||cls");
+    printf("\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸                     SIG-Parking                     ⎸\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸      Módulo Donos dos Veículos - Exibir Dados       ⎸\n");
+    printf("⎸=====================================================⎸\n");
+    printf(" >>Digite o CPF do Dono Que Quer Exibir: \n");
+    printf("\n");
 }
 
 void equipe(void) {
@@ -128,7 +253,7 @@ void equipe(void) {
     printf("⎸ -Git:https://github.com/Eriky-Rayan/SIG-Parking.git ⎸\n");
     printf("⎸=====================================================⎸\n");
     printf("\n");
-    printf("\t >>Aperte '0' para voltar ao Menu Principal: ");
+    printf("\t >>Aperte '0' Para Voltar ao Menu Principal: ");
 }
 
 void sobre(void){
@@ -140,7 +265,7 @@ void sobre(void){
     printf("⎸                     Tela Sobre                      ⎸\n");
     printf("⎸=====================================================⎸\n");
     printf("⎸-Sistema de Controle de Estacionamentos Para Carros e⎸\n");
-    printf("⎸ Motos-                                               ⎸\n");
+    printf("⎸ Motos-                                              ⎸\n");
     printf("⎸                                                     ⎸\n");
     printf("⎸-Programa para fins didáticos de ilustração,         ⎸\n"); 
     printf("⎸utilizado como exemplo de codificação de             ⎸\n"); 
@@ -155,23 +280,5 @@ void sobre(void){
     printf("⎸utilizados neste programa são fictícios.             ⎸\n");
     printf("⎸=====================================================⎸\n");
     printf("\n");
-    printf("\t >>Aperte '0' para voltar ao Menu Principal: ");
-}
-
-void veiculos(void){
-    system("clear||cls");
-    printf("\n");
-    printf("⎸=====================================================⎸\n");
-    printf("⎸                     SIG-Parking                     ⎸\n");
-    printf("⎸=====================================================⎸\n");
-    printf("⎸                   Módulo Veículos                   ⎸\n");
-    printf("⎸=====================================================⎸\n");
-    printf("⎸ 1 - Cadastrar Veículo                               ⎸\n");
-    printf("⎸ 2 - Exibir Dados do Veículo                         ⎸\n");
-    printf("⎸ 3 - Alterar Dados do Veículo                        ⎸\n");
-    printf("⎸ 4 - Excluir Veículo                                 ⎸\n");
-    printf("⎸ 0 - Voltar ao Menu Principal                        ⎸\n");
-    printf("⎸=====================================================⎸\n");
-    printf("\n");
-    printf("\t >>Escolha uma opção: ");
+    printf("\t >>Aperte '0' Para Voltar ao Menu Principal: ");
 }
