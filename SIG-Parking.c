@@ -9,12 +9,14 @@ void menu_principal(void);
 
 void veiculos(void);
 void add_veiculos(void);
+void exib_veiculo(void);
 
 void estacionamentos(void);
 void add_estacionamentos(void);
 
 void dono_veiculo(void);
 void add_dono_veiculo(void);
+void exib_dono_veiculo(void);
 
 void equipe(void);
 void sobre(void);
@@ -47,6 +49,11 @@ int main(void) {
                 getchar();
                 tela = 1;
             }
+            else if (op == '2'){
+                exib_veiculo();
+                getchar();
+                tela = 1;
+            }
             else if (op == '0') tela = 6;
         } else if (tela == 2) {
             estacionamentos();
@@ -57,7 +64,7 @@ int main(void) {
                 getchar();
                 tela = 2;
             }
-            if (op == '0') tela = 6; 
+            else if (op == '0') tela = 6; 
         } else if (tela == 3) {
             dono_veiculo();
             scanf(" %c", &op);
@@ -68,7 +75,7 @@ int main(void) {
                 tela = 3;
             }
             else if (op == '2'){
-                exbi_dono_veiculo();
+                exib_dono_veiculo();
                 getchar();
                 tela = 3;
             }
@@ -108,9 +115,10 @@ void menu_principal(void) {
     printf("⎸=====================================================⎸\n");
     printf("\n");
     printf("\t >>Escolha uma opção: ");
+    printf("\n");
 }
 
-void veiculos(void){
+void veiculos(void) {
     system("clear||cls");
     printf("\n");
     printf("⎸=====================================================⎸\n");
@@ -126,9 +134,10 @@ void veiculos(void){
     printf("⎸=====================================================⎸\n");
     printf("\n");
     printf("\t >>Escolha uma opção: ");
+    printf("\n");
 }
 
-void add_veiculos(void){
+void add_veiculos(void) {
     system("clear||cls");
     printf("\n");
     printf("⎸=====================================================⎸\n");
@@ -136,6 +145,7 @@ void add_veiculos(void){
     printf("⎸=====================================================⎸\n");
     printf("⎸         Módulo Veículos - Cadastrar veículo         ⎸\n");
     printf("⎸=====================================================⎸\n");
+    printf("\n");
     printf("  Digite os dados do veículo a ser cadastrado:         \n");
     printf("\n");
     printf(" >>Tipo de Veículo (Carro/Moto): ");
@@ -149,6 +159,19 @@ void add_veiculos(void){
     printf(" >>Nº do estacionamento: ");
     printf("\n");
     printf(" >>CPF do Dono do Veículo: ");
+    printf("\n");
+}
+
+void exib_veiculo(void){
+    system("clear||cls");
+    printf("\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸                     SIG-Parking                     ⎸\n");
+    printf("⎸=====================================================⎸\n");
+    printf("⎸          Módulo Veículos - Exibir veículo           ⎸\n");
+    printf("⎸=====================================================⎸\n");
+    printf("\n");
+    printf(" >>Digite a placa do veículo a ser exibido:         \n");
     printf("\n");
 }
 
@@ -168,9 +191,10 @@ void estacionamentos(void) {
     printf("⎸=====================================================⎸\n");
     printf("\n");
     printf("\t >>Escolha uma opção: ");
+    printf("\n");
 }
 
-void add_estacionamentos(void){
+void add_estacionamentos(void) {
     system("clear||cls");
     printf("\n");
     printf("⎸=====================================================⎸\n");
@@ -178,6 +202,7 @@ void add_estacionamentos(void){
     printf("⎸=====================================================⎸\n");
     printf("⎸ Módulo Estacionamentos - Cadastrar Estacionamento   ⎸\n");
     printf("⎸=====================================================⎸\n");
+    printf("\n");
     printf("  Digite os dados do estacionamento a ser cadastrado:  \n");
     printf("\n");
     printf(" >>Tipo do Estacionamento (Carro/Moto): ");
@@ -202,6 +227,7 @@ void dono_veiculo(void) {
     printf("⎸=====================================================⎸\n");
     printf("\n");
     printf("\t >>Escolha uma opção: ");
+    printf("\n");
 }
 
 void add_dono_veiculo(void) {
@@ -212,6 +238,7 @@ void add_dono_veiculo(void) {
     printf("⎸=====================================================⎸\n");
     printf("⎸      Módulo Donos dos Veículos - Cadastrar Dono     ⎸\n");
     printf("⎸=====================================================⎸\n");
+    printf("\n");
     printf(" Digite os dados do dono do veículo a ser cadastrado:  \n");
     printf("\n");
     printf(" >>Nome do Dono: ");
@@ -222,7 +249,7 @@ void add_dono_veiculo(void) {
     printf("\n");
 }
 
-void exbi_dono_veiculo(void){
+void exib_dono_veiculo(void) {
     system("clear||cls");
     printf("\n");
     printf("⎸=====================================================⎸\n");
@@ -230,7 +257,8 @@ void exbi_dono_veiculo(void){
     printf("⎸=====================================================⎸\n");
     printf("⎸      Módulo Donos dos Veículos - Exibir Dados       ⎸\n");
     printf("⎸=====================================================⎸\n");
-    printf(" >>Digite o CPF do Dono Que Quer Exibir: \n");
+    printf("\n");
+    printf(" >>Digite o CPF do dono a ser exibido: \n");
     printf("\n");
 }
 
@@ -253,10 +281,11 @@ void equipe(void) {
     printf("⎸ -Git:https://github.com/Eriky-Rayan/SIG-Parking.git ⎸\n");
     printf("⎸=====================================================⎸\n");
     printf("\n");
-    printf("\t >>Aperte '0' Para Voltar ao Menu Principal: ");
+    printf("\t >>Aperte '0' para voltar ao Menu Principal: ");
+    printf("\n");
 }
 
-void sobre(void){
+void sobre(void) {
     system("clear||cls");
     printf("\n");
     printf("⎸=====================================================⎸\n");
@@ -280,5 +309,6 @@ void sobre(void){
     printf("⎸utilizados neste programa são fictícios.             ⎸\n");
     printf("⎸=====================================================⎸\n");
     printf("\n");
-    printf("\t >>Aperte '0' Para Voltar ao Menu Principal: ");
+    printf("\t >>Aperte '0' para voltar ao Menu Principal: ");
+    printf("\n");
 }
