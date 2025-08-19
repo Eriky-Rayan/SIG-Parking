@@ -314,6 +314,7 @@ void add_estacionamentos(void) {
     printf(" >>Tipo do estacionamento (Carro/Moto): ");
     printf("\n");
     printf(" >>Digite a placa do veículo: ");
+    printf("\n");
 }
 
 void exib_estacionamentos(void) {
@@ -340,7 +341,7 @@ void alterar_estacionamentos(void) {
     printf("\n");
     printf(" >>Digite o número da vaga:");
     printf("\n");
-    printf(" -Digite os novos dados do estacionamento");
+    printf(" -Digite os novos dados do estacionamento-");
     printf("\n");
     printf(" >>Tipo do estacionamento (Carro/Moto): ");
     printf("\n");
