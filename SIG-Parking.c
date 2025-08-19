@@ -465,7 +465,7 @@ void equipe(void) {
     printf("⎸ -Git:https://github.com/Eriky-Rayan/SIG-Parking.git                              ⎸\n");
     printf("⎸==================================================================================⎸\n");
     printf("\n");
-    printf("\t >>Aperte '0' para voltar ao Menu Principal: ");
+    printf("\t >>Tecle '0' para voltar ao Menu Principal: ");
     printf("\n");
 }
 
@@ -489,7 +489,7 @@ void sobre(void) {
     printf("⎸ utilizados neste programa são fictícios.                                         ⎸\n");  
     printf("⎸==================================================================================⎸\n");
     printf("\n");
-    printf("\t >>Aperte '0' para voltar ao Menu Principal: ");
+    printf("\t >>Tecle '0' para voltar ao Menu Principal: ");
     printf("\n");
 }
 
@@ -506,6 +506,6 @@ void tela_saida(void) {
     printf("⎸                                                                                  ⎸\n");
     printf("⎸==================================================================================⎸\n");
     printf("\n");
-    printf("\t >>Aperte <ENTER> para encerrar programa...\n");
+    printf("\t >>Tecle <ENTER> para encerrar programa...\n");
     getchar();
 }
