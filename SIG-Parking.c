@@ -506,6 +506,6 @@ void tela_saida(void) {
     printf("⎸                                                                                  ⎸\n");
     printf("⎸==================================================================================⎸\n");
     printf("\n");
-    printf("\t >>Aperte <ENTER> para sair...\n");
+    printf("\t >>Aperte <ENTER> para encerrar programa...\n");
     getchar();
 }
