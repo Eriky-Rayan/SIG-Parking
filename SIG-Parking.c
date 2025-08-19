@@ -6,6 +6,7 @@
 //Function Signature
 
 void menu_principal(void);
+void tela_saida(void);
 
 void veiculos(void);
 void add_veiculos(void);
@@ -47,26 +48,36 @@ int main(void) {
             else if (op == '4') tela = 4;
             else if (op == '5') tela = 5;
             else tela = 0;
+            printf("\t\t\t>>> Tecle <ENTER> para encerrar programa...\n");
+            getchar();
         } else if (tela == 1) {
             veiculos();
             scanf(" %c", &op);
             getchar();
             if (op == '1') {
+                printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+                getchar();
                 add_veiculos();
                 getchar();
                 tela = 1;
             }
             else if (op == '2') {
+                printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+                getchar();
                 exib_veiculo();
                 getchar();
                 tela = 1;
             }
             else if (op == '3') {
+                printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+                getchar();
                 alterar_veiculo();
                 getchar();
                 tela = 1;
             }
             else if (op == '4') {
+                printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+                getchar();
                 exclu_veiculo();
                 getchar();
                 tela = 1;
@@ -77,21 +88,29 @@ int main(void) {
             scanf(" %c", &op);
             getchar();
             if (op == '1') {
+                printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+                getchar();
                 add_estacionamentos();
                 getchar();
                 tela = 2;
             }
             else if (op == '2') {
+                printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+                getchar();
                 exib_estacionamentos();
                 getchar();
                 tela = 2;
             }
-            else if ( op == '3') {
+            else if (op == '3') {
+                printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+                getchar();
                 alterar_estacionamentos();
                 getchar();
                 tela = 2;
             }
             else if (op == '4') {
+                printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+                getchar();
                 exclu_estacionamentos();
                 getchar();
                 tela = 2;
@@ -102,21 +121,29 @@ int main(void) {
             scanf(" %c", &op);
             getchar();
             if (op == '1') {
+                printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+                getchar();
                 add_dono_veiculo();
                 getchar();
                 tela = 3;
             }
             else if (op == '2') {
+                printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+                getchar();
                 exib_dono_veiculo();
                 getchar();
                 tela = 3;
             }
             else if (op == '3') {
+                printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+                getchar();
                 alterar_dono_veiculo();
                 getchar();
                 tela = 3;
             }
             else if (op == '4') {
+                printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+                getchar();
                 exclu_dono_veiculo();
                 getchar();
                 tela = 3;
@@ -134,6 +161,7 @@ int main(void) {
             if (op == '0') tela = 6;
         }
     }
+    tela_saida();
     return 0;
 }
 
@@ -286,6 +314,7 @@ void add_estacionamentos(void) {
     printf(" >>Tipo do estacionamento (Carro/Moto): ");
     printf("\n");
     printf(" >>Digite a placa do veículo: ");
+    printf("\n");
 }
 
 void exib_estacionamentos(void) {
@@ -312,7 +341,7 @@ void alterar_estacionamentos(void) {
     printf("\n");
     printf(" >>Digite o número da vaga:");
     printf("\n");
-    printf(" -Digite os novos dados do estacionamento");
+    printf(" -Digite os novos dados do estacionamento-");
     printf("\n");
     printf(" >>Tipo do estacionamento (Carro/Moto): ");
     printf("\n");
@@ -463,4 +492,21 @@ void sobre(void) {
     printf("\n");
     printf("\t >>Aperte '0' para voltar ao Menu Principal: ");
     printf("\n");
+}
+
+void tela_saida(void) {
+    system("clear||cls");
+    printf("\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("⎸                                   SIG-Parking                                    ⎸\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("⎸                                                                                  ⎸\n");
+    printf("⎸                                                                                  ⎸\n");
+    printf("⎸ >>Obrigado por utilizar o SIG-Parking! Até a próxima!                            ⎸\n");
+    printf("⎸                                                                                  ⎸\n");
+    printf("⎸                                                                                  ⎸\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("\n");
+    printf("\t >>Aperte <ENTER> para sair...\n");
+    getchar();
 }
