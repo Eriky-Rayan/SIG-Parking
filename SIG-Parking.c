@@ -6,6 +6,7 @@
 //Function Signature
 
 void menu_principal(void);
+void tela_saida(void);
 
 void veiculos(void);
 void add_veiculos(void);
@@ -15,7 +16,9 @@ void exclu_veiculo(void);
 
 void estacionamentos(void);
 void add_estacionamentos(void);
+void exib_estacionamentos(void);
 void alterar_estacionamentos(void);
+void exclu_estacionamentos(void);
 
 void dono_veiculo(void);
 void add_dono_veiculo(void);
@@ -94,7 +97,21 @@ int main(void) {
             else if (op == '2') {
                 printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
                 getchar();
-                alterar_estacionamento();
+                exib_estacionamentos();
+                getchar();
+                tela = 2;
+            }
+            else if (op == '3') {
+                printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+                getchar();
+                alterar_estacionamentos();
+                getchar();
+                tela = 2;
+            }
+            else if (op == '4') {
+                printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+                getchar();
+                exclu_estacionamentos();
                 getchar();
                 tela = 2;
             }
@@ -144,6 +161,7 @@ int main(void) {
             if (op == '0') tela = 6;
         }
     }
+    tela_saida();
     return 0;
 }
 
@@ -473,4 +491,21 @@ void sobre(void) {
     printf("\n");
     printf("\t >>Aperte '0' para voltar ao Menu Principal: ");
     printf("\n");
+}
+
+void tela_saida(void) {
+    system("clear||cls");
+    printf("\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("⎸                                   SIG-Parking                                    ⎸\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("⎸                                                                                  ⎸\n");
+    printf("⎸                                                                                  ⎸\n");
+    printf("⎸ >>Obrigado por utilizar o SIG-Parking! Até a próxima!                            ⎸\n");
+    printf("⎸                                                                                  ⎸\n");
+    printf("⎸                                                                                  ⎸\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("\n");
+    printf("\t >>Aperte <ENTER> para sair...\n");
+    getchar();
 }
