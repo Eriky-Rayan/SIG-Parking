@@ -48,7 +48,7 @@ int main(void) {
             else if (op == '4') tela = 4;
             else if (op == '5') tela = 5;
             else tela = 0;
-            printf("\t\t\t>>> Tecle <ENTER> para encerrar programa...\n");
+            printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
             getchar();
         } else if (tela == 1) {
             veiculos();
@@ -507,6 +507,6 @@ void tela_saida(void) {
     printf("⎸                                                                                  ⎸\n");
     printf("⎸==================================================================================⎸\n");
     printf("\n");
-    printf("\t >>Aperte <ENTER> para sair...\n");
+    printf("\t >>Aperte <ENTER> para encerrar programa...\n");
     getchar();
 }
