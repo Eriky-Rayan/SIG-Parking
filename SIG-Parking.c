@@ -383,6 +383,12 @@ void dono_veiculo(void) {
 
 void add_dono_veiculo(void) {
     system("clear||cls");
+
+    char cpf[15];
+    char telefone[20];
+    char nome[50];
+    int quantidade;
+
     printf("\n");
     printf("⎸==================================================================================⎸\n");
     printf("⎸                                   SIG-Parking                                    ⎸\n");
@@ -390,18 +396,37 @@ void add_dono_veiculo(void) {
     printf("⎸                  Módulo Donos dos Veículos - Cadastrar Dono                      ⎸\n");
     printf("⎸==================================================================================⎸\n");
     printf("\n");
-    printf(" >>Digite o CPF do dono do veículo a ser cadastrado:  \n");
+    printf(" >>Digite o CPF do dono do veículo a ser cadastrado:  ");
+    scanf("%s", cpf);
+    getchar();
     printf("\n");
     printf(" >>Telefone do dono: ");
+    scanf("%s", telefone);
+    getchar();
     printf("\n");
     printf(" >>Nome do dono: ");
+    scanf("%s", nome);
+    getchar();
     printf("\n");
     printf(" >>Quantidade de veículos: ");
+    scanf("%d", &quantidade);
+    getchar();
     printf("\n");
+
+    printf("\nDono do veículo cadastrado com sucesso!\n");
+    printf("\nCPF: %s", cpf);
+    printf("\nTelefone: %s", telefone);
+    printf("\nNome: %s", nome);
+    printf("\nQuantidade de veículos: %d\n", quantidade);
+    printf("\n");
+    printf("\t >>Tecle <ENTER> para continuar...\n");
 }
 
 void exib_dono_veiculo(void) {
     system("clear||cls");
+
+    char cpf[15];
+
     printf("\n");
     printf("⎸==================================================================================⎸\n");
     printf("⎸                                   SIG-Parking                                    ⎸\n");
@@ -409,12 +434,23 @@ void exib_dono_veiculo(void) {
     printf("⎸                     Módulo Donos dos Veículos - Exibir Dados                     ⎸\n");
     printf("⎸==================================================================================⎸\n");
     printf("\n");
-    printf(" >>Digite o CPF do dono a ser exibido: \n");
+    printf(" >>Digite o CPF do dono a ser exibido: ");
+    scanf("%s", cpf);
+    getchar();
     printf("\n");
+    printf("O seguinte CPF foi exibido: %s\n", cpf);
+    printf("\n");
+    printf("\t >>Tecle <ENTER> para continuar...\n");
 }
 
 void alterar_dono_veiculo(void) {
     system("clear||cls");
+
+    char cpf[15];
+    char telefone[20];
+    char nome[50];
+    int quantidade;
+
     printf("\n");
     printf("⎸==================================================================================⎸\n");
     printf("⎸                                   SIG-Parking                                    ⎸\n");
@@ -422,20 +458,39 @@ void alterar_dono_veiculo(void) {
     printf("⎸                   Módulo Donos dos Veículos - Alterar Dados                      ⎸\n");
     printf("⎸==================================================================================⎸\n");
     printf("\n");
-    printf(" >>Digite o CPF do dono do veículo a ser alterado:    \n");
-    printf("\n");
     printf(" -Digite os novos dados do dono do veículo-");
     printf("\n");
+    printf(" >>Digite o CPF do dono do veículo a ser alterado: ");
+    scanf("%s", cpf);
+    getchar();
+    printf("\n");
     printf(" >>Telefone do dono: ");
+    scanf("%s", telefone);
+    getchar();
     printf("\n");
     printf(" >>Nome do dono: ");
+    scanf("%s", nome);
+    getchar();
     printf("\n");
     printf(" >>Quantidade de veículos cadastrados: ");
+    scanf("%d", &quantidade);
+    getchar();
     printf("\n");
+
+    printf("Dados do dono do veículo alterados com sucesso!\n");
+    printf("\nCPF: %s", cpf);
+    printf("\nTelefone: %s", telefone);
+    printf("\nNome: %s", nome);
+    printf("\nQuantidade de veículos: %d\n", quantidade);
+    printf("\n");
+    printf("\t >>Tecle <ENTER> para continuar...\n");
 }
 
 void exclu_dono_veiculo(void) {
     system("clear||cls");
+
+    char cpf[15];
+
     printf("\n");
     printf("⎸==================================================================================⎸\n");
     printf("⎸                                   SIG-Parking                                    ⎸\n");
@@ -444,7 +499,13 @@ void exclu_dono_veiculo(void) {
     printf("⎸==================================================================================⎸\n");
     printf("\n");
     printf(" >>Digite o CPF do dono a ser excluido: \n");
+    scanf("%s", cpf);
+    getchar();
     printf("\n");
+
+    printf("Dono do veículo com CPF %s excluído com sucesso!\n", cpf);
+    printf("\n");
+    printf("\t >>Tecle <ENTER> para continuar...\n");
 }
 
 void equipe(void) {
