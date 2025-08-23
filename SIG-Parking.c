@@ -405,8 +405,8 @@ void add_estacionamentos(void) {
     printf("\n");
 
     printf("Veículo cadastrado no estacionamento com sucesso!\n");
-    printf("\nNº do estacionamento: %s", placa);
-    printf("\nTipo do veículo: %s", placa);
+    printf("\nNº do estacionamento: %s", n_estaci);
+    printf("\nTipo do veículo: %s", tipo);
     printf("\nPlaca: %s", placa);
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
@@ -435,6 +435,11 @@ void exib_estacionamentos(void) {
 
 void alterar_estacionamentos(void) {
     system("clear||cls");
+
+    char n_estaci[8];
+    char tipo[10];
+    char placa[12];
+
     printf("\n");
     printf("⎸==================================================================================⎸\n");
     printf("⎸                                   SIG-Parking                                    ⎸\n");
@@ -442,14 +447,27 @@ void alterar_estacionamentos(void) {
     printf("⎸                 Módulo Estacionamentos - Alterar Estacionamento                  ⎸\n");
     printf("⎸==================================================================================⎸\n");
     printf("\n");
-    printf(" >>Digite o número da vaga:");
-    printf("\n");
     printf(" -Digite os novos dados do estacionamento-");
     printf("\n");
-    printf(" >>Tipo do estacionamento (Carro/Moto): ");
+    printf(" >>Digite o Nº da vaga que deseja alterar: ");
+    scanf("%s", &n_estaci);
+    getchar();
+    printf("\n");
+    printf(" >>Tipo de Veículo no estacionamento (Carro/Moto): ");
+    scanf("%s", &tipo);
+    getchar();
     printf("\n");
     printf(" >>Digite a placa do veículo: ");
+    scanf("%s", &placa);
+    getchar();
     printf("\n");
+
+    printf("Vaga de estacionamento alterada com sucesso!\n");
+    printf("\nNº do estacionamento: %s", n_estaci);
+    printf("\nTipo do veículo: %s", tipo);
+    printf("\nPlaca: %s", placa);
+    printf("\n");
+    printf("\t >>Tecle <ENTER> para continuar...\n");
 }
 
 void exclu_estacionamentos(void) {
