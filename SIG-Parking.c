@@ -209,6 +209,14 @@ void veiculos(void) {
 
 void add_veiculos(void) {
     system("clear||cls");
+
+    char placa[12];
+    char tipo[10];
+    char model[20];
+    char cor [15];
+    char n_estaci[8];
+    char cpf[15];
+
     printf("\n");
     printf("⎸==================================================================================⎸\n");
     printf("⎸                                   SIG-Parking                                    ⎸\n");
@@ -216,17 +224,29 @@ void add_veiculos(void) {
     printf("⎸                        Módulo Veículos - Cadastrar veículo                       ⎸\n");
     printf("⎸==================================================================================⎸\n");
     printf("\n");
-    printf(" >>Digite a placa do veículo a ser cadastrado:         \n");
+    printf(" >>Digite a placa do veículo a ser cadastrado: ");
+    scanf("%s", &placa);
+    getchar();
     printf("\n");
     printf(" >>Tipo de Veículo (Carro/Moto): ");
+    scanf("%s", &tipo);
+    getchar();
     printf("\n");
     printf(" >>Modelo do veículo: ");
+    scanf("%s", &model);
+    getchar();
     printf("\n");
     printf(" >>Cor do Veículo: ");
+    scanf("%s", &cor);
+    getchar();
     printf("\n");
     printf(" >>Nº do estacionamento: ");
+    scanf("%s", &n_estaci);
+    getchar();
     printf("\n");
     printf(" >>CPF do Dono do Veículo: ");
+    scanf("%s", &cpf);
+    getchar();
     printf("\n");
 }
 
