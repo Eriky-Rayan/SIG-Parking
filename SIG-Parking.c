@@ -472,6 +472,9 @@ void alterar_estacionamentos(void) {
 
 void exclu_estacionamentos(void) {
     system("clear||cls");
+
+    char n_estaci[8];
+
     printf("\n");
     printf("⎸==================================================================================⎸\n");
     printf("⎸                                   SIG-Parking                                    ⎸\n");
@@ -479,8 +482,14 @@ void exclu_estacionamentos(void) {
     printf("⎸                 Módulo Estacionamentos - Excluir Estacionamento                   ⎸\n");
     printf("⎸==================================================================================⎸\n");
     printf("\n");
-    printf(" >>Digite o número do estacionamento que deseja excluir: ");
+    printf(" >>Digite o Nº da vaga que deseja excluir: ");
+    scanf("%s", n_estaci);
+    getchar();
     printf("\n");
+
+    printf("O veículo na vaga %s excluído com sucesso!\n", n_estaci);
+    printf("\n");
+    printf("\t >>Tecle <ENTER> para continuar...\n");
 }
 
 void dono_veiculo(void) {
