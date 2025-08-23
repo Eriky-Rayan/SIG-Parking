@@ -414,6 +414,9 @@ void add_estacionamentos(void) {
 
 void exib_estacionamentos(void) {
     system("clear||cls");
+
+    char n_estaci[8];
+
     printf("\n");
     printf("⎸==================================================================================⎸\n");
     printf("⎸                                   SIG-Parking                                    ⎸\n");
@@ -421,8 +424,13 @@ void exib_estacionamentos(void) {
     printf("⎸                 Módulo Estacionamentos - Exibir Estacionamento                   ⎸\n");
     printf("⎸==================================================================================⎸\n");
     printf("\n");
-    printf(" >>Digite o número do estacionamento que deseja ver: ");
+    printf(" >>Digite Nº da vaga que deseja ver: ");
+    scanf("%s", n_estaci);
+    getchar();
     printf("\n");
+    printf("O veículo na seguinte vaga foi exibido: %s\n", n_estaci);
+    printf("\n");
+    printf("\t >>Tecle <ENTER> para continuar...\n");
 }
 
 void alterar_estacionamentos(void) {
