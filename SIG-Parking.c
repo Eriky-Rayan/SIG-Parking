@@ -379,6 +379,11 @@ void estacionamentos(void) {
 
 void add_estacionamentos(void) {
     system("clear||cls");
+
+    char n_estaci[8];
+    char tipo[10];
+    char placa[12];
+
     printf("\n");
     printf("⎸==================================================================================⎸\n");
     printf("⎸                                   SIG-Parking                                    ⎸\n");
@@ -386,12 +391,25 @@ void add_estacionamentos(void) {
     printf("⎸                 Módulo Estacionamentos - Cadastrar Estacionamento                ⎸\n");
     printf("⎸==================================================================================⎸\n");
     printf("\n");
-    printf(" >>Digite a vaga onde o veículo se encontra:  \n");
+    printf(" >>Digite o Nº da vaga onde o veículo será cadastrado: ");
+    scanf("%s", &n_estaci);
+    getchar();
     printf("\n");
-    printf(" >>Tipo do estacionamento (Carro/Moto): ");
+    printf(" >>Tipo de Veículo no estacionamento (Carro/Moto): ");
+    scanf("%s", &tipo);
+    getchar();
     printf("\n");
     printf(" >>Digite a placa do veículo: ");
+    scanf("%s", &placa);
+    getchar();
     printf("\n");
+
+    printf("Veículo cadastrado no estacionamento com sucesso!\n");
+    printf("\nNº do estacionamento: %s", placa);
+    printf("\nTipo do veículo: %s", placa);
+    printf("\nPlaca: %s", placa);
+    printf("\n");
+    printf("\t >>Tecle <ENTER> para continuar...\n");
 }
 
 void exib_estacionamentos(void) {
