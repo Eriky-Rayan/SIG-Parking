@@ -248,6 +248,16 @@ void add_veiculos(void) {
     scanf("%s", &cpf);
     getchar();
     printf("\n");
+
+    printf("Veículo cadastrado com sucesso!\n");
+    printf("\nPlaca: %s", placa);
+    printf("\nTipo: %s", tipo);
+    printf("\nModelo: %s", model);
+    printf("\nCor: %s", cor);
+    printf("\nNº do estacionamento: %s", n_estaci);
+    printf("\nCPF: %s", cpf);
+    printf("\n");
+    printf("\t >>Tecle <ENTER> para continuar...\n");
 }
 
 void exib_veiculo(void) {
@@ -262,7 +272,7 @@ void exib_veiculo(void) {
     printf("⎸                        Módulo Veículos - Exibir veículo                          ⎸\n");
     printf("⎸==================================================================================⎸\n");
     printf("\n");
-    printf(" >>Digite a placa do veículo a ser exibido:            \n");
+    printf(" >>Digite a placa do veículo a ser exibido:  \n");
     scanf("%s", placa);
     getchar();
     printf("\n");
@@ -273,6 +283,14 @@ void exib_veiculo(void) {
 
 void alterar_veiculo(void) {
     system("clear||cls");
+
+    char placa[12];
+    char tipo[10];
+    char model[20];
+    char cor [15];
+    char n_estaci[8];
+    char cpf[15];
+
     printf("\n");
     printf("⎸==================================================================================⎸\n");
     printf("⎸                                   SIG-Parking                                    ⎸\n");
@@ -280,20 +298,42 @@ void alterar_veiculo(void) {
     printf("⎸                        Módulo Veículos - Alterar Dados                           ⎸\n");
     printf("⎸==================================================================================⎸\n");
     printf("\n");
-    printf(" >>Digite a placa do veículo a ser alterado:        \n");
+    printf(" -Digite os novos dados do veículo-");
     printf("\n");
-    printf(" -Digite os novos dados do veículo-                \n");
+    printf(" >>Digite a placa do veículo a ser alterado: \n");
+    scanf("%s", &placa);
+    getchar();
     printf("\n");
     printf(" >>Tipo de Veículo (Carro/Moto): ");
+    scanf("%s", &tipo);
+    getchar();
     printf("\n");
     printf(" >>Modelo do veículo: ");
+    scanf("%s", &model);
+    getchar();
     printf("\n");
     printf(" >>Cor do Veículo: ");
+    scanf("%s", &cor);
+    getchar();
     printf("\n");
     printf(" >>Nº do estacionamento: ");
+    scanf("%s", &n_estaci);
+    getchar();
     printf("\n");
     printf(" >>CPF do Dono do Veículo: ");
+    scanf("%s", &cpf);
+    getchar();
     printf("\n");
+
+    printf("Dados do veículo alterados com sucesso!\n");
+    printf("\nPlaca: %s", placa);
+    printf("\nTipo: %s", tipo);
+    printf("\nModelo: %s", model);
+    printf("\nCor: %s", cor);
+    printf("\nNº do estacionamento: %s", n_estaci);
+    printf("\nCPF: %s", cpf);
+    printf("\n");
+    printf("\t >>Tecle <ENTER> para continuar...\n");
 }
 
 void exclu_veiculo(void) {
