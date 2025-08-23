@@ -252,6 +252,9 @@ void add_veiculos(void) {
 
 void exib_veiculo(void) {
     system("clear||cls");
+
+    char placa[12];
+
     printf("\n");
     printf("⎸==================================================================================⎸\n");
     printf("⎸                                   SIG-Parking                                    ⎸\n");
@@ -260,7 +263,12 @@ void exib_veiculo(void) {
     printf("⎸==================================================================================⎸\n");
     printf("\n");
     printf(" >>Digite a placa do veículo a ser exibido:            \n");
+    scanf("%s", placa);
+    getchar();
     printf("\n");
+    printf("O veículo com a seguinte placa foi exibido: %s\n", placa);
+    printf("\n");
+    printf("\t >>Tecle <ENTER> para continuar...\n");
 }
 
 void alterar_veiculo(void) {
