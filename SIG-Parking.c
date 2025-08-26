@@ -29,6 +29,7 @@ void exclu_dono_veiculo(void);
 void cadastro_vagas(void);
 void add_cadastro_vagas(void);
 void exib_cadastro_vagas(void);
+void alterar_cadastro_vagas(void);
 
 void relatorio(void);
 
@@ -731,6 +732,37 @@ void exib_cadastro_vagas(void) {
     getchar();
     printf("\n");
     printf("Será exibido a quantidade de vagas do seguinte andar: %d\n", num_andar);
+    printf("\n");
+    printf("\t >>Tecle <ENTER> para continuar...\n");
+}
+
+void alterar_cadastro_vagas(void) {
+    system("clear||cls");
+
+    int qtd_vagas;
+    int num_andar;
+
+    printf("\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("⎸                                   SIG-Parking                                    ⎸\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("⎸                 Módulo Cadastro de Vagas - Alterar Dados das Vagas              ⎸\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("\n");
+    printf(" -Digite os novos dados das vagas-");
+    printf("\n");
+    printf(" >>Digite o número do andar: ");
+    scanf("%d", num_andar);
+    getchar();
+    printf("\n");
+    printf(" >>Digite a quantidade de vagas a ser cadastrada: ");
+    scanf("%d", qtd_vagas);
+    getchar();
+    printf("\n");
+
+    printf("Dados das vagas alterados com sucesso!\n");
+    printf("\nQuantidade de vagas no andar: %d", qtd_vagas);
+    printf("\nTNúmero do andar: %d", num_andar);
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
 }
