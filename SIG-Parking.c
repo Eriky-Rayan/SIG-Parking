@@ -26,6 +26,8 @@ void exib_dono_veiculo(void);
 void alterar_dono_veiculo(void);
 void exclu_dono_veiculo(void);
 
+void cadastro_vagas(void);
+
 void relatorio(void);
 
 void equipe(void);
