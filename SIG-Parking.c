@@ -27,6 +27,7 @@ void alterar_dono_veiculo(void);
 void exclu_dono_veiculo(void);
 
 void cadastro_vagas(void);
+void add_cadastro_vagas(void);
 
 void relatorio(void);
 
@@ -159,6 +160,14 @@ int main(void) {
             cadastro_vagas();
             scanf(" %c", &op);
             getchar();
+            if (op == '1') {
+                printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+                getchar();
+                add_cadastro_vagas();
+                getchar();
+                tela = 4;
+            }
+            else
             if (op == '0') tela = 8;
         } else if (tela == 5) {
             relatorio();
@@ -672,6 +681,35 @@ void cadastro_vagas(void) {
     printf("\n");
     printf("\t >>Tecle '0' para voltar ao Menu Principal: ");
     printf("\n");
+}
+
+void add_cadastro_vagas(void) {
+    system("clear||cls");
+
+    int qtd_vagas;
+    int num_andares;
+
+    printf("\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("⎸                                   SIG-Parking                                    ⎸\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("⎸                   Módulo Cadastro de Vagas - Cadastrar Vagas                     ⎸\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("\n");
+    printf(" >>Digite a quantidade de vagas a ser cadastrada: ");
+    scanf("%d", qtd_vagas);
+    getchar();
+    printf("\n");
+    printf(" >>Digite o número de andares: ");
+    scanf("%d", num_andares);
+    getchar();
+    printf("\n");
+
+    printf("Vaga cadastrada com sucesso!\n");
+    printf("\nNº do estacionamento: %d", qtd_vagas);
+    printf("\nTipo da vaga: %d", num_andares);
+    printf("\n");
+    printf("\t >>Tecle <ENTER> para continuar...\n");
 }
 
 void relatorio(void) {
