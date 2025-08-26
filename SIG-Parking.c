@@ -26,6 +26,8 @@ void exib_dono_veiculo(void);
 void alterar_dono_veiculo(void);
 void exclu_dono_veiculo(void);
 
+void relatorio(void);
+
 void equipe(void);
 void sobre(void);
 
@@ -33,11 +35,11 @@ void sobre(void);
 //main Code
 
 int main(void) {
-    int tela = 6;
+    int tela = 7;
     char op;
 
     while (tela != 0) {
-        if (tela == 6) {
+        if (tela == 7) {
             menu_principal();
             scanf(" %c", &op);
             getchar();
@@ -47,6 +49,7 @@ int main(void) {
             else if (op == '3') tela = 3;
             else if (op == '4') tela = 4;
             else if (op == '5') tela = 5;
+            else if (op == '6') tela = 6;
             else tela = 0;
             printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
             getchar();
@@ -82,7 +85,7 @@ int main(void) {
                 getchar();
                 tela = 1;
             }
-            else if (op == '0') tela = 6;
+            else if (op == '0') tela = 7;
         } else if (tela == 2) {
             estacionamentos();
             scanf(" %c", &op);
@@ -115,7 +118,7 @@ int main(void) {
                 getchar();
                 tela = 2;
             }
-            else if (op == '0') tela = 6; 
+            else if (op == '0') tela = 7; 
         } else if (tela == 3) {
             dono_veiculo();
             scanf(" %c", &op);
@@ -148,17 +151,22 @@ int main(void) {
                 getchar();
                 tela = 3;
             }
-            if (op == '0') tela = 6; 
+            if (op == '0') tela = 7; 
         } else if (tela == 4) {
+            relatorio();
+            scanf(" %c", &op);
+            getchar();
+            if (op == '0') tela = 7;
+        } else if (tela == 5) {
             equipe();
             scanf(" %c", &op);
             getchar();
-            if (op == '0') tela = 6; 
-        } else if (tela == 5) {
+            if (op == '0') tela = 7; 
+        } else if (tela == 6) {
             sobre();
             scanf(" %c", &op);
             getchar();
-            if (op == '0') tela = 6;
+            if (op == '0') tela = 7;
         }
     }
     tela_saida();
@@ -179,8 +187,9 @@ void menu_principal(void) {
     printf("⎸ 1 - Módulo Veículos                                                              ⎸\n");
     printf("⎸ 2 - Módulo Estacionamentos                                                       ⎸\n");
     printf("⎸ 3 - Módulo Donos dos Veículos                                                    ⎸\n");
-    printf("⎸ 4 - Módulo Equipe do Projeto                                                     ⎸\n");
-    printf("⎸ 5 - Sobre o Sistema                                                              ⎸\n");
+    printf("⎸ 4 - Módulo Relatórios                                                            ⎸\n");
+    printf("⎸ 5 - Módulo Equipe do Projeto                                                     ⎸\n");
+    printf("⎸ 6 - Sobre o Sistema                                                              ⎸\n");
     printf("⎸ 0 - Sair                                                                         ⎸\n");
     printf("⎸==================================================================================⎸\n");
     printf("\n");
