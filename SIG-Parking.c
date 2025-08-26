@@ -28,6 +28,7 @@ void exclu_dono_veiculo(void);
 
 void cadastro_vagas(void);
 void add_cadastro_vagas(void);
+void exib_cadastro_vagas(void);
 
 void relatorio(void);
 
@@ -687,7 +688,7 @@ void add_cadastro_vagas(void) {
     system("clear||cls");
 
     int qtd_vagas;
-    int num_andares;
+    int num_andar;
 
     printf("\n");
     printf("⎸==================================================================================⎸\n");
@@ -700,14 +701,36 @@ void add_cadastro_vagas(void) {
     scanf("%d", qtd_vagas);
     getchar();
     printf("\n");
-    printf(" >>Digite o número de andares: ");
-    scanf("%d", num_andares);
+    printf(" >>Digite o número do andar: ");
+    scanf("%d", num_andar);
     getchar();
     printf("\n");
 
     printf("Vaga cadastrada com sucesso!\n");
-    printf("\nNº do estacionamento: %d", qtd_vagas);
-    printf("\nTipo da vaga: %d", num_andares);
+    printf("\nQuantidade de vagas no andar: %d", qtd_vagas);
+    printf("\nTNúmero do andar: %d", num_andar);
+    printf("\n");
+    printf("\t >>Tecle <ENTER> para continuar...\n");
+}
+
+void exib_cadastro_vagas(void) {
+    system("clear||cls");
+
+    int qtd_vagas;
+    int num_andar;
+
+    printf("\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("⎸                                   SIG-Parking                                    ⎸\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("⎸                  Módulo Cadastro de Vagas - Exibir Dados das Vagas               ⎸\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("\n");
+    printf(" >>Digite o número do andar: ");
+    scanf("%d", num_andar);
+    getchar();
+    printf("\n");
+    printf("Será exibido a quantidade de vagas do seguinte andar: %d\n", num_andar);
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
 }
