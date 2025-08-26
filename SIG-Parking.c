@@ -37,11 +37,11 @@ void sobre(void);
 //main Code
 
 int main(void) {
-    int tela = 7;
+    int tela = 8;
     char op;
 
     while (tela != 0) {
-        if (tela == 7) {
+        if (tela == 8) {
             menu_principal();
             scanf(" %c", &op);
             getchar();
@@ -52,6 +52,7 @@ int main(void) {
             else if (op == '4') tela = 4;
             else if (op == '5') tela = 5;
             else if (op == '6') tela = 6;
+            else if (op == '7') tela = 7;
             else tela = 0;
             printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
             getchar();
@@ -87,7 +88,7 @@ int main(void) {
                 getchar();
                 tela = 1;
             }
-            else if (op == '0') tela = 7;
+            else if (op == '0') tela = 8;
         } else if (tela == 2) {
             estacionamentos();
             scanf(" %c", &op);
@@ -120,7 +121,7 @@ int main(void) {
                 getchar();
                 tela = 2;
             }
-            else if (op == '0') tela = 7; 
+            else if (op == '0') tela = 8; 
         } else if (tela == 3) {
             dono_veiculo();
             scanf(" %c", &op);
@@ -153,22 +154,27 @@ int main(void) {
                 getchar();
                 tela = 3;
             }
-            if (op == '0') tela = 7; 
+            if (op == '0') tela = 8; 
         } else if (tela == 4) {
+            cadastro_vagas();
+            scanf(" %c", &op);
+            getchar();
+            if (op == '0') tela = 8;
+        } else if (tela == 5) {
             relatorio();
             scanf(" %c", &op);
             getchar();
-            if (op == '0') tela = 7;
-        } else if (tela == 5) {
+            if (op == '0') tela = 8;
+        } else if (tela == 6) {
             equipe();
             scanf(" %c", &op);
             getchar();
-            if (op == '0') tela = 7; 
-        } else if (tela == 6) {
+            if (op == '0') tela = 8; 
+        } else if (tela == 7) {
             sobre();
             scanf(" %c", &op);
             getchar();
-            if (op == '0') tela = 7;
+            if (op == '0') tela = 8;
         }
     }
     tela_saida();
@@ -189,9 +195,10 @@ void menu_principal(void) {
     printf("⎸ 1 - Módulo Veículos                                                              ⎸\n");
     printf("⎸ 2 - Módulo Estacionamentos                                                       ⎸\n");
     printf("⎸ 3 - Módulo Donos dos Veículos                                                    ⎸\n");
-    printf("⎸ 4 - Módulo Relatórios                                                            ⎸\n");
-    printf("⎸ 5 - Módulo Equipe do Projeto                                                     ⎸\n");
-    printf("⎸ 6 - Sobre o Sistema                                                              ⎸\n");
+    printf("⎸ 4 - Módulo Cadastro de Vagas                                                     ⎸\n");
+    printf("⎸ 5 - Módulo Relatórios                                                            ⎸\n");
+    printf("⎸ 6 - Módulo Equipe do Projeto                                                     ⎸\n");
+    printf("⎸ 7 - Sobre o Sistema                                                              ⎸\n");
     printf("⎸ 0 - Sair                                                                         ⎸\n");
     printf("⎸==================================================================================⎸\n");
     printf("\n");
@@ -378,8 +385,8 @@ void estacionamentos(void) {
     printf("⎸                             Módulo Estacionamentos                               ⎸\n");
     printf("⎸==================================================================================⎸\n");
     printf("⎸ 1 - Cadastrar Estacionamento                                                     ⎸\n");
-    printf("⎸ 2 - Exibir dados do Estacionamento                                               ⎸\n");
-    printf("⎸ 3 - Alterar dados do Estacionamento                                              ⎸\n");
+    printf("⎸ 2 - Exibir Dados do Estacionamento                                               ⎸\n");
+    printf("⎸ 3 - Alterar Dados do Estacionamento                                              ⎸\n");
     printf("⎸ 4 - Excluir Estacionamento                                                       ⎸\n");
     printf("⎸ 0 - Voltar ao Menu Principal                                                     ⎸\n");
     printf("⎸==================================================================================⎸\n");
@@ -512,8 +519,8 @@ void dono_veiculo(void) {
     printf("⎸                            Módulo Donos dos Veículos                             ⎸\n");
     printf("⎸==================================================================================⎸\n");
     printf("⎸ 1 - Cadastrar Dono de Veículo                                                    ⎸\n");
-    printf("⎸ 2 - Exibir dados do Dono de Veículo                                              ⎸\n");
-    printf("⎸ 3 - Alterar dados do Dono de Veículo                                             ⎸\n");
+    printf("⎸ 2 - Exibir Dados do Dono de Veículo                                              ⎸\n");
+    printf("⎸ 3 - Alterar Dados do Dono de Veículo                                             ⎸\n");
     printf("⎸ 4 - Excluir Dono de Veículo                                                      ⎸\n");
     printf("⎸ 0 - Voltar ao Menu Principal                                                     ⎸\n");
     printf("⎸==================================================================================⎸\n");
@@ -647,6 +654,24 @@ void exclu_dono_veiculo(void) {
     printf("Dono do veículo com CPF %s excluído com sucesso!\n", cpf);
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
+}
+
+void cadastro_vagas(void) {
+    system("clear||cls");
+    printf("\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("⎸                                   SIG-Parking                                    ⎸\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("⎸                            Módulo Cadastro de Vagas                              ⎸\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("⎸ 1 - Cadastrar Vagas                                                              ⎸\n");
+    printf("⎸ 2 - Exibir Dados das Vagas                                                       ⎸\n");
+    printf("⎸ 3 - Alterar Dados das Vagas                                                      ⎸\n");
+    printf("⎸ 0 - Voltar ao Menu Principal                                                     ⎸\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("\n");
+    printf("\t >>Tecle '0' para voltar ao Menu Principal: ");
+    printf("\n");
 }
 
 void relatorio(void) {
