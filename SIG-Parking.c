@@ -638,6 +638,24 @@ void exclu_dono_veiculo(void) {
     printf("\t >>Tecle <ENTER> para continuar...\n");
 }
 
+void relatorio(void) {
+    system("clear||cls");
+    printf("\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("⎸                                   SIG-Parking                                    ⎸\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("⎸                                 Módulo Relatórios                                ⎸\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("⎸ 1 - Relatório de Veículos Cadastrados                                            ⎸\n");
+    printf("⎸ 2 - Relatório de Estacionamentos                                                 ⎸\n");
+    printf("⎸ 3 - Relatório de Donos dos Veículos                                              ⎸\n");
+    printf("⎸ 0 - Voltar ao Menu Principal                                                     ⎸\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("\n");
+    printf("\t >>Escolha uma opção: ");
+    printf("\n");
+}
+
 void equipe(void) {
     system("clear||cls");
     printf("\n");
