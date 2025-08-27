@@ -699,6 +699,7 @@ void cadastro_vagas(void) {
     printf("⎸ 1 - Cadastrar Vagas                                                              ⎸\n");
     printf("⎸ 2 - Exibir Dados das Vagas                                                       ⎸\n");
     printf("⎸ 3 - Alterar Dados das Vagas                                                      ⎸\n");
+    printf("⎸ 4 - Excluir Dados das Vagas                                                      ⎸\n");
     printf("⎸ 0 - Voltar ao Menu Principal                                                     ⎸\n");
     printf("⎸==================================================================================⎸\n");
     printf("\n");
