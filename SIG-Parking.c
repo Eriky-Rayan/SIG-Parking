@@ -30,6 +30,7 @@ void cadastro_vagas(void);
 void add_cadastro_vagas(void);
 void exib_cadastro_vagas(void);
 void alterar_cadastro_vagas(void);
+void exclu_cadastro_vagas(void);
 
 void relatorio(void);
 
@@ -763,6 +764,28 @@ void alterar_cadastro_vagas(void) {
     printf("Dados das vagas alterados com sucesso!\n");
     printf("\nQuantidade de vagas no andar: %d", qtd_vagas);
     printf("\nTNúmero do andar: %d", num_andar);
+    printf("\n");
+    printf("\t >>Tecle <ENTER> para continuar...\n");
+}
+
+void exclu_cadastro_vagas(void) {
+    system("clear||cls");
+
+    int num_andar;
+
+    printf("\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("⎸                                   SIG-Parking                                    ⎸\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("⎸                 Módulo Cadastro de Vagas - Excluir Dados das Vagas               ⎸\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("\n");
+    printf(" >>Digite o número do andar que deseja excluir: ");
+    scanf("%d", num_andar);
+    getchar();
+    printf("\n");
+
+    printf("Vagas do andar %d excluídas com sucesso!\n", num_andar);
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
 }
