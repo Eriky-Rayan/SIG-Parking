@@ -170,7 +170,14 @@ int main(void) {
                 getchar();
                 tela = 4;
             }
-            else
+            else if (op == '2') {
+                printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+                getchar();
+                exib_cadastro_vagas();
+                getchar();
+                tela = 4;
+            }
+
             if (op == '0') tela = 8;
         } else if (tela == 5) {
             relatorio();
