@@ -1,6 +1,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 //Assinatura das Funções
 //Function Signature
@@ -8,7 +9,7 @@
 void menu_principal(void);
 void tela_saida(void);
 
-void veiculos(void);
+char veiculos(void);
 void add_veiculos(void);
 void exib_veiculo(void);
 void alterar_veiculo(void);
@@ -242,8 +243,30 @@ void menu_principal(void) {
 //= Módulo Veículos =
 //===================
 
-void veiculos(void) {
+void modulo_veiculos(void){
+    
+    char op;
+
+    do {
+        op = veiculos();
+        switch (op) {
+            case '1': add_veiculos();
+                      break;
+            case '2': exib_veiculo();
+                      break;
+            case '3': alterar_veiculo();
+                      break;
+            case '4': exclu_veiculo();
+                      break;
+        }
+    } while (op != '0');
+}
+
+char veiculos(void) {
     system("clear||cls");
+
+    char op;
+
     printf("\n");
     printf("⎸==================================================================================⎸\n");
     printf("⎸                                   SIG-Parking                                    ⎸\n");
@@ -258,7 +281,10 @@ void veiculos(void) {
     printf("⎸==================================================================================⎸\n");
     printf("\n");
     printf("\t >>Escolha uma opção: ");
+    scanf("%c", &op);
+    getchar();
     printf("\n");
+    return op;
 }
 
 void add_veiculos(void) {
