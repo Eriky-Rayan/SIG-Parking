@@ -9,14 +9,15 @@
 void menu_principal(void);
 void tela_saida(void);
 
-void modulo_veiculos(void);
+void switch_veiculos(void);
 char veiculos(void);
 void add_veiculos(void);
 void exib_veiculo(void);
 void alterar_veiculo(void);
 void exclu_veiculo(void);
 
-void estacionamentos(void);
+void switch_estacionamentos(void);
+char estacionamentos(void);
 void add_estacionamentos(void);
 void exib_estacionamentos(void);
 void alterar_estacionamentos(void);
@@ -245,7 +246,7 @@ void menu_principal(void) {
 //= Módulo Veículos =
 //===================
 
-void modulo_veiculos(void){
+void switch_veiculos(void){
     
     char op;
 
@@ -444,8 +445,30 @@ void exclu_veiculo(void) {
 //= Módulo Estacionamento =
 //=========================
 
-void estacionamentos(void) {
+void switch_estacionamentos(void){
+
+    char op;
+
+    do {
+        op = estacionamentos();
+        switch (op) {
+            case '1': add_estacionamentos();
+                      break;
+            case '2': exib_estacionamentos();
+                      break;
+            case '3': alterar_estacionamentos();
+                      break;
+            case '4': exclu_estacionamentos();
+                      break;
+        }
+    } while (op != '0');
+}
+
+char estacionamentos(void) {
     system("clear||cls");
+
+    char op;
+
     printf("\n");
     printf("⎸==================================================================================⎸\n");
     printf("⎸                                   SIG-Parking                                    ⎸\n");
@@ -460,7 +483,10 @@ void estacionamentos(void) {
     printf("⎸==================================================================================⎸\n");
     printf("\n");
     printf("\t >>Escolha uma opção: ");
+    scanf("%c", &op);
+    getchar();
     printf("\n");
+    return op;
 }
 
 void add_estacionamentos(void) {
@@ -953,6 +979,7 @@ void op_invalida(void){
     printf("⎸                                * Opção Invalida *                                ⎸\n");
     printf("⎸                                ******************                                ⎸\n");
     printf("⎸==================================================================================⎸\n");
+    printf("\n");
     printf("\t >>Tecle <ENTER> para voltar ao Menu Principal: ");
     getchar();
 }
