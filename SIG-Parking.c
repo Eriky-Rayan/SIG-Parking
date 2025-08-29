@@ -9,6 +9,7 @@
 void menu_principal(void);
 void tela_saida(void);
 
+void modulo_veiculos(void);
 char veiculos(void);
 void add_veiculos(void);
 void exib_veiculo(void);
@@ -37,6 +38,7 @@ void relatorio(void);
 
 void equipe(void);
 void sobre(void);
+void op_invalida(void);
 
 //código Principal
 //main Code
@@ -875,9 +877,9 @@ void relatorio(void) {
     printf("\n");
 }
 
-//==========
-//= Equipe =
-//==========
+//===================
+//= Telas Genéricas =
+//===================
 
 void equipe(void) {
     system("clear||cls");
@@ -901,10 +903,6 @@ void equipe(void) {
     printf("\t >>Tecle '0' para voltar ao Menu Principal: ");
     printf("\n");
 }
-
-//=========
-//= Sobre =
-//=========
 
 void sobre(void) {
     system("clear||cls");
@@ -944,5 +942,17 @@ void tela_saida(void) {
     printf("⎸==================================================================================⎸\n");
     printf("\n");
     printf("\t >>Tecle <ENTER> para encerrar programa...\n");
+    getchar();
+}
+
+void op_invalida(void){
+    system("clear||cls");
+    printf("\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("⎸                                ******************                                ⎸\n");
+    printf("⎸                                * Opção Invalida *                                ⎸\n");
+    printf("⎸                                ******************                                ⎸\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("\t >>Tecle <ENTER> para voltar ao Menu Principal: ");
     getchar();
 }
