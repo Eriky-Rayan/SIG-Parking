@@ -66,7 +66,7 @@ int main(void){
                 //relatorios
                 break;
             case '6': 
-                equipe;
+                equipe();
                 break;
             case '7': 
                 sobre();
@@ -839,11 +839,11 @@ void add_cadastro_vagas(void) {
     printf("⎸==================================================================================⎸\n");
     printf("\n");
     printf(" >>Digite a quantidade de vagas a ser cadastrada: ");
-    scanf("%d", qtd_vagas);
+    scanf("%d", &qtd_vagas);
     getchar();
     printf("\n");
     printf(" >>Digite o número do andar: ");
-    scanf("%d", num_andar);
+    scanf("%d", &num_andar);
     getchar();
     printf("\n");
 
@@ -868,7 +868,7 @@ void exib_cadastro_vagas(void) {
     printf("⎸==================================================================================⎸\n");
     printf("\n");
     printf(" >>Digite o número do andar: ");
-    scanf("%d", num_andar);
+    scanf("%d", &num_andar);
     getchar();
     printf("\n");
     printf("Será exibido a quantidade de vagas do seguinte andar: %d\n", num_andar);
@@ -892,11 +892,11 @@ void alterar_cadastro_vagas(void) {
     printf(" -Digite os novos dados das vagas-");
     printf("\n");
     printf(" >>Digite o número do andar: ");
-    scanf("%d", num_andar);
+    scanf("%d", &num_andar);
     getchar();
     printf("\n");
     printf(" >>Digite a quantidade de vagas a ser cadastrada: ");
-    scanf("%d", qtd_vagas);
+    scanf("%d", &qtd_vagas);
     getchar();
     printf("\n");
 
@@ -920,7 +920,7 @@ void exclu_cadastro_vagas(void) {
     printf("⎸==================================================================================⎸\n");
     printf("\n");
     printf(" >>Digite o número do andar que deseja excluir: ");
-    scanf("%d", num_andar);
+    scanf("%d", &num_andar);
     getchar();
     printf("\n");
 
