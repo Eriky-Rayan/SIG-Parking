@@ -30,13 +30,18 @@ void exib_dono_veiculo(void);
 void alterar_dono_veiculo(void);
 void exclu_dono_veiculo(void);
 
-void cadastro_vagas(void);
+void switch_cadastro_vagas(void);
+char cadastro_vagas(void);
 void add_cadastro_vagas(void);
 void exib_cadastro_vagas(void);
 void alterar_cadastro_vagas(void);
 void exclu_cadastro_vagas(void);
 
-void relatorio(void);
+void switch_relatorio(void);
+char relatorio(void);
+//função relatório de veículos cadastrados
+//função relatório de estacionamentos
+//função relatório de donos dos veículos
 
 void equipe(void);
 void sobre(void);
@@ -64,10 +69,10 @@ int main(void){
                 switch_dono_veiculo();
                 break;
             case '4': 
-                //cadastrar vaga
+                switch_cadastro_vagas();
                 break;
             case '5': 
-                //relatorios
+                switch_relatorio();
                 break;
             case '6': 
                 equipe();
@@ -839,8 +844,34 @@ void exclu_dono_veiculo(void) {
 //= Módulo Cad. Vagas =
 //=====================
 
-void cadastro_vagas(void) {
+void switch_cadastro_vagas(void){
+
+    char op;
+
+    do {
+        op = cadastro_vagas();
+        switch (op) {
+            case '1': 
+                add_cadastro_vagas();
+                break;
+            case '2': 
+                exib_cadastro_vagas();
+                break;
+            case '3': 
+                alterar_cadastro_vagas();
+                break;
+            case '4': 
+                exclu_cadastro_vagas();
+                break;
+        }
+    } while (op != '0');
+}
+
+char cadastro_vagas(void) {
     system("clear||cls");
+
+    char op;
+
     printf("\n");
     printf("⎸==================================================================================⎸\n");
     printf("⎸                                   SIG-Parking                                    ⎸\n");
@@ -855,7 +886,10 @@ void cadastro_vagas(void) {
     printf("⎸==================================================================================⎸\n");
     printf("\n");
     printf("\t >>Tecle '0' para voltar ao Menu Principal: ");
+    scanf("%c", &op);
+    getchar();
     printf("\n");
+    return op;
 }
 
 void add_cadastro_vagas(void) {
@@ -890,7 +924,7 @@ void add_cadastro_vagas(void) {
 void exib_cadastro_vagas(void) {
     system("clear||cls");
 
-    int qtd_vagas;
+    //int qtd_vagas;
     int num_andar;
 
     printf("\n");
@@ -966,8 +1000,31 @@ void exclu_cadastro_vagas(void) {
 //= Módulo Relatórios =
 //=====================
 
-void relatorio(void) {
+void switch_relatorio(void){
+
+    char op;
+
+    do {
+        op = relatorio();
+        switch (op) {
+            case '1': 
+                //função relatório de veículos cadastrados
+                break;
+            case '2': 
+                //função relatório de estacionamentos
+                break;
+            case '3': 
+                //função relatório de donos dos veículos
+                break;
+        }
+    } while (op != '0');
+}
+
+char relatorio(void) {
     system("clear||cls");
+
+    char op;
+
     printf("\n");
     printf("⎸==================================================================================⎸\n");
     printf("⎸                                   SIG-Parking                                    ⎸\n");
@@ -981,7 +1038,10 @@ void relatorio(void) {
     printf("⎸==================================================================================⎸\n");
     printf("\n");
     printf("\t >>Escolha uma opção: ");
+    scanf("%c", &op);
+    getchar();
     printf("\n");
+    return op;
 }
 
 //===================
