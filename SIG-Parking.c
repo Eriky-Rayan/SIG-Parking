@@ -72,7 +72,7 @@ int main(void){
                 sobre();
                 break;
             default:
-                tela_saida();
+                op_invalida();
                 break;
         }
     } while (op != '0');
@@ -974,7 +974,8 @@ void equipe(void) {
     printf("⎸ -Git:https://github.com/Eriky-Rayan/SIG-Parking.git                              ⎸\n");
     printf("⎸==================================================================================⎸\n");
     printf("\n");
-    printf("\t >>Tecle '0' para voltar ao Menu Principal: ");
+    printf("\t >>Tecle <ENTER> para voltar ao Menu Principal: ");
+    getchar();
     printf("\n");
 }
 
@@ -998,7 +999,8 @@ void sobre(void) {
     printf("⎸ utilizados neste programa são fictícios.                                         ⎸\n");  
     printf("⎸==================================================================================⎸\n");
     printf("\n");
-    printf("\t >>Tecle '0' para voltar ao Menu Principal: ");
+    printf("\t >>Tecle <ENTER> para voltar ao Menu Principal: ");
+    getchar();
     printf("\n");
 }
 
