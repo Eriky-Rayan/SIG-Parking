@@ -23,7 +23,8 @@ void exib_estacionamentos(void);
 void alterar_estacionamentos(void);
 void exclu_estacionamentos(void);
 
-void dono_veiculo(void);
+void switch_dono_veiculo(void);
+char dono_veiculo(void);
 void add_dono_veiculo(void);
 void exib_dono_veiculo(void);
 void alterar_dono_veiculo(void);
@@ -60,7 +61,7 @@ int main(void){
                 switch_estacionamentos();
                 break;
             case '3': 
-                //dono de veic
+                switch_dono_veiculo();
                 break;
             case '4': 
                 //cadastrar vaga
@@ -659,8 +660,34 @@ void exclu_estacionamentos(void) {
 //= Módulo Dono de Veículo =
 //==========================
 
-void dono_veiculo(void) {
+void switch_dono_veiculo(void){
+
+    char op;
+
+    do {
+        op = dono_veiculo();
+        switch (op) {
+            case '1': 
+                add_dono_veiculo();
+                break;
+            case '2': 
+                exib_dono_veiculo();
+                break;
+            case '3': 
+                alterar_dono_veiculo();
+                break;
+            case '4': 
+                exclu_dono_veiculo();
+                break;
+        }
+    } while (op != '0');
+}
+
+char dono_veiculo(void) {
     system("clear||cls");
+
+    char op;
+
     printf("\n");
     printf("⎸==================================================================================⎸\n");
     printf("⎸                                   SIG-Parking                                    ⎸\n");
@@ -675,7 +702,10 @@ void dono_veiculo(void) {
     printf("⎸==================================================================================⎸\n");
     printf("\n");
     printf("\t >>Escolha uma opção: ");
+    scanf("%c", &op);
+    getchar();
     printf("\n");
+    return op;
 }
 
 void add_dono_veiculo(void) {
