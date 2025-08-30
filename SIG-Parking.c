@@ -39,6 +39,9 @@ void exclu_cadastro_vagas(void);
 
 void switch_relatorio(void);
 char relatorio(void);
+//função relatório de veículos cadastrados
+//função relatório de estacionamentos
+//função relatório de donos dos veículos
 
 void equipe(void);
 void sobre(void);
@@ -921,7 +924,7 @@ void add_cadastro_vagas(void) {
 void exib_cadastro_vagas(void) {
     system("clear||cls");
 
-    int qtd_vagas;
+    //int qtd_vagas;
     int num_andar;
 
     printf("\n");
