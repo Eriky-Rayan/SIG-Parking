@@ -37,7 +37,8 @@ void exib_cadastro_vagas(void);
 void alterar_cadastro_vagas(void);
 void exclu_cadastro_vagas(void);
 
-void relatorio(void);
+void switch_relatorio(void);
+char relatorio(void);
 
 void equipe(void);
 void sobre(void);
@@ -68,7 +69,7 @@ int main(void){
                 switch_cadastro_vagas();
                 break;
             case '5': 
-                //relatorios
+                switch_relatorio();
                 break;
             case '6': 
                 equipe();
@@ -996,8 +997,31 @@ void exclu_cadastro_vagas(void) {
 //= Módulo Relatórios =
 //=====================
 
-void relatorio(void) {
+void switch_relatorio(void){
+
+    char op;
+
+    do {
+        op = relatorio();
+        switch (op) {
+            case '1': 
+                //função relatório de veículos cadastrados
+                break;
+            case '2': 
+                //função relatório de estacionamentos
+                break;
+            case '3': 
+                //função relatório de donos dos veículos
+                break;
+        }
+    } while (op != '0');
+}
+
+char relatorio(void) {
     system("clear||cls");
+
+    char op;
+
     printf("\n");
     printf("⎸==================================================================================⎸\n");
     printf("⎸                                   SIG-Parking                                    ⎸\n");
@@ -1011,7 +1035,10 @@ void relatorio(void) {
     printf("⎸==================================================================================⎸\n");
     printf("\n");
     printf("\t >>Escolha uma opção: ");
+    scanf("%c", &op);
+    getchar();
     printf("\n");
+    return op;
 }
 
 //===================
