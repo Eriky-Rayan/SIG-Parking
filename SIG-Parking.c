@@ -6,7 +6,7 @@
 //Assinatura das Funções
 //Function Signature
 
-void menu_principal(void);
+char menu_principal(void);
 void tela_saida(void);
 
 void switch_veiculos(void);
@@ -43,6 +43,40 @@ void op_invalida(void);
 
 //código Principal
 //main Code
+
+int main(void){
+
+    char op;
+    do {
+        op = menu_principal();
+        switch (op) {
+            case '1': 
+                switch_veiculos();
+                break;
+            case '2': 
+                switch_estacionamentos();
+                break;
+            case '3': 
+                //dono de veic
+                break;
+            case '4': 
+                //cadastrar vaga
+                break;
+            case '5': 
+                //relatorios
+                break;
+            case '6': 
+                equipe;
+                break;
+            case '7': 
+                sobre();
+                break;
+            default:
+                tela_saida();
+                break;
+        }
+    } while (op != '0');
+}
 
 //int main(void) {
 //    int tela = 8;
@@ -220,8 +254,11 @@ void op_invalida(void);
 //Definição das Funções
 //Function Definition
 
-void menu_principal(void) {
+char menu_principal(void) {
     system("clear||cls");
+
+    char op;
+
     printf("\n");
     printf("⎸==================================================================================⎸\n");
     printf("⎸                                   SIG-Parking                                    ⎸\n");
@@ -239,7 +276,10 @@ void menu_principal(void) {
     printf("⎸==================================================================================⎸\n");
     printf("\n");
     printf("\t >>Escolha uma opção: ");
+    scanf("%c", &op);
+    getchar();
     printf("\n");
+    return op;
 }
 
 //===================
@@ -253,14 +293,18 @@ void switch_veiculos(void){
     do {
         op = veiculos();
         switch (op) {
-            case '1': add_veiculos();
-                      break;
-            case '2': exib_veiculo();
-                      break;
-            case '3': alterar_veiculo();
-                      break;
-            case '4': exclu_veiculo();
-                      break;
+            case '1': 
+                add_veiculos();
+                break;
+            case '2': 
+                exib_veiculo();
+                break;
+            case '3': 
+                alterar_veiculo();
+                break;
+            case '4': 
+                exclu_veiculo();
+                break;
         }
     } while (op != '0');
 }
@@ -452,14 +496,18 @@ void switch_estacionamentos(void){
     do {
         op = estacionamentos();
         switch (op) {
-            case '1': add_estacionamentos();
-                      break;
-            case '2': exib_estacionamentos();
-                      break;
-            case '3': alterar_estacionamentos();
-                      break;
-            case '4': exclu_estacionamentos();
-                      break;
+            case '1': 
+                add_estacionamentos();
+                break;
+            case '2': 
+                exib_estacionamentos();
+                break;
+            case '3': 
+                alterar_estacionamentos();
+                break;
+            case '4': 
+                exclu_estacionamentos();
+                break;
         }
     } while (op != '0');
 }
