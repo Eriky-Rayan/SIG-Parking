@@ -50,6 +50,9 @@ int main(void){
     do {
         op = menu_principal();
         switch (op) {
+            case '0': 
+                tela_saida();
+                break;
             case '1': 
                 switch_veiculos();
                 break;
