@@ -1018,6 +1018,7 @@ void switch_relatorio(void){
                 break;
             case '4': 
                 //função relatório de veículo/estacionamento/dono
+                break;
         }
     } while (op != '0');
 }
@@ -1036,7 +1037,7 @@ char relatorio(void) {
     printf("⎸ 1 - Relatório de Veículos Cadastrados                                            ⎸\n");
     printf("⎸ 2 - Relatório de Estacionamentos                                                 ⎸\n");
     printf("⎸ 3 - Relatório de Donos dos Veículos                                              ⎸\n");
-    prinft("⎸ 4 - Relatório de Veículo/Estacionamento/Dono                                     ⎸\n");
+    printf("⎸ 4 - Relatório de Veículo/Estacionamento/Dono                                     ⎸\n");
     printf("⎸ 0 - Voltar ao Menu Principal                                                     ⎸\n");
     printf("⎸==================================================================================⎸\n");
     printf("\n");
