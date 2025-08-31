@@ -42,7 +42,7 @@ char relatorio(void);
 void relatorio_veiculos(void);
 void relatorio_estacionamentos(void);
 void relatorio_dono_veiculo(void);
-//função veículo/estacionamento/dono
+void relatorio_veiculo_estacionamento_dono(void);
 
 void equipe(void);
 void sobre(void);
@@ -1018,7 +1018,7 @@ void switch_relatorio(void){
                 relatorio_dono_veiculo();
                 break;
             case '4': 
-                //função relatório de veículo/estacionamento/dono
+                relatorio_veiculo_estacionamento_dono();
                 break;
         }
     } while (op != '0');
@@ -1092,6 +1092,22 @@ void relatorio_dono_veiculo(void) {
     printf("⎸==================================================================================⎸\n");
     printf("\n");
     printf("Relatório de donos dos veículos gerado com sucesso!\n");
+    printf("\n");
+    printf("\t >>Tecle <ENTER> para continuar...\n");
+    getchar();
+}
+
+void relatorio_veiculo_estacionamento_dono(void) {
+    system("clear||cls");
+
+    printf("\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("⎸                                   SIG-Parking                                    ⎸\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("⎸            Módulo Relatórios - Veículo/Estacionamento/Dono                      ⎸\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("\n");
+    printf("Relatório de veículo/estacionamento/dono gerado com sucesso!\n");
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
     getchar();
