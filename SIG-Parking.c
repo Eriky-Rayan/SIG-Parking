@@ -23,19 +23,26 @@ void exib_estacionamentos(void);
 void alterar_estacionamentos(void);
 void exclu_estacionamentos(void);
 
-void dono_veiculo(void);
+void switch_dono_veiculo(void);
+char dono_veiculo(void);
 void add_dono_veiculo(void);
 void exib_dono_veiculo(void);
 void alterar_dono_veiculo(void);
 void exclu_dono_veiculo(void);
 
-void cadastro_vagas(void);
+void switch_cadastro_vagas(void);
+char cadastro_vagas(void);
 void add_cadastro_vagas(void);
 void exib_cadastro_vagas(void);
 void alterar_cadastro_vagas(void);
 void exclu_cadastro_vagas(void);
 
-void relatorio(void);
+void switch_relatorio(void);
+char relatorio(void);
+void relatorio_veiculos(void);
+void relatorio_estacionamentos(void);
+void relatorio_dono_veiculo(void);
+void relatorio_veiculo_estacionamento_dono(void);
 
 void equipe(void);
 void sobre(void);
@@ -60,13 +67,13 @@ int main(void){
                 switch_estacionamentos();
                 break;
             case '3': 
-                //dono de veic
+                switch_dono_veiculo();
                 break;
             case '4': 
-                //cadastrar vaga
+                switch_cadastro_vagas();
                 break;
             case '5': 
-                //relatorios
+                switch_relatorio();
                 break;
             case '6': 
                 equipe();
@@ -80,179 +87,6 @@ int main(void){
         }
     } while (op != '0');
 }
-
-//int main(void) {
-//    int tela = 8;
-//   char op;
-//
-//    while (tela != 0) {
-//        if (tela == 8) {
-//            menu_principal();
-//            scanf(" %c", &op);
-//            getchar();
-//
-//            if (op == '1') tela = 1;
-//            else if (op == '2') tela = 2;
-//            else if (op == '3') tela = 3;
-//            else if (op == '4') tela = 4;
-//            else if (op == '5') tela = 5;
-//            else if (op == '6') tela = 6;
-//            else if (op == '7') tela = 7;
-//            else tela = 0;
-//            printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-//            getchar();
-//        } else if (tela == 1) {
-//            veiculos();
-//            scanf(" %c", &op);
-//            getchar();
-//            if (op == '1') {
-//                printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-//                getchar();
-//                add_veiculos();
-//                getchar();
-//                tela = 1;
-//            }
-//            else if (op == '2') {
-//                printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-//                getchar();
-//                exib_veiculo();
-//                getchar();
-//                tela = 1;
-//            }
-//            else if (op == '3') {
-//                printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-//                getchar();
-//                alterar_veiculo();
-//                getchar();
-//                tela = 1;
-//            }
-//            else if (op == '4') {
-//                printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-//                getchar();
-//                exclu_veiculo();
-//                getchar();
-//                tela = 1;
-//            }
-//            else if (op == '0') tela = 8;
-//        } else if (tela == 2) {
-//            estacionamentos();
-//            scanf(" %c", &op);
-//            getchar();
-//            if (op == '1') {
-//                printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-//                getchar();
-//                add_estacionamentos();
-//                getchar();
-//                tela = 2;
-//            }
-//            else if (op == '2') {
-//                printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-//                getchar();
-//                exib_estacionamentos();
-//                getchar();
-//                tela = 2;
-//            }
-//            else if (op == '3') {
-//                printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-//                getchar();
-//                alterar_estacionamentos();
-//                getchar();
-//                tela = 2;
-//            }
-//            else if (op == '4') {
-//                printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-//                getchar();
-//                exclu_estacionamentos();
-//                getchar();
-//                tela = 2;
-//            }
-//            else if (op == '0') tela = 8; 
-//        } else if (tela == 3) {
-//            dono_veiculo();
-//            scanf(" %c", &op);
-//            getchar();
-//            if (op == '1') {
-//                printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-//                getchar();
-//                add_dono_veiculo();
-//                getchar();
-//                tela = 3;
-//            }
-//            else if (op == '2') {
-//                printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-//                getchar();
-//                exib_dono_veiculo();
-//                getchar();
-//                tela = 3;
-//            }
-//            else if (op == '3') {
-//                printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-//                getchar();
-//                alterar_dono_veiculo();
-//                getchar();
-//                tela = 3;
-//            }
-//            else if (op == '4') {
-//                printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-//                getchar();
-//                exclu_dono_veiculo();
-//                getchar();
-//                tela = 3;
-//            }
-//            if (op == '0') tela = 8; 
-//        } else if (tela == 4) {
-//            cadastro_vagas();
-//            scanf(" %c", &op);
-//            getchar();
-//            if (op == '1') {
-//                printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-//                getchar();
-//                add_cadastro_vagas();
-//                getchar();
-//                tela = 4;
-//            }
-//            else if (op == '2') {
-//                printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-//                getchar();
-//                exib_cadastro_vagas();
-//                getchar();
-//                tela = 4;
-//            }
-//            else if (op == '3') {
-//                printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-//                getchar();
-//                alterar_cadastro_vagas();
-//                getchar();
-//                tela = 4;
-//            }
-//            else if (op == '4') {
-//                printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-//                getchar();
-//                exclu_cadastro_vagas();
-//                getchar();
-//                tela = 4;
-//            }
-//            if (op == '0') tela = 8;
-//        } else if (tela == 5) {
-//            relatorio();
-//            scanf(" %c", &op);
-//            getchar();
-//            if (op == '0') tela = 8;
-//        } else if (tela == 6) {
-//            equipe();
-//            scanf(" %c", &op);
-//            getchar();
-//            if (op == '0') tela = 8; 
-//        } else if (tela == 7) {
-//            sobre();
-//            scanf(" %c", &op);
-//            getchar();
-//            if (op == '0') tela = 8;
-//        }
-//    }
-//    tela_saida();
-//    return 0;
-//}
 
 //Definição das Funções
 //Function Definition
@@ -659,8 +493,34 @@ void exclu_estacionamentos(void) {
 //= Módulo Dono de Veículo =
 //==========================
 
-void dono_veiculo(void) {
+void switch_dono_veiculo(void){
+
+    char op;
+
+    do {
+        op = dono_veiculo();
+        switch (op) {
+            case '1': 
+                add_dono_veiculo();
+                break;
+            case '2': 
+                exib_dono_veiculo();
+                break;
+            case '3': 
+                alterar_dono_veiculo();
+                break;
+            case '4': 
+                exclu_dono_veiculo();
+                break;
+        }
+    } while (op != '0');
+}
+
+char dono_veiculo(void) {
     system("clear||cls");
+
+    char op;
+
     printf("\n");
     printf("⎸==================================================================================⎸\n");
     printf("⎸                                   SIG-Parking                                    ⎸\n");
@@ -675,7 +535,10 @@ void dono_veiculo(void) {
     printf("⎸==================================================================================⎸\n");
     printf("\n");
     printf("\t >>Escolha uma opção: ");
+    scanf("%c", &op);
+    getchar();
     printf("\n");
+    return op;
 }
 
 void add_dono_veiculo(void) {
@@ -809,8 +672,34 @@ void exclu_dono_veiculo(void) {
 //= Módulo Cad. Vagas =
 //=====================
 
-void cadastro_vagas(void) {
+void switch_cadastro_vagas(void){
+
+    char op;
+
+    do {
+        op = cadastro_vagas();
+        switch (op) {
+            case '1': 
+                add_cadastro_vagas();
+                break;
+            case '2': 
+                exib_cadastro_vagas();
+                break;
+            case '3': 
+                alterar_cadastro_vagas();
+                break;
+            case '4': 
+                exclu_cadastro_vagas();
+                break;
+        }
+    } while (op != '0');
+}
+
+char cadastro_vagas(void) {
     system("clear||cls");
+
+    char op;
+
     printf("\n");
     printf("⎸==================================================================================⎸\n");
     printf("⎸                                   SIG-Parking                                    ⎸\n");
@@ -825,7 +714,10 @@ void cadastro_vagas(void) {
     printf("⎸==================================================================================⎸\n");
     printf("\n");
     printf("\t >>Tecle '0' para voltar ao Menu Principal: ");
+    scanf("%c", &op);
+    getchar();
     printf("\n");
+    return op;
 }
 
 void add_cadastro_vagas(void) {
@@ -860,7 +752,7 @@ void add_cadastro_vagas(void) {
 void exib_cadastro_vagas(void) {
     system("clear||cls");
 
-    int qtd_vagas;
+    //int qtd_vagas;
     int num_andar;
 
     printf("\n");
@@ -936,8 +828,34 @@ void exclu_cadastro_vagas(void) {
 //= Módulo Relatórios =
 //=====================
 
-void relatorio(void) {
+void switch_relatorio(void){
+
+    char op;
+
+    do {
+        op = relatorio();
+        switch (op) {
+            case '1': 
+                relatorio_veiculos();
+                break;
+            case '2': 
+                relatorio_estacionamentos();
+                break;
+            case '3': 
+                relatorio_dono_veiculo();
+                break;
+            case '4': 
+                relatorio_veiculo_estacionamento_dono();
+                break;
+        }
+    } while (op != '0');
+}
+
+char relatorio(void) {
     system("clear||cls");
+
+    char op;
+
     printf("\n");
     printf("⎸==================================================================================⎸\n");
     printf("⎸                                   SIG-Parking                                    ⎸\n");
@@ -947,11 +865,79 @@ void relatorio(void) {
     printf("⎸ 1 - Relatório de Veículos Cadastrados                                            ⎸\n");
     printf("⎸ 2 - Relatório de Estacionamentos                                                 ⎸\n");
     printf("⎸ 3 - Relatório de Donos dos Veículos                                              ⎸\n");
+    printf("⎸ 4 - Relatório de Veículo/Estacionamento/Dono                                     ⎸\n");
     printf("⎸ 0 - Voltar ao Menu Principal                                                     ⎸\n");
     printf("⎸==================================================================================⎸\n");
     printf("\n");
     printf("\t >>Escolha uma opção: ");
+    scanf("%c", &op);
+    getchar();
     printf("\n");
+    return op;
+}
+
+void relatorio_veiculos(void) {
+    system("clear||cls");
+
+    printf("\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("⎸                                   SIG-Parking                                    ⎸\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("⎸                      Módulo Relatórios - Veículos Cadastrados                    ⎸\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("\n");
+    printf("Relatório de veículos cadastrados gerado com sucesso!\n");
+    printf("\n");
+    printf("\t >>Tecle <ENTER> para continuar...\n");
+    getchar();
+}
+
+void relatorio_estacionamentos(void) {
+    system("clear||cls");
+
+    printf("\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("⎸                                   SIG-Parking                                    ⎸\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("⎸                      Módulo Relatórios - Estacionamentos                        ⎸\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("\n");
+    printf("Relatório de estacionamentos gerado com sucesso!\n");
+    printf("\n");
+    printf("\t >>Tecle <ENTER> para continuar...\n");
+    getchar();
+}
+
+void relatorio_dono_veiculo(void) {
+    system("clear||cls");
+
+    printf("\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("⎸                                   SIG-Parking                                    ⎸\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("⎸                   Módulo Relatórios - Donos dos Veículos                         ⎸\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("\n");
+    printf("Relatório de donos dos veículos gerado com sucesso!\n");
+    printf("\n");
+    printf("\t >>Tecle <ENTER> para continuar...\n");
+    getchar();
+}
+
+void relatorio_veiculo_estacionamento_dono(void) {
+    system("clear||cls");
+
+    printf("\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("⎸                                   SIG-Parking                                    ⎸\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("⎸            Módulo Relatórios - Veículo/Estacionamento/Dono                      ⎸\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("\n");
+    printf("Relatório de veículo/estacionamento/dono gerado com sucesso!\n");
+    printf("\n");
+    printf("\t >>Tecle <ENTER> para continuar...\n");
+    getchar();
 }
 
 //===================
