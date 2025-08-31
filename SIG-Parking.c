@@ -39,7 +39,7 @@ void exclu_cadastro_vagas(void);
 
 void switch_relatorio(void);
 char relatorio(void);
-//função relatório de veículos cadastrados
+void relatorio_veiculos(void);
 //função relatório de estacionamentos
 //função relatório de donos dos veículos
 
@@ -1008,7 +1008,7 @@ void switch_relatorio(void){
         op = relatorio();
         switch (op) {
             case '1': 
-                //função relatório de veículos cadastrados
+                relatorio_veiculos();
                 break;
             case '2': 
                 //função relatório de estacionamentos
@@ -1016,6 +1016,8 @@ void switch_relatorio(void){
             case '3': 
                 //função relatório de donos dos veículos
                 break;
+            case '4': 
+                //função relatório de veículo/estacionamento/dono
         }
     } while (op != '0');
 }
@@ -1034,6 +1036,7 @@ char relatorio(void) {
     printf("⎸ 1 - Relatório de Veículos Cadastrados                                            ⎸\n");
     printf("⎸ 2 - Relatório de Estacionamentos                                                 ⎸\n");
     printf("⎸ 3 - Relatório de Donos dos Veículos                                              ⎸\n");
+    prinft("⎸ 4 - Relatório de Veículo/Estacionamento/Dono                                     ⎸\n");
     printf("⎸ 0 - Voltar ao Menu Principal                                                     ⎸\n");
     printf("⎸==================================================================================⎸\n");
     printf("\n");
@@ -1042,6 +1045,21 @@ char relatorio(void) {
     getchar();
     printf("\n");
     return op;
+}
+
+void relatorio_veiculos(void) {
+    system("clear||cls");
+
+    printf("\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("⎸                                   SIG-Parking                                    ⎸\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("⎸                      Módulo Relatórios - Veículos Cadastrados                    ⎸\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("\n");
+    printf("Relatório de veículos cadastrados gerado com sucesso!\n");
+    printf("\n");
+    printf("\t >>Tecle <ENTER> para continuar...\n");
 }
 
 //===================
