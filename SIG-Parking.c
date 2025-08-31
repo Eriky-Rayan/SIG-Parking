@@ -40,7 +40,7 @@ void exclu_cadastro_vagas(void);
 void switch_relatorio(void);
 char relatorio(void);
 void relatorio_veiculos(void);
-//função relatório de estacionamentos
+void relatorio_estacionamentos(void);
 //função relatório de donos dos veículos
 
 void equipe(void);
@@ -1011,7 +1011,7 @@ void switch_relatorio(void){
                 relatorio_veiculos();
                 break;
             case '2': 
-                //função relatório de estacionamentos
+                relatorio_estacionamentos();
                 break;
             case '3': 
                 //função relatório de donos dos veículos
@@ -1059,6 +1059,22 @@ void relatorio_veiculos(void) {
     printf("⎸==================================================================================⎸\n");
     printf("\n");
     printf("Relatório de veículos cadastrados gerado com sucesso!\n");
+    printf("\n");
+    printf("\t >>Tecle <ENTER> para continuar...\n");
+    getchar();
+}
+
+void relatorio_estacionamentos(void) {
+    system("clear||cls");
+
+    printf("\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("⎸                                   SIG-Parking                                    ⎸\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("⎸                      Módulo Relatórios - Estacionamentos                        ⎸\n");
+    printf("⎸==================================================================================⎸\n");
+    printf("\n");
+    printf("Relatório de estacionamentos gerado com sucesso!\n");
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
     getchar();
