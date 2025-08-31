@@ -1061,6 +1061,7 @@ void relatorio_veiculos(void) {
     printf("Relatório de veículos cadastrados gerado com sucesso!\n");
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
+    getchar();
 }
 
 //===================
