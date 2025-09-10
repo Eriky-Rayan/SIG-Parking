@@ -16,13 +16,6 @@ void exib_estacionamentos(void);
 void alterar_estacionamentos(void);
 void exclu_estacionamentos(void);
 
-void switch_dono_veiculo(void);
-char dono_veiculo(void);
-void add_dono_veiculo(void);
-void exib_dono_veiculo(void);
-void alterar_dono_veiculo(void);
-void exclu_dono_veiculo(void);
-
 void switch_cadastro_vagas(void);
 char cadastro_vagas(void);
 void add_cadastro_vagas(void);
