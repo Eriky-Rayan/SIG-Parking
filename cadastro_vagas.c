@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include "veiculos.h"
+#include "cadastro_vagas.h"
 
 //=======================================
 //= Funções do Módulo Cadastro de Vagas =
