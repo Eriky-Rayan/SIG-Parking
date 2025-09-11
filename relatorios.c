@@ -1,36 +1,36 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include "estacionamentos.h"
+#include "relatorios.h"
 
-//=====================================
-//= Funções do Módulo Estacionamentos =
-//=====================================
+//===============================
+//= Funções do Módulo Relatorio =
+//===============================
 
-void switch_estacionamentos(void){
+void switch_relatorio(void){
 
     char op;
 
     do {
-        op = estacionamentos();
+        op = relatorio();
         switch (op) {
             case '1': 
-                add_estacionamentos();
+                relatorio_veiculos();
                 break;
             case '2': 
-                exib_estacionamentos();
+                relatorio_estacionamentos();
                 break;
             case '3': 
-                alterar_estacionamentos();
+                relatorio_dono_veiculo();
                 break;
             case '4': 
-                exclu_estacionamentos();
+                relatorio_veiculo_estacionamento_dono();
                 break;
         }
     } while (op != '0');
 }
 
-char estacionamentos(void) {
+char relatorio(void) {
     system("clear||cls");
 
     char op;
@@ -39,12 +39,12 @@ char estacionamentos(void) {
     printf("⎸==================================================================================⎸\n");
     printf("⎸                                   SIG-Parking                                    ⎸\n");
     printf("⎸==================================================================================⎸\n");
-    printf("⎸                             Módulo Estacionamentos                               ⎸\n");
+    printf("⎸                                 Módulo Relatórios                                ⎸\n");
     printf("⎸==================================================================================⎸\n");
-    printf("⎸ 1 - Cadastrar Estacionamento                                                     ⎸\n");
-    printf("⎸ 2 - Exibir Dados do Estacionamento                                               ⎸\n");
-    printf("⎸ 3 - Alterar Dados do Estacionamento                                              ⎸\n");
-    printf("⎸ 4 - Excluir Estacionamento                                                       ⎸\n");
+    printf("⎸ 1 - Relatório de Veículos Cadastrados                                            ⎸\n");
+    printf("⎸ 2 - Relatório de Estacionamentos                                                 ⎸\n");
+    printf("⎸ 3 - Relatório de Donos dos Veículos                                              ⎸\n");
+    printf("⎸ 4 - Relatório de Veículo/Estacionamento/Dono                                     ⎸\n");
     printf("⎸ 0 - Voltar ao Menu Principal                                                     ⎸\n");
     printf("⎸==================================================================================⎸\n");
     printf("\n");
@@ -55,117 +55,66 @@ char estacionamentos(void) {
     return op;
 }
 
-void add_estacionamentos(void) {
+void relatorio_veiculos(void) {
     system("clear||cls");
-
-    char n_estaci[8];
-    char tipo[10];
-    char placa[12];
 
     printf("\n");
     printf("⎸==================================================================================⎸\n");
     printf("⎸                                   SIG-Parking                                    ⎸\n");
     printf("⎸==================================================================================⎸\n");
-    printf("⎸                 Módulo Estacionamentos - Cadastrar Estacionamento                ⎸\n");
+    printf("⎸                      Módulo Relatórios - Veículos Cadastrados                    ⎸\n");
     printf("⎸==================================================================================⎸\n");
     printf("\n");
-    printf(" >>Digite o Nº da vaga onde o veículo será cadastrado: ");
-    scanf("%s", n_estaci);
-    getchar();
-    printf("\n");
-    printf(" >>Tipo de Veículo no estacionamento (Carro/Moto): ");
-    scanf("%s", tipo);
-    getchar();
-    printf("\n");
-    printf(" >>Digite a placa do veículo: ");
-    scanf("%s", placa);
-    getchar();
-    printf("\n");
-
-    printf("Veículo cadastrado no estacionamento com sucesso!\n");
-    printf("\nNº do estacionamento: %s", n_estaci);
-    printf("\nTipo do veículo: %s", tipo);
-    printf("\nPlaca: %s", placa);
+    printf("Relatório de veículos cadastrados gerado com sucesso!\n");
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
+    getchar();
 }
 
-void exib_estacionamentos(void) {
+void relatorio_estacionamentos(void) {
     system("clear||cls");
-
-    char n_estaci[8];
 
     printf("\n");
     printf("⎸==================================================================================⎸\n");
     printf("⎸                                   SIG-Parking                                    ⎸\n");
     printf("⎸==================================================================================⎸\n");
-    printf("⎸                 Módulo Estacionamentos - Exibir Estacionamento                   ⎸\n");
+    printf("⎸                      Módulo Relatórios - Estacionamentos                        ⎸\n");
     printf("⎸==================================================================================⎸\n");
     printf("\n");
-    printf(" >>Digite Nº da vaga que deseja ver: ");
-    scanf("%s", n_estaci);
-    getchar();
-    printf("\n");
-    printf("O veículo na seguinte vaga foi exibido: %s\n", n_estaci);
+    printf("Relatório de estacionamentos gerado com sucesso!\n");
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
+    getchar();
 }
 
-void alterar_estacionamentos(void) {
+void relatorio_dono_veiculo(void) {
     system("clear||cls");
-
-    char n_estaci[8];
-    char tipo[10];
-    char placa[12];
 
     printf("\n");
     printf("⎸==================================================================================⎸\n");
     printf("⎸                                   SIG-Parking                                    ⎸\n");
     printf("⎸==================================================================================⎸\n");
-    printf("⎸                 Módulo Estacionamentos - Alterar Estacionamento                  ⎸\n");
+    printf("⎸                   Módulo Relatórios - Donos dos Veículos                         ⎸\n");
     printf("⎸==================================================================================⎸\n");
     printf("\n");
-    printf(" -Digite os novos dados do estacionamento-");
-    printf("\n");
-    printf(" >>Digite o Nº da vaga que deseja alterar: ");
-    scanf("%s", n_estaci);
-    getchar();
-    printf("\n");
-    printf(" >>Tipo de Veículo no estacionamento (Carro/Moto): ");
-    scanf("%s", tipo);
-    getchar();
-    printf("\n");
-    printf(" >>Digite a placa do veículo: ");
-    scanf("%s", placa);
-    getchar();
-    printf("\n");
-
-    printf("Vaga de estacionamento alterada com sucesso!\n");
-    printf("\nNº do estacionamento: %s", n_estaci);
-    printf("\nTipo do veículo: %s", tipo);
-    printf("\nPlaca: %s", placa);
+    printf("Relatório de donos dos veículos gerado com sucesso!\n");
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
+    getchar();
 }
 
-void exclu_estacionamentos(void) {
+void relatorio_veiculo_estacionamento_dono(void) {
     system("clear||cls");
-
-    char n_estaci[8];
 
     printf("\n");
     printf("⎸==================================================================================⎸\n");
     printf("⎸                                   SIG-Parking                                    ⎸\n");
     printf("⎸==================================================================================⎸\n");
-    printf("⎸                 Módulo Estacionamentos - Excluir Estacionamento                   ⎸\n");
+    printf("⎸            Módulo Relatórios - Veículo/Estacionamento/Dono                       ⎸\n");
     printf("⎸==================================================================================⎸\n");
     printf("\n");
-    printf(" >>Digite o Nº da vaga que deseja excluir: ");
-    scanf("%s", n_estaci);
-    getchar();
-    printf("\n");
-
-    printf("O veículo na vaga %s excluído com sucesso!\n", n_estaci);
+    printf("Relatório de veículo/estacionamento/dono gerado com sucesso!\n");
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
+    getchar();
 }
