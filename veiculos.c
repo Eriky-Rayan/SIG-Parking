@@ -3,9 +3,9 @@
 #include <unistd.h>
 #include "veiculos.h"
 
-//=============================
+//==============================
 //= Funções do Módulo Veículos =
-//=============================
+//==============================
 
 void switch_veiculos(void){
     
