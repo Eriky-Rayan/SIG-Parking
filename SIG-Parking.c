@@ -2,6 +2,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include "veiculos.h"
+#include "estacionamentos.h"
+#include "dono_veiculo.h"
+#include "cadastro_vagas.h"
+#include "relatorios.h"
 
 //Assinatura das Funções
 //Function Signature
