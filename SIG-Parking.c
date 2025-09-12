@@ -157,6 +157,7 @@ void tela_saida(void) {
     printf("\n");
     printf("\t >>Tecle <ENTER> para encerrar programa...\n");
     getchar();
+    printf("\n");
 }
 
 void op_invalida(void){
@@ -170,4 +171,5 @@ void op_invalida(void){
     printf("\n");
     printf("\t >>Tecle <ENTER> para voltar ao Menu Principal: ");
     getchar();
+    printf("\n");
 }
