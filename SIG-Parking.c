@@ -76,6 +76,7 @@ char menu_principal(void) {
     printf("||                                 -Menu Principal-                                ||\n");
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
+    printf("||                                                                                 ||\n");
     printf("|| [1] ⟶ Módulo Veículos                                                           ||\n");
     printf("|| [2] ⟶ Módulo Estacionamentos                                                    ||\n");
     printf("|| [3] ⟶ Módulo Donos dos Veículos                                                 ||\n");
@@ -84,6 +85,7 @@ char menu_principal(void) {
     printf("|| [6] ⟶ Módulo Equipe do Projeto                                                  ||\n");
     printf("|| [7] ⟶ Sobre o Sistema                                                           ||\n");
     printf("|| [0] ⟶ Sair                                                                      ||\n");
+    printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("\n");
     printf("\t >>Escolha uma opção: ");
