@@ -38,9 +38,9 @@ char veiculos(void) {
     printf("\n");
     printf("========================================================================================\n");
     printf("||                                                                                    ||\n");
-    printf("||                                    -SIG-Parking-                                   ||\n");
+    printf("||                                  -SIG-Parking-                                     ||\n");
     printf("||                                                                                    ||\n");
-    printf("⎸=======================================================================================\n");
+    printf("========================================================================================\n");
     printf("||                                                                                    ||\n");
     printf("||                                -Módulo Veículos-                                   ||\n");
     printf("||                                                                                    ||\n");
@@ -50,7 +50,7 @@ char veiculos(void) {
     printf("|| [2] ⟶ Exibir Dados do Veículo                                                      ||\n");
     printf("|| [3] ⟶ Alterar Dados do Veículo                                                     ||\n");
     printf("|| [4] ⟶ Excluir Veículo                                                              ||\n");
-    printf("|| [5] ⟶ Voltar ao Menu Principal                                                     ||\n");
+    printf("|| [0] ⟶ Voltar ao Menu Principal                                                     ||\n");
     printf("||                                                                                    ||\n");
     printf("========================================================================================\n");
     printf("\n");
@@ -74,7 +74,7 @@ void add_veiculos(void) {
     printf("\n");
     printf("=======================================================================================\n");
     printf("||                                                                                   ||\n");
-    printf("||                                  -SIG-Parking-                                    ||\n");
+    printf("||                                   -SIG-Parking-                                   ||\n");
     printf("||                                                                                   ||\n");
     printf("=======================================================================================\n");
     printf("||                                                                                   ||\n");
@@ -156,7 +156,7 @@ void alterar_veiculo(void) {
     printf("\n");
     printf("=====================================================================================\n");
     printf("||                                                                                 ||\n");
-    printf("||                                   -SIG-Parking-                                 ||\n");
+    printf("||                                  -SIG-Parking-                                  ||\n");
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("||                                                                                 ||\n");
