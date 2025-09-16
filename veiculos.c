@@ -116,6 +116,8 @@ void add_veiculos(void) {
     printf("\nCPF: %s", cpf);
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
+    getchar();
+    prinf("\n");
 }
 
 void exib_veiculo(void) {
@@ -141,6 +143,8 @@ void exib_veiculo(void) {
     printf("O veículo com a seguinte placa foi exibido: %s\n", placa);
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
+    getchar();
+    printf("\n");
 }
 
 void alterar_veiculo(void) {
@@ -200,6 +204,8 @@ void alterar_veiculo(void) {
     printf("\nCPF: %s", cpf);
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
+    getchar();
+    printf("\n");
 }
 
 void exclu_veiculo(void) {
@@ -226,4 +232,6 @@ void exclu_veiculo(void) {
     printf("Veículo com placa %s excluído com sucesso!\n", placa);
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
+    getchar();
+    printf("\n");
 }
