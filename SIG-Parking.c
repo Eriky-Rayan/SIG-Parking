@@ -56,6 +56,8 @@ int main(void){
                 break;
         }
     } while (op != '0');
+
+    return 0;
 }
 
 //Definição das Funções
