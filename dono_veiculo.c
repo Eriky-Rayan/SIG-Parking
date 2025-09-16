@@ -104,6 +104,8 @@ void add_dono_veiculo(void) {
     printf("\nQuantidade de veículos: %d\n", quantidade);
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
+    getchar();
+    printf("\n");
 }
 
 void exib_dono_veiculo(void) {
@@ -129,6 +131,8 @@ void exib_dono_veiculo(void) {
     printf("O seguinte CPF foi exibido: %s\n", cpf);
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
+    getchar();
+    printf("\n");
 }
 
 void alterar_dono_veiculo(void) {
@@ -176,6 +180,8 @@ void alterar_dono_veiculo(void) {
     printf("\nQuantidade de veículos: %d\n", quantidade);
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
+    getchar();
+    printf("\n");
 }
 
 void exclu_dono_veiculo(void) {
@@ -202,4 +208,6 @@ void exclu_dono_veiculo(void) {
     printf("Dono do veículo com CPF %s excluído com sucesso!\n", cpf);
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
+    getchar();
+    printf("\n");
 }
