@@ -88,6 +88,8 @@ void add_estacionamentos(void) {
     printf("\nPlaca: %s", placa);
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
+    getchar();
+    printf("\n");
 }
 
 void exib_estacionamentos(void) {
@@ -109,6 +111,8 @@ void exib_estacionamentos(void) {
     printf("O veículo na seguinte vaga foi exibido: %s\n", n_estaci);
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
+    getchar();
+    printf("\n");
 }
 
 void alterar_estacionamentos(void) {
@@ -146,6 +150,8 @@ void alterar_estacionamentos(void) {
     printf("\nPlaca: %s", placa);
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
+    getchar();
+    printf("\n");
 }
 
 void exclu_estacionamentos(void) {
@@ -168,4 +174,6 @@ void exclu_estacionamentos(void) {
     printf("O veículo na vaga %s excluído com sucesso!\n", n_estaci);
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
+    getchar();
+    printf("\n");
 }
