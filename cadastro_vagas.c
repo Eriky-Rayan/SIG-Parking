@@ -82,6 +82,8 @@ void add_cadastro_vagas(void) {
     printf("\nTNúmero do andar: %d", num_andar);
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
+    getchar();
+    printf("\n");
 }
 
 void exib_cadastro_vagas(void) {
@@ -104,6 +106,8 @@ void exib_cadastro_vagas(void) {
     printf("Será exibido a quantidade de vagas do seguinte andar: %d\n", num_andar);
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
+    getchar();
+    printf("\n");
 }
 
 void alterar_cadastro_vagas(void) {
@@ -135,6 +139,8 @@ void alterar_cadastro_vagas(void) {
     printf("\nTNúmero do andar: %d", num_andar);
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
+    getchar();
+    printf("\n");
 }
 
 void exclu_cadastro_vagas(void) {
@@ -157,4 +163,6 @@ void exclu_cadastro_vagas(void) {
     printf("Vagas do andar %d excluídas com sucesso!\n", num_andar);
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
+    getchar();
+    printf("\n");
 }
