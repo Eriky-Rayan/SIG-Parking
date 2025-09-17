@@ -13,7 +13,7 @@ Programa para fins didáticos de ilustração, utilizado como exemplo de codific
 Atenção: este NÃO é um programa comercial. O autor não se responsabiliza por quaisquer danos, sejam pessoais, materiais ou imateriais, decorrentes da utilização deste código-fonte ou de trechos do mesmo, assim como, não garante o seu funcionamento correto em situações reais.
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-# O Programa possui os seguintes módulos:
+# ■ O Programa possui os seguintes módulos:
 
 -Módulo Veículos
 
@@ -31,7 +31,7 @@ Atenção: este NÃO é um programa comercial. O autor não se responsabiliza po
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-# Como utilizar
+# ■ Como utilizar
 
 O programa possui a capacidade de cadastro para motos e carros, seus respectivos donos e capacidade de gerenciamento de vagas estacionamentos.
 
@@ -39,27 +39,27 @@ Para utilizar o programa basta inserir as informações necessarias sobre os ve�
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-# Explicação rasa sobre os módulos
+# ■ Explicação rasa sobre os módulos
 
-# Veículos
+# ▶ Veículos
 -Cadastrar veículos utilizando a placa como chave do dicionario e tipo, modelo, cor, id da vaga onde está estacionado e o cpf do dono como informações de cadastro.
 
-# Estacionamentos
+# ▶ Estacionamentos
 -Cadastrar um veículo em uma vaga usando o id da vaga como chave do dicionario e tipo da vaga (carro ou moto) e placa do veículo como informações de cadastro.
 
-# Donos dos Veículos
+# ▶ Donos dos Veículos
 Cadastrar os donos dos veículos usando o cpf como chave do dicionario e telefone, nome e quantidade de veículos cadastrados como informações de cadastro.
 
-# Cadastro de Vagas
+# ▶ Cadastro de Vagas
 -Cadastra a quantidade de andares e vagas que estarão sendo disponibilizadas para uso.
 
-# Relatorios
+# ▶ Relatorios
 -Exibe relatorios diversos utilizando informações cadastradas no sistema.
 
-# Equipe do Projeto
+# ▶ Equipe do Projeto
 -Exibe informações sobre os menbros da equipe que participou do desenvolvimento desse projeto.
 
-# Sobre o Sistema
+# ▶ Sobre o Sistema
 -Exibe uma breve introdução ao sistema
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
