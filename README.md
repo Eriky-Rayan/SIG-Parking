@@ -51,7 +51,7 @@ Para utilizar o programa basta inserir as informações necessarias sobre os ve�
 Cadastrar os donos dos veículos usando o cpf como chave do dicionario e telefone, nome e quantidade de veículos cadastrados como informações de cadastro.
 
 # ▶ Cadastro de Vagas
--Cadastra a quantidade de andares e vagas que estarão sendo disponibilizadas para uso.
+-Cadastra a quantidade de vagas em um andar que estarão sendo disponibilizadas para uso.
 
 # ▶ Relatorios
 -Exibe relatorios diversos utilizando informações cadastradas no sistema.
