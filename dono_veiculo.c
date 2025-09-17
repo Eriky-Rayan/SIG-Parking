@@ -52,7 +52,7 @@ char dono_veiculo(void) {
     printf("|| [4] -> Excluir Dono de Veículo                                                  ||\n");
     printf("|| [0] -> Voltar ao Menu Principal                                                 ||\n");
     printf("||                                                                                 ||\n");
-    printf("====================================================================================\n");
+    printf("=====================================================================================\n");
     printf("\n");
     printf("\t >>Escolha uma opção: ");
     scanf("%c", &op);
