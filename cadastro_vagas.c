@@ -82,14 +82,14 @@ void add_cadastro_vagas(void) {
     scanf("%d", &qtd_vagas);
     getchar();
     printf("\n");
-    printf(" >>Digite o número do andar: ");
+    printf(" >>Digite o número de andares: ");
     scanf("%d", &num_andar);
     getchar();
     printf("\n");
 
     printf("Vaga cadastrada com sucesso!\n");
     printf("\nQuantidade de vagas no andar: %d", qtd_vagas);
-    printf("\nTNúmero do andar: %d", num_andar);
+    printf("\nNúmero de andares: %d", num_andar);
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
     getchar();
