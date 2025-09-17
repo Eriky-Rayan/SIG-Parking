@@ -117,7 +117,7 @@ void add_veiculos(void) {
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
     getchar();
-    prinf("\n");
+    printf("\n");
 }
 
 void exib_veiculo(void) {
