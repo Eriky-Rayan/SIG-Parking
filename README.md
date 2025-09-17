@@ -64,7 +64,7 @@ Cadastrar os donos dos veículos usando o cpf como chave do dicionario e telefon
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-# Desenvolvido por:
+# Equipe do Projeto:
 
 -Eriky Rayan B. de Medeiros (https://github.com/Eriky-Rayan)
 
