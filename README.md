@@ -33,6 +33,8 @@ Atenção: este NÃO é um programa comercial. O autor não se responsabiliza po
 
 # ■ Como utilizar
 
+Baixe o arquivo pelo GitHub, extraia os arquivos e em seguida utilize os comandos nessa ordem: gcc -c -Wall *.h ׀ gcc -c -Wall *.c ׀ gcc -o SIG-Parking *.o ׀ ./SIG-Parking
+
 O programa possui a capacidade de cadastro para motos e carros, seus respectivos donos e capacidade de gerenciamento de vagas estacionamentos.
 
 Para utilizar o programa basta inserir as informações necessarias sobre os veículos, donos e cadastrar a quantidade de vagas e andares do estacionamento, após isso basta manter o gerenciamento dessas informações.
