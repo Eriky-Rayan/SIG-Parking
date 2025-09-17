@@ -46,11 +46,11 @@ char relatorio(void) {
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("||                                                                                 ||\n");
-    printf("|| [1] ⟶ Relatório de Veículos Cadastrados                                         ||\n");
-    printf("|| [2] ⟶ Relatório de Estacionamentos                                              ||\n");
-    printf("|| [3] ⟶ Relatório de Donos dos Veículos                                           ||\n");
-    printf("|| [4] ⟶ Relatório de Veículo/Estacionamento/Dono                                  ||\n");
-    printf("|| [0] ⟶ Voltar ao Menu Principal                                                  ||\n");
+    printf("|| [1] -> Relatório de Veículos Cadastrados                                        ||\n");
+    printf("|| [2] -> Relatório de Estacionamentos                                             ||\n");
+    printf("|| [3] -> Relatório de Donos dos Veículos                                          ||\n");
+    printf("|| [4] -> Relatório de Veículo/Estacionamento/Dono                                 ||\n");
+    printf("|| [0] -> Voltar ao Menu Principal                                                 ||\n");
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("\n");
@@ -71,7 +71,7 @@ void relatorio_veiculos(void) {
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("||                                                                                 ||\n");
-    printf("||                     -Módulo Relatórios - Veículos Cadastrados-                  ||\n");
+    printf("||                     -Módulo Relatórios -> Veículos Cadastrados-                 ||\n");
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("\n");
@@ -91,7 +91,7 @@ void relatorio_estacionamentos(void) {
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("||                                                                                 ||\n");
-    printf("||                     -Módulo Relatórios - Estacionamentos-                       ||\n");
+    printf("||                     -Módulo Relatórios -> Estacionamentos-                      ||\n");
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("\n");
@@ -111,7 +111,7 @@ void relatorio_dono_veiculo(void) {
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("||                                                                                 ||\n");
-    printf("||                    -Módulo Relatórios - Donos dos Veículos-                     ||\n");
+    printf("||                    -Módulo Relatórios -> Donos dos Veículos-                    ||\n");
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("\n");
@@ -131,7 +131,7 @@ void relatorio_veiculo_estacionamento_dono(void) {
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("||                                                                                 ||\n");
-    printf("||                -Módulo Relatórios - Veículo/Estacionamento/Dono-                ||\n");
+    printf("||                -Módulo Relatórios -> Veículo/Estacionamento/Dono-               ||\n");
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("\n");

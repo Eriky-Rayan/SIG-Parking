@@ -46,11 +46,11 @@ char cadastro_vagas(void) {
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("||                                                                                 ||\n");
-    printf("|| [1] ⟶ Cadastrar Vagas                                                           ||\n");
-    printf("|| [2] ⟶ Exibir Dados das Vagas                                                    ||\n");
-    printf("|| [3] ⟶ Alterar Dados das Vagas                                                   ||\n");
-    printf("|| [4] ⟶ Excluir Dados das Vagas                                                   ||\n");
-    printf("|| [0] ⟶ Voltar ao Menu Principal                                                  ||\n");
+    printf("|| [1] -> Cadastrar Vagas                                                          ||\n");
+    printf("|| [2] -> Exibir Dados das Vagas                                                   ||\n");
+    printf("|| [3] -> Alterar Dados das Vagas                                                  ||\n");
+    printf("|| [4] -> Excluir Dados das Vagas                                                  ||\n");
+    printf("|| [0] -> Voltar ao Menu Principal                                                 ||\n");
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("\n");
@@ -74,7 +74,7 @@ void add_cadastro_vagas(void) {
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("||                                                                                 ||\n");
-    printf("||                  -Módulo Cadastro de Vagas - Cadastrar Vagas-                   ||\n");
+    printf("||                  -Módulo Cadastro de Vagas -> Cadastrar Vagas-                  ||\n");
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("\n");
@@ -109,7 +109,7 @@ void exib_cadastro_vagas(void) {
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("||                                                                                 ||\n");
-    printf("||                 -Módulo Cadastro de Vagas - Exibir Dados das Vagas-             ||\n");
+    printf("||                 -Módulo Cadastro de Vagas -> Exibir Dados das Vagas-            ||\n");
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("\n");
@@ -137,7 +137,7 @@ void alterar_cadastro_vagas(void) {
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("||                                                                                 ||\n");
-    printf("||               -Módulo Cadastro de Vagas - Alterar Dados das Vagas-              ||\n");
+    printf("||               -Módulo Cadastro de Vagas -> Alterar Dados das Vagas-             ||\n");
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("\n");
@@ -173,7 +173,7 @@ void exclu_cadastro_vagas(void) {
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("||                                                                                 ||\n");
-    printf("||                -Módulo Cadastro de Vagas - Excluir Dados das Vagas-             ||\n");
+    printf("||                -Módulo Cadastro de Vagas -> Excluir Dados das Vagas-            ||\n");
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("\n");

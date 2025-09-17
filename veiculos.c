@@ -46,11 +46,11 @@ char veiculos(void) {
     printf("||                                                                                    ||\n");
     printf("========================================================================================\n");
     printf("||                                                                                    ||\n");
-    printf("|| [1] ⟶ Cadastrar Veículo                                                            ||\n");
-    printf("|| [2] ⟶ Exibir Dados do Veículo                                                      ||\n");
-    printf("|| [3] ⟶ Alterar Dados do Veículo                                                     ||\n");
-    printf("|| [4] ⟶ Excluir Veículo                                                              ||\n");
-    printf("|| [0] ⟶ Voltar ao Menu Principal                                                     ||\n");
+    printf("|| [1] -> Cadastrar Veículo                                                           ||\n");
+    printf("|| [2] -> Exibir Dados do Veículo                                                     ||\n");
+    printf("|| [3] -> Alterar Dados do Veículo                                                    ||\n");
+    printf("|| [4] -> Excluir Veículo                                                             ||\n");
+    printf("|| [0] -> Voltar ao Menu Principal                                                    ||\n");
     printf("||                                                                                    ||\n");
     printf("========================================================================================\n");
     printf("\n");
@@ -78,7 +78,7 @@ void add_veiculos(void) {
     printf("||                                                                                   ||\n");
     printf("=======================================================================================\n");
     printf("||                                                                                   ||\n");
-    printf("||                        -Módulo Veículos - Cadastrar veículo-                      ||\n");
+    printf("||                        -Módulo Veículos -> Cadastrar veículo-                     ||\n");
     printf("||                                                                                   ||\n");
     printf("=======================================================================================\n");
     printf("\n");
@@ -132,7 +132,7 @@ void exib_veiculo(void) {
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("||                                                                                 ||\n");
-    printf("||                       -Módulo Veículos - Exibir veículo-                        ||\n");
+    printf("||                       -Módulo Veículos -> Exibir veículo-                       ||\n");
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("\n");
@@ -164,7 +164,7 @@ void alterar_veiculo(void) {
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("||                                                                                 ||\n");
-    printf("||                       -Módulo Veículos - Alterar Dados-                         ||\n");
+    printf("||                       -Módulo Veículos -> Alterar Dados-                        ||\n");
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("\n");
@@ -220,7 +220,7 @@ void exclu_veiculo(void) {
     printf("||                                                                                  ||\n");
     printf("======================================================================================\n");
     printf("||                                                                                  ||\n");
-    printf("||                         -Módulo Veículos - Excluir Dados-                        ||\n");
+    printf("||                         -Módulo Veículos -> Excluir Dados-                       ||\n");
     printf("||                                                                                  ||\n");
     printf("======================================================================================\n");
     printf("\n");

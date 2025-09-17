@@ -46,11 +46,11 @@ char estacionamentos(void) {
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("||                                                                                 ||\n");
-    printf("|| [1] ⟶ Cadastrar Estacionamento                                                  ||\n");
-    printf("|| [2] ⟶ Exibir Dados do Estacionamento                                            ||\n");
-    printf("|| [3] ⟶ Alterar Dados do Estacionamento                                           ||\n");
-    printf("|| [4] ⟶ Excluir Estacionamento                                                    ||\n");
-    printf("|| [0] ⟶ Voltar ao Menu Principal                                                  ||\n");
+    printf("|| [1] -> Cadastrar Estacionamento                                                 ||\n");
+    printf("|| [2] -> Exibir Dados do Estacionamento                                           ||\n");
+    printf("|| [3] -> Alterar Dados do Estacionamento                                          ||\n");
+    printf("|| [4] -> Excluir Estacionamento                                                   ||\n");
+    printf("|| [0] -> Voltar ao Menu Principal                                                 ||\n");
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("\n");
@@ -75,7 +75,7 @@ void add_estacionamentos(void) {
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("||                                                                                 ||\n");
-    printf("||                -Módulo Estacionamentos - Cadastrar Estacionamento-              ||\n");
+    printf("||                -Módulo Estacionamentos -> Cadastrar Estacionamento-             ||\n");
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("\n");
@@ -114,7 +114,7 @@ void exib_estacionamentos(void) {
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("||                                                                                 ||\n");
-    printf("||                -Módulo Estacionamentos - Exibir Estacionamento-                 ||\n");
+    printf("||                -Módulo Estacionamentos -> Exibir Estacionamento-                ||\n");
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("\n");
@@ -143,7 +143,7 @@ void alterar_estacionamentos(void) {
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("||                                                                                 ||\n");
-    printf("||                -Módulo Estacionamentos - Alterar Estacionamento-                ||\n");
+    printf("||                -Módulo Estacionamentos -> Alterar Estacionamento-               ||\n");
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("\n");
@@ -184,7 +184,7 @@ void exclu_estacionamentos(void) {
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("||                                                                                 ||\n");
-    printf("||                -Módulo Estacionamentos - Excluir Estacionamento-                ||\n");
+    printf("||                -Módulo Estacionamentos -> Excluir Estacionamento-               ||\n");
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("\n");
