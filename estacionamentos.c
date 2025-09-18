@@ -65,7 +65,6 @@ void add_estacionamentos(void) {
     system("clear||cls");
 
     char n_estaci[8];
-    char tipo[10];
     char placa[12];
 
     printf("\n");
@@ -83,10 +82,6 @@ void add_estacionamentos(void) {
     scanf("%s", n_estaci);
     getchar();
     printf("\n");
-    printf(" >>Tipo de Veículo no estacionamento (Carro/Moto): ");
-    scanf("%s", tipo);
-    getchar();
-    printf("\n");
     printf(" >>Digite a placa do veículo: ");
     scanf("%s", placa);
     getchar();
@@ -94,7 +89,6 @@ void add_estacionamentos(void) {
 
     printf("Veículo cadastrado no estacionamento com sucesso!\n");
     printf("\nNº do estacionamento: %s", n_estaci);
-    printf("\nTipo do veículo: %s", tipo);
     printf("\nPlaca: %s", placa);
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
@@ -133,7 +127,6 @@ void alterar_estacionamentos(void) {
     system("clear||cls");
 
     char n_estaci[8];
-    char tipo[10];
     char placa[12];
 
     printf("\n");
@@ -153,10 +146,6 @@ void alterar_estacionamentos(void) {
     scanf("%s", n_estaci);
     getchar();
     printf("\n");
-    printf(" >>Tipo de Veículo no estacionamento (Carro/Moto): ");
-    scanf("%s", tipo);
-    getchar();
-    printf("\n");
     printf(" >>Digite a placa do veículo: ");
     scanf("%s", placa);
     getchar();
@@ -164,7 +153,6 @@ void alterar_estacionamentos(void) {
 
     printf("Vaga de estacionamento alterada com sucesso!\n");
     printf("\nNº do estacionamento: %s", n_estaci);
-    printf("\nTipo do veículo: %s", tipo);
     printf("\nPlaca: %s", placa);
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
