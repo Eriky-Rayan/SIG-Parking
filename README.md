@@ -11,7 +11,7 @@ Disciplina DCT1106 - Programação
 Programa para fins didáticos de ilustração, utilizado como exemplo de codificação de funcionalidades em linguagem C, durante a disciplina DCT1106 - Programação do curso de Bacharelado em Sistemas de Informação da Universidade Federal do Rio Grande do Norte. O programa contém os principais módulos e funcionalidades que serão exigidos na avaliação dos projetos a serem desenvolvidos pelos alunos ao longo da disciplina. Todos os dados e informações utilizados neste programa são fictícios.
 
 Atenção: este NÃO é um programa comercial. O autor não se responsabiliza por quaisquer danos, sejam pessoais, materiais ou imateriais, decorrentes da utilização deste código-fonte ou de trechos do mesmo, assim como, não garante o seu funcionamento correto em situações reais.
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 # ■ O Programa possui os seguintes módulos:
 
@@ -29,17 +29,21 @@ Atenção: este NÃO é um programa comercial. O autor não se responsabiliza po
 
 -Sobre o Sistema
 
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 # ■ Como utilizar
 
-Baixe o arquivo pelo GitHub, extraia os arquivos e em seguida utilize os comandos nessa ordem: gcc -c -Wall *.h ׀ gcc -c -Wall *.c ׀ gcc -o SIG-Parking *.o ׀ ./SIG-Parking
+Baixe o arquivo pelo GitHub, extraia os arquivos e em seguida utilize os comandos no terminal nessa ordem: gcc -c -Wall *.h ׀ gcc -c -Wall *.c ׀ gcc -o SIG-Parking *.o ׀ ./SIG-Parking
 
 O programa possui a capacidade de cadastro para motos e carros, seus respectivos donos e capacidade de gerenciamento de vagas estacionamentos.
 
 Para utilizar o programa basta inserir as informações necessarias sobre os veículos, donos e cadastrar a quantidade de vagas e andares do estacionamento, após isso basta manter o gerenciamento dessas informações.
 
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# ■ Caso possua o Make
+
+Utilize os seguintes comandos no terminal (Make) para compilar o código, (Make run) para executar o programa e (Make clean) para limpar os arquivos residuais após o uso.
 
 # ■ Explicação rasa sobre os módulos
 
@@ -64,7 +68,7 @@ Cadastrar os donos dos veículos usando o cpf como chave do dicionario e telefon
 # ▶ Sobre o Sistema
 -Exibe uma breve introdução ao sistema
 
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 # Equipe do Projeto:
 
@@ -72,4 +76,10 @@ Cadastrar os donos dos veículos usando o cpf como chave do dicionario e telefon
 
 -Isaac Vilton Ribeiro (https://github.com/Isaac-Ribeiro)
 
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Orientador:
+
+-Flavius Da Luz e Gorgonio (https://github.com/FlaviusGorgonio)
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
