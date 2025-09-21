@@ -8,4 +8,4 @@ clean:
 #limpa os arquivos .o e o EXE ou seja o lixo
  run:
 	./SIG-Parking
-#executa o programa
+#executa o programa / arquivo executavel
