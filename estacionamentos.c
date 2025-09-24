@@ -64,6 +64,7 @@ char estacionamentos(void) {
 void add_estacionamentos(void) {
     system("clear||cls");
 
+    FILE *arq_estacionamentos;
     char n_estaci[8];
     char placa[12];
 
@@ -86,6 +87,15 @@ void add_estacionamentos(void) {
     scanf("%s", placa);
     getchar();
     printf("\n");
+
+    arq_estacionamentos = fopen("estacionamentos.txt", "at");
+    if (arq_estacionamentos == NULL) {
+        printf("\t Erro ao abrir o arquivo de estacionamentos.\n");
+        printf("\t >>Tecle <ENTER> para continuar...\n");
+        return;
+    }
+    fprintf(arq_estacionamentos, "%s;%s\n", n_estaci, placa);
+    fclose(arq_estacionamentos);
 
     printf("Veículo cadastrado no estacionamento com sucesso!\n");
     printf("\nNº do estacionamento: %s", n_estaci);
