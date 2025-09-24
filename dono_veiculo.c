@@ -64,6 +64,7 @@ char dono_veiculo(void) {
 void add_dono_veiculo(void) {
     system("clear||cls");
 
+    FILE *arq_dono_veiculo;
     char cpf[15];
     char telefone[20];
     char nome[50];
@@ -96,6 +97,15 @@ void add_dono_veiculo(void) {
     scanf("%d", &quantidade);
     getchar();
     printf("\n");
+
+    arq_dono_veiculo = fopen("estacionamentos.txt", "at");
+    if (arq_dono_veiculo == NULL) {
+        printf("\t Erro ao abrir o arquivo dos donos dos veículos.\n");
+        printf("\t >>Tecle <ENTER> para continuar...\n");
+        return;
+    }
+    fprintf(arq_dono_veiculo, "%s;%s;%s;%d\n", cpf, telefone, nome, quantidade);
+    fclose(arq_dono_veiculo);
 
     printf("\nDono do veículo cadastrado com sucesso!\n");
     printf("\nCPF: %s", cpf);
