@@ -64,6 +64,7 @@ char veiculos(void) {
 void add_veiculos(void) {
     system("clear||cls");
 
+    FILE *arq_veiculos;
     char placa[12];
     char tipo[10];
     char model[20];
@@ -106,6 +107,15 @@ void add_veiculos(void) {
     scanf("%s", cpf);
     getchar();
     printf("\n");
+
+    arq_veiculos = fopen("veiculos.txt", "at");
+    if (arq_veiculos == NULL) {
+        printf("\t Erro ao abrir o arquivo de veículos.\n");
+        printf("\t >>Tecle <ENTER> para continuar...\n");
+        return;
+    }
+    fprintf(arq_veiculos, "%s;%s;%s;%s;%s;%s\n", placa, tipo, model, cor, n_estaci, cpf);
+    fclose(arq_veiculos);
 
     printf("Veículo cadastrado com sucesso!\n");
     printf("\nPlaca: %s", placa);
