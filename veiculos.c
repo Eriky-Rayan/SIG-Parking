@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
 #include "veiculos.h"
 
 //==============================
@@ -108,10 +109,11 @@ void add_veiculos(void) {
     getchar();
     printf("\n");
 
-    arq_veiculos = fopen("veiculos.txt", "at");
+    arq_veiculos = fopen("veiculos.csv", "at");
     if (arq_veiculos == NULL) {
         printf("\t Erro ao abrir o arquivo de veículos.\n");
         printf("\t >>Tecle <ENTER> para continuar...\n");
+        getchar();
         return;
     }
     fprintf(arq_veiculos, "%s;%s;%s;%s;%s;%s\n", placa, tipo, model, cor, n_estaci, cpf);
@@ -133,7 +135,14 @@ void add_veiculos(void) {
 void exib_veiculo(void) {
     system("clear||cls");
 
+    FILE *arq_veiculos;
     char placa[12];
+    char placa_lida[12];
+    char tipo[10];
+    char model[20];
+    char cor [15];
+    char n_estaci[8];
+    char cpf[15];
 
     printf("\n");
     printf("=====================================================================================\n");
@@ -147,9 +156,46 @@ void exib_veiculo(void) {
     printf("=====================================================================================\n");
     printf("\n");
     printf(" >>Digite a placa do veículo a ser exibido:  \n");
-    scanf("%s", placa);
+    scanf("%s", placa_lida);
     getchar();
     printf("\n");
+
+    arq_veiculos = fopen("veiculos.csv", "rt");
+    if (arq_veiculos == NULL) {
+        printf("\t Erro ao abrir o arquivo de veículos.\n");
+        printf("\t >>Tecle <ENTER> para continuar...\n");
+        getchar();
+        return;
+    }
+    while (!feof(arq_veiculos)) {
+        fscanf(arq_veiculos, "%[^;]", placa);
+        fgetc(arq_veiculos);
+        fscanf(arq_veiculos, "%[^;]", tipo);
+        fgetc(arq_veiculos);
+        fscanf(arq_veiculos, "%[^;]", model);
+        fgetc(arq_veiculos);
+        fscanf(arq_veiculos, "%[^;]", cor);
+        fgetc(arq_veiculos);
+        fscanf(arq_veiculos, "%[^;]", n_estaci);
+        fgetc(arq_veiculos);
+        fscanf(arq_veiculos, "%[^\n]", cpf);
+        fgetc(arq_veiculos);
+        if (strcmp(placa, placa_lida) == 0) {
+            printf("<<<Veículo encontrado>>>");
+            printf("\n");
+            printf("Placa: %s\n", placa);
+            printf("Tipo: %s\n", tipo);
+            printf("Modelo: %s\n", model);
+            printf("Cor: %s\n", cor);
+            printf("Nº do Estacionamento: %s\n", n_estaci);
+            printf("CPF: %s\n", cpf);
+            printf("\t >>Tecle <ENTER> para continuar...\n");
+            getchar();
+            fclose(arq_veiculos);
+            return;
+        }
+    }
+
     printf("O veículo com a seguinte placa foi exibido: %s\n", placa);
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
