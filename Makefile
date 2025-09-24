@@ -1,10 +1,10 @@
 all: 
-	gcc -c -Wall include/*.h
-	gcc -c -Wall *.c -I include
+	gcc -c -Wall *.h
+	gcc -c -Wall *.c 
 	gcc -o SIG-Parking *.o
 #Faz a compilação do programa
 clean:
-	rm *.o *.gch SIG-Parking *.gch ./include/*.gch
+	rm *.o *.gch SIG-Parking *.gch
 #limpa os arquivos .o e o EXE ou seja o lixo
  run:
 	./SIG-Parking
