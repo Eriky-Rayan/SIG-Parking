@@ -64,6 +64,7 @@ char cadastro_vagas(void) {
 void add_cadastro_vagas(void) {
     system("clear||cls");
 
+    FILE *arq_cadastro_vagas;
     int qtd_vagas;
     int num_andar;
 
@@ -86,6 +87,15 @@ void add_cadastro_vagas(void) {
     scanf("%d", &num_andar);
     getchar();
     printf("\n");
+
+    arq_cadastro_vagas = fopen("cadastro_vagas.txt", "at");
+    if (arq_cadastro_vagas == NULL) {
+        printf("\t Erro ao abrir o arquivo do cadastro das vagas.\n");
+        printf("\t >>Tecle <ENTER> para continuar...\n");
+        return;
+    }
+    fprintf(arq_cadastro_vagas, "%d;%d\n", qtd_vagas, num_andar);
+    fclose(arq_cadastro_vagas);
 
     printf("Vaga cadastrada com sucesso!\n");
     printf("\nQuantidade de vagas no andar: %d", qtd_vagas);
