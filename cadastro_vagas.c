@@ -36,17 +36,23 @@ char cadastro_vagas(void) {
     char op;
 
     printf("\n");
-    printf("⎸==================================================================================⎸\n");
-    printf("⎸                                   SIG-Parking                                    ⎸\n");
-    printf("⎸==================================================================================⎸\n");
-    printf("⎸                            Módulo Cadastro de Vagas                              ⎸\n");
-    printf("⎸==================================================================================⎸\n");
-    printf("⎸ 1 - Cadastrar Vagas                                                              ⎸\n");
-    printf("⎸ 2 - Exibir Dados das Vagas                                                       ⎸\n");
-    printf("⎸ 3 - Alterar Dados das Vagas                                                      ⎸\n");
-    printf("⎸ 4 - Excluir Dados das Vagas                                                      ⎸\n");
-    printf("⎸ 0 - Voltar ao Menu Principal                                                     ⎸\n");
-    printf("⎸==================================================================================⎸\n");
+    printf("=====================================================================================\n");
+    printf("||                                                                                 ||\n");
+    printf("||                                  -SIG-Parking-                                  ||\n");
+    printf("||                                                                                 ||\n");
+    printf("=====================================================================================\n");
+    printf("||                                                                                 ||\n");
+    printf("||                            Módulo Cadastro de Vagas                             ||\n");
+    printf("||                                                                                 ||\n");
+    printf("=====================================================================================\n");
+    printf("||                                                                                 ||\n");
+    printf("|| [1] -> Cadastrar Vagas                                                          ||\n");
+    printf("|| [2] -> Exibir Dados das Vagas                                                   ||\n");
+    printf("|| [3] -> Alterar Dados das Vagas                                                  ||\n");
+    printf("|| [4] -> Excluir Dados das Vagas                                                  ||\n");
+    printf("|| [0] -> Voltar ao Menu Principal                                                 ||\n");
+    printf("||                                                                                 ||\n");
+    printf("=====================================================================================\n");
     printf("\n");
     printf("\t >>Tecle '0' para voltar ao Menu Principal: ");
     scanf("%c", &op);
@@ -62,11 +68,15 @@ void add_cadastro_vagas(void) {
     int num_andar;
 
     printf("\n");
-    printf("⎸==================================================================================⎸\n");
-    printf("⎸                                   SIG-Parking                                    ⎸\n");
-    printf("⎸==================================================================================⎸\n");
-    printf("⎸                   Módulo Cadastro de Vagas - Cadastrar Vagas                     ⎸\n");
-    printf("⎸==================================================================================⎸\n");
+    printf("=====================================================================================\n");
+    printf("||                                                                                 ||\n");
+    printf("||                                  -SIG-Parking-                                  ||\n");
+    printf("||                                                                                 ||\n");
+    printf("=====================================================================================\n");
+    printf("||                                                                                 ||\n");
+    printf("||                  -Módulo Cadastro de Vagas -> Cadastrar Vagas-                  ||\n");
+    printf("||                                                                                 ||\n");
+    printf("=====================================================================================\n");
     printf("\n");
     printf(" >>Digite a quantidade de vagas a ser cadastrada: ");
     scanf("%d", &qtd_vagas);
@@ -79,7 +89,7 @@ void add_cadastro_vagas(void) {
 
     printf("Vaga cadastrada com sucesso!\n");
     printf("\nQuantidade de vagas no andar: %d", qtd_vagas);
-    printf("\nTNúmero do andar: %d", num_andar);
+    printf("\nNúmero do andar: %d", num_andar);
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
     getchar();
@@ -93,11 +103,15 @@ void exib_cadastro_vagas(void) {
     int num_andar;
 
     printf("\n");
-    printf("⎸==================================================================================⎸\n");
-    printf("⎸                                   SIG-Parking                                    ⎸\n");
-    printf("⎸==================================================================================⎸\n");
-    printf("⎸                  Módulo Cadastro de Vagas - Exibir Dados das Vagas               ⎸\n");
-    printf("⎸==================================================================================⎸\n");
+    printf("=====================================================================================\n");
+    printf("||                                                                                 ||\n");
+    printf("||                                  -SIG-Parking-                                  ||\n");
+    printf("||                                                                                 ||\n");
+    printf("=====================================================================================\n");
+    printf("||                                                                                 ||\n");
+    printf("||                 -Módulo Cadastro de Vagas -> Exibir Dados das Vagas-            ||\n");
+    printf("||                                                                                 ||\n");
+    printf("=====================================================================================\n");
     printf("\n");
     printf(" >>Digite o número do andar: ");
     scanf("%d", &num_andar);
@@ -117,11 +131,15 @@ void alterar_cadastro_vagas(void) {
     int num_andar;
 
     printf("\n");
-    printf("⎸==================================================================================⎸\n");
-    printf("⎸                                   SIG-Parking                                    ⎸\n");
-    printf("⎸==================================================================================⎸\n");
-    printf("⎸                 Módulo Cadastro de Vagas - Alterar Dados das Vagas              ⎸\n");
-    printf("⎸==================================================================================⎸\n");
+    printf("=====================================================================================\n");
+    printf("||                                                                                 ||\n");
+    printf("||                                  -SIG-Parking-                                  ||\n");
+    printf("||                                                                                 ||\n");
+    printf("=====================================================================================\n");
+    printf("||                                                                                 ||\n");
+    printf("||               -Módulo Cadastro de Vagas -> Alterar Dados das Vagas-             ||\n");
+    printf("||                                                                                 ||\n");
+    printf("=====================================================================================\n");
     printf("\n");
     printf(" -Digite os novos dados das vagas-");
     printf("\n");
@@ -149,11 +167,15 @@ void exclu_cadastro_vagas(void) {
     int num_andar;
 
     printf("\n");
-    printf("⎸==================================================================================⎸\n");
-    printf("⎸                                   SIG-Parking                                    ⎸\n");
-    printf("⎸==================================================================================⎸\n");
-    printf("⎸                 Módulo Cadastro de Vagas - Excluir Dados das Vagas               ⎸\n");
-    printf("⎸==================================================================================⎸\n");
+    printf("=====================================================================================\n");
+    printf("||                                                                                 ||\n");
+    printf("||                                  -SIG-Parking-                                  ||\n");
+    printf("||                                                                                 ||\n");
+    printf("=====================================================================================\n");
+    printf("||                                                                                 ||\n");
+    printf("||                -Módulo Cadastro de Vagas -> Excluir Dados das Vagas-            ||\n");
+    printf("||                                                                                 ||\n");
+    printf("=====================================================================================\n");
     printf("\n");
     printf(" >>Digite o número do andar que deseja excluir: ");
     scanf("%d", &num_andar);

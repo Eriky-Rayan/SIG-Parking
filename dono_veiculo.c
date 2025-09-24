@@ -46,13 +46,13 @@ char dono_veiculo(void) {
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("||                                                                                 ||\n");
-    printf("|| [1] ⟶ Cadastrar Dono de Veículo                                                 ||\n");
-    printf("|| [2] ⟶ Exibir Dados do Dono de Veículo                                           ||\n");
-    printf("|| [3] ⟶ Alterar Dados do Dono de Veículo                                          ||\n");
-    printf("|| [4] ⟶ Excluir Dono de Veículo                                                   ||\n");
-    printf("|| [0] ⟶ Voltar ao Menu Principal                                                  ||\n");
+    printf("|| [1] -> Cadastrar Dono de Veículo                                                ||\n");
+    printf("|| [2] -> Exibir Dados do Dono de Veículo                                          ||\n");
+    printf("|| [3] -> Alterar Dados do Dono de Veículo                                         ||\n");
+    printf("|| [4] -> Excluir Dono de Veículo                                                  ||\n");
+    printf("|| [0] -> Voltar ao Menu Principal                                                 ||\n");
     printf("||                                                                                 ||\n");
-    printf("====================================================================================\n");
+    printf("=====================================================================================\n");
     printf("\n");
     printf("\t >>Escolha uma opção: ");
     scanf("%c", &op);
@@ -76,7 +76,7 @@ void add_dono_veiculo(void) {
     printf("||                                                                                ||\n");
     printf("====================================================================================\n");
     printf("||                                                                                ||\n");
-    printf("||                  -Módulo Donos dos Veículos - Cadastrar Dono-                  ||\n");
+    printf("||                  -Módulo Donos dos Veículos -> Cadastrar Dono-                 ||\n");
     printf("||                                                                                ||\n");
     printf("====================================================================================\n");
     printf("\n");
@@ -120,7 +120,7 @@ void exib_dono_veiculo(void) {
     printf("||                                                                                ||\n");
     printf("====================================================================================\n");
     printf("||                                                                                ||\n");
-    printf("||                     -Módulo Donos dos Veículos - Exibir Dados-                 ||\n");
+    printf("||                   -Módulo Donos dos Veículos -> Exibir Dados-                  ||\n");
     printf("||                                                                                ||\n");
     printf("====================================================================================\n");
     printf("\n");
@@ -150,7 +150,7 @@ void alterar_dono_veiculo(void) {
     printf("||                                                                                  ||\n");
     printf("======================================================================================\n");
     printf("||                                                                                  ||\n");
-    printf("||                  -Módulo Donos dos Veículos - Alterar Dados-                     ||\n");
+    printf("||                  -Módulo Donos dos Veículos -> Alterar Dados-                    ||\n");
     printf("||                                                                                  ||\n");
     printf("======================================================================================\n");
     printf("\n");
@@ -196,7 +196,7 @@ void exclu_dono_veiculo(void) {
     printf("||                                                                                  ||\n");
     printf("======================================================================================\n");
     printf("||                                                                                  ||\n");
-    printf("||                  -Módulo Donos dos Veículos - Excluir Dados-                     ||\n");
+    printf("||                  -Módulo Donos dos Veículos -> Excluir Dados-                    ||\n");
     printf("||                                                                                  ||\n");
     printf("======================================================================================\n");
     printf("\n");

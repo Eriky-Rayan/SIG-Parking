@@ -56,6 +56,8 @@ int main(void){
                 break;
         }
     } while (op != '0');
+
+    return 0;
 }
 
 //Definição das Funções
@@ -77,14 +79,14 @@ char menu_principal(void) {
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("||                                                                                 ||\n");
-    printf("|| [1] ⟶ Módulo Veículos                                                           ||\n");
-    printf("|| [2] ⟶ Módulo Estacionamentos                                                    ||\n");
-    printf("|| [3] ⟶ Módulo Donos dos Veículos                                                 ||\n");
-    printf("|| [4] ⟶ Módulo Cadastro de Vagas                                                  ||\n");
-    printf("|| [5] ⟶ Módulo Relatórios                                                         ||\n");
-    printf("|| [6] ⟶ Módulo Equipe do Projeto                                                  ||\n");
-    printf("|| [7] ⟶ Sobre o Sistema                                                           ||\n");
-    printf("|| [0] ⟶ Sair                                                                      ||\n");
+    printf("|| [1] -> Módulo Veículos                                                          ||\n");
+    printf("|| [2] -> Módulo Estacionamentos                                                   ||\n");
+    printf("|| [3] -> Módulo Donos dos Veículos                                                ||\n");
+    printf("|| [4] -> Módulo Cadastro de Vagas                                                 ||\n");
+    printf("|| [5] -> Módulo Relatórios                                                        ||\n");
+    printf("|| [6] -> Módulo Equipe do Projeto                                                 ||\n");
+    printf("|| [7] -> Sobre o Sistema                                                          ||\n");
+    printf("|| [0] -> Sair                                                                     ||\n");
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("\n");
