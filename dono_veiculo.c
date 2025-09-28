@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
 #include "dono_veiculo.h"
 
 //=====================================
@@ -98,7 +99,7 @@ void add_dono_veiculo(void) {
     getchar();
     printf("\n");
 
-    arq_dono_veiculo = fopen("estacionamentos.txt", "at");
+    arq_dono_veiculo = fopen("dono_veiculo.csv", "at");
     if (arq_dono_veiculo == NULL) {
         printf("\t Erro ao abrir o arquivo dos donos dos veículos.\n");
         printf("\t >>Tecle <ENTER> para continuar...\n");
@@ -121,7 +122,12 @@ void add_dono_veiculo(void) {
 void exib_dono_veiculo(void) {
     system("clear||cls");
 
+    FILE *arq_dono_veiculo;
     char cpf[15];
+    char cpf_lido[15];
+    char telefone[20];
+    char nome[50];
+    int quantidade;
 
     printf("\n");
     printf("====================================================================================\n");
@@ -135,10 +141,41 @@ void exib_dono_veiculo(void) {
     printf("====================================================================================\n");
     printf("\n");
     printf(" >>Digite o CPF do dono a ser exibido: ");
-    scanf("%s", cpf);
+    scanf("%s", cpf_lido);
     getchar();
     printf("\n");
-    printf("O seguinte CPF foi exibido: %s\n", cpf);
+
+    arq_dono_veiculo = fopen("dono_veiculo.csv", "rt");
+    if (arq_dono_veiculo == NULL) {
+        printf("\t Erro ao abrir o arquivo de dono_veiculo.\n");
+        printf("\t >>Tecle <ENTER> para continuar...\n");
+        getchar();
+        return;
+    }
+    while (!feof(arq_dono_veiculo)) {
+        fscanf(arq_dono_veiculo, "%[^;]", cpf);
+        fgetc(arq_dono_veiculo);
+        fscanf(arq_dono_veiculo, "%[^;]", telefone);
+        fgetc(arq_dono_veiculo);
+        fscanf(arq_dono_veiculo, "%[^;]", nome);
+        fgetc(arq_dono_veiculo);
+        fscanf(arq_dono_veiculo, "%d", &quantidade);
+        fgetc(arq_dono_veiculo);
+        if (strcmp(cpf, cpf_lido) == 0) {
+            printf("<<<dono do veículo encontrado>>");
+            printf("\n");
+            printf("CPF: %s\n", cpf);
+            printf("Teledone: %s\n", telefone);
+            printf("Nome: %s\n", nome);
+            printf("Quantidade: %d\n", quantidade);
+            printf("\t >>Tecle <ENTER> para continuar...\n");
+            getchar();
+            fclose(arq_dono_veiculo);
+            return;
+        }
+    }
+
+    printf("O dono com o seguinte cpf foi exibido: %s\n", cpf);
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
     getchar();
