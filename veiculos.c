@@ -282,15 +282,14 @@ void alterar_veiculo(void) {
             printf("\n");
 
             fprintf(arq_veiculos_temp, "%s;%s;%s;%s;%s;%s\n", placa_lida, tipo, model, cor, n_estaci, cpf);
-            
-            fclose(arq_veiculos);
-            fclose(arq_veiculos_temp);
-            
-            remove("veiculos.csv");
-            rename("veiculos_temp.csv", "veiculos.csv");
-            return;
         }
     }
+
+    fclose(arq_veiculos);
+    fclose(arq_veiculos_temp);
+
+    remove("veiculos.csv");
+    rename("veiculos_temp.csv", "veiculos.csv");
 
     printf("Dados do veículo alterados com sucesso!\n");
     printf("\nPlaca: %s", placa);
