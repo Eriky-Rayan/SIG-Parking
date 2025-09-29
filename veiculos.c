@@ -242,19 +242,20 @@ void alterar_veiculo(void) {
         getchar();
         return;
     }
-    while (!feof(arq_veiculos)) {
-        fscanf(arq_veiculos, "%[^;]", placa);
+
+    while (fscanf(arq_veiculos, "%[^;]", placa) == 1) {
         fgetc(arq_veiculos);
-        fscanf(arq_veiculos, "%[^;]", tipo);
+        if (fscanf(arq_veiculos, "%[^;]", tipo) != 1) break;
         fgetc(arq_veiculos);
-        fscanf(arq_veiculos, "%[^;]", model);
+        if (fscanf(arq_veiculos, "%[^;]", model) != 1) break;
         fgetc(arq_veiculos);
-        fscanf(arq_veiculos, "%[^;]", cor);
+        if (fscanf(arq_veiculos, "%[^;]", cor) != 1) break;
         fgetc(arq_veiculos);
-        fscanf(arq_veiculos, "%[^;]", n_estaci);
+        if (fscanf(arq_veiculos, "%[^;]", n_estaci) != 1) break;
         fgetc(arq_veiculos);
-        fscanf(arq_veiculos, "%[^\n]", cpf);
+        if (fscanf(arq_veiculos, "%[^\n]", cpf) != 1) break;
         fgetc(arq_veiculos);
+
         if (strcmp(placa, placa_lida) != 0){
             fprintf(arq_veiculos_temp, "%s;%s;%s;%s;%s;%s\n", placa, tipo, model, cor, n_estaci, cpf);
         }
@@ -292,13 +293,6 @@ void alterar_veiculo(void) {
     rename("veiculos_temp.csv", "veiculos.csv");
 
     printf("Dados do veículo alterados com sucesso!\n");
-    printf("\nPlaca: %s", placa);
-    printf("\nTipo: %s", tipo);
-    printf("\nModelo: %s", model);
-    printf("\nCor: %s", cor);
-    printf("\nNº do estacionamento: %s", n_estaci);
-    printf("\nCPF: %s", cpf);
-    printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
     getchar();
     printf("\n");
