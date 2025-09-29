@@ -33,7 +33,7 @@ void switch_cadastro_vagas(void){
 
 char cadastro_vagas(void) {
     system("clear||cls");
-
+    
     char op;
 
     printf("\n");
