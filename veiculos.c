@@ -206,7 +206,10 @@ void exib_veiculo(void) {
 void alterar_veiculo(void) {
     system("clear||cls");
 
+    FILE *arq_veiculos;
+    FILE *arq_veiculos_temp;
     char placa[12];
+    char placa_lida[12];
     char tipo[10];
     char model[20];
     char cor [15];
@@ -227,29 +230,67 @@ void alterar_veiculo(void) {
     printf(" -Digite os novos dados do veículo-");
     printf("\n");
     printf(" >>Digite a placa do veículo a ser alterado: \n");
-    scanf("%s", placa);
+    scanf("%s", placa_lida);
     getchar();
     printf("\n");
-    printf(" >>Tipo de Veículo (Carro/Moto): ");
-    scanf("%s", tipo);
-    getchar();
-    printf("\n");
-    printf(" >>Modelo do veículo: ");
-    scanf("%s", model);
-    getchar();
-    printf("\n");
-    printf(" >>Cor do Veículo: ");
-    scanf("%s", cor);
-    getchar();
-    printf("\n");
-    printf(" >>Nº do estacionamento: ");
-    scanf("%s", n_estaci);
-    getchar();
-    printf("\n");
-    printf(" >>CPF do Dono do Veículo: ");
-    scanf("%s", cpf);
-    getchar();
-    printf("\n");
+
+    arq_veiculos = fopen("veiculos.csv", "rt");
+    arq_veiculos_temp = fopen("veiculos_temp.csv", "wt");
+    if (arq_veiculos == NULL) {
+        printf("\t Erro ao abrir o arquivo de veículos.\n");
+        printf("\t >>Tecle <ENTER> para continuar...\n");
+        getchar();
+        return;
+    }
+    while (!feof(arq_veiculos)) {
+        fscanf(arq_veiculos, "%[^;]", placa);
+        fgetc(arq_veiculos);
+        fscanf(arq_veiculos, "%[^;]", tipo);
+        fgetc(arq_veiculos);
+        fscanf(arq_veiculos, "%[^;]", model);
+        fgetc(arq_veiculos);
+        fscanf(arq_veiculos, "%[^;]", cor);
+        fgetc(arq_veiculos);
+        fscanf(arq_veiculos, "%[^;]", n_estaci);
+        fgetc(arq_veiculos);
+        fscanf(arq_veiculos, "%[^\n]", cpf);
+        fgetc(arq_veiculos);
+        if (strcmp(placa, placa_lida) != 0){
+            fprintf(arq_veiculos_temp, "%s;%s;%s;%s;%s;%s\n", placa, tipo, model, cor, n_estaci, cpf);
+        }
+        else {
+            printf("\n");
+            printf(" >>Tipo de Veículo (Carro/Moto): ");
+            scanf("%s", tipo);
+            getchar();
+            printf("\n");
+            printf(" >>Modelo do veículo: ");
+            scanf("%s", model);
+            getchar();
+            printf("\n");
+            printf(" >>Cor do Veículo: ");
+            scanf("%s", cor);
+            getchar();
+            printf("\n");
+            printf(" >>Nº do estacionamento: ");
+            scanf("%s", n_estaci);
+            getchar();
+            printf("\n");
+            printf(" >>CPF do Dono do Veículo: ");
+            scanf("%s", cpf);
+            getchar();
+            printf("\n");
+
+            fprintf(arq_veiculos_temp, "%s;%s;%s;%s;%s;%s\n", placa_lida, tipo, model, cor, n_estaci, cpf);
+            
+            fclose(arq_veiculos);
+            fclose(arq_veiculos_temp);
+            
+            remove("veiculos.csv");
+            rename("veiculos_temp.csv", "veiculos.csv");
+            return;
+        }
+    }
 
     printf("Dados do veículo alterados com sucesso!\n");
     printf("\nPlaca: %s", placa);
