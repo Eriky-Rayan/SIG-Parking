@@ -290,7 +290,15 @@ void alterar_veiculo(void) {
 void exclu_veiculo(void) {
     system("clear||cls");
 
+    FILE *arq_veiculos;
+    FILE *arq_veiculos_temp;
     char placa[12];
+    char placa_lida[12];
+    char tipo[10];
+    char model[20];
+    char cor [15];
+    char n_estaci[8];
+    char cpf[15];
 
     printf("\n");
     printf("======================================================================================\n");
@@ -304,11 +312,33 @@ void exclu_veiculo(void) {
     printf("======================================================================================\n");
     printf("\n");
     printf(" >>Digite a placa do veículo a ser excluido: ");
-    scanf("%s", placa);
+    scanf("%s", placa_lida);
     getchar();
     printf("\n");
 
-    printf("Veículo com placa %s excluído com sucesso!\n", placa);
+    arq_veiculos = fopen("veiculos.csv", "rt");
+    arq_veiculos_temp = fopen("veiculos_temp.csv", "wt");
+    if (arq_veiculos == NULL) {
+        printf("\t Erro ao abrir o arquivo de veículos. \n");
+        printf("\t >>Tecle <ENTER> para continuar...\n");
+        getchar();
+        return;
+    }
+
+    while (fscanf(arq_veiculos, "%[^;];%[^;];%[^;];%[^;];%[^;];%[^\n]\n", placa, tipo, model, cor, n_estaci, cpf) == 6) {
+
+        if (strcmp(placa, placa_lida) != 0){
+            fprintf(arq_veiculos_temp, "%s;%s;%s;%s;%s;%s\n", placa, tipo, model, cor, n_estaci, cpf);
+        }
+    }
+
+    fclose(arq_veiculos);
+    fclose(arq_veiculos_temp);
+
+    remove("veiculos.csv");
+    rename("veiculos_temp.csv", "veiculos.csv");
+
+    printf("Veículo com placa %s excluído com sucesso!\n", placa_lida);
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
     getchar();
