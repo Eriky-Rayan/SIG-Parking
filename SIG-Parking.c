@@ -126,6 +126,12 @@ void equipe(void) {
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("||                                                                                 ||\n");
+    printf("|| -Andressa Carla da Silva                                                        ||\n");
+    printf("|| -Email:andressa.silva.141@ufrn.edu.br                                           ||\n");
+    printf("|| -GitHub:https://github.com/andressa-codes                                       ||\n");
+    printf("||                                                                                 ||\n");
+    printf("=====================================================================================\n");
+    printf("||                                                                                 ||\n");
     printf("|| -GitHub:https://github.com/Eriky-Rayan/SIG-Parking.git                          ||\n");
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
