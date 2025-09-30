@@ -227,7 +227,11 @@ void alterar_estacionamentos(void) {
 void exclu_estacionamentos(void) {
     system("clear||cls");
 
+    FILE *arq_estacionamentos;
+    FILE *arq_estacionamentos_temp;
     char n_estaci[8];
+    char n_estaci_lida[8];
+    char placa[12];
 
     printf("\n");
     printf("=====================================================================================\n");
@@ -241,11 +245,33 @@ void exclu_estacionamentos(void) {
     printf("=====================================================================================\n");
     printf("\n");
     printf(" >>Digite o Nº da vaga que deseja excluir: ");
-    scanf("%s", n_estaci);
+    scanf("%s", n_estaci_lida);
     getchar();
     printf("\n");
     
-    printf("O veículo na vaga %s excluído com sucesso!\n", n_estaci);
+    arq_estacionamentos = fopen("estacionamentos.csv", "rt");
+    arq_estacionamentos_temp = fopen("estacionamentos_temp.csv", "wt");
+    if (arq_estacionamentos == NULL) {
+        printf("\t Erro ao abrir o arquivo de veículos.\n");
+        printf("\t >>tecle <ENTER> para continuar...\n");
+        getchar();
+        return;
+    }
+
+    while (fscanf(arq_estacionamentos, "%[^;];%[^\n]\n", n_estaci, placa) == 2){
+
+        if (strcmp(n_estaci, n_estaci_lida) != 0){
+            fprintf(arq_estacionamentos_temp, "%s;%s\n", n_estaci, placa);
+        }
+    }
+
+    fclose(arq_estacionamentos);
+    fclose(arq_estacionamentos_temp);
+
+    remove("estacionamentos.csv");
+    rename("estacionamentos_temp.csv", "estacionamentos.csv");
+
+    printf("O veículo na vaga %s excluído com sucesso!\n", n_estaci_lida);
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
     getchar();
