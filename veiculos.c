@@ -243,18 +243,7 @@ void alterar_veiculo(void) {
         return;
     }
 
-    while (fscanf(arq_veiculos, "%[^;]", placa) == 1) {
-        fgetc(arq_veiculos);
-        if (fscanf(arq_veiculos, "%[^;]", tipo) != 1) break;
-        fgetc(arq_veiculos);
-        if (fscanf(arq_veiculos, "%[^;]", model) != 1) break;
-        fgetc(arq_veiculos);
-        if (fscanf(arq_veiculos, "%[^;]", cor) != 1) break;
-        fgetc(arq_veiculos);
-        if (fscanf(arq_veiculos, "%[^;]", n_estaci) != 1) break;
-        fgetc(arq_veiculos);
-        if (fscanf(arq_veiculos, "%[^\n]", cpf) != 1) break;
-        fgetc(arq_veiculos);
+    while (fscanf(arq_veiculos, "%[^;];%[^;];%[^;];%[^;];%[^;];%[^\n]\n", placa, tipo, model, cor, n_estaci, cpf) == 6) {
 
         if (strcmp(placa, placa_lida) != 0){
             fprintf(arq_veiculos_temp, "%s;%s;%s;%s;%s;%s\n", placa, tipo, model, cor, n_estaci, cpf);
