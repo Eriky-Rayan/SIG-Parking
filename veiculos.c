@@ -4,6 +4,8 @@
 #include <string.h>
 #include "veiculos.h"
 
+typedef struct veiculos Veiculos;
+
 //==============================
 //= Funções do Módulo Veículos =
 //==============================
@@ -66,12 +68,7 @@ void add_veiculos(void) {
     system("clear||cls");
 
     FILE *arq_veiculos;
-    char placa[12];
-    char tipo[10];
-    char model[20];
-    char cor [15];
-    char n_estaci[8];
-    char cpf[15];
+    Veiculos veiculo;
 
     printf("\n");
     printf("=======================================================================================\n");
@@ -85,27 +82,27 @@ void add_veiculos(void) {
     printf("=======================================================================================\n");
     printf("\n");
     printf(" >>Digite a placa do veículo a ser cadastrado: ");
-    scanf("%s", placa);
+    scanf("%s", veiculo.placa);
     getchar();
     printf("\n");
     printf(" >>Tipo de Veículo (Carro/Moto): ");
-    scanf("%s", tipo);
+    scanf("%s", veiculo.tipo);
     getchar();
     printf("\n");
     printf(" >>Modelo do veículo: ");
-    scanf("%s", model);
+    scanf("%s", veiculo.model);
     getchar();
     printf("\n");
     printf(" >>Cor do Veículo: ");
-    scanf("%s", cor);
+    scanf("%s", veiculo.cor);
     getchar();
     printf("\n");
     printf(" >>Nº do estacionamento: ");
-    scanf("%s", n_estaci);
+    scanf("%s", veiculo.n_estaci);
     getchar();
     printf("\n");
     printf(" >>CPF do Dono do Veículo: ");
-    scanf("%s", cpf);
+    scanf("%s", veiculo.cpf);
     getchar();
     printf("\n");
 
@@ -116,16 +113,16 @@ void add_veiculos(void) {
         getchar();
         return;
     }
-    fprintf(arq_veiculos, "%s;%s;%s;%s;%s;%s\n", placa, tipo, model, cor, n_estaci, cpf);
+    fprintf(arq_veiculos, "%s;%s;%s;%s;%s;%s\n", veiculo.placa, veiculo.tipo, veiculo.model, veiculo.cor, veiculo.n_estaci, veiculo.cpf);
     fclose(arq_veiculos);
 
     printf("Veículo cadastrado com sucesso!\n");
-    printf("\nPlaca: %s", placa);
-    printf("\nTipo: %s", tipo);
-    printf("\nModelo: %s", model);
-    printf("\nCor: %s", cor);
-    printf("\nNº do estacionamento: %s", n_estaci);
-    printf("\nCPF: %s", cpf);
+    printf("\nPlaca: %s", veiculo.placa);
+    printf("\nTipo: %s", veiculo.tipo);
+    printf("\nModelo: %s", veiculo.model);
+    printf("\nCor: %s", veiculo.cor);
+    printf("\nNº do estacionamento: %s", veiculo.n_estaci);
+    printf("\nCPF: %s", veiculo.cpf);
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
     getchar();
@@ -136,13 +133,7 @@ void exib_veiculo(void) {
     system("clear||cls");
 
     FILE *arq_veiculos;
-    char placa[12];
-    char placa_lida[12];
-    char tipo[10];
-    char model[20];
-    char cor [15];
-    char n_estaci[8];
-    char cpf[15];
+    Veiculos veiculo;
 
     printf("\n");
     printf("=====================================================================================\n");
@@ -156,7 +147,7 @@ void exib_veiculo(void) {
     printf("=====================================================================================\n");
     printf("\n");
     printf(" >>Digite a placa do veículo a ser exibido:  \n");
-    scanf("%s", placa_lida);
+    scanf("%s", veiculo.placa_lida);
     getchar();
     printf("\n");
 
@@ -168,27 +159,27 @@ void exib_veiculo(void) {
         return;
     }
     while (!feof(arq_veiculos)) {
-        fscanf(arq_veiculos, "%[^;]", placa);
+        fscanf(arq_veiculos, "%[^;]", veiculo.placa);
         fgetc(arq_veiculos);
-        fscanf(arq_veiculos, "%[^;]", tipo);
+        fscanf(arq_veiculos, "%[^;]", veiculo.tipo);
         fgetc(arq_veiculos);
-        fscanf(arq_veiculos, "%[^;]", model);
+        fscanf(arq_veiculos, "%[^;]", veiculo.model);
         fgetc(arq_veiculos);
-        fscanf(arq_veiculos, "%[^;]", cor);
+        fscanf(arq_veiculos, "%[^;]", veiculo.cor);
         fgetc(arq_veiculos);
-        fscanf(arq_veiculos, "%[^;]", n_estaci);
+        fscanf(arq_veiculos, "%[^;]", veiculo.n_estaci);
         fgetc(arq_veiculos);
-        fscanf(arq_veiculos, "%[^\n]", cpf);
+        fscanf(arq_veiculos, "%[^\n]", veiculo.cpf);
         fgetc(arq_veiculos);
-        if (strcmp(placa, placa_lida) == 0) {
+        if (strcmp(veiculo.placa, veiculo.placa_lida) == 0) {
             printf("<<<Veículo encontrado>>>");
             printf("\n");
-            printf("Placa: %s\n", placa);
-            printf("Tipo: %s\n", tipo);
-            printf("Modelo: %s\n", model);
-            printf("Cor: %s\n", cor);
-            printf("Nº do Estacionamento: %s\n", n_estaci);
-            printf("CPF: %s\n", cpf);
+            printf("Placa: %s\n", veiculo.placa);
+            printf("Tipo: %s\n", veiculo.tipo);
+            printf("Modelo: %s\n", veiculo.model);
+            printf("Cor: %s\n", veiculo.cor);
+            printf("Nº do Estacionamento: %s\n", veiculo.n_estaci);
+            printf("CPF: %s\n", veiculo.cpf);
             printf("\t >>Tecle <ENTER> para continuar...\n");
             getchar();
             fclose(arq_veiculos);
@@ -196,7 +187,7 @@ void exib_veiculo(void) {
         }
     }
 
-    printf("O veículo com a seguinte placa foi exibido: %s\n", placa);
+    printf("O veículo com a seguinte placa foi exibido: %s\n", veiculo.placa);
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
     getchar();
@@ -208,13 +199,7 @@ void alterar_veiculo(void) {
 
     FILE *arq_veiculos;
     FILE *arq_veiculos_temp;
-    char placa[12];
-    char placa_lida[12];
-    char tipo[10];
-    char model[20];
-    char cor [15];
-    char n_estaci[8];
-    char cpf[15];
+    Veiculos veiculo;
 
     printf("\n");
     printf("=====================================================================================\n");
@@ -230,7 +215,7 @@ void alterar_veiculo(void) {
     printf(" -Digite os novos dados do veículo-");
     printf("\n");
     printf(" >>Digite a placa do veículo a ser alterado: \n");
-    scanf("%s", placa_lida);
+    scanf("%s", veiculo.placa_lida);
     getchar();
     printf("\n");
 
@@ -243,35 +228,35 @@ void alterar_veiculo(void) {
         return;
     }
 
-    while (fscanf(arq_veiculos, "%[^;];%[^;];%[^;];%[^;];%[^;];%[^\n]\n", placa, tipo, model, cor, n_estaci, cpf) == 6) {
+    while (fscanf(arq_veiculos, "%[^;];%[^;];%[^;];%[^;];%[^;];%[^\n]\n", veiculo.placa, veiculo.tipo, veiculo.model, veiculo.cor, veiculo.n_estaci, veiculo.cpf) == 6) {
 
-        if (strcmp(placa, placa_lida) != 0){
-            fprintf(arq_veiculos_temp, "%s;%s;%s;%s;%s;%s\n", placa, tipo, model, cor, n_estaci, cpf);
+        if (strcmp(veiculo.placa, veiculo.placa_lida) != 0){
+            fprintf(arq_veiculos_temp, "%s;%s;%s;%s;%s;%s\n", veiculo.placa, veiculo.tipo, veiculo.model, veiculo.cor, veiculo.n_estaci, veiculo.cpf);
         }
         else {
             printf("\n");
             printf(" >>Tipo de Veículo (Carro/Moto): ");
-            scanf("%s", tipo);
+            scanf("%s", veiculo.tipo);
             getchar();
             printf("\n");
             printf(" >>Modelo do veículo: ");
-            scanf("%s", model);
+            scanf("%s", veiculo.model);
             getchar();
             printf("\n");
             printf(" >>Cor do Veículo: ");
-            scanf("%s", cor);
+            scanf("%s", veiculo.cor);
             getchar();
             printf("\n");
             printf(" >>Nº do estacionamento: ");
-            scanf("%s", n_estaci);
+            scanf("%s", veiculo.n_estaci);
             getchar();
             printf("\n");
             printf(" >>CPF do Dono do Veículo: ");
-            scanf("%s", cpf);
+            scanf("%s", veiculo.cpf);
             getchar();
             printf("\n");
 
-            fprintf(arq_veiculos_temp, "%s;%s;%s;%s;%s;%s\n", placa_lida, tipo, model, cor, n_estaci, cpf);
+            fprintf(arq_veiculos_temp, "%s;%s;%s;%s;%s;%s\n", veiculo.placa_lida, veiculo.tipo, veiculo.model, veiculo.cor, veiculo.n_estaci, veiculo.cpf);
         }
     }
 
@@ -292,13 +277,7 @@ void exclu_veiculo(void) {
 
     FILE *arq_veiculos;
     FILE *arq_veiculos_temp;
-    char placa[12];
-    char placa_lida[12];
-    char tipo[10];
-    char model[20];
-    char cor [15];
-    char n_estaci[8];
-    char cpf[15];
+    Veiculos veiculo;
 
     printf("\n");
     printf("======================================================================================\n");
@@ -312,7 +291,7 @@ void exclu_veiculo(void) {
     printf("======================================================================================\n");
     printf("\n");
     printf(" >>Digite a placa do veículo a ser excluido: ");
-    scanf("%s", placa_lida);
+    scanf("%s", veiculo.placa_lida);
     getchar();
     printf("\n");
 
@@ -325,10 +304,10 @@ void exclu_veiculo(void) {
         return;
     }
 
-    while (fscanf(arq_veiculos, "%[^;];%[^;];%[^;];%[^;];%[^;];%[^\n]\n", placa, tipo, model, cor, n_estaci, cpf) == 6) {
+    while (fscanf(arq_veiculos, "%[^;];%[^;];%[^;];%[^;];%[^;];%[^\n]\n", veiculo.placa, veiculo.tipo, veiculo.model, veiculo.cor, veiculo.n_estaci, veiculo.cpf) == 6) {
 
-        if (strcmp(placa, placa_lida) != 0){
-            fprintf(arq_veiculos_temp, "%s;%s;%s;%s;%s;%s\n", placa, tipo, model, cor, n_estaci, cpf);
+        if (strcmp(veiculo.placa, veiculo.placa_lida) != 0){
+            fprintf(arq_veiculos_temp, "%s;%s;%s;%s;%s;%s\n", veiculo.placa, veiculo.tipo, veiculo.model, veiculo.cor, veiculo.n_estaci, veiculo.cpf);
         }
     }
 
@@ -338,7 +317,7 @@ void exclu_veiculo(void) {
     remove("veiculos.csv");
     rename("veiculos_temp.csv", "veiculos.csv");
 
-    printf("Veículo com placa %s excluído com sucesso!\n", placa_lida);
+    printf("Veículo com placa %s excluído com sucesso!\n", veiculo.placa_lida);
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
     getchar();
