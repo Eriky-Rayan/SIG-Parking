@@ -4,6 +4,8 @@
 #include <string.h>
 #include "dono_veiculo.h"
 
+typedef struct dono_veiculo DV;
+
 //=====================================
 //= Funções do Módulo Dono de Veículo =
 //=====================================
