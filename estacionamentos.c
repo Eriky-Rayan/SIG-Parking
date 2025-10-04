@@ -4,6 +4,8 @@
 #include <string.h>
 #include "estacionamentos.h"
 
+typedef struct estacionamentos Estacionamentos;
+
 //=====================================
 //= Funções do Módulo Estacionamentos =
 //=====================================
