@@ -248,7 +248,9 @@ void alterar_dono_veiculo(void) {
 void exclu_dono_veiculo(void) {
     system("clear||cls");
 
-    char cpf[15];
+    FILE *arq_dono_veiculo;
+    FILE *arq_dono_veiculo_temp;
+    DV dono;
 
     printf("\n");
     printf("======================================================================================\n");
@@ -262,13 +264,36 @@ void exclu_dono_veiculo(void) {
     printf("======================================================================================\n");
     printf("\n");
     printf(" >>Digite o CPF do dono a ser excluido: ");
-    scanf("%s", cpf);
+    scanf("%s", dono.cpf_lido);
     getchar();
     printf("\n");
 
-    printf("Dono do veículo com CPF %s excluído com sucesso!\n", cpf);
+    arq_dono_veiculo = fopen("dono_veiculo.csv", "rt");
+    arq_dono_veiculo_temp = fopen("dono_veiculo_temp.csv", "wt");
+    if (arq_dono_veiculo == NULL) {
+        printf("\t Erro ao abrir o arquivo de dono_veiculo.\n");
+        printf("\t >>Tecle <ENTER> para continuar...\n");
+        getchar();
+        return;
+    }
+
+    while (fscanf(arq_dono_veiculo, "%[^;];%[^;];%[^;];%d\n", dono.cpf, dono.telefone, dono.nome, &dono.quantidade) == 4) {
+
+        if (strcmp(dono.cpf, dono.cpf_lido) != 0){
+            fprintf(arq_dono_veiculo_temp, "%s;%s;%s;%d\n", dono.cpf, dono.telefone, dono.nome, dono.quantidade);
+        }
+    }
+
+    fclose(arq_dono_veiculo);
+    fclose(arq_dono_veiculo_temp);
+
+    remove("dono_veiculo.csv");
+    rename("dono_veiculo_temp.csv", "dono_veiculo.csv");
+
+    printf("Dono do veículo com CPF %s excluído com sucesso!\n", dono.cpf);
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
     getchar();
     printf("\n");
 }
+
