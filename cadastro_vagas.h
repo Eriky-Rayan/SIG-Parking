@@ -8,3 +8,12 @@ void add_cadastro_vagas(void);
 void exib_cadastro_vagas(void);
 void alterar_cadastro_vagas(void);
 void exclu_cadastro_vagas(void);
+
+struct cadastro_vagas
+{
+    int qtd_vagas;
+    int num_andar;
+    int num_andar_lido;
+};
+
+typedef struct cadastro_vagas CV;
