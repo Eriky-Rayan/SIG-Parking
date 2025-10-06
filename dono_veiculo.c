@@ -290,7 +290,7 @@ void exclu_dono_veiculo(void) {
     remove("dono_veiculo.csv");
     rename("dono_veiculo_temp.csv", "dono_veiculo.csv");
 
-    printf("Dono do veículo com CPF %s excluído com sucesso!\n", dono.cpf);
+    printf("Dono do veículo com CPF %s excluído com sucesso!\n", dono.cpf_lido);
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
     getchar();
