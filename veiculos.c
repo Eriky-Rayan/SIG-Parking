@@ -68,7 +68,7 @@ void add_veiculos(void) {
     system("clear||cls");
 
     FILE *arq_veiculos;
-    Veiculos veiculo;
+    Veiculos* veiculo;
 
     printf("\n");
     printf("=======================================================================================\n");
@@ -81,52 +81,56 @@ void add_veiculos(void) {
     printf("||                                                                                   ||\n");
     printf("=======================================================================================\n");
     printf("\n");
+    veiculo = (Veiculos*)malloc(sizeof(Veiculos));
     printf(" >>Digite a placa do veículo a ser cadastrado: ");
-    scanf("%s", veiculo.placa);
+    scanf("%s", veiculo->placa);
     getchar();
     printf("\n");
     printf(" >>Tipo de Veículo (Carro/Moto): ");
-    scanf("%s", veiculo.tipo);
+    scanf("%s", veiculo->tipo);
     getchar();
     printf("\n");
     printf(" >>Modelo do veículo: ");
-    scanf("%s", veiculo.model);
+    scanf("%s", veiculo->model);
     getchar();
     printf("\n");
     printf(" >>Cor do Veículo: ");
-    scanf("%s", veiculo.cor);
+    scanf("%s", veiculo->cor);
     getchar();
     printf("\n");
     printf(" >>Nº do estacionamento: ");
-    scanf("%s", veiculo.n_estaci);
+    scanf("%s", veiculo->n_estaci);
     getchar();
     printf("\n");
     printf(" >>CPF do Dono do Veículo: ");
-    scanf("%s", veiculo.cpf);
+    scanf("%s", veiculo->cpf);
     getchar();
     printf("\n");
 
-    arq_veiculos = fopen("veiculos.csv", "at");
+    veiculo->status = True;
+    arq_veiculos = fopen("veiculos.dat", "ab");
     if (arq_veiculos == NULL) {
         printf("\t Erro ao abrir o arquivo de veículos.\n");
         printf("\t >>Tecle <ENTER> para continuar...\n");
         getchar();
         return;
     }
-    fprintf(arq_veiculos, "%s;%s;%s;%s;%s;%s\n", veiculo.placa, veiculo.tipo, veiculo.model, veiculo.cor, veiculo.n_estaci, veiculo.cpf);
+    fwrite(veiculos, sizeof(Veiculos), 1, arq_veiculos);
     fclose(arq_veiculos);
 
     printf("Veículo cadastrado com sucesso!\n");
-    printf("\nPlaca: %s", veiculo.placa);
-    printf("\nTipo: %s", veiculo.tipo);
-    printf("\nModelo: %s", veiculo.model);
-    printf("\nCor: %s", veiculo.cor);
-    printf("\nNº do estacionamento: %s", veiculo.n_estaci);
-    printf("\nCPF: %s", veiculo.cpf);
+    printf("\nPlaca: %s", veiculo->placa);
+    printf("\nTipo: %s", veiculo->tipo);
+    printf("\nModelo: %s", veiculo->model);
+    printf("\nCor: %s", veiculo->cor);
+    printf("\nNº do estacionamento: %s", veiculo->n_estaci);
+    printf("\nCPF: %s", veiculo->cpf);
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
     getchar();
     printf("\n");
+
+    free(veiculo);
 }
 
 void exib_veiculo(void) {
