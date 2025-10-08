@@ -12,6 +12,8 @@
 *.elf
 *.txt
 *.csv
+*.dat
+*
 
 # Linker output
 *.ilk

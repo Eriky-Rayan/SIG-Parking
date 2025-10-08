@@ -1,4 +1,5 @@
-
+#define True 1;
+#define False 0;
 //Assinatura das Funções
 //Function Signature
 
@@ -17,6 +18,7 @@ struct veiculos {
     char cor [15];
     char n_estaci[8];
     char cpf[15];
+    char status;
 };
 
 typedef struct veiculos Veiculos;
