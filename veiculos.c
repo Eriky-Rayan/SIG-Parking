@@ -280,8 +280,8 @@ void exclu_veiculo(void) {
     system("clear||cls");
 
     FILE *arq_veiculos;
-    FILE *arq_veiculos_temp;
-    Veiculos veiculo;
+    Veiculos* veiculo;
+    char encontrado;
 
     printf("\n");
     printf("======================================================================================\n");
@@ -294,13 +294,14 @@ void exclu_veiculo(void) {
     printf("||                                                                                  ||\n");
     printf("======================================================================================\n");
     printf("\n");
+    veiculo = (Veiculos*)malloc(sizeof(Veiculos));
     printf(" >>Digite a placa do veículo a ser excluido: ");
-    scanf("%s", veiculo.placa_lida);
+    scanf("%s", veiculo->placa_lida);
     getchar();
+    encontrado = False;
     printf("\n");
 
-    arq_veiculos = fopen("veiculos.csv", "rt");
-    arq_veiculos_temp = fopen("veiculos_temp.csv", "wt");
+    arq_veiculos = fopen("veiculos.dat", "r+b");
     if (arq_veiculos == NULL) {
         printf("\t Erro ao abrir o arquivo de veículos. \n");
         printf("\t >>Tecle <ENTER> para continuar...\n");
@@ -308,22 +309,26 @@ void exclu_veiculo(void) {
         return;
     }
 
-    while (fscanf(arq_veiculos, "%[^;];%[^;];%[^;];%[^;];%[^;];%[^\n]\n", veiculo.placa, veiculo.tipo, veiculo.model, veiculo.cor, veiculo.n_estaci, veiculo.cpf) == 6) {
+    while (fread(veiculo, sizeof(Veiculos), 1, arq_veiculos) && (!encontrado)) {
 
-        if (strcmp(veiculo.placa, veiculo.placa_lida) != 0){
-            fprintf(arq_veiculos_temp, "%s;%s;%s;%s;%s;%s\n", veiculo.placa, veiculo.tipo, veiculo.model, veiculo.cor, veiculo.n_estaci, veiculo.cpf);
+        if (strcmp(veiculo->placa, veiculo->placa_lida) == 0){
+            veiculo->status = False;
+            encontrado = True;
+            fseek(arq_veiculos, (-1)*sizeof(Veiculos), SEEK_CUR);
+            fwrite(veiculo, sizeof(Veiculos), 1, arq_veiculos);
         }
     }
 
     fclose(arq_veiculos);
-    fclose(arq_veiculos_temp);
 
-    remove("veiculos.csv");
-    rename("veiculos_temp.csv", "veiculos.csv");
-
-    printf("Veículo com placa %s excluído com sucesso!\n", veiculo.placa_lida);
+    printf("Veículo com placa %s excluído com sucesso!\n", veiculo->placa_lida);
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
     getchar();
     printf("\n");
+
+    free(veiculo);
+    if (!encontrado) {
+        printf("Item não encontrado! \n");
+    }
 }
