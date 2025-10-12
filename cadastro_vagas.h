@@ -1,4 +1,5 @@
-
+#define True 1;
+#define False 0;
 //Assinatura das Funções
 //Function Signature
 
@@ -14,6 +15,7 @@ struct cadastro_vagas
     int qtd_vagas;
     int num_andar;
     int num_andar_lido;
+    char status;
 };
 
 typedef struct cadastro_vagas CV;
