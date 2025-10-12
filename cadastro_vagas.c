@@ -115,7 +115,8 @@ void exib_cadastro_vagas(void) {
     system("clear||cls");
 
     FILE *arq_cadastro_vagas;
-    CV vagas;
+    CV *vagas;
+    int num_andar_lido;
 
     printf("\n");
     printf("=====================================================================================\n");
@@ -128,12 +129,13 @@ void exib_cadastro_vagas(void) {
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("\n");
+    vagas = (CV*)malloc(sizeof(CV));
     printf(" >>Digite o número do andar: ");
-    scanf("%d", &vagas.num_andar_lido);
+    scanf("%d", &num_andar_lido);
     getchar();
     printf("\n");
 
-    arq_cadastro_vagas = fopen("cadastro_vagas.csv", "rt");
+    arq_cadastro_vagas = fopen("cadastro_vagas.dat", "rb");
     if (arq_cadastro_vagas == NULL) {
         printf("\t Erro ao abrir o arquivo de cadastro das vagas.\n");
         printf("\t >>Tecle <ENTER> para continuar...\n");
@@ -141,26 +143,25 @@ void exib_cadastro_vagas(void) {
         return;
     }
     while (!feof(arq_cadastro_vagas )) {
-        fscanf(arq_cadastro_vagas , "%d", &vagas.num_andar);
-        fgetc(arq_cadastro_vagas );
-        fscanf(arq_cadastro_vagas , "%d", &vagas.qtd_vagas);
-        fgetc(arq_cadastro_vagas );
-        if (vagas.num_andar == vagas.num_andar_lido) {
+        fread(vagas, sizeof(CV), 1, arq_cadastro_vagas);
+        if (vagas->num_andar == num_andar_lido) {
             printf("<<<Vaga encontrada>>");
             printf("\n");
-            printf("Número do andar: %d\n", vagas.num_andar);
-            printf("Quantidade de vagas: %d\n", vagas.qtd_vagas);
+            printf("Número do andar: %d\n", vagas->num_andar);
+            printf("Quantidade de vagas: %d\n", vagas->qtd_vagas);
             printf("\t >>Tecle <ENTER> para continuar...\n");
             getchar();
-            fclose(arq_cadastro_vagas);
             return;
         }
     }
-    printf("A quantidade de vagas do seguinte andar foi exibida: %d\n", vagas.num_andar);
+    printf("A quantidade de vagas do seguinte andar foi exibida: %d\n", num_andar_lido);
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
     getchar();
     printf("\n");
+
+    fclose(arq_cadastro_vagas);
+    free(vagas);
 }
 
 void alterar_cadastro_vagas(void) {
