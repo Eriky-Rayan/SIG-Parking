@@ -1,4 +1,5 @@
-
+#define True 1;
+#define False 0;
 //Assinatura das Funções
 //Function Signature
 
@@ -16,6 +17,7 @@ struct dono_veiculo
     char telefone[20];
     char nome[50];
     int quantidade;
+    char status;
 };
 
 typedef struct dono_veiculo DV;
