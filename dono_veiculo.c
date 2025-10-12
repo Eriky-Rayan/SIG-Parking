@@ -129,7 +129,8 @@ void exib_dono_veiculo(void) {
     system("clear||cls");
 
     FILE *arq_dono_veiculo;
-    DV dono;
+    DV *dono;
+    char cpf_lido[12];
 
     printf("\n");
     printf("====================================================================================\n");
@@ -142,12 +143,13 @@ void exib_dono_veiculo(void) {
     printf("||                                                                                ||\n");
     printf("====================================================================================\n");
     printf("\n");
+    dono = (DV*)malloc(sizeof(DV));
     printf(" >>Digite o CPF do dono a ser exibido: ");
-    scanf("%s", dono.cpf_lido);
+    scanf("%s", cpf_lido);
     getchar();
     printf("\n");
 
-    arq_dono_veiculo = fopen("dono_veiculo.csv", "rt");
+    arq_dono_veiculo = fopen("dono_veiculo.dat", "rb");
     if (arq_dono_veiculo == NULL) {
         printf("\t Erro ao abrir o arquivo de dono_veiculo.\n");
         printf("\t >>Tecle <ENTER> para continuar...\n");
@@ -155,33 +157,28 @@ void exib_dono_veiculo(void) {
         return;
     }
     while (!feof(arq_dono_veiculo)) {
-        fscanf(arq_dono_veiculo, "%[^;]", dono.cpf);
-        fgetc(arq_dono_veiculo);
-        fscanf(arq_dono_veiculo, "%[^;]", dono.telefone);
-        fgetc(arq_dono_veiculo);
-        fscanf(arq_dono_veiculo, "%[^;]", dono.nome);
-        fgetc(arq_dono_veiculo);
-        fscanf(arq_dono_veiculo, "%d", &dono.quantidade);
-        fgetc(arq_dono_veiculo);
-        if (strcmp(dono.cpf, dono.cpf_lido) == 0) {
+        fread(dono, sizeof(DV), 1, arq_dono_veiculo);
+        if ((strcmp(dono->cpf, cpf_lido) == 0) && (dono->status)) {
             printf("<<<dono do veículo encontrado>>");
             printf("\n");
-            printf("CPF: %s\n", dono.cpf);
-            printf("Teledone: %s\n", dono.telefone);
-            printf("Nome: %s\n", dono.nome);
-            printf("Quantidade: %d\n", dono.quantidade);
+            printf("CPF: %s\n", dono->cpf);
+            printf("Teledone: %s\n", dono->telefone);
+            printf("Nome: %s\n", dono->nome);
+            printf("Quantidade: %d\n", dono->quantidade);
             printf("\t >>Tecle <ENTER> para continuar...\n");
             getchar();
-            fclose(arq_dono_veiculo);
             return;
         }
     }
 
-    printf("O dono com o seguinte cpf foi exibido: %s\n", dono.cpf);
+    printf("O dono com o seguinte cpf foi exibido: %s\n", cpf_lido);
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
     getchar();
     printf("\n");
+
+    fclose(arq_dono_veiculo);
+    free(dono);
 }
 
 void alterar_dono_veiculo(void) {
