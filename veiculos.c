@@ -139,6 +139,7 @@ void exib_veiculo(void) {
     FILE *arq_veiculos;
     Veiculos* veiculo;
     char placa_lida [12];
+    int encontrado = 0;
 
     printf("\n");
     printf("=====================================================================================\n");
@@ -166,6 +167,7 @@ void exib_veiculo(void) {
     }
     while (fread(veiculo, sizeof(Veiculos), 1, arq_veiculos)) {
         if ((strcmp(veiculo->placa, placa_lida) == 0) && (veiculo->status)) {
+            encontrado = 1;
             printf("<<<Veículo encontrado>>>");
             printf("\n");
             printf("Placa: %s\n", veiculo->placa);
@@ -180,14 +182,19 @@ void exib_veiculo(void) {
         }
     }
 
-    printf("O veículo com a seguinte placa foi exibido: %s\n", placa_lida);
+    fclose(arq_veiculos);
+    free(veiculo);
+
+    if (encontrado) {
+        printf("O veículo com a seguinte placa foi exibido: %s\n", placa_lida);
+    }
+    else{
+        printf("Placa não encontrada!\n");
+    }
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
     getchar();
     printf("\n");
-
-    fclose(arq_veiculos);
-    free(veiculo);
 }
 
 void alterar_veiculo(void) {
