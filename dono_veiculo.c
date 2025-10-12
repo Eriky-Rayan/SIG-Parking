@@ -73,7 +73,7 @@ void add_dono_veiculo(void) {
     printf("\n");
     printf("====================================================================================\n");
     printf("||                                                                                ||\n");
-    printf("||                                   -SIG-Parking-                                ||\n    ");
+    printf("||                                   -SIG-Parking-                                ||\n");
     printf("||                                                                                ||\n");
     printf("====================================================================================\n");
     printf("||                                                                                ||\n");
@@ -185,8 +185,9 @@ void alterar_dono_veiculo(void) {
     system("clear||cls");
 
     FILE *arq_dono_veiculo;
-    FILE *arq_dono_veiculo_temp;
-    DV dono;
+    DV *dono;
+    char cpf_lido[12];
+    int encontrado = 0;
 
     printf("\n");
     printf("======================================================================================\n");
@@ -199,15 +200,15 @@ void alterar_dono_veiculo(void) {
     printf("||                                                                                  ||\n");
     printf("======================================================================================\n");
     printf("\n");
+    dono = (DV*) malloc(sizeof(DV));
     printf(" -Digite os novos dados do dono do veículo-");
     printf("\n");
     printf(" >>Digite o CPF do dono do veículo a ser alterado: ");
-    scanf("%s", dono.cpf_lido);
+    scanf("%s", cpf_lido);
     getchar();
     printf("\n");
 
-    arq_dono_veiculo = fopen("dono_veiculo.csv", "rt");
-    arq_dono_veiculo_temp = fopen("dono_veiculo_temp.csv", "wt");
+    arq_dono_veiculo = fopen("dono_veiculo.dat", "r+b");
     if (arq_dono_veiculo == NULL) {
         printf("\t Erro ao abrir o arquivo de dono_veiculo.\n");
         printf("\t >>Tecle <ENTER> para continuar...\n");
@@ -215,35 +216,35 @@ void alterar_dono_veiculo(void) {
         return;
     }
 
-    while (fscanf(arq_dono_veiculo, "%[^;];%[^;];%[^;];%d\n", dono.cpf, dono.telefone, dono.nome, &dono.quantidade) == 4){
-
-        if (strcmp(dono.cpf, dono.cpf_lido) != 0){
-            fprintf(arq_dono_veiculo_temp, "%s;%s;%s;%d\n", dono.cpf, dono.telefone, dono.nome, dono.quantidade);
-        }
-        else {
+    while (fread(dono, sizeof(DV), 1, arq_dono_veiculo)) {
+        if ((strcmp(dono->cpf, cpf_lido) == 0) && (dono->status)) {
+            encontrado = 1;
             printf("\n>>Digite o telefone do dono: ");
-            scanf("%s", dono.telefone);
+            scanf(" %s", dono->telefone);
             getchar();
-
             printf(">>Digite o nome do dono: ");
-            scanf("%s", dono.nome); 
+            scanf("%s", dono->nome);
             getchar();
-
             printf(">>Digite a quantidade de veículos: ");
-            scanf("%d", &dono.quantidade);
+            scanf("%d", &dono->quantidade);
             getchar();
 
-            fprintf(arq_dono_veiculo_temp, "%s;%s;%s;%d\n", dono.cpf, dono.telefone, dono.nome, dono.quantidade);
-        }      
+            fseek(arq_dono_veiculo, (-1)*sizeof(DV), SEEK_CUR);
+            fwrite(dono, sizeof(DV), 1, arq_dono_veiculo);
+            return;
+        }
     }
 
     fclose(arq_dono_veiculo);
-    fclose(arq_dono_veiculo_temp);
+    free(dono);
 
-    remove("dono_veiculo.csv");
-    rename("dono_veiculo_temp.csv", "dono_veiculo.csv");
+    if (encontrado) {
+        printf("\nDados do dono do veículo alterados com sucesso!\n");
+    }
+    else{
+        printf("\nCPF não encontrado!\n");
+    }
 
-    printf("Dados do dono do veículo alterados com sucesso!\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
     getchar();
     printf("\n");
