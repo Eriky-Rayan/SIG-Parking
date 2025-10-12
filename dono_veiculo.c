@@ -68,12 +68,12 @@ void add_dono_veiculo(void) {
     system("clear||cls");
 
     FILE *arq_dono_veiculo;
-    DV dono;
+    DV* dono;
 
     printf("\n");
     printf("====================================================================================\n");
     printf("||                                                                                ||\n");
-    printf("||                                   -SIG-Parking-                                ||\n");
+    printf("||                                   -SIG-Parking-                                ||\n    ");
     printf("||                                                                                ||\n");
     printf("====================================================================================\n");
     printf("||                                                                                ||\n");
@@ -81,41 +81,48 @@ void add_dono_veiculo(void) {
     printf("||                                                                                ||\n");
     printf("====================================================================================\n");
     printf("\n");
+    dono = (DV*)malloc(sizeof(DV));
     printf(" >>Digite o CPF do dono do veículo a ser cadastrado:  ");
-    scanf("%s", dono.cpf);
+    scanf("%s", dono->cpf);
     getchar();
     printf("\n");
     printf(" >>Telefone do dono: ");
-    scanf("%s", dono.telefone);
+    scanf("%s", dono->telefone);
     getchar();
     printf("\n");
     printf(" >>Nome do dono: ");
-    scanf("%s", dono.nome);
+    scanf("%s", dono->nome);
     getchar();
     printf("\n");
     printf(" >>Quantidade de veículos: ");
-    scanf("%d", &dono.quantidade);
+    scanf("%d", &dono->quantidade);
     getchar();
     printf("\n");
 
-    arq_dono_veiculo = fopen("dono_veiculo.csv", "at");
+    dono->status = True;
+    arq_dono_veiculo = fopen("dono_veiculo.dat", "ab");
     if (arq_dono_veiculo == NULL) {
         printf("\t Erro ao abrir o arquivo dos donos dos veículos.\n");
         printf("\t >>Tecle <ENTER> para continuar...\n");
+        free(dono);
+        getchar();
         return;
     }
-    fprintf(arq_dono_veiculo, "%s;%s;%s;%d\n", dono.cpf, dono.telefone, dono.nome, dono.quantidade);
+
+    fwrite(dono, sizeof(DV), 1, arq_dono_veiculo);
     fclose(arq_dono_veiculo);
 
     printf("\nDono do veículo cadastrado com sucesso!\n");
-    printf("\nCPF: %s", dono.cpf);
-    printf("\nTelefone: %s", dono.telefone);
-    printf("\nNome: %s", dono.nome);
-    printf("\nQuantidade de veículos: %d\n", dono.quantidade);
+    printf("\nCPF: %s", dono->cpf);
+    printf("\nTelefone: %s", dono->telefone);
+    printf("\nNome: %s", dono->nome);
+    printf("\nQuantidade de veículos: %d\n", dono->quantidade);
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
     getchar();
     printf("\n");
+
+    free(dono);
 }
 
 void exib_dono_veiculo(void) {
