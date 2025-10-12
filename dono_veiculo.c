@@ -131,6 +131,7 @@ void exib_dono_veiculo(void) {
     FILE *arq_dono_veiculo;
     DV *dono;
     char cpf_lido[12];
+    int encontrado = 0;
 
     printf("\n");
     printf("====================================================================================\n");
@@ -156,9 +157,9 @@ void exib_dono_veiculo(void) {
         getchar();
         return;
     }
-    while (!feof(arq_dono_veiculo)) {
-        fread(dono, sizeof(DV), 1, arq_dono_veiculo);
+    while (fread(dono, sizeof(DV), 1, arq_dono_veiculo)) {
         if ((strcmp(dono->cpf, cpf_lido) == 0) && (dono->status)) {
+            encontrado = 1;
             printf("<<<dono do veículo encontrado>>");
             printf("\n");
             printf("CPF: %s\n", dono->cpf);
@@ -167,18 +168,23 @@ void exib_dono_veiculo(void) {
             printf("Quantidade: %d\n", dono->quantidade);
             printf("\t >>Tecle <ENTER> para continuar...\n");
             getchar();
-            return;
+            break;;
         }
     }
 
-    printf("O dono com o seguinte cpf foi exibido: %s\n", cpf_lido);
+    fclose(arq_dono_veiculo);
+    free(dono);
+
+    if (encontrado) {
+        printf("O dono com o seguinte cpf foi exibido: %s\n", cpf_lido);
+    }
+    else{
+        printf("\nCPF não encontrado!\n");
+    }
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
     getchar();
     printf("\n");
-
-    fclose(arq_dono_veiculo);
-    free(dono);
 }
 
 void alterar_dono_veiculo(void) {
