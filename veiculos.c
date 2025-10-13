@@ -283,7 +283,7 @@ void exclu_veiculo(void) {
     FILE *arq_veiculos;
     Veiculos* veiculo;
     char placa_lida [12];
-    char encontrado;
+    int encontrado = 0;
 
     printf("\n");
     printf("======================================================================================\n");
@@ -300,7 +300,6 @@ void exclu_veiculo(void) {
     printf(" >>Digite a placa do veículo a ser excluido: ");
     scanf("%s", placa_lida);
     getchar();
-    encontrado = False;
     printf("\n");
 
     arq_veiculos = fopen("veiculos.dat", "r+b");
@@ -311,26 +310,27 @@ void exclu_veiculo(void) {
         return;
     }
 
-    while (fread(veiculo, sizeof(Veiculos), 1, arq_veiculos) && (!encontrado)) {
-
-        if (strcmp(veiculo->placa, placa_lida) == 0){
+    while (fread(veiculo, sizeof(Veiculos), 1, arq_veiculos)) {
+        if ((strcmp(veiculo->placa, placa_lida) == 0) && (veiculo->status)) {
             veiculo->status = False;
-            encontrado = True;
+            encontrado = 1;
             fseek(arq_veiculos, (-1)*sizeof(Veiculos), SEEK_CUR);
             fwrite(veiculo, sizeof(Veiculos), 1, arq_veiculos);
+            break;
         }
     }
 
     fclose(arq_veiculos);
+    free(veiculo);
 
-    printf("Veículo com placa %s excluído com sucesso!\n", placa_lida);
+    if (encontrado) {
+        printf("Veículo com placa %s excluído com sucesso!\n", placa_lida);
+    } else {
+        printf("Placa não encontrada!\n");
+    }
+    
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
     getchar();
     printf("\n");
-
-    free(veiculo);
-    if (!encontrado) {
-        printf("Item não encontrado! \n");
-    }
 }
