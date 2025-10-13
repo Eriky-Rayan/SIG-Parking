@@ -68,7 +68,7 @@ void add_dono_veiculo(void) {
     system("clear||cls");
 
     FILE *arq_dono_veiculo;
-    DV* dono;
+    DV *dono;
 
     printf("\n");
     printf("====================================================================================\n");
@@ -205,7 +205,7 @@ void alterar_dono_veiculo(void) {
     printf("||                                                                                  ||\n");
     printf("======================================================================================\n");
     printf("\n");
-    dono = (DV*) malloc(sizeof(DV));
+    dono = (DV*)malloc(sizeof(DV));
     printf(" -Digite os novos dados do dono do veículo-");
     printf("\n");
     printf(" >>Digite o CPF do dono do veículo a ser alterado: ");

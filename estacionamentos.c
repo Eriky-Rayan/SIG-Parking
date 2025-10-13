@@ -81,7 +81,7 @@ void add_estacionamentos(void) {
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("\n");
-    estacionamento = (Estacionamentos *) malloc(sizeof(Estacionamentos));
+    estacionamento = (Estacionamentos*) malloc(sizeof(Estacionamentos));
     printf(" >>Digite o Nº da vaga onde o veículo será cadastrado: ");
     scanf("%s", estacionamento->n_estaci);
     getchar();
@@ -96,7 +96,6 @@ void add_estacionamentos(void) {
     if (arq_estacionamentos == NULL) {
         printf("\t Erro ao abrir o arquivo de estacionamentos.\n");
         printf("\t >>Tecle <ENTER> para continuar...\n");
-        free(estacionamento);
         getchar();
         return;
     }
@@ -134,7 +133,7 @@ void exib_estacionamentos(void) {
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("\n");
-    estacionamento = (Estacionamentos *) malloc(sizeof(Estacionamentos));
+    estacionamento = (Estacionamentos*)malloc(sizeof(Estacionamentos));
     printf(" >>Digite Nº da vaga que deseja ver: ");
     scanf("%s", n_estaci_lida);
     getchar();
@@ -156,7 +155,7 @@ void exib_estacionamentos(void) {
             printf("placa: %s\n", estacionamento->placa);
             printf("\t >>Tecle <ENTER> para continuar...\n");
             getchar();
-            break;;
+            return;
         }
     }
 
@@ -164,7 +163,7 @@ void exib_estacionamentos(void) {
     free(estacionamento);
 
     if (encontrado) {
-        printf("O veículo na seguinte vaga foi exibido: %s\n", estacionamento->n_estaci);
+        printf("O veículo na seguinte vaga foi exibido: %s\n", n_estaci_lida);
     }
     else {
         printf("Nº da vaga não encontrado!\n");
@@ -179,7 +178,7 @@ void alterar_estacionamentos(void) {
     system("clear||cls");
 
     FILE *arq_estacionamentos;
-    Estacionamentos*estacionamento;
+    Estacionamentos *estacionamento;
     char n_estaci_lida[8];
     int encontrado = 0;
 
@@ -194,7 +193,7 @@ void alterar_estacionamentos(void) {
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("\n");
-    estacionamento = (Estacionamentos*) malloc(sizeof(Estacionamentos));
+    estacionamento = (Estacionamentos*)malloc(sizeof(Estacionamentos));
     printf(" -Digite os novos dados do estacionamento-");
     printf("\n");
     printf(" >>Digite o Nº da vaga que deseja alterar: ");
@@ -220,11 +219,9 @@ void alterar_estacionamentos(void) {
             printf(" >>Digite a placa do veículo: ");
             scanf("%s", estacionamento->placa);
             getchar();
-            printf("\n");
 
             fseek(arq_estacionamentos, (-1)*sizeof(Estacionamentos), SEEK_CUR);
             fwrite(estacionamento, sizeof(Estacionamentos), 1, arq_estacionamentos);
-            break;
         }
     }
 
@@ -262,13 +259,13 @@ void exclu_estacionamentos(void) {
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("\n");
-    estacionamento = (Estacionamentos *) malloc(sizeof(Estacionamentos));
+    estacionamento = (Estacionamentos*)malloc(sizeof(Estacionamentos));
     printf(" >>Digite o Nº da vaga que deseja excluir: ");
     scanf("%s", n_estaci_lida);
     getchar();
     printf("\n");
     
-    arq_estacionamentos = fopen("estacionamentos.csv", "r+b");
+    arq_estacionamentos = fopen("estacionamentos.dat", "r+b");
     if (arq_estacionamentos == NULL) {
         printf("\t Erro ao abrir o arquivo de veículos.\n");
         printf("\t >>tecle <ENTER> para continuar...\n");
@@ -282,7 +279,6 @@ void exclu_estacionamentos(void) {
             encontrado = 1;
             fseek(arq_estacionamentos, (-1)*sizeof(Estacionamentos), SEEK_CUR);
             fwrite(estacionamento, sizeof(Estacionamentos), 1, arq_estacionamentos);
-            break;
         }
     }
 
