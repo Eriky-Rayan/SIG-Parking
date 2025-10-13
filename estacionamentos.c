@@ -68,7 +68,7 @@ void add_estacionamentos(void) {
     system("clear||cls");
 
     FILE *arq_estacionamentos;
-    Estacionamentos estacionamento;
+    Estacionamentos *estacionamento;
 
     printf("\n");
     printf("=====================================================================================\n");
@@ -81,37 +81,45 @@ void add_estacionamentos(void) {
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("\n");
+    estacionamento = (Estacionamentos *) malloc(sizeof(Estacionamentos));
     printf(" >>Digite o Nº da vaga onde o veículo será cadastrado: ");
-    scanf("%s", estacionamento.n_estaci);
+    scanf("%s", estacionamento->n_estaci);
     getchar();
     printf("\n");
     printf(" >>Digite a placa do veículo: ");
-    scanf("%s", estacionamento.placa);
+    scanf("%s", estacionamento->placa);
     getchar();
     printf("\n");
 
-    arq_estacionamentos = fopen("estacionamentos.csv", "at");
+    estacionamento->status = True;
+    arq_estacionamentos = fopen("estacionamentos.dat", "ab");
     if (arq_estacionamentos == NULL) {
         printf("\t Erro ao abrir o arquivo de estacionamentos.\n");
         printf("\t >>Tecle <ENTER> para continuar...\n");
+        free(estacionamento);
+        getchar();
         return;
     }
-    fprintf(arq_estacionamentos, "%s;%s\n", estacionamento.n_estaci, estacionamento.placa);
+
+    fwrite(estacionamento, sizeof(Estacionamentos), 1, arq_estacionamentos);
     fclose(arq_estacionamentos);
 
     printf("Veículo cadastrado no estacionamento com sucesso!\n");
-    printf("\nNº do estacionamento: %s", estacionamento.n_estaci);
-    printf("\nPlaca: %s", estacionamento.placa);
+    printf("\nNº do estacionamento: %s", estacionamento->n_estaci);
+    printf("\nPlaca: %s", estacionamento->placa);
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
     getchar();
     printf("\n");
+
+    free(estacionamento);
 }
 
 void exib_estacionamentos(void) {
 
     FILE *arq_estacionamentos;
     Estacionamentos estacionamento;
+    char n_estaci_lida[8];
 
     printf("\n");
     printf("=====================================================================================\n");
@@ -125,7 +133,7 @@ void exib_estacionamentos(void) {
     printf("=====================================================================================\n");
     printf("\n");
     printf(" >>Digite Nº da vaga que deseja ver: ");
-    scanf("%s", estacionamento.n_estaci_lida);
+    scanf("%s", n_estaci_lida);
     getchar();
     printf("\n");
 
@@ -141,7 +149,7 @@ void exib_estacionamentos(void) {
         fgetc(arq_estacionamentos);
         fscanf(arq_estacionamentos, "%[^;]", estacionamento.placa);
         fgetc(arq_estacionamentos);
-        if (strcmp(estacionamento.n_estaci, estacionamento.n_estaci_lida) == 0) {
+        if (strcmp(estacionamento.n_estaci, n_estaci_lida) == 0) {
             printf("<<<estacionamento encontrado>>");
             printf("\n");
             printf("Nº do estacionamento: %s\n", estacionamento.n_estaci);
@@ -165,6 +173,7 @@ void alterar_estacionamentos(void) {
     FILE *arq_estacionamentos;
     FILE *arq_estacionamentos_temp;
     Estacionamentos estacionamento;
+    char n_estaci_lida[8];
 
     printf("\n");
     printf("=====================================================================================\n");
@@ -180,7 +189,7 @@ void alterar_estacionamentos(void) {
     printf(" -Digite os novos dados do estacionamento-");
     printf("\n");
     printf(" >>Digite o Nº da vaga que deseja alterar: ");
-    scanf("%s", estacionamento.n_estaci_lida);
+    scanf("%s", n_estaci_lida);
     getchar();
     printf("\n");
 
@@ -195,7 +204,7 @@ void alterar_estacionamentos(void) {
 
     while (fscanf(arq_estacionamentos, "%[^;];%[^\n]\n", estacionamento.n_estaci, estacionamento.placa) == 2){
 
-        if (strcmp(estacionamento.n_estaci, estacionamento.n_estaci_lida) != 0){
+        if (strcmp(estacionamento.n_estaci, n_estaci_lida) != 0){
             fprintf(arq_estacionamentos_temp, "%s;%s\n", estacionamento.n_estaci, estacionamento.placa);
         }
         else {
@@ -205,7 +214,7 @@ void alterar_estacionamentos(void) {
             getchar();
             printf("\n");
 
-            fprintf(arq_estacionamentos_temp, "%s;%s\n", estacionamento.n_estaci_lida, estacionamento.placa);
+            fprintf(arq_estacionamentos_temp, "%s;%s\n", n_estaci_lida, estacionamento.placa);
         }
     }
 
@@ -227,6 +236,7 @@ void exclu_estacionamentos(void) {
     FILE *arq_estacionamentos;
     FILE *arq_estacionamentos_temp;
     Estacionamentos estacionamento;
+    char n_estaci_lida[8];
 
     printf("\n");
     printf("=====================================================================================\n");
@@ -240,7 +250,7 @@ void exclu_estacionamentos(void) {
     printf("=====================================================================================\n");
     printf("\n");
     printf(" >>Digite o Nº da vaga que deseja excluir: ");
-    scanf("%s", estacionamento.n_estaci_lida);
+    scanf("%s", n_estaci_lida);
     getchar();
     printf("\n");
     
@@ -255,7 +265,7 @@ void exclu_estacionamentos(void) {
 
     while (fscanf(arq_estacionamentos, "%[^;];%[^\n]\n", estacionamento.n_estaci, estacionamento.placa) == 2){
 
-        if (strcmp(estacionamento.n_estaci, estacionamento.n_estaci_lida) != 0){
+        if (strcmp(estacionamento.n_estaci, n_estaci_lida) != 0){
             fprintf(arq_estacionamentos_temp, "%s;%s\n", estacionamento.n_estaci, estacionamento.placa);
         }
     }
@@ -266,7 +276,7 @@ void exclu_estacionamentos(void) {
     remove("estacionamentos.csv");
     rename("estacionamentos_temp.csv", "estacionamentos.csv");
 
-    printf("O veículo na vaga %s excluído com sucesso!\n", estacionamento.n_estaci_lida);
+    printf("O veículo na vaga %s excluído com sucesso!\n", n_estaci_lida);
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
     getchar();
