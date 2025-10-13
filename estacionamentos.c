@@ -179,21 +179,22 @@ void alterar_estacionamentos(void) {
     system("clear||cls");
 
     FILE *arq_estacionamentos;
-    FILE *arq_estacionamentos_temp;
-    Estacionamentos estacionamento;
+    Estacionamentos*estacionamento;
     char n_estaci_lida[8];
+    int encontrado = 0;
 
     printf("\n");
     printf("=====================================================================================\n");
     printf("||                                                                                 ||\n");
     printf("||                                  -SIG-Parking-                                  ||\n");
-    printf("||                                                                                 ||\n");
+    printf("||                                                                           ||\n");
     printf("=====================================================================================\n");
     printf("||                                                                                 ||\n");
     printf("||                -Módulo Estacionamentos -> Alterar Estacionamento-               ||\n");
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("\n");
+    estacionamento = (Estacionamentos*) malloc(sizeof(Estacionamentos));
     printf(" -Digite os novos dados do estacionamento-");
     printf("\n");
     printf(" >>Digite o Nº da vaga que deseja alterar: ");
@@ -201,8 +202,7 @@ void alterar_estacionamentos(void) {
     getchar();
     printf("\n");
 
-    arq_estacionamentos = fopen("estacionamentos.csv", "rt");
-    arq_estacionamentos_temp = fopen("estacionamentos_temp.csv", "wt");
+    arq_estacionamentos = fopen("estacionamentos.dat", "r+b");
     if (arq_estacionamentos == NULL) {
         printf("\t Erro ao abrir o arquivo de veículos.\n");
         printf("\t >>tecle <ENTER> para continuar...\n");
@@ -210,29 +210,34 @@ void alterar_estacionamentos(void) {
         return;
     }
 
-    while (fscanf(arq_estacionamentos, "%[^;];%[^\n]\n", estacionamento.n_estaci, estacionamento.placa) == 2){
-
-        if (strcmp(estacionamento.n_estaci, n_estaci_lida) != 0){
-            fprintf(arq_estacionamentos_temp, "%s;%s\n", estacionamento.n_estaci, estacionamento.placa);
-        }
-        else {
+    while (fread(estacionamento, sizeof(Estacionamentos), 1, arq_estacionamentos)){
+        if ((strcmp(estacionamento->n_estaci, n_estaci_lida) == 0) && (estacionamento->status)){
+            encontrado = 1;
+            printf("\n>>Digite o novo nº da vaga: ");
+            scanf("%s", estacionamento->n_estaci);
+            getchar();
             printf("\n");
             printf(" >>Digite a placa do veículo: ");
-            scanf("%s", estacionamento.placa);
+            scanf("%s", estacionamento->placa);
             getchar();
             printf("\n");
 
-            fprintf(arq_estacionamentos_temp, "%s;%s\n", n_estaci_lida, estacionamento.placa);
+            fseek(arq_estacionamentos, (-1)*sizeof(Estacionamentos), SEEK_CUR);
+            fwrite(estacionamento, sizeof(Estacionamentos), 1, arq_estacionamentos);
+            break;
         }
     }
 
     fclose(arq_estacionamentos);
-    fclose(arq_estacionamentos_temp);
+    free(estacionamento);
 
-    remove("estacionamentos.csv");
-    rename("estacionamentos_temp.csv", "estacionamentos.csv");
+    if (encontrado) {
+        printf("Vaga de estacionamento alterada com sucesso!\n");
+    }
+    else {
+        printf("Nº da vaga não encontrado!\n");
+    }
 
-    printf("Vaga de estacionamento alterada com sucesso!\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
     getchar();
     printf("\n");
