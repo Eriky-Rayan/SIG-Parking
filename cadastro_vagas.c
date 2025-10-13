@@ -199,7 +199,7 @@ void alterar_cadastro_vagas(void) {
     }
 
     while (fread(vagas, sizeof(CV), 1, arq_cadastro_vagas)) {
-        if ((strcmp(vagas->num_andar, num_andar_lido) == 0) && (vagas->status)) {
+        if ((vagas->num_andar == num_andar_lido) && (vagas->status)) {
             encontrado = 1;
             printf(" >>Digite a nova quantidade de vagas: ");
             scanf("%d", &vagas->qtd_vagas);
@@ -260,7 +260,7 @@ void exclu_cadastro_vagas(void) {
     }
 
     while (fread(vagas, sizeof(CV), 1, arq_cadastro_vagas)) {
-        if ((strcmp(vagas->num_andar, num_andar_lido) == 0) && (vagas->status)) {
+        if ((vagas->num_andar == num_andar_lido) && (vagas->status)) {
             vagas->status = False;
             encontrado = 1;
             fseek(arq_cadastro_vagas, (-1)*sizeof(CV), SEEK_CUR);

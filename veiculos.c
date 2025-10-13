@@ -68,7 +68,7 @@ void add_veiculos(void) {
     system("clear||cls");
 
     FILE *arq_veiculos;
-    Veiculos* veiculo;
+    Veiculos *veiculo;
 
     printf("\n");
     printf("=======================================================================================\n");
@@ -112,10 +112,12 @@ void add_veiculos(void) {
     if (arq_veiculos == NULL) {
         printf("\t Erro ao abrir o arquivo de veículos.\n");
         printf("\t >>Tecle <ENTER> para continuar...\n");
+        free(veiculo);
         getchar();
         return;
     }
-    fwrite(veiculos, sizeof(Veiculos), 1, arq_veiculos);
+
+    fwrite(veiculo, sizeof(Veiculos), 1, arq_veiculos);
     fclose(arq_veiculos);
 
     printf("Veículo cadastrado com sucesso!\n");
@@ -137,7 +139,7 @@ void exib_veiculo(void) {
     system("clear||cls");
 
     FILE *arq_veiculos;
-    Veiculos* veiculo;
+    Veiculos *veiculo;
     char placa_lida [12];
     int encontrado = 0;
 
@@ -259,7 +261,6 @@ void alterar_veiculo(void) {
 
             fseek(arq_veiculos, (-1)*sizeof(Veiculos), SEEK_CUR);
             fwrite(veiculo, sizeof(Veiculos), 1, arq_veiculos);
-            break;
         }
     }
 
@@ -281,7 +282,7 @@ void exclu_veiculo(void) {
     system("clear||cls");
 
     FILE *arq_veiculos;
-    Veiculos* veiculo;
+    Veiculos *veiculo;
     char placa_lida [12];
     int encontrado = 0;
 
@@ -316,7 +317,6 @@ void exclu_veiculo(void) {
             encontrado = 1;
             fseek(arq_veiculos, (-1)*sizeof(Veiculos), SEEK_CUR);
             fwrite(veiculo, sizeof(Veiculos), 1, arq_veiculos);
-            break;
         }
     }
 

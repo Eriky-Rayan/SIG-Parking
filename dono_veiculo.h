@@ -13,7 +13,6 @@ void exclu_dono_veiculo(void);
 struct dono_veiculo
 {
     char cpf[15];
-    char cpf_lido[15];
     char telefone[20];
     char nome[50];
     int quantidade;

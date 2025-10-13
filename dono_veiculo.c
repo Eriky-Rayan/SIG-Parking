@@ -104,7 +104,6 @@ void add_dono_veiculo(void) {
     if (arq_dono_veiculo == NULL) {
         printf("\t Erro ao abrir o arquivo dos donos dos veículos.\n");
         printf("\t >>Tecle <ENTER> para continuar...\n");
-        free(dono);
         getchar();
         return;
     }
@@ -168,7 +167,7 @@ void exib_dono_veiculo(void) {
             printf("Quantidade: %d\n", dono->quantidade);
             printf("\t >>Tecle <ENTER> para continuar...\n");
             getchar();
-            break;;
+            return;
         }
     }
 
@@ -237,7 +236,6 @@ void alterar_dono_veiculo(void) {
 
             fseek(arq_dono_veiculo, (-1)*sizeof(DV), SEEK_CUR);
             fwrite(dono, sizeof(DV), 1, arq_dono_veiculo);
-            break;
         }
     }
 
@@ -275,7 +273,7 @@ void exclu_dono_veiculo(void) {
     printf("||                                                                                  ||\n");
     printf("======================================================================================\n");
     printf("\n");
-    dono = (DV*) malloc(sizeof(DV));
+    dono = (DV*)malloc(sizeof(DV));
     printf(" >>Digite o CPF do dono a ser excluido: ");
     scanf("%s", cpf_lido);
     getchar();
@@ -295,7 +293,6 @@ void exclu_dono_veiculo(void) {
             encontrado = 1;
             fseek(arq_dono_veiculo, (-1)*sizeof(DV), SEEK_CUR);
             fwrite(dono, sizeof(DV), 1, arq_dono_veiculo);
-            break;
         }
     }
 
