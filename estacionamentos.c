@@ -116,10 +116,12 @@ void add_estacionamentos(void) {
 }
 
 void exib_estacionamentos(void) {
+    system("clear||cls");
 
     FILE *arq_estacionamentos;
-    Estacionamentos estacionamento;
+    Estacionamentos *estacionamento;
     char n_estaci_lida[8];
+    int encontrado = 0;
 
     printf("\n");
     printf("=====================================================================================\n");
@@ -132,35 +134,41 @@ void exib_estacionamentos(void) {
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("\n");
+    estacionamento = (Estacionamentos *) malloc(sizeof(Estacionamentos));
     printf(" >>Digite Nº da vaga que deseja ver: ");
     scanf("%s", n_estaci_lida);
     getchar();
     printf("\n");
 
-    arq_estacionamentos = fopen("estacionamentos.csv", "rt");
+    arq_estacionamentos = fopen("estacionamentos.dat", "rb");
     if (arq_estacionamentos == NULL) {
         printf("\t Erro ao abrir o arquivo de dono_veiculo.\n");
         printf("\t >>Tecle <ENTER> para continuar...\n");
         getchar();
         return;
     }
-    while (!feof(arq_estacionamentos)) {
-        fscanf(arq_estacionamentos, "%[^;]", estacionamento.n_estaci);
-        fgetc(arq_estacionamentos);
-        fscanf(arq_estacionamentos, "%[^;]", estacionamento.placa);
-        fgetc(arq_estacionamentos);
-        if (strcmp(estacionamento.n_estaci, n_estaci_lida) == 0) {
+    while (fread(estacionamento, sizeof(Estacionamentos), 1, arq_estacionamentos)) {
+        if ((strcmp(estacionamento->n_estaci, n_estaci_lida) == 0) && (estacionamento->status)) {
+            encontrado = 1;
             printf("<<<estacionamento encontrado>>");
             printf("\n");
-            printf("Nº do estacionamento: %s\n", estacionamento.n_estaci);
-            printf("placa: %s\n", estacionamento.placa);
+            printf("Nº do estacionamento: %s\n", estacionamento->n_estaci);
+            printf("placa: %s\n", estacionamento->placa);
             printf("\t >>Tecle <ENTER> para continuar...\n");
             getchar();
-            fclose(arq_estacionamentos);
-            return;
+            break;;
         }
     }
-    printf("O veículo na seguinte vaga foi exibido: %s\n", estacionamento.n_estaci);
+
+    fclose(arq_estacionamentos);
+    free(estacionamento);
+
+    if (encontrado) {
+        printf("O veículo na seguinte vaga foi exibido: %s\n", estacionamento->n_estaci);
+    }
+    else {
+        printf("Nº da vaga não encontrado!\n");
+    }
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
     getchar();
