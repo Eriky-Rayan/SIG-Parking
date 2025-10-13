@@ -247,9 +247,9 @@ void exclu_estacionamentos(void) {
     system("clear||cls");
 
     FILE *arq_estacionamentos;
-    FILE *arq_estacionamentos_temp;
-    Estacionamentos estacionamento;
+    Estacionamentos *estacionamento;
     char n_estaci_lida[8];
+    int encontrado = 0;
 
     printf("\n");
     printf("=====================================================================================\n");
@@ -262,13 +262,13 @@ void exclu_estacionamentos(void) {
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("\n");
+    estacionamento = (Estacionamentos *) malloc(sizeof(Estacionamentos));
     printf(" >>Digite o Nº da vaga que deseja excluir: ");
     scanf("%s", n_estaci_lida);
     getchar();
     printf("\n");
     
-    arq_estacionamentos = fopen("estacionamentos.csv", "rt");
-    arq_estacionamentos_temp = fopen("estacionamentos_temp.csv", "wt");
+    arq_estacionamentos = fopen("estacionamentos.csv", "r+b");
     if (arq_estacionamentos == NULL) {
         printf("\t Erro ao abrir o arquivo de veículos.\n");
         printf("\t >>tecle <ENTER> para continuar...\n");
@@ -276,20 +276,26 @@ void exclu_estacionamentos(void) {
         return;
     }
 
-    while (fscanf(arq_estacionamentos, "%[^;];%[^\n]\n", estacionamento.n_estaci, estacionamento.placa) == 2){
-
-        if (strcmp(estacionamento.n_estaci, n_estaci_lida) != 0){
-            fprintf(arq_estacionamentos_temp, "%s;%s\n", estacionamento.n_estaci, estacionamento.placa);
+    while (fread(estacionamento, sizeof(Estacionamentos), 1, arq_estacionamentos)) {
+        if ((strcmp(estacionamento->n_estaci, n_estaci_lida) == 0) && (estacionamento->status)) {
+            estacionamento->status = False;
+            encontrado = 1;
+            fseek(arq_estacionamentos, (-1)*sizeof(Estacionamentos), SEEK_CUR);
+            fwrite(estacionamento, sizeof(Estacionamentos), 1, arq_estacionamentos);
+            break;
         }
     }
 
     fclose(arq_estacionamentos);
-    fclose(arq_estacionamentos_temp);
+    free(estacionamento);
 
-    remove("estacionamentos.csv");
-    rename("estacionamentos_temp.csv", "estacionamentos.csv");
+    if (encontrado) {
+        printf("O veículo na vaga %s excluído com sucesso!\n", n_estaci_lida);
+    }
+    else {
+        printf("Nº da vaga não encontrado!\n");
+    }
 
-    printf("O veículo na vaga %s excluído com sucesso!\n", n_estaci_lida);
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
     getchar();
