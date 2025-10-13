@@ -1,4 +1,5 @@
-
+#define True 1;
+#define False 0;
 //Assinatura das Funções
 //Function Signature
 
@@ -12,8 +13,8 @@ void exclu_estacionamentos(void);
 struct estacionamentos
 {
     char n_estaci[8];
-    char n_estaci_lida[8];
     char placa[12];
+    char status;
 };
 
 typedef struct estacionamentos Estacionamentos;
