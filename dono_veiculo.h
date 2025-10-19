@@ -8,7 +8,9 @@ char dono_veiculo(void);
 void add_dono_veiculo(void);
 void exib_dono_veiculo(void);
 void alterar_dono_veiculo(void);
-void exclu_dono_veiculo(void);
+void exclu_logica_dono_veiculo(void);
+void exclu_fisica_dono_veiculo(void);
+void recu_registro_dono_veiculo(void);
 
 struct dono_veiculo
 {
