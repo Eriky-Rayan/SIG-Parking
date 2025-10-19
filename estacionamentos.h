@@ -8,7 +8,7 @@ char estacionamentos(void);
 void add_estacionamentos(void);
 void exib_estacionamentos(void);
 void alterar_estacionamentos(void);
-void exclu_estacionamentos(void);
+void exclu_logica_estacionamentos(void);
 
 struct estacionamentos
 {

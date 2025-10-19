@@ -27,7 +27,7 @@ void switch_veiculos(void){
                 alterar_veiculo();
                 break;
             case '4': 
-                exclu_veiculo();
+                exclu_logica_veiculo();
                 break;
         }
     } while (op != '0');
@@ -278,7 +278,7 @@ void alterar_veiculo(void) {
     printf("\n");
 }
 
-void exclu_veiculo(void) {
+void exclu_logica_veiculo(void) {
     system("clear||cls");
 
     FILE *arq_veiculos;

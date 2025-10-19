@@ -3,7 +3,10 @@
 #include <unistd.h>
 #include <string.h>
 #include "admin.h"
-
+#include "dono_veiculo.h"
+#include "cadastro_vagas.h"
+#include "estacionamentos.h"
+#include "veiculos.h"
 //==============================
 //= Funções de Administrador   =
 //==============================
@@ -66,7 +69,126 @@ void exclu_veiculo(void) {}
 
 void exclu_estacionamentos(void) {}
 
-void exclu_dono_veiculo(void) {}
+void exclu_dono_veiculo(void) {
+    system("clear||cls");
 
-void exclu_cadastro_vagas(void) {}
+    FILE *arq_dono_veiculo;
+    FILE *arq_dono_veiculo_temp;
+    DV *dono;
+    char cpf_lido[12];
+    int encontrado = 0;
+
+    printf("\n");
+    printf("======================================================================================\n");
+    printf("||                                                                                  ||\n");
+    printf("||                                  -SIG-Parking-                                   ||\n");
+    printf("||                                                                                  ||\n");
+    printf("======================================================================================\n");
+    printf("||                                                                                  ||\n");
+    printf("||                  -Módulo Donos dos Veículos -> Excluir Dados Fisicamente-        ||\n");
+    printf("||                                                                                  ||\n");
+    printf("======================================================================================\n");
+    printf("\n");
+    dono = (DV*)malloc(sizeof(DV));
+    printf(" >>Digite o CPF do dono a ser excluido: ");
+    scanf("%s", cpf_lido);
+    getchar();
+    printf("\n");
+
+    arq_dono_veiculo = fopen("dono_veiculo.dat", "rb");
+    arq_dono_veiculo_temp = fopen("dono_veiculo_temp.dat", "wb");
+    if (arq_dono_veiculo == NULL) {
+        printf("\t Erro ao abrir o arquivo de dono_veiculo.\n");
+        printf("\t >>Tecle <ENTER> para continuar...\n");
+        getchar();
+        return;
+    }
+
+    while (fread(dono, sizeof(DV), 1, arq_dono_veiculo)) {
+        if (strcmp(dono->cpf, cpf_lido) != 0) {
+            fwrite(dono, sizeof(DV), 1, arq_dono_veiculo_temp);
+        } else {
+            encontrado = 1;
+        }
+    }
+
+    fclose(arq_dono_veiculo);
+    fclose(arq_dono_veiculo_temp);
+    free(dono); 
+
+    remove("dono_veiculo.dat");
+    rename("dono_veiculo_temp.dat", "dono_veiculo.dat");
+
+    if (encontrado) {
+        printf("Dono do veículo com CPF %s excluído fisicamente com sucesso!\n", cpf_lido);
+    } else {
+        printf("CPF não encontrado!\n");
+    }
+
+    printf("\n");
+    printf("\t >>Tecle <ENTER> para continuar...\n");
+    getchar();
+    printf("\n");
+}
+
+void exclu_cadastro_vagas(void) {
+    system("clear||cls");
+
+    FILE *arq_cadastro_vagas;
+    FILE *arq_cadastro_vagas_temp;
+    CV *vagas;
+    int num_andar_lido;
+    int encontrado = 0;
+
+    printf("\n");
+    printf("=====================================================================================\n");
+    printf("||                                                                                 ||\n");
+    printf("||                                  -SIG-Parking-                                  ||\n");
+    printf("||                                                                                 ||\n");
+    printf("=====================================================================================\n");
+    printf("||                                                                                 ||\n");
+    printf("||                -Módulo Cadastro de Vagas -> Excluir Vagas fisicamenente -       ||\n");
+    printf("||                                                                                 ||\n");
+    printf("=====================================================================================\n");
+    printf("\n");
+    vagas = (CV*)malloc(sizeof(CV));
+    printf(" >>Digite o número do andar que deseja excluir: ");
+    scanf("%d", &num_andar_lido);
+    getchar();
+    printf("\n");
+
+    arq_cadastro_vagas = fopen("cadastro_vagas.dat", "rb");
+    arq_cadastro_vagas_temp = fopen("cadastro_vagas_temp.dat", "wb");
+    if (arq_cadastro_vagas == NULL) {
+        printf("\t Erro ao abrir o arquivo do cadastro das vagas.\n");
+        printf("\t >>Tecle <ENTER> para continuar...\n");
+        getchar();
+        return;
+    }
+    while (fread(vagas, sizeof(CV), 1, arq_cadastro_vagas)) {
+        if (vagas->num_andar != num_andar_lido) {
+            fwrite(vagas, sizeof(CV), 1, arq_cadastro_vagas_temp); 
+        } else {
+            encontrado = 1; 
+        }
+    }
+
+    fclose(arq_cadastro_vagas);
+    fclose(arq_cadastro_vagas_temp);
+    free(vagas); 
+
+    remove("cadastro_vagas.dat");
+    rename("cadastro_vagas_temp.dat", "cadastro_vagas.dat");
+
+    if (encontrado) {
+        printf("Vagas do andar %d excluídas fisicamente com sucesso!\n", num_andar_lido);
+    } else {
+        printf("\nAndar não encontrado!\n");
+    }
+
+    printf("\n");
+    printf("\t >>Tecle <ENTER> para continuar...\n");
+    getchar();
+    printf("\n");
+}
 
