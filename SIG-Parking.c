@@ -7,6 +7,7 @@
 #include "dono_veiculo.h"
 #include "cadastro_vagas.h"
 #include "relatorios.h"
+#include "admin.h"
 
 //Assinatura das Funções
 //Function Signature
@@ -51,6 +52,9 @@ int main(void){
             case '7': 
                 sobre();
                 break;
+            case '8': 
+                switch_admin();
+                break;
             default:
                 op_invalida();
                 break;
@@ -86,6 +90,7 @@ char menu_principal(void) {
     printf("|| [5] -> Módulo Relatórios                                                        ||\n");
     printf("|| [6] -> Módulo Equipe do Projeto                                                 ||\n");
     printf("|| [7] -> Sobre o Sistema                                                          ||\n");
+    printf("|| [8] -> Funções de Administrador                                                 ||\n");
     printf("|| [0] -> Sair                                                                     ||\n");
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
