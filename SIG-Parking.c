@@ -7,6 +7,7 @@
 #include "dono_veiculo.h"
 #include "cadastro_vagas.h"
 #include "relatorios.h"
+#include "admin.h"
 
 //Assinatura das Funções
 //Function Signature
