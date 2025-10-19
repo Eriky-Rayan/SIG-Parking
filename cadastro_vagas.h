@@ -8,7 +8,9 @@ char cadastro_vagas(void);
 void add_cadastro_vagas(void);
 void exib_cadastro_vagas(void);
 void alterar_cadastro_vagas(void);
-void exclu_cadastro_vagas(void);
+void exclu_logica_cadastro_vagas(void);
+void exclu_fisica_cadastro_vagas(void);
+void recu_registro_cadastro_vagas(void);
 
 struct cadastro_vagas
 {

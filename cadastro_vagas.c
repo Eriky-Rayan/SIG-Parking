@@ -26,8 +26,14 @@ void switch_cadastro_vagas(void){
             case '3': 
                 alterar_cadastro_vagas();
                 break;
-            case '4': 
-                exclu_cadastro_vagas();
+            case '4':
+                exclu_logica_cadastro_vagas();
+                break;               
+            case '5':
+                exclu_fisica_cadastro_vagas();
+                break;
+            case '6':
+                recu_registro_cadastro_vagas();
                 break;
         }
     } while (op != '0');
@@ -52,7 +58,9 @@ char cadastro_vagas(void) {
     printf("|| [1] -> Cadastrar Vagas                                                          ||\n");
     printf("|| [2] -> Exibir Dados das Vagas                                                   ||\n");
     printf("|| [3] -> Alterar Dados das Vagas                                                  ||\n");
-    printf("|| [4] -> Excluir Dados das Vagas                                                  ||\n");
+    printf("|| [4] -> Excluir Vagas logicamente                                                ||\n");
+    printf("|| [5] -> Excluir Vagas fisicamente                                                ||\n");
+    printf("|| [6] -> Recuperar registro das Vagas                                             ||\n");
     printf("|| [0] -> Voltar ao Menu Principal                                                 ||\n");
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
@@ -109,6 +117,8 @@ void add_cadastro_vagas(void) {
     printf("\t >>Tecle <ENTER> para continuar...\n");
     getchar();
     printf("\n");
+
+    free(vagas);
 }
 
 void exib_cadastro_vagas(void) {
@@ -117,6 +127,7 @@ void exib_cadastro_vagas(void) {
     FILE *arq_cadastro_vagas;
     CV *vagas;
     int num_andar_lido;
+    int encontrado = 0;
 
     printf("\n");
     printf("=====================================================================================\n");
@@ -142,26 +153,30 @@ void exib_cadastro_vagas(void) {
         getchar();
         return;
     }
-    while (!feof(arq_cadastro_vagas )) {
-        fread(vagas, sizeof(CV), 1, arq_cadastro_vagas);
-        if (vagas->num_andar == num_andar_lido) {
-            printf("<<<Vaga encontrada>>");
-            printf("\n");
+    while (fread(vagas, sizeof(CV), 1, arq_cadastro_vagas)) {
+        if ((vagas->num_andar == num_andar_lido) && (vagas->status)){
+            encontrado = 1;
+            printf("<<<Vaga encontrada>>\n");
             printf("Número do andar: %d\n", vagas->num_andar);
             printf("Quantidade de vagas: %d\n", vagas->qtd_vagas);
-            printf("\t >>Tecle <ENTER> para continuar...\n");
-            getchar();
-            return;
+            break;
         }
     }
-    printf("A quantidade de vagas do seguinte andar foi exibida: %d\n", num_andar_lido);
+
+    fclose(arq_cadastro_vagas);
+    free(vagas);
+
+    if (encontrado) {
+        printf("A quantidade de vagas do seguinte andar foi exibida: %d\n", num_andar_lido);
+    }
+    else{
+        printf("\nVaga não encontrado!\n");
+    }
+
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
     getchar();
     printf("\n");
-
-    fclose(arq_cadastro_vagas);
-    free(vagas);
 }
 
 void alterar_cadastro_vagas(void) {
@@ -226,7 +241,7 @@ void alterar_cadastro_vagas(void) {
     printf("\n");
 }
 
-void exclu_cadastro_vagas(void) {
+void exclu_logica_cadastro_vagas(void) {
     system("clear||cls");
 
     FILE *arq_cadastro_vagas;
@@ -241,12 +256,12 @@ void exclu_cadastro_vagas(void) {
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("||                                                                                 ||\n");
-    printf("||                -Módulo Cadastro de Vagas -> Excluir Dados das Vagas-            ||\n");
+    printf("||                -Módulo Cadastro de Vagas -> Excluir vagas logicamente -         ||\n");
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("\n");
     vagas = (CV*)malloc(sizeof(CV));
-    printf(" >>Digite o número do andar que deseja excluir: ");
+    printf(" >>Digite o número do andar que deseja excluir logicamente: ");
     scanf("%d", &num_andar_lido);
     getchar();
     printf("\n");
@@ -273,7 +288,126 @@ void exclu_cadastro_vagas(void) {
     free(vagas);
 
     if (encontrado) {
-        printf("Vagas do andar %d excluídas com sucesso!\n", num_andar_lido);
+        printf("Vagas do andar %d excluídas logicamente com sucesso!\n", num_andar_lido);
+    } else {
+        printf("\nAndar não encontrado!\n");
+    }
+
+    printf("\n");
+    printf("\t >>Tecle <ENTER> para continuar...\n");
+    getchar();
+    printf("\n");
+}
+
+void exclu_fisica_cadastro_vagas(void) {
+    system("clear||cls");
+
+    FILE *arq_cadastro_vagas;
+    FILE *arq_cadastro_vagas_temp;
+    CV *vagas;
+    int num_andar_lido;
+    int encontrado = 0;
+
+    printf("\n");
+    printf("=====================================================================================\n");
+    printf("||                                                                                 ||\n");
+    printf("||                                  -SIG-Parking-                                  ||\n");
+    printf("||                                                                                 ||\n");
+    printf("=====================================================================================\n");
+    printf("||                                                                                 ||\n");
+    printf("||                -Módulo Cadastro de Vagas -> Excluir Vagas fisicamenente -       ||\n");
+    printf("||                                                                                 ||\n");
+    printf("=====================================================================================\n");
+    printf("\n");
+    vagas = (CV*)malloc(sizeof(CV));
+    printf(" >>Digite o número do andar que deseja excluir: ");
+    scanf("%d", &num_andar_lido);
+    getchar();
+    printf("\n");
+
+    arq_cadastro_vagas = fopen("cadastro_vagas.dat", "rb");
+    arq_cadastro_vagas_temp = fopen("cadastro_vagas_temp.dat", "wb");
+    if (arq_cadastro_vagas == NULL) {
+        printf("\t Erro ao abrir o arquivo do cadastro das vagas.\n");
+        printf("\t >>Tecle <ENTER> para continuar...\n");
+        getchar();
+        return;
+    }
+    while (fread(vagas, sizeof(CV), 1, arq_cadastro_vagas)) {
+        if (vagas->num_andar != num_andar_lido) {
+            fwrite(vagas, sizeof(CV), 1, arq_cadastro_vagas_temp); 
+        } else {
+            encontrado = 1; 
+        }
+    }
+
+    fclose(arq_cadastro_vagas);
+    fclose(arq_cadastro_vagas_temp);
+    free(vagas); 
+
+    remove("cadastro_vagas.dat");
+    rename("cadastro_vagas_temp.dat", "cadastro_vagas.dat");
+
+    if (encontrado) {
+        printf("Vagas do andar %d excluídas fisicamente com sucesso!\n", num_andar_lido);
+    } else {
+        printf("\nAndar não encontrado!\n");
+    }
+
+    printf("\n");
+    printf("\t >>Tecle <ENTER> para continuar...\n");
+    getchar();
+    printf("\n");
+}
+
+void recu_registro_cadastro_vagas(void) {
+    system("clear||cls");
+
+    FILE *arq_cadastro_vagas;
+    CV *vagas;
+    int num_andar_lido;
+    int encontrado = 0;
+
+    printf("\n");
+    printf("=====================================================================================\n");
+    printf("||                                                                                 ||\n");
+    printf("||                                  -SIG-Parking-                                  ||\n");
+    printf("||                                                                                 ||\n");
+    printf("=====================================================================================\n");
+    printf("||                                                                                 ||\n");
+    printf("||                -Módulo Cadastro de Vagas -> Recuperar registro -                ||\n");
+    printf("||                                                                                 ||\n");
+    printf("=====================================================================================\n");
+    printf("\n");
+    vagas = (CV*)malloc(sizeof(CV));
+    printf(" >>Digite o número do andar que deseja recuperar: ");
+    scanf("%d", &num_andar_lido);
+    getchar();
+    printf("\n");
+
+    arq_cadastro_vagas = fopen("cadastro_vagas.dat", "r+b");
+    if (arq_cadastro_vagas == NULL) {
+        printf("\t Erro ao abrir o arquivo do cadastro das vagas.\n");
+        printf("\t >>Tecle <ENTER> para continuar...\n");
+        getchar();
+        return;
+    }
+
+    while (fread(vagas, sizeof(CV), 1, arq_cadastro_vagas)) {
+        if ((vagas->num_andar == num_andar_lido) && (!vagas->status)) {
+            vagas->status = True;
+            encontrado = 1;
+            fseek(arq_cadastro_vagas, (-1)*sizeof(CV), SEEK_CUR);
+            fwrite(vagas, sizeof(CV), 1, arq_cadastro_vagas);
+            break;
+        }
+    }
+
+    fclose(arq_cadastro_vagas);
+    free(vagas);
+
+    if (encontrado) {
+        printf("Registro de Vagas do andar %d recuperadas logicamente com sucesso!\n", num_andar_lido);
     } else {
         printf("\nAndar não encontrado!\n");
     }
