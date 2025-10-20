@@ -81,7 +81,7 @@ void exclu_veiculo(void) {
     printf("||                                                                                  ||\n");
     printf("======================================================================================\n");
     printf("||                                                                                  ||\n");
-    printf("||                   -Módulo Veículos -> Excluir Dados Fisicamente-                      ||\n");
+    printf("||                   -Módulo Veículos -> Excluir Dados Fisicamente-                 ||\n");
     printf("||                                                                                  ||\n");
     printf("======================================================================================\n");
     printf("\n");
@@ -127,7 +127,67 @@ void exclu_veiculo(void) {
     printf("\n");
 }
 
-void exclu_estacionamentos(void) {}
+void exclu_estacionamentos(void) {
+    system("clear||cls");
+
+    FILE *arq_estacionamentos;
+    FILE *arq_estacionamentos_temp;
+    Estacionamentos *estacionamento;
+    char n_estaci_lido[8];
+    int encontrado = 0;
+
+    printf("\n");
+    printf("======================================================================================\n");
+    printf("||                                                                                  ||\n");
+    printf("||                                  -SIG-Parking-                                   ||\n");
+    printf("||                                                                                  ||\n");
+    printf("======================================================================================\n");
+    printf("||                                                                                  ||\n");
+    printf("||               -Módulo Estacionamentos -> Excluir Dados Fisicamente-              ||\n");
+    printf("||                                                                                  ||\n");
+    printf("======================================================================================\n");
+    printf("\n");
+    estacionamento = (Estacionamentos*)malloc(sizeof(Estacionamentos));
+    printf(" >>Digite o número do estacionamento a ser excluido: ");
+    scanf("%s", n_estaci_lido);
+    getchar();
+    printf("\n");
+
+    arq_estacionamentos = fopen("estacionamentos.dat", "rb");
+    arq_estacionamentos_temp = fopen("estacionamentos_temp.dat", "wb");
+    if (arq_estacionamentos == NULL) {
+        printf("\t Erro ao abrir o arquivo de estacionamentos.\n");
+        printf("\t >>Tecle <ENTER> para continuar...\n");
+        getchar();
+        return;
+    }
+
+    while (fread(estacionamento, sizeof(Estacionamentos), 1, arq_estacionamentos)) {
+        if (strcmp(estacionamento->n_estaci, n_estaci_lido) != 0) {
+            fwrite(estacionamento, sizeof(Estacionamentos), 1, arq_estacionamentos_temp);
+        } else {
+            encontrado = 1;
+        }
+    }
+
+    fclose(arq_estacionamentos);
+    fclose(arq_estacionamentos_temp);
+    free(estacionamento);
+
+    remove("estacionamentos.dat");
+    rename("estacionamentos_temp.dat", "estacionamentos.dat");
+
+    if (encontrado) {
+        printf("Estacionamento com número %s excluído fisicamente com sucesso!\n", n_estaci_lido);
+    } else {
+        printf("Número do estacionamento não encontrado!\n");
+    }
+
+    printf("\n");
+    printf("\t >>Tecle <ENTER> para continuar...\n");
+    getchar();
+    printf("\n");
+}
 
 void exclu_dono_veiculo(void) {
     system("clear||cls");
