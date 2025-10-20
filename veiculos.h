@@ -9,6 +9,7 @@ void add_veiculos(void);
 void exib_veiculo(void);
 void alterar_veiculo(void);
 void exclu_logica_veiculo(void);
+void recu_registro_veiculo(void);
 
 struct veiculos {
     char placa[12];

@@ -29,6 +29,9 @@ void switch_estacionamentos(void){
             case '4': 
                 exclu_logica_estacionamentos();
                 break;
+            case '5':
+                recu_registro_estacionamentos();
+                break;
         }
     } while (op != '0');
 }
@@ -53,6 +56,7 @@ char estacionamentos(void) {
     printf("|| [2] -> Exibir Dados do Estacionamento                                           ||\n");
     printf("|| [3] -> Alterar Dados do Estacionamento                                          ||\n");
     printf("|| [4] -> Excluir Estacionamento                                                   ||\n");
+    printf("|| [5] -> Recuperar registro do Estacionamento                                     ||\n");
     printf("|| [0] -> Voltar ao Menu Principal                                                 ||\n");
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
@@ -289,6 +293,64 @@ void exclu_logica_estacionamentos(void) {
         printf("O veículo na vaga %s excluído com sucesso!\n", n_estaci_lida);
     }
     else {
+        printf("Nº da vaga não encontrado!\n");
+    }
+
+    printf("\n");
+    printf("\t >>Tecle <ENTER> para continuar...\n");
+    getchar();
+    printf("\n");
+}
+
+void recu_registro_estacionamentos(void){
+    system("clear||cls");
+
+    FILE *arq_estacionamentos;
+    Estacionamentos *estacionamento;
+    char n_estaci_lida[8];
+    int encontrado = 0;
+
+    printf("\n");
+    printf("=====================================================================================\n");
+    printf("||                                                                                 ||\n");
+    printf("||                                  -SIG-Parking-                                  ||\n");
+    printf("||                                                                                 ||\n");
+    printf("=====================================================================================\n");
+    printf("||                                                                                 ||\n");
+    printf("||               -Módulo Estacionamentos -> Recuperar registro -                   ||\n");
+    printf("||                                                                                 ||\n");
+    printf("=====================================================================================\n");
+    printf("\n");
+    estacionamento = (Estacionamentos*)malloc(sizeof(Estacionamentos));
+    printf(" >>Digite o Nº da vaga a ser recuperada: ");
+    scanf("%s", n_estaci_lida);
+    getchar();
+    printf("\n");
+
+    arq_estacionamentos = fopen("estacionamentos.dat", "r+b");
+    if (arq_estacionamentos == NULL) {
+        printf("\t Erro ao abrir o arquivo de estacionamentos.\n");
+        printf("\t >>Tecle <ENTER> para continuar...\n");
+        getchar();
+        return;
+    }
+
+    while (fread(estacionamento, sizeof(Estacionamentos), 1, arq_estacionamentos)) {
+        if ((strcmp(estacionamento->n_estaci, n_estaci_lida) == 0) && (!estacionamento->status)) {
+            estacionamento->status = True;
+            encontrado = 1;
+            fseek(arq_estacionamentos, (-1)*sizeof(Estacionamentos), SEEK_CUR);
+            fwrite(estacionamento, sizeof(Estacionamentos), 1, arq_estacionamentos);
+            break;
+        }
+    }
+
+    fclose(arq_estacionamentos);
+    free(estacionamento);
+
+    if (encontrado) {
+        printf("registro do Estacionamento com Nº %s recuperado logicamente com sucesso!\n", n_estaci_lida);
+    } else {
         printf("Nº da vaga não encontrado!\n");
     }
 
