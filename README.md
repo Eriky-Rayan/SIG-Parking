@@ -1,4 +1,4 @@
-# SIG-Parking (*EM DESENVOLVIMENTO*)
+# SIG-Parking (*EM DESENVOLVIMENTO*): Versão 0.2.0-beta1
 Um Sistema de Controle de Estacionamentos de Carros e Motos
 
 Universidade Federal do Rio Grande do Norte
