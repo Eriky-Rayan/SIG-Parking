@@ -29,6 +29,9 @@ void switch_veiculos(void){
             case '4': 
                 exclu_logica_veiculo();
                 break;
+            case '5':
+                recu_registro_veiculo();
+                break;
         }
     } while (op != '0');
 }
@@ -53,6 +56,7 @@ char veiculos(void) {
     printf("|| [2] -> Exibir Dados do Veículo                                                     ||\n");
     printf("|| [3] -> Alterar Dados do Veículo                                                    ||\n");
     printf("|| [4] -> Excluir Veículo                                                             ||\n");
+    printf("|| [5] -> Recuperar registro Veículo                                                  ||\n");
     printf("|| [0] -> Voltar ao Menu Principal                                                    ||\n");
     printf("||                                                                                    ||\n");
     printf("========================================================================================\n");
@@ -329,6 +333,64 @@ void exclu_logica_veiculo(void) {
         printf("Placa não encontrada!\n");
     }
     
+    printf("\n");
+    printf("\t >>Tecle <ENTER> para continuar...\n");
+    getchar();
+    printf("\n");
+}
+
+void recu_registro_veiculo(void){
+    system("clear||cls");
+
+    FILE *arq_veiculos;
+    Veiculos *veiculo;
+    char placa_lida[12];
+    int encontrado = 0;
+
+    printf("\n");
+    printf("======================================================================================\n");
+    printf("||                                                                                  ||\n");
+    printf("||                                  -SIG-Parking-                                   ||\n");
+    printf("||                                                                                  ||\n");
+    printf("======================================================================================\n");
+    printf("||                                                                                  ||\n");
+    printf("||                     -Módulo Veículos -> Recuperar registro -                     ||\n");
+    printf("||                                                                                  ||\n");
+    printf("======================================================================================\n");
+    printf("\n");
+    veiculo = (Veiculos*)malloc(sizeof(Veiculos));
+    printf(" >>Digite a placa do veículo a ser recuperado: ");
+    scanf("%s", placa_lida);
+    getchar();
+    printf("\n");
+
+    arq_veiculos = fopen("veiculos.dat", "r+b");
+    if (arq_veiculos == NULL) {
+        printf("\t Erro ao abrir o arquivo de veículos.\n");
+        printf("\t >>Tecle <ENTER> para continuar...\n");
+        getchar();
+        return;
+    }
+
+    while (fread(veiculo, sizeof(Veiculos), 1, arq_veiculos)) {
+        if ((strcmp(veiculo->placa, placa_lida) == 0) && (!veiculo->status)) {
+            veiculo->status = True;
+            encontrado = 1;
+            fseek(arq_veiculos, (-1)*sizeof(Veiculos), SEEK_CUR);
+            fwrite(veiculo, sizeof(Veiculos), 1, arq_veiculos);
+            break;
+        }
+    }
+
+    fclose(arq_veiculos);
+    free(veiculo);
+
+    if (encontrado) {
+        printf("registro do Veículo com placa %s recuperado logicamente com sucesso!\n", placa_lida);
+    } else {
+        printf("Placa não encontrada!\n");
+    }
+
     printf("\n");
     printf("\t >>Tecle <ENTER> para continuar...\n");
     getchar();
