@@ -65,7 +65,67 @@ char admin(void) {
     return op;
 }
 
-void exclu_veiculo(void) {}
+void exclu_veiculo(void) {
+    system("clear||cls");
+
+    FILE *arq_veiculo;
+    FILE *arq_veiculo_temp;
+    Veiculos *veiculo;
+    char placa_lida[12];
+    int encontrado = 0;
+
+    printf("\n");
+    printf("======================================================================================\n");
+    printf("||                                                                                  ||\n");
+    printf("||                                  -SIG-Parking-                                   ||\n");
+    printf("||                                                                                  ||\n");
+    printf("======================================================================================\n");
+    printf("||                                                                                  ||\n");
+    printf("||                   -Módulo Veículos -> Excluir Dados Fisicamente-                      ||\n");
+    printf("||                                                                                  ||\n");
+    printf("======================================================================================\n");
+    printf("\n");
+    veiculo = (Veiculos*)malloc(sizeof(Veiculos));
+    printf(" >>Digite a placa do veículo a ser excluido: ");
+    scanf("%s", placa_lida);
+    getchar();
+    printf("\n");
+
+    arq_veiculo = fopen("veiculos.dat", "rb");
+    arq_veiculo_temp = fopen("veiculos_temp.dat", "wb");
+    if (arq_veiculo == NULL) {
+        printf("\t Erro ao abrir o arquivo de veículos.\n");
+        printf("\t >>Tecle <ENTER> para continuar...\n");
+        getchar();
+        return;
+    }
+
+    while (fread(veiculo, sizeof(Veiculos), 1, arq_veiculo)) {
+        if (strcmp(veiculo->placa, placa_lida) != 0) {
+            fwrite(veiculo, sizeof(Veiculos), 1, arq_veiculo_temp);
+        } else {
+            encontrado = 1;
+        }
+    }
+
+    fclose(arq_veiculo);
+    fclose(arq_veiculo_temp);
+    free(veiculo);
+
+    remove("veiculos.dat");
+    rename("veiculos_temp.dat", "veiculos.dat");
+
+    if (encontrado) {
+        printf("Veículo com placa %s excluído fisicamente com sucesso!\n", placa_lida);
+    } else {
+        printf("Placa não encontrada!\n");
+    }
+
+    printf("\n");
+    printf("\t >>Tecle <ENTER> para continuar...\n");
+    getchar();
+    printf("\n");
+}
 
 void exclu_estacionamentos(void) {}
 
