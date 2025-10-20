@@ -27,7 +27,10 @@ void switch_dono_veiculo(void){
                 alterar_dono_veiculo();
                 break;
             case '4': 
-                exclu_dono_veiculo();
+                exclu_logica_dono_veiculo();
+                break;
+            case '5':
+                recu_registro_dono_veiculo();
                 break;
         }
     } while (op != '0');
@@ -52,7 +55,8 @@ char dono_veiculo(void) {
     printf("|| [1] -> Cadastrar Dono de Veículo                                                ||\n");
     printf("|| [2] -> Exibir Dados do Dono de Veículo                                          ||\n");
     printf("|| [3] -> Alterar Dados do Dono de Veículo                                         ||\n");
-    printf("|| [4] -> Excluir Dono de Veículo                                                  ||\n");
+    printf("|| [4] -> Excluir logicamente Dono de Veículo                                      ||\n");
+    printf("|| [5] -> Recuperar registro Dono de Veículo                                       ||\n");
     printf("|| [0] -> Voltar ao Menu Principal                                                 ||\n");
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
@@ -167,7 +171,7 @@ void exib_dono_veiculo(void) {
             printf("Quantidade: %d\n", dono->quantidade);
             printf("\t >>Tecle <ENTER> para continuar...\n");
             getchar();
-            return;
+            break;
         }
     }
 
@@ -254,7 +258,7 @@ void alterar_dono_veiculo(void) {
     printf("\n");
 }
 
-void exclu_dono_veiculo(void) {
+void exclu_logica_dono_veiculo(void) {
     system("clear||cls");
 
     FILE *arq_dono_veiculo;
@@ -269,7 +273,7 @@ void exclu_dono_veiculo(void) {
     printf("||                                                                                  ||\n");
     printf("======================================================================================\n");
     printf("||                                                                                  ||\n");
-    printf("||                  -Módulo Donos dos Veículos -> Excluir Dados-                    ||\n");
+    printf("||                  -Módulo Donos dos Veículos -> Excluir Dados Logicamente-        ||\n");
     printf("||                                                                                  ||\n");
     printf("======================================================================================\n");
     printf("\n");
@@ -293,6 +297,7 @@ void exclu_dono_veiculo(void) {
             encontrado = 1;
             fseek(arq_dono_veiculo, (-1)*sizeof(DV), SEEK_CUR);
             fwrite(dono, sizeof(DV), 1, arq_dono_veiculo);
+            break;
         }
     }
 
@@ -300,7 +305,65 @@ void exclu_dono_veiculo(void) {
     free(dono);
 
     if (encontrado) {
-        printf("Dono do veículo com CPF %s excluído com sucesso!\n", cpf_lido);
+        printf("Dono do veículo com CPF %s excluído logicamente com sucesso!\n", cpf_lido);
+    } else {
+        printf("CPF não encontrado!\n");
+    }
+
+    printf("\n");
+    printf("\t >>Tecle <ENTER> para continuar...\n");
+    getchar();
+    printf("\n");
+}
+
+void recu_registro_dono_veiculo(void){
+    system("clear||cls");
+
+    FILE *arq_dono_veiculo;
+    DV *dono;
+    char cpf_lido[12];
+    int encontrado = 0;
+
+    printf("\n");
+    printf("======================================================================================\n");
+    printf("||                                                                                  ||\n");
+    printf("||                                  -SIG-Parking-                                   ||\n");
+    printf("||                                                                                  ||\n");
+    printf("======================================================================================\n");
+    printf("||                                                                                  ||\n");
+    printf("||                  -Módulo Donos dos Veículos -> Recuperar registro -              ||\n");
+    printf("||                                                                                  ||\n");
+    printf("======================================================================================\n");
+    printf("\n");
+    dono = (DV*)malloc(sizeof(DV));
+    printf(" >>Digite o CPF do dono a ser recuperado: ");
+    scanf("%s", cpf_lido);
+    getchar();
+    printf("\n");
+
+    arq_dono_veiculo = fopen("dono_veiculo.dat", "r+b");
+    if (arq_dono_veiculo == NULL) {
+        printf("\t Erro ao abrir o arquivo de dono_veiculo.\n");
+        printf("\t >>Tecle <ENTER> para continuar...\n");
+        getchar();
+        return;
+    }
+
+    while (fread(dono, sizeof(DV), 1, arq_dono_veiculo)) {
+        if ((strcmp(dono->cpf, cpf_lido) == 0) && (!dono->status)) {
+            dono->status = True;
+            encontrado = 1;
+            fseek(arq_dono_veiculo, (-1)*sizeof(DV), SEEK_CUR);
+            fwrite(dono, sizeof(DV), 1, arq_dono_veiculo);
+            break;
+        }
+    }
+
+    fclose(arq_dono_veiculo);
+    free(dono);
+
+    if (encontrado) {
+        printf("registro do Dono do veículo com CPF %s recuperado logicamente com sucesso!\n", cpf_lido);
     } else {
         printf("CPF não encontrado!\n");
     }

@@ -27,7 +27,7 @@ void switch_estacionamentos(void){
                 alterar_estacionamentos();
                 break;
             case '4': 
-                exclu_estacionamentos();
+                exclu_logica_estacionamentos();
                 break;
         }
     } while (op != '0');
@@ -240,7 +240,7 @@ void alterar_estacionamentos(void) {
     printf("\n");
 }
 
-void exclu_estacionamentos(void) {
+void exclu_logica_estacionamentos(void) {
     system("clear||cls");
 
     FILE *arq_estacionamentos;
