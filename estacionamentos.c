@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <string.h>
 #include "estacionamentos.h"
+#include "validacoes.h"
 
 typedef struct estacionamentos Estacionamentos;
 
@@ -87,12 +88,10 @@ void add_estacionamentos(void) {
     printf("\n");
     estacionamento = (Estacionamentos*) malloc(sizeof(Estacionamentos));
     printf(" >>Digite o Nº da vaga onde o veículo será cadastrado: ");
-    scanf("%s", estacionamento->n_estaci);
-    getchar();
+    Ler_Estacionamento(estacionamento->n_estaci);
     printf("\n");
     printf(" >>Digite a placa do veículo: ");
-    scanf("%s", estacionamento->placa);
-    getchar();
+    Ler_Placa(estacionamento->placa);
     printf("\n");
 
     estacionamento->status = True;
@@ -139,8 +138,7 @@ void exib_estacionamentos(void) {
     printf("\n");
     estacionamento = (Estacionamentos*)malloc(sizeof(Estacionamentos));
     printf(" >>Digite Nº da vaga que deseja ver: ");
-    scanf("%s", n_estaci_lida);
-    getchar();
+    Ler_Estacionamento_Lida(n_estaci_lida);
     printf("\n");
 
     arq_estacionamentos = fopen("estacionamentos.dat", "rb");
@@ -190,7 +188,7 @@ void alterar_estacionamentos(void) {
     printf("=====================================================================================\n");
     printf("||                                                                                 ||\n");
     printf("||                                  -SIG-Parking-                                  ||\n");
-    printf("||                                                                           ||\n");
+    printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("||                                                                                 ||\n");
     printf("||                -Módulo Estacionamentos -> Alterar Estacionamento-               ||\n");
@@ -201,8 +199,7 @@ void alterar_estacionamentos(void) {
     printf(" -Digite os novos dados do estacionamento-");
     printf("\n");
     printf(" >>Digite o Nº da vaga que deseja alterar: ");
-    scanf("%s", n_estaci_lida);
-    getchar();
+    Ler_Estacionamento_Lida(n_estaci_lida);
     printf("\n");
 
     arq_estacionamentos = fopen("estacionamentos.dat", "r+b");
@@ -217,12 +214,10 @@ void alterar_estacionamentos(void) {
         if ((strcmp(estacionamento->n_estaci, n_estaci_lida) == 0) && (estacionamento->status)){
             encontrado = 1;
             printf("\n>>Digite o novo nº da vaga: ");
-            scanf("%s", estacionamento->n_estaci);
-            getchar();
+            Ler_Estacionamento(estacionamento->n_estaci);
             printf("\n");
             printf(" >>Digite a placa do veículo: ");
-            scanf("%s", estacionamento->placa);
-            getchar();
+            Ler_Placa(estacionamento->placa);
 
             fseek(arq_estacionamentos, (-1)*sizeof(Estacionamentos), SEEK_CUR);
             fwrite(estacionamento, sizeof(Estacionamentos), 1, arq_estacionamentos);
@@ -265,8 +260,7 @@ void exclu_logica_estacionamentos(void) {
     printf("\n");
     estacionamento = (Estacionamentos*)malloc(sizeof(Estacionamentos));
     printf(" >>Digite o Nº da vaga que deseja excluir: ");
-    scanf("%s", n_estaci_lida);
-    getchar();
+    Ler_Estacionamento_Lida(n_estaci_lida);
     printf("\n");
     
     arq_estacionamentos = fopen("estacionamentos.dat", "r+b");
@@ -323,8 +317,7 @@ void recu_registro_estacionamentos(void){
     printf("\n");
     estacionamento = (Estacionamentos*)malloc(sizeof(Estacionamentos));
     printf(" >>Digite o Nº da vaga a ser recuperada: ");
-    scanf("%s", n_estaci_lida);
-    getchar();
+    Ler_Estacionamento_Lida(n_estaci_lida);
     printf("\n");
 
     arq_estacionamentos = fopen("estacionamentos.dat", "r+b");
