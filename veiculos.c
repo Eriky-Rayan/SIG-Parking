@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <string.h>
 #include "veiculos.h"
+#include "validacoes.h"
 
 typedef struct veiculos Veiculos;
 
@@ -86,29 +87,25 @@ void add_veiculos(void) {
     printf("=======================================================================================\n");
     printf("\n");
     veiculo = (Veiculos*)malloc(sizeof(Veiculos));
-    printf(" >>Digite a placa do veículo a ser cadastrado: ");
-    scanf("%s", veiculo->placa);
-    getchar();
+
+    printf(" >>Digite a placa do veículo a ser cadastrado (ABC-1234): ");
+    lerPlaca(veiculo->placa);
     printf("\n");
     printf(" >>Tipo de Veículo (Carro/Moto): ");
-    scanf("%s", veiculo->tipo);
-    getchar();
+    lerTipo(veiculo->tipo);
     printf("\n");
     printf(" >>Modelo do veículo: ");
-    scanf("%s", veiculo->model);
-    getchar();
+    lerString(veiculo->model, sizeof(veiculo->model));
     printf("\n");
     printf(" >>Cor do Veículo: ");
-    scanf("%s", veiculo->cor);
-    getchar();
+    lerString(veiculo->cor, sizeof(veiculo->cor));
     printf("\n");
     printf(" >>Nº do estacionamento: ");
-    scanf("%s", veiculo->n_estaci);
-    getchar();
+    lerString(veiculo->n_estaci, sizeof(veiculo->n_estaci));
     printf("\n");
     printf(" >>CPF do Dono do Veículo: ");
-    scanf("%s", veiculo->cpf);
-    getchar();
+    lerCPF(veiculo->cpf);
+
     printf("\n");
 
     veiculo->status = True;
