@@ -128,3 +128,4 @@ void Ler_Estacionamento(char *destino) {
         }
     } while (!Validar_Estacionamento(destino));
 }
+
