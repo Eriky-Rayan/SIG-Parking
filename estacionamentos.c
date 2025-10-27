@@ -260,8 +260,7 @@ void exclu_logica_estacionamentos(void) {
     printf("\n");
     estacionamento = (Estacionamentos*)malloc(sizeof(Estacionamentos));
     printf(" >>Digite o Nº da vaga que deseja excluir: ");
-    scanf("%s", n_estaci_lida);
-    getchar();
+    Ler_Estacionamento_Lida(n_estaci_lida);
     printf("\n");
     
     arq_estacionamentos = fopen("estacionamentos.dat", "r+b");
@@ -318,8 +317,7 @@ void recu_registro_estacionamentos(void){
     printf("\n");
     estacionamento = (Estacionamentos*)malloc(sizeof(Estacionamentos));
     printf(" >>Digite o Nº da vaga a ser recuperada: ");
-    scanf("%s", n_estaci_lida);
-    getchar();
+    Ler_Estacionamento_Lida(n_estaci_lida);
     printf("\n");
 
     arq_estacionamentos = fopen("estacionamentos.dat", "r+b");
