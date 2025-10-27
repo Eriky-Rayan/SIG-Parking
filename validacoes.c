@@ -28,6 +28,29 @@ void Ler_Placa(char *placa) {
     }
 }
 
+int Validar_Placa_Lida(char placa_lida[]) {
+    if (strlen(placa_lida) != 8) return 0;
+    for (int i = 0; i < 3; i++) if (!isalpha(placa_lida[i])) return 0;
+    if (placa_lida[3] != '-') return 0;
+    for (int i = 4; i < 8; i++) if (!isdigit(placa_lida[i])) return 0;
+    return 1;
+}
+
+// Ler placa com validação
+void Ler_Placa_Lida(char *placa_lida) {
+    char c;
+    while (1) {
+        if (scanf("%s", placa_lida) != 1) {
+            while ((c = getchar()) != '\n' && c != EOF);
+            printf("Entrada inválida!\n");
+            continue;
+        }
+        while ((c = getchar()) != '\n' && c != EOF);
+        if (Validar_Placa(placa_lida)) break;
+        else printf("Placa inválida! Formato correto: ABC-1234\n");
+    }
+}
+
 // Valida tipo de veículo (Carro ou Moto)
 int Validar_Tipo(char tipo[]) {
     return (strcasecmp(tipo, "Carro") == 0 || strcasecmp(tipo, "Moto") == 0);

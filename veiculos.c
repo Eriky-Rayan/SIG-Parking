@@ -157,8 +157,7 @@ void exib_veiculo(void) {
     printf("\n");
     veiculo = (Veiculos*)malloc(sizeof(Veiculos));
     printf(" >>Digite a placa do veículo a ser exibido:  \n");
-    scanf("%s", placa_lida);
-    getchar();
+    Ler_Placa_Lida(placa_lida);
     printf("\n");
 
     arq_veiculos = fopen("veiculos.dat", "rb");
