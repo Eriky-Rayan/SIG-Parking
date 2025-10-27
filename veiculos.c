@@ -222,8 +222,7 @@ void alterar_veiculo(void) {
     printf(" -Digite os novos dados do veículo-");
     printf("\n");
     printf(" >>Digite a placa do veículo a ser alterado: \n");
-    scanf("%s", placa_lida);
-    getchar();
+    Ler_Placa_Lida(placa_lida);
     printf("\n");
 
     arq_veiculos = fopen("veiculos.dat", "r+b");
@@ -239,8 +238,7 @@ void alterar_veiculo(void) {
             encontrado = 1;
             printf("\n");
             printf(" >>Tipo de Veículo (Carro/Moto): ");
-            scanf("%s", veiculo->tipo);
-            getchar();
+            Ler_Tipo(veiculo->tipo);
             printf("\n");
             printf(" >>Modelo do veículo: ");
             scanf("%s", veiculo->model);
@@ -251,12 +249,10 @@ void alterar_veiculo(void) {
             getchar();
             printf("\n");
             printf(" >>Nº do estacionamento: ");
-            scanf("%s", veiculo->n_estaci);
-            getchar();
+            Ler_Estacionamento(veiculo->n_estaci);
             printf("\n");
             printf(" >>CPF do Dono do Veículo: ");
-            scanf("%s", veiculo->cpf);
-            getchar();
+            Ler_CPF(veiculo->cpf);
             printf("\n");
 
             fseek(arq_veiculos, (-1)*sizeof(Veiculos), SEEK_CUR);
