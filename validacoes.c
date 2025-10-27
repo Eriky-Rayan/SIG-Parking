@@ -274,3 +274,72 @@ void Ler_Quantidade(int *destino) {
 
     *destino = atoi(buffer); // converte string válida para inteiro
 }
+
+// 🔹 Validação: retorna 1 se a entrada contém apenas dígitos e é maior que 0
+int Validacao_qtd_vagas(const char *entrada) {
+    if (strlen(entrada) == 0)
+        return 0;
+
+    for (int i = 0; i < strlen(entrada); i++) {
+        if (!isdigit(entrada[i])) {
+            return 0; // caractere inválido
+        }
+    }
+
+    // Verifica se é maior que 0
+    int valor = atoi(entrada);
+    if (valor <= 0)
+        return 0;
+
+    return 1;
+}
+
+// 🔹 Leitura e validação da quantidade
+void Ler_qtd_vagas(int *destino) {
+    char buffer[20];
+
+    do {
+        scanf("%s", buffer);
+
+        if (!Validacao_qtd_vagas(buffer)) {
+            printf("Quantidade inválida! Digite um número inteiro positivo.\n\n");
+        }
+    } while (!Validacao_qtd_vagas(buffer));
+
+    *destino = atoi(buffer); // converte string válida para inteiro
+}
+
+// 🔹 Validação: retorna 1 se a entrada contém apenas dígitos e é maior que 0
+int Validacao_num_andar(const char *entrada) {
+    if (strlen(entrada) == 0)
+        return 0;
+
+    for (int i = 0; i < strlen(entrada); i++) {
+        if (!isdigit(entrada[i])) {
+            return 0; // caractere inválido
+        }
+    }
+
+    // Verifica se é maior que 0
+    int valor = atoi(entrada);
+    if (valor <= 0)
+        return 0;
+
+    return 1;
+}
+
+// 🔹 Leitura e validação do número do andar
+void Ler_num_andar(int *destino) {
+    char buffer[20];
+
+    do {
+        scanf("%s", buffer);
+
+        if (!Validacao_num_andar(buffer)) {
+            printf("Número inválido! Digite um número inteiro positivo.\n\n");
+        }
+    } while (!Validacao_num_andar(buffer));
+
+    *destino = atoi(buffer); // converte string válida para inteiro
+}
+
