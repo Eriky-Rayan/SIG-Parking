@@ -87,25 +87,25 @@ void add_veiculos(void) {
     printf("=======================================================================================\n");
     printf("\n");
     veiculo = (Veiculos*)malloc(sizeof(Veiculos));
-
     printf(" >>Digite a placa do veículo a ser cadastrado (ABC-1234): ");
-    lerPlaca(veiculo->placa);
+    Ler_Placa(veiculo->placa);
     printf("\n");
     printf(" >>Tipo de Veículo (Carro/Moto): ");
-    lerTipo(veiculo->tipo);
+    Ler_Tipo(veiculo->tipo);
     printf("\n");
     printf(" >>Modelo do veículo: ");
-    lerString(veiculo->model, sizeof(veiculo->model));
+    scanf("%s", veiculo->model);
+    getchar();
     printf("\n");
     printf(" >>Cor do Veículo: ");
-    lerString(veiculo->cor, sizeof(veiculo->cor));
+    scanf("%s", veiculo->cor);
+    getchar();
     printf("\n");
     printf(" >>Nº do estacionamento: ");
-    lerString(veiculo->n_estaci, sizeof(veiculo->n_estaci));
+    Ler_Estacionamento(veiculo->n_estaci);
     printf("\n");
     printf(" >>CPF do Dono do Veículo: ");
-    lerCPF(veiculo->cpf);
-
+    Ler_CPF(veiculo->cpf);
     printf("\n");
 
     veiculo->status = True;
