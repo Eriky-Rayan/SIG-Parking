@@ -71,6 +71,7 @@ char menu_principal(void) {
     system("clear||cls");
 
     char op;
+    int valido = 0;
 
     printf("\n");
     printf("=====================================================================================\n");
@@ -95,9 +96,29 @@ char menu_principal(void) {
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("\n");
-    printf("\t >>Escolha uma opção: ");
-    scanf("%c", &op);
-    getchar();
+
+    do {
+        printf("\t >>Escolha uma opção: ");
+
+        if (scanf(" %c", &op) != 1) {
+            printf("\nEntrada inválida! Tente novamente.\n");
+            while (getchar() != '\n'); // limpa o buffer de entrada
+            continue;
+        }
+
+        while (getchar() != '\n'); // limpa o ENTER ou caracteres extras
+
+        if (op < '0' || op > '8') {
+            printf("\nOpção inválida! Digite um número entre 0 e 8.\n");
+            while (getchar() != '\n'); // limpa o ENTER ou caracteres extras
+        }
+
+        else {
+            valido = 1; // opção válida
+        }
+    
+    } while (!valido);
+    
     printf("\n");
     return op;
 }
@@ -105,6 +126,14 @@ char menu_principal(void) {
 //===================
 //= Telas Genéricas =
 //===================
+void esperar_enter(void) {
+    int c;
+    printf("\t >>Tecle <ENTER> para continuar...");
+    do {
+        c = getchar();
+    } while (c != '\n' && c != EOF);
+    printf("\n");
+}
 
 void equipe(void) {
     system("clear||cls");
@@ -141,9 +170,7 @@ void equipe(void) {
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("\n");
-    printf("\t >>Tecle <ENTER> para voltar ao Menu Principal: ");
-    getchar();
-    printf("\n");
+    esperar_enter();
 }
 
 void sobre(void) {
@@ -172,9 +199,7 @@ void sobre(void) {
     printf("||                                                                                 ||\n");  
     printf("=====================================================================================\n");
     printf("\n");
-    printf("\t >>Tecle <ENTER> para voltar ao Menu Principal: ");
-    getchar();
-    printf("\n");
+    esperar_enter();
 }
 
 void tela_saida(void) {
@@ -192,9 +217,7 @@ void tela_saida(void) {
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("\n");
-    printf("\t >>Tecle <ENTER> para encerrar programa...\n");
-    getchar();
-    printf("\n");
+    esperar_enter();
 }
 
 void op_invalida(void){
@@ -208,7 +231,5 @@ void op_invalida(void){
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("\n");
-    printf("\t >>Tecle <ENTER> para voltar ao Menu Principal: ");
-    getchar();
-    printf("\n");
+    esperar_enter();
 }
