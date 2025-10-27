@@ -130,7 +130,7 @@ void exib_dono_veiculo(void) {
 
     FILE *arq_dono_veiculo;
     DV *dono;
-    char cpf_lido[12];
+    char cpf_lido[15];
     int encontrado = 0;
 
     printf("\n");
@@ -191,7 +191,7 @@ void alterar_dono_veiculo(void) {
 
     FILE *arq_dono_veiculo;
     DV *dono;
-    char cpf_lido[12];
+    char cpf_lido[15];
     int encontrado = 0;
 
     printf("\n");
@@ -255,7 +255,7 @@ void exclu_logica_dono_veiculo(void) {
 
     FILE *arq_dono_veiculo;
     DV *dono;
-    char cpf_lido[12];
+    char cpf_lido[15];
     int encontrado = 0;
 
     printf("\n");
@@ -312,7 +312,7 @@ void recu_registro_dono_veiculo(void){
 
     FILE *arq_dono_veiculo;
     DV *dono;
-    char cpf_lido[12];
+    char cpf_lido[15];
     int encontrado = 0;
 
     printf("\n");
