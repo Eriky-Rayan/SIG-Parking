@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <string.h>
 #include "estacionamentos.h"
+#include "validacoes.h"
 
 typedef struct estacionamentos Estacionamentos;
 
@@ -87,12 +88,10 @@ void add_estacionamentos(void) {
     printf("\n");
     estacionamento = (Estacionamentos*) malloc(sizeof(Estacionamentos));
     printf(" >>Digite o Nº da vaga onde o veículo será cadastrado: ");
-    scanf("%s", estacionamento->n_estaci);
-    getchar();
+    Ler_Estacionamento(estacionamento->n_estaci);
     printf("\n");
     printf(" >>Digite a placa do veículo: ");
-    scanf("%s", estacionamento->placa);
-    getchar();
+    Ler_Placa(estacionamento->placa);
     printf("\n");
 
     estacionamento->status = True;
