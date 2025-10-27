@@ -7,6 +7,7 @@
 #include "cadastro_vagas.h"
 #include "estacionamentos.h"
 #include "veiculos.h"
+#include "validacoes.h"
 //==============================
 //= Funções de Administrador   =
 //==============================
@@ -87,7 +88,7 @@ void exclu_veiculo(void) {
     printf("\n");
     veiculo = (Veiculos*)malloc(sizeof(Veiculos));
     printf(" >>Digite a placa do veículo a ser excluido: ");
-    scanf("%s", placa_lida);
+    Ler_Placa_Lida(placa_lida);
     getchar();
     printf("\n");
 
@@ -149,7 +150,7 @@ void exclu_estacionamentos(void) {
     printf("\n");
     estacionamento = (Estacionamentos*)malloc(sizeof(Estacionamentos));
     printf(" >>Digite o número do estacionamento a ser excluido: ");
-    scanf("%s", n_estaci_lido);
+    Ler_Estacionamento_Lida(n_estaci_lido);
     getchar();
     printf("\n");
 
@@ -211,7 +212,7 @@ void exclu_dono_veiculo(void) {
     printf("\n");
     dono = (DV*)malloc(sizeof(DV));
     printf(" >>Digite o CPF do dono a ser excluido: ");
-    scanf("%s", cpf_lido);
+    Ler_CPF_Lido(cpf_lido);
     getchar();
     printf("\n");
 
@@ -273,7 +274,7 @@ void exclu_cadastro_vagas(void) {
     printf("\n");
     vagas = (CV*)malloc(sizeof(CV));
     printf(" >>Digite o número do andar que deseja excluir: ");
-    scanf("%d", &num_andar_lido);
+    Ler_num_andar(&num_andar_lido);
     getchar();
     printf("\n");
 

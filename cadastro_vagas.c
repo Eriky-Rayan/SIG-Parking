@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <string.h>
 #include "cadastro_vagas.h"
+#include "validacoes.h"
 
 typedef struct cadastro_vagas CV;
 
@@ -87,11 +88,11 @@ void add_cadastro_vagas(void) {
     printf("\n");
     vagas = (CV*)malloc(sizeof(CV));
     printf(" >>Digite a quantidade de vagas a ser cadastrada: ");
-    scanf("%d", &vagas->qtd_vagas);
+    Ler_qtd_vagas(&vagas->qtd_vagas);
     getchar();
     printf("\n");
     printf(" >>Digite o número do andar: ");
-    scanf("%d", &vagas->num_andar);
+    Ler_num_andar(&vagas->num_andar);
     getchar();
     printf("\n");
 
@@ -138,7 +139,7 @@ void exib_cadastro_vagas(void) {
     printf("\n");
     vagas = (CV*)malloc(sizeof(CV));
     printf(" >>Digite o número do andar: ");
-    scanf("%d", &num_andar_lido);
+    Ler_num_andar(&num_andar_lido);
     getchar();
     printf("\n");
 
@@ -198,7 +199,7 @@ void alterar_cadastro_vagas(void) {
     printf(" -Digite os novos dados das vagas-");
     printf("\n");
     printf(" >>Digite o número do andar: ");
-    scanf("%d", &num_andar_lido);
+    Ler_num_andar(&num_andar_lido);
     getchar();
     printf("\n");
 
@@ -213,7 +214,7 @@ void alterar_cadastro_vagas(void) {
         if ((vagas->num_andar == num_andar_lido) && (vagas->status)) {
             encontrado = 1;
             printf(" >>Digite a nova quantidade de vagas: ");
-            scanf("%d", &vagas->qtd_vagas);
+            Ler_qtd_vagas(&vagas->qtd_vagas);
             getchar();
             printf("\n");
 
@@ -258,7 +259,7 @@ void exclu_logica_cadastro_vagas(void) {
     printf("\n");
     vagas = (CV*)malloc(sizeof(CV));
     printf(" >>Digite o número do andar que deseja excluir logicamente: ");
-    scanf("%d", &num_andar_lido);
+    Ler_num_andar(&num_andar_lido);
     getchar();
     printf("\n");
 
@@ -316,7 +317,7 @@ void recu_registro_cadastro_vagas(void) {
     printf("\n");
     vagas = (CV*)malloc(sizeof(CV));
     printf(" >>Digite o número do andar que deseja recuperar: ");
-    scanf("%d", &num_andar_lido);
+    Ler_num_andar(&num_andar_lido);
     getchar();
     printf("\n");
 

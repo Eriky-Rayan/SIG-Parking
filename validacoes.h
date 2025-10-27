@@ -8,3 +8,5 @@ void Ler_Tipo(char *tipo);
 void Ler_Telefone(char *destino);
 void Ler_Nome(char *destino, int tamanho);
 void Ler_Quantidade(int *destino);
+void Ler_qtd_vagas(int *destino);
+void Ler_num_andar(int *destino);
