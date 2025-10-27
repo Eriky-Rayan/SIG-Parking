@@ -129,3 +129,29 @@ void Ler_Estacionamento(char *destino) {
     } while (!Validar_Estacionamento(destino));
 }
 
+int Validar_Estacionamento_Lida(const char *entrada) {
+        // se estiver vazio, já é inválido
+    if (strlen(entrada) == 0)
+        return 0;
+
+    // percorre cada caractere
+    for (int i = 0; i < strlen(entrada); i++) {
+        if (!isdigit(entrada[i])) {
+            return 0; // encontrou algo que não é número
+        }
+    }
+
+    return 1; // válido
+}
+
+void Ler_Estacionamento_Lida(char *destino) {
+    do {
+        printf(" >>Nº do estacionamento: ");
+        scanf("%s", destino);
+        getchar(); // limpa o buffer
+
+        if (!Validar_Estacionamento_Lida(destino)) {
+            printf("Entrada inválida! Digite apenas números inteiros.\n\n");
+        }
+    } while (!Validar_Estacionamento_Lida(destino));
+}

@@ -138,8 +138,7 @@ void exib_estacionamentos(void) {
     printf("\n");
     estacionamento = (Estacionamentos*)malloc(sizeof(Estacionamentos));
     printf(" >>Digite Nº da vaga que deseja ver: ");
-    scanf("%s", n_estaci_lida);
-    getchar();
+    Ler_Estacionamento_Lida(n_estaci_lida);
     printf("\n");
 
     arq_estacionamentos = fopen("estacionamentos.dat", "rb");
