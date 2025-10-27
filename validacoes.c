@@ -147,7 +147,6 @@ int Validar_Estacionamento(const char *entrada) {
 
 void Ler_Estacionamento(char *destino) {
     do {
-        printf(" >>Nº do estacionamento: ");
         scanf("%s", destino);
         getchar(); // limpa o buffer
 
@@ -174,7 +173,6 @@ int Validar_Estacionamento_Lida(const char *entrada) {
 
 void Ler_Estacionamento_Lida(char *destino) {
     do {
-        printf(" >>Nº do estacionamento: ");
         scanf("%s", destino);
         getchar(); // limpa o buffer
 
@@ -202,9 +200,8 @@ int Validacao_Telefone(const char *telefone) {
 // 🔹 Leitura e validação do telefone
 void Ler_Telefone(char *destino) {
     do {
-        printf(" >>Telefone do dono: ");
         scanf("%s", destino); // você pode trocar por fgets() se quiser aceitar espaços
-        // getchar(); // não necessário se usar scanf("%s")
+        getchar(); 
 
         if (!Validacao_Telefone(destino)) {
             printf("Telefone inválido! Digite apenas números e caracteres válidos (+, -, (, )).\n\n");
@@ -263,7 +260,6 @@ void Ler_Quantidade(int *destino) {
     char buffer[20];
 
     do {
-        printf(" >>Quantidade de veículos: ");
         scanf("%s", buffer); // lê como string para validar
         // getchar(); // não necessário se usar scanf("%s")
 
