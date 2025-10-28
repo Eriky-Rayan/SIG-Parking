@@ -308,4 +308,3 @@ void exclu_cadastro_vagas(void) {
     getchar();
     printf("\n");
 }
-
