@@ -87,10 +87,9 @@ void add_estacionamentos(void) {
     printf("=====================================================================================\n");
     printf("\n");
     estacionamento = (Estacionamentos*) malloc(sizeof(Estacionamentos));
-    printf(" >>Digite o Nº da vaga onde o veículo será cadastrado: ");
+    printf(" >>Digite o Nº da vaga onde o veículo será cadastrado. \n");
     Ler_Estacionamento(estacionamento->n_estaci);
     printf("\n");
-    printf(" >>Digite a placa do veículo: ");
     Ler_Placa(estacionamento->placa);
     printf("\n");
 
@@ -137,7 +136,7 @@ void exib_estacionamentos(void) {
     printf("=====================================================================================\n");
     printf("\n");
     estacionamento = (Estacionamentos*)malloc(sizeof(Estacionamentos));
-    printf(" >>Digite Nº da vaga que deseja ver: ");
+    printf(" >>Digite Nº da vaga que deseja ver. \n");
     Ler_Estacionamento_Lida(n_estaci_lida);
     printf("\n");
 
@@ -198,7 +197,7 @@ void alterar_estacionamentos(void) {
     estacionamento = (Estacionamentos*)malloc(sizeof(Estacionamentos));
     printf(" -Digite os novos dados do estacionamento-");
     printf("\n");
-    printf(" >>Digite o Nº da vaga que deseja alterar: ");
+    printf(" >>Digite o Nº da vaga que deseja alterar. \n");
     Ler_Estacionamento_Lida(n_estaci_lida);
     printf("\n");
 
@@ -213,10 +212,8 @@ void alterar_estacionamentos(void) {
     while (fread(estacionamento, sizeof(Estacionamentos), 1, arq_estacionamentos)){
         if ((strcmp(estacionamento->n_estaci, n_estaci_lida) == 0) && (estacionamento->status)){
             encontrado = 1;
-            printf("\n>>Digite o novo nº da vaga: ");
             Ler_Estacionamento(estacionamento->n_estaci);
             printf("\n");
-            printf(" >>Digite a placa do veículo: ");
             Ler_Placa(estacionamento->placa);
 
             fseek(arq_estacionamentos, (-1)*sizeof(Estacionamentos), SEEK_CUR);
@@ -259,7 +256,7 @@ void exclu_logica_estacionamentos(void) {
     printf("=====================================================================================\n");
     printf("\n");
     estacionamento = (Estacionamentos*)malloc(sizeof(Estacionamentos));
-    printf(" >>Digite o Nº da vaga que deseja excluir: ");
+    printf(" >>Digite o Nº da vaga que deseja excluir. \n");
     Ler_Estacionamento_Lida(n_estaci_lida);
     printf("\n");
     
@@ -316,7 +313,7 @@ void recu_registro_estacionamentos(void){
     printf("=====================================================================================\n");
     printf("\n");
     estacionamento = (Estacionamentos*)malloc(sizeof(Estacionamentos));
-    printf(" >>Digite o Nº da vaga a ser recuperada: ");
+    printf(" >>Digite o Nº da vaga a ser recuperada. \n");
     Ler_Estacionamento_Lida(n_estaci_lida);
     printf("\n");
 

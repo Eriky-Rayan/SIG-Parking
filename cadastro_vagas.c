@@ -87,13 +87,9 @@ void add_cadastro_vagas(void) {
     printf("=====================================================================================\n");
     printf("\n");
     vagas = (CV*)malloc(sizeof(CV));
-    printf(" >>Digite a quantidade de vagas a ser cadastrada: ");
     Ler_qtd_vagas(&vagas->qtd_vagas);
-    getchar();
     printf("\n");
-    printf(" >>Digite o número do andar: ");
     Ler_num_andar(&vagas->num_andar);
-    getchar();
     printf("\n");
 
     vagas->status = True;
@@ -138,9 +134,8 @@ void exib_cadastro_vagas(void) {
     printf("=====================================================================================\n");
     printf("\n");
     vagas = (CV*)malloc(sizeof(CV));
-    printf(" >>Digite o número do andar: ");
+    printf(" >>Digite o número do andar. \n");
     Ler_num_andar(&num_andar_lido);
-    getchar();
     printf("\n");
 
     arq_cadastro_vagas = fopen("cadastro_vagas.dat", "rb");
@@ -198,9 +193,8 @@ void alterar_cadastro_vagas(void) {
     vagas = (CV*)malloc(sizeof(CV));
     printf(" -Digite os novos dados das vagas-");
     printf("\n");
-    printf(" >>Digite o número do andar: ");
+    printf(" >>Digite o número do andar. \n");
     Ler_num_andar(&num_andar_lido);
-    getchar();
     printf("\n");
 
     arq_cadastro_vagas = fopen("cadastro_vagas.dat", "r+b");
@@ -213,9 +207,7 @@ void alterar_cadastro_vagas(void) {
     while (fread(vagas, sizeof(CV), 1, arq_cadastro_vagas)) {
         if ((vagas->num_andar == num_andar_lido) && (vagas->status)) {
             encontrado = 1;
-            printf(" >>Digite a nova quantidade de vagas: ");
             Ler_qtd_vagas(&vagas->qtd_vagas);
-            getchar();
             printf("\n");
 
             fseek(arq_cadastro_vagas, (-1)*sizeof(CV), SEEK_CUR);
@@ -258,9 +250,8 @@ void exclu_logica_cadastro_vagas(void) {
     printf("=====================================================================================\n");
     printf("\n");
     vagas = (CV*)malloc(sizeof(CV));
-    printf(" >>Digite o número do andar que deseja excluir logicamente: ");
+    printf(" >>Digite o número do andar que deseja excluir logicamente. \n");
     Ler_num_andar(&num_andar_lido);
-    getchar();
     printf("\n");
 
     arq_cadastro_vagas = fopen("cadastro_vagas.dat", "r+b");
@@ -316,9 +307,8 @@ void recu_registro_cadastro_vagas(void) {
     printf("=====================================================================================\n");
     printf("\n");
     vagas = (CV*)malloc(sizeof(CV));
-    printf(" >>Digite o número do andar que deseja recuperar: ");
+    printf(" >>Digite o número do andar que deseja recuperar. \n");
     Ler_num_andar(&num_andar_lido);
-    getchar();
     printf("\n");
 
     arq_cadastro_vagas = fopen("cadastro_vagas.dat", "r+b");
