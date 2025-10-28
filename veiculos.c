@@ -87,24 +87,16 @@ void add_veiculos(void) {
     printf("=======================================================================================\n");
     printf("\n");
     veiculo = (Veiculos*)malloc(sizeof(Veiculos));
-    printf(" >>Digite a placa do veículo a ser cadastrado (ABC-1234): ");
     Ler_Placa(veiculo->placa);
     printf("\n");
-    printf(" >>Tipo de Veículo (Carro/Moto): ");
     Ler_Tipo(veiculo->tipo);
     printf("\n");
-    printf(" >>Modelo do veículo: ");
-    scanf("%s", veiculo->model);
-    getchar();
+    Ler_model(veiculo->model, sizeof(veiculo->model));
     printf("\n");
-    printf(" >>Cor do Veículo: ");
-    scanf("%s", veiculo->cor);
-    getchar();
+    Ler_cor(veiculo->cor, sizeof(veiculo->cor));
     printf("\n");
-    printf(" >>Nº do estacionamento: ");
     Ler_Estacionamento(veiculo->n_estaci);
     printf("\n");
-    printf(" >>CPF do Dono do Veículo: ");
     Ler_CPF(veiculo->cpf);
     printf("\n");
 
@@ -156,7 +148,7 @@ void exib_veiculo(void) {
     printf("=====================================================================================\n");
     printf("\n");
     veiculo = (Veiculos*)malloc(sizeof(Veiculos));
-    printf(" >>Digite a placa do veículo a ser exibido:  \n");
+    printf(" >>Digite a placa do veículo a ser exibido.  \n");
     Ler_Placa_Lida(placa_lida);
     printf("\n");
 
@@ -221,7 +213,7 @@ void alterar_veiculo(void) {
     veiculo = (Veiculos*)malloc(sizeof(Veiculos));
     printf(" -Digite os novos dados do veículo-");
     printf("\n");
-    printf(" >>Digite a placa do veículo a ser alterado: \n");
+    printf(" >>Digite a placa do veículo a ser alterado. \n");
     Ler_Placa_Lida(placa_lida);
     printf("\n");
 
@@ -237,21 +229,14 @@ void alterar_veiculo(void) {
         if ((strcmp(veiculo->placa, placa_lida) == 0) && (veiculo->status)) {
             encontrado = 1;
             printf("\n");
-            printf(" >>Tipo de Veículo (Carro/Moto): ");
             Ler_Tipo(veiculo->tipo);
             printf("\n");
-            printf(" >>Modelo do veículo: ");
-            scanf("%s", veiculo->model);
-            getchar();
+            Ler_model(veiculo->model, sizeof(veiculo->model));
             printf("\n");
-            printf(" >>Cor do Veículo: ");
-            scanf("%s", veiculo->cor);
-            getchar();
+            Ler_cor(veiculo->cor, sizeof(veiculo->cor));
             printf("\n");
-            printf(" >>Nº do estacionamento: ");
             Ler_Estacionamento(veiculo->n_estaci);
             printf("\n");
-            printf(" >>CPF do Dono do Veículo: ");
             Ler_CPF(veiculo->cpf);
             printf("\n");
 
@@ -294,7 +279,7 @@ void exclu_logica_veiculo(void) {
     printf("======================================================================================\n");
     printf("\n");
     veiculo = (Veiculos*)malloc(sizeof(Veiculos));
-    printf(" >>Digite a placa do veículo a ser excluido: ");
+    printf(" >>Digite a placa do veículo a ser excluido. \n");
     Ler_Placa_Lida(placa_lida);
     printf("\n");
 
@@ -350,7 +335,7 @@ void recu_registro_veiculo(void){
     printf("======================================================================================\n");
     printf("\n");
     veiculo = (Veiculos*)malloc(sizeof(Veiculos));
-    printf(" >>Digite a placa do veículo a ser recuperado: ");
+    printf(" >>Digite a placa do veículo a ser recuperado. \n");
     Ler_Placa_Lida(placa_lida);
     printf("\n");
 

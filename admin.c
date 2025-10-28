@@ -87,9 +87,8 @@ void exclu_veiculo(void) {
     printf("======================================================================================\n");
     printf("\n");
     veiculo = (Veiculos*)malloc(sizeof(Veiculos));
-    printf(" >>Digite a placa do veículo a ser excluido: ");
+    printf(" >>Digite a placa do veículo a ser excluido. \n");
     Ler_Placa_Lida(placa_lida);
-    getchar();
     printf("\n");
 
     arq_veiculo = fopen("veiculos.dat", "rb");
@@ -149,9 +148,8 @@ void exclu_estacionamentos(void) {
     printf("======================================================================================\n");
     printf("\n");
     estacionamento = (Estacionamentos*)malloc(sizeof(Estacionamentos));
-    printf(" >>Digite o número do estacionamento a ser excluido: ");
+    printf(" >>Digite o número do estacionamento a ser excluido. \n");
     Ler_Estacionamento_Lida(n_estaci_lido);
-    getchar();
     printf("\n");
 
     arq_estacionamentos = fopen("estacionamentos.dat", "rb");
@@ -211,9 +209,8 @@ void exclu_dono_veiculo(void) {
     printf("======================================================================================\n");
     printf("\n");
     dono = (DV*)malloc(sizeof(DV));
-    printf(" >>Digite o CPF do dono a ser excluido: ");
+    printf(" >>Digite o CPF do dono a ser excluido. \n");
     Ler_CPF_Lido(cpf_lido);
-    getchar();
     printf("\n");
 
     arq_dono_veiculo = fopen("dono_veiculo.dat", "rb");
@@ -273,9 +270,8 @@ void exclu_cadastro_vagas(void) {
     printf("=====================================================================================\n");
     printf("\n");
     vagas = (CV*)malloc(sizeof(CV));
-    printf(" >>Digite o número do andar que deseja excluir: ");
+    printf(" >>Digite o número do andar que deseja excluir. \n");
     Ler_num_andar(&num_andar_lido);
-    getchar();
     printf("\n");
 
     arq_cadastro_vagas = fopen("cadastro_vagas.dat", "rb");

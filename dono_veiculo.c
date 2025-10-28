@@ -87,16 +87,12 @@ void add_dono_veiculo(void) {
     printf("====================================================================================\n");
     printf("\n");
     dono = (DV*)malloc(sizeof(DV));
-    printf(" >>Digite o CPF do dono do veículo a ser cadastrado:  ");
     Ler_CPF(dono->cpf);
     printf("\n");
-    printf(" >>Telefone do dono: ");
     Ler_Telefone(dono->telefone);
     printf("\n");
-    printf(" >>Nome do dono: ");
     Ler_Nome(dono->nome, sizeof(dono->nome));
     printf("\n");
-    printf(" >>Quantidade de veículos: ");
     Ler_Quantidade(&dono->quantidade);
     printf("\n");
 
@@ -145,7 +141,7 @@ void exib_dono_veiculo(void) {
     printf("====================================================================================\n");
     printf("\n");
     dono = (DV*)malloc(sizeof(DV));
-    printf(" >>Digite o CPF do dono a ser exibido: ");
+    printf(" >>Digite o CPF do dono a ser exibido. \n");
     Ler_CPF_Lido(cpf_lido);
     printf("\n");
 
@@ -208,7 +204,7 @@ void alterar_dono_veiculo(void) {
     dono = (DV*)malloc(sizeof(DV));
     printf(" -Digite os novos dados do dono do veículo-");
     printf("\n");
-    printf(" >>Digite o CPF do dono do veículo a ser alterado: ");
+    printf(" >>Digite o CPF do dono do veículo a ser alterado. \n");
     Ler_CPF_Lido(cpf_lido);
     printf("\n");
 
@@ -223,11 +219,8 @@ void alterar_dono_veiculo(void) {
     while (fread(dono, sizeof(DV), 1, arq_dono_veiculo)) {
         if ((strcmp(dono->cpf, cpf_lido) == 0) && (dono->status)) {
             encontrado = 1;
-            printf("\n>>Digite o telefone do dono: ");
             Ler_Telefone(dono->telefone);
-            printf(">>Digite o nome do dono: ");
             Ler_Nome(dono->nome, sizeof(dono->nome));
-            printf(">>Digite a quantidade de veículos: ");
             Ler_Quantidade(&dono->quantidade);
 
             fseek(arq_dono_veiculo, (-1)*sizeof(DV), SEEK_CUR);
@@ -270,7 +263,7 @@ void exclu_logica_dono_veiculo(void) {
     printf("======================================================================================\n");
     printf("\n");
     dono = (DV*)malloc(sizeof(DV));
-    printf(" >>Digite o CPF do dono a ser excluido: ");
+    printf(" >>Digite o CPF do dono a ser excluido. \n");
     Ler_CPF_Lido(cpf_lido);
     printf("\n");
 
@@ -327,7 +320,7 @@ void recu_registro_dono_veiculo(void){
     printf("======================================================================================\n");
     printf("\n");
     dono = (DV*)malloc(sizeof(DV));
-    printf(" >>Digite o CPF do dono a ser recuperado: ");
+    printf(" >>Digite o CPF do dono a ser recuperado. \n");
     Ler_CPF_Lido(cpf_lido);
     printf("\n");
 
