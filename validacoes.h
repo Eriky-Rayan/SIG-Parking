@@ -10,3 +10,5 @@ void Ler_Nome(char *destino, int tamanho);
 void Ler_Quantidade(int *destino);
 void Ler_qtd_vagas(int *destino);
 void Ler_num_andar(int *destino);
+void Ler_Opcao_Menu(char *destino);
+void Ler_Opcao_admin(char *destino);

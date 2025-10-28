@@ -63,7 +63,7 @@ char cadastro_vagas(void) {
     printf("=====================================================================================\n");
     printf("\n");
     printf("\t >>Escolha uma opção: ");
-    scanf("%c", &op);
+    Ler_Opcao_Menu(&op);
     getchar();
     printf("\n");
     return op;

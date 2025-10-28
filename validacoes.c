@@ -339,3 +339,73 @@ void Ler_num_andar(int *destino) {
     *destino = atoi(buffer); // converte string válida para inteiro
 }
 
+// Valida se a opção do menu é um número entre 0 e 5
+int Validacao_Opcao_Menu(const char *entrada) {
+    if (strlen(entrada) == 0)
+        return 0;
+
+    // verifica se há apenas dígitos
+    for (int i = 0; i < strlen(entrada); i++) {
+        if (!isdigit(entrada[i])) {
+            return 0; // caractere inválido
+        }
+    }
+
+    // converte para número e verifica o intervalo
+    int valor = atoi(entrada);
+    if (valor < 0 || valor > 5)
+        return 0;
+
+    return 1;
+}
+
+// Lê a opção do menu com validação
+void Ler_Opcao_Menu(char *destino) {
+    char buffer[10];
+
+    do {
+        scanf("%s", buffer); // lê como string
+
+        if (!Validacao_Opcao_Menu(buffer)) {
+            printf("\nOpção inválida! Digite um número entre 0 e 5.\n\n");
+        }
+    } while (!Validacao_Opcao_Menu(buffer));
+
+    *destino = buffer[0]; // guarda a opção
+}
+
+// Valida se a opção do menu é um número entre 0 e 4
+int Validacao_Opcao_admin(const char *entrada) {
+    if (strlen(entrada) == 0)
+        return 0;
+
+    // verifica se há apenas dígitos
+    for (int i = 0; i < strlen(entrada); i++) {
+        if (!isdigit(entrada[i])) {
+            return 0; // caractere inválido
+        }
+    }
+
+    // converte para número e verifica o intervalo
+    int valor = atoi(entrada);
+    if (valor < 0 || valor > 4)
+        return 0;
+
+    return 1;
+}
+
+// Lê a opção do menu com validação
+void Ler_Opcao_admin(char *destino) {
+    char buffer[10];
+
+    do {
+        scanf("%s", buffer); // lê como string
+
+        if (!Validacao_Opcao_admin(buffer)) {
+            printf("\nOpção inválida! Digite um número entre 0 e 4.\n\n");
+        }
+    } while (!Validacao_Opcao_admin(buffer));
+
+    *destino = buffer[0]; // guarda a opção
+}
+
