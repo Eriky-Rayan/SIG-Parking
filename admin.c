@@ -60,7 +60,7 @@ char admin(void) {
     printf("========================================================================================\n");
     printf("\n");
     printf("\t >>Escolha uma opção: ");
-    scanf("%c", &op);
+    Ler_Opcao_admin(&op);
     getchar();
     printf("\n");
     return op;
