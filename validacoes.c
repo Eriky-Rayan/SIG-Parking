@@ -73,7 +73,6 @@ void Ler_Tipo(char *tipo) {
 }
 
 
-// Validação de valores de entrada do modelo do veículo:
 int Validar_model(const char *model) {
     if (strlen(model) == 0)
         return 0;
@@ -95,7 +94,6 @@ void Ler_model(char *destino, int tamanho) {
         printf(" >>Modelo do veículo: ");
         fgets(destino, tamanho, stdin);
 
-        // remove o \n do final, se houver
         destino[strcspn(destino, "\n")] = '\0';
 
         if (!Validar_model(destino)) {
@@ -123,7 +121,6 @@ void Ler_cor(char *destino, int tamanho) {
         printf(" >>Cor do Veículo: ");
         fgets(destino, tamanho, stdin);
 
-        // remove o \n do final, se houver
         destino[strcspn(destino, "\n")] = '\0';
 
         if (!Validar_cor(destino)) {
@@ -195,11 +192,9 @@ void Ler_CPF_Lido(char *cpf_lido) {
 
 // Validação de valores de entrada do número do estacionamento:
 int Validar_Estacionamento(const char *entrada) {
-        // se estiver vazio, já é inválido
     if (strlen(entrada) == 0)
         return 0;
 
-    // percorre cada caractere
     for (int i = 0; i < strlen(entrada); i++) {
         if (!isdigit(entrada[i])) {
             return 0; // encontrou algo que não é número
@@ -213,7 +208,7 @@ void Ler_Estacionamento(char *destino) {
     do {
         printf(" >>Nº do estacionamento: ");
         scanf("%s", destino);
-        getchar(); // limpa o buffer
+        getchar();
 
         if (!Validar_Estacionamento(destino)) {
             printf("Entrada inválida! Digite apenas números inteiros.\n\n");
@@ -222,14 +217,12 @@ void Ler_Estacionamento(char *destino) {
 }
 
 int Validar_Estacionamento_Lida(const char *entrada) {
-        // se estiver vazio, já é inválido
     if (strlen(entrada) == 0)
         return 0;
 
-    // percorre cada caractere
     for (int i = 0; i < strlen(entrada); i++) {
         if (!isdigit(entrada[i])) {
-            return 0; // encontrou algo que não é número
+            return 0;
         }
     }
 
@@ -240,7 +233,7 @@ void Ler_Estacionamento_Lida(char *destino) {
     do {
         printf(" >>Nº do estacionamento: ");
         scanf("%s", destino);
-        getchar(); // limpa o buffer
+        getchar();
 
         if (!Validar_Estacionamento_Lida(destino)) {
             printf("Entrada inválida! Digite apenas números inteiros.\n\n");
@@ -249,7 +242,6 @@ void Ler_Estacionamento_Lida(char *destino) {
 }
 
 
-// Validação de valores de entrada do telefone:
 int Validar_Telefone(const char *telefone) {
     if (strlen(telefone) == 0)
         return 0;
@@ -267,7 +259,7 @@ int Validar_Telefone(const char *telefone) {
 void Ler_Telefone(char *destino) {
     do {
         printf(" >>Telefone: ");
-        scanf("%s", destino); // você pode trocar por fgets() se quiser aceitar espaços
+        scanf("%s", destino);
         getchar(); 
 
         if (!Validar_Telefone(destino)) {
@@ -295,7 +287,6 @@ void Ler_Nome(char *destino, int tamanho) {
         printf(" >>Nome: ");
         fgets(destino, tamanho, stdin);
 
-        // remove o \n do final, se houver
         destino[strcspn(destino, "\n")] = '\0';
 
         if (!Validar_Nome(destino)) {
@@ -312,11 +303,10 @@ int Validar_Quantidade(const char *entrada) {
 
     for (int i = 0; i < strlen(entrada); i++) {
         if (!isdigit(entrada[i])) {
-            return 0; // caractere inválido
+            return 0;
         }
     }
 
-    // Verifica se é maior que 0
     int valor = atoi(entrada);
     if (valor <= 0)
         return 0;
@@ -329,15 +319,14 @@ void Ler_Quantidade(int *destino) {
 
     do {
         printf(" >>Quantidade de veículos: ");
-        scanf("%s", buffer); // lê como string para validar
-        // getchar(); // não necessário se usar scanf("%s")
+        scanf("%s", buffer);
 
         if (!Validar_Quantidade(buffer)) {
             printf("Quantidade inválida! Digite um número inteiro positivo.\n\n");
         }
     } while (!Validar_Quantidade(buffer));
 
-    *destino = atoi(buffer); // converte string válida para inteiro
+    *destino = atoi(buffer);
 }
 
 
@@ -348,11 +337,10 @@ int Validar_qtd_vagas(const char *entrada) {
 
     for (int i = 0; i < strlen(entrada); i++) {
         if (!isdigit(entrada[i])) {
-            return 0; // caractere inválido
+            return 0;
         }
     }
 
-    // Verifica se é maior que 0
     int valor = atoi(entrada);
     if (valor <= 0)
         return 0;
@@ -372,7 +360,7 @@ void Ler_qtd_vagas(int *destino) {
         }
     } while (!Validar_qtd_vagas(buffer));
 
-    *destino = atoi(buffer); // converte string válida para inteiro
+    *destino = atoi(buffer);
 }
 
 
@@ -383,11 +371,10 @@ int Validar_num_andar(const char *entrada) {
 
     for (int i = 0; i < strlen(entrada); i++) {
         if (!isdigit(entrada[i])) {
-            return 0; // caractere inválido
+            return 0;
         }
     }
 
-    // Verifica se é maior que 0
     int valor = atoi(entrada);
     if (valor <= 0)
         return 0;
