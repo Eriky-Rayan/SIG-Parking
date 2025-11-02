@@ -61,7 +61,6 @@ char admin(void) {
     printf("\n");
     printf("\t >>Escolha uma opção: ");
     Ler_Opcao_admin(&op);
-    getchar();
     printf("\n");
     return op;
 }

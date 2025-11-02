@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include "validacoes.h"
+#include "../include/validacoes.h"
 
 // Validação de valores de entrada da placa do veículo:
 int Validar_Placa(char placa[]) {
@@ -274,7 +274,10 @@ void Ler_qtd_vagas(int *destino) {
 
     do {
         printf(" >>Quantidade de vagas: ");
-        scanf("%s", buffer);
+        fgets(buffer, sizeof(buffer), stdin);
+
+        // Remove o \n do final, se existir
+        buffer[strcspn(buffer, "\n")] = 0;
 
         if (!Validar_qtd_vagas(buffer)) {
             printf("Quantidade inválida! Digite um número inteiro positivo.\n\n");
@@ -308,7 +311,10 @@ void Ler_num_andar(int *destino) {
 
     do {
         printf(" >>Número do andar: ");
-        scanf("%s", buffer);
+        fgets(buffer, sizeof(buffer), stdin);
+
+        // Remove o \n do final, se existir
+        buffer[strcspn(buffer, "\n")] = 0;
 
         if (!Validar_num_andar(buffer)) {
             printf("Número inválido! Digite um número inteiro positivo.\n\n");
@@ -343,7 +349,10 @@ void Ler_Opcao_Menu(char *destino) {
     char buffer[10];
 
     do {
-        scanf("%s", buffer); // lê como string
+        fgets(buffer, sizeof(buffer), stdin);
+
+        // Remove o \n do final, se existir
+        buffer[strcspn(buffer, "\n")] = 0;
 
         if (!Validacao_Opcao_Menu(buffer)) {
             printf("\nOpção inválida! Digite um número entre 0 e 5.\n\n");
@@ -378,7 +387,10 @@ void Ler_Opcao_admin(char *destino) {
     char buffer[10];
 
     do {
-        scanf("%s", buffer); // lê como string
+        fgets(buffer, sizeof(buffer), stdin);
+
+        // Remove o \n do final, se existir
+        buffer[strcspn(buffer, "\n")] = 0;
 
         if (!Validacao_Opcao_admin(buffer)) {
             printf("\nOpção inválida! Digite um número entre 0 e 4.\n\n");

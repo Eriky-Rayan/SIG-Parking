@@ -64,7 +64,6 @@ char veiculos(void) {
     printf("\n");
     printf("\t >>Escolha uma opção: ");
     Ler_Opcao_Menu(&op);
-    getchar();
     printf("\n");
     return op;
 }
