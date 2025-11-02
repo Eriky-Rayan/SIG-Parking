@@ -1,11 +1,25 @@
-all: 
-	gcc -c -Wall *.h
-	gcc -c -Wall *.c 
-	gcc -o SIG-Parking *.o
-#Faz a compilação do programa
+CC = gcc
+CFLAGS = -Wall -Iinclude
+SRC = $(wildcard src/*.c)
+OBJ = $(SRC:src/%.c=build/%.o)
+BIN = build/SIG-Parking
+
+# Compila tudo
+all: $(BIN)
+
+# Gera o executável
+$(BIN): $(OBJ)
+	$(CC) $(OBJ) -o $(BIN)
+
+# Compila os .c em .o
+build/%.o: src/%.c
+	@mkdir -p build
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Limpa arquivos temporários
 clean:
-	rm *.o *.gch SIG-Parking *.gch
-#limpa os arquivos .o e o EXE ou seja o lixo
- run:
-	./SIG-Parking
-#executa o programa / arquivo executavel
+	rm -rf build
+
+# Executa o programa
+run: all
+	./$(BIN)

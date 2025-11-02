@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
-#include "dono_veiculo.h"
-#include "validacoes.h"
+#include "../include/dono_veiculo.h"
+#include "../include/validacoes.h"
 
 typedef struct dono_veiculo DV;
 
@@ -142,7 +142,7 @@ void exib_dono_veiculo(void) {
     printf("\n");
     dono = (DV*)malloc(sizeof(DV));
     printf(" >>Digite o CPF do dono a ser exibido. \n");
-    Ler_CPF_Lido(cpf_lido);
+    Ler_CPF(cpf_lido);
     printf("\n");
 
     arq_dono_veiculo = fopen("dono_veiculo.dat", "rb");
@@ -205,7 +205,7 @@ void alterar_dono_veiculo(void) {
     printf(" -Digite os novos dados do dono do veículo-");
     printf("\n");
     printf(" >>Digite o CPF do dono do veículo a ser alterado. \n");
-    Ler_CPF_lido(cpf_lido);
+    Ler_CPF(cpf_lido);
     printf("\n");
 
     arq_dono_veiculo = fopen("dono_veiculo.dat", "r+b");
@@ -264,7 +264,7 @@ void exclu_logica_dono_veiculo(void) {
     printf("\n");
     dono = (DV*)malloc(sizeof(DV));
     printf(" >>Digite o CPF do dono a ser excluido. \n");
-    Ler_CPF_lido(cpf_lido);
+    Ler_CPF(cpf_lido);
     printf("\n");
 
     arq_dono_veiculo = fopen("dono_veiculo.dat", "r+b");
@@ -321,7 +321,7 @@ void recu_registro_dono_veiculo(void){
     printf("\n");
     dono = (DV*)malloc(sizeof(DV));
     printf(" >>Digite o CPF do dono a ser recuperado. \n");
-    Ler_CPF_lido(cpf_lido);
+    Ler_CPF(cpf_lido);
     printf("\n");
 
     arq_dono_veiculo = fopen("dono_veiculo.dat", "r+b");

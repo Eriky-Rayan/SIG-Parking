@@ -2,44 +2,44 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
-#include "estacionamentos.h"
-#include "validacoes.h"
+#include "../include/cadastro_vagas.h"
+#include "../include/validacoes.h"
 
-typedef struct estacionamentos Estacionamentos;
+typedef struct cadastro_vagas CV;
 
-//=====================================
-//= Funções do Módulo Estacionamentos =
-//=====================================
+//=======================================
+//= Funções do Módulo Cadastro de Vagas =
+//=======================================
 
-void switch_estacionamentos(void){
+void switch_cadastro_vagas(void){
 
     char op;
 
     do {
-        op = estacionamentos();
+        op = cadastro_vagas();
         switch (op) {
             case '1': 
-                add_estacionamentos();
+                add_cadastro_vagas();
                 break;
             case '2': 
-                exib_estacionamentos();
+                exib_cadastro_vagas();
                 break;
             case '3': 
-                alterar_estacionamentos();
+                alterar_cadastro_vagas();
                 break;
-            case '4': 
-                exclu_logica_estacionamentos();
-                break;
+            case '4':
+                exclu_logica_cadastro_vagas();
+                break;               
             case '5':
-                recu_registro_estacionamentos();
+                recu_registro_cadastro_vagas();
                 break;
         }
     } while (op != '0');
 }
 
-char estacionamentos(void) {
+char cadastro_vagas(void) {
     system("clear||cls");
-
+    
     char op;
 
     printf("\n");
@@ -49,15 +49,15 @@ char estacionamentos(void) {
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("||                                                                                 ||\n");
-    printf("||                             -Módulo Estacionamentos-                            ||\n");
+    printf("||                            Módulo Cadastro de Vagas                             ||\n");
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("||                                                                                 ||\n");
-    printf("|| [1] -> Cadastrar Estacionamento                                                 ||\n");
-    printf("|| [2] -> Exibir Dados do Estacionamento                                           ||\n");
-    printf("|| [3] -> Alterar Dados do Estacionamento                                          ||\n");
-    printf("|| [4] -> Excluir Estacionamento                                                   ||\n");
-    printf("|| [5] -> Recuperar registro do Estacionamento                                     ||\n");
+    printf("|| [1] -> Cadastrar Vagas                                                          ||\n");
+    printf("|| [2] -> Exibir Dados das Vagas                                                   ||\n");
+    printf("|| [3] -> Alterar Dados das Vagas                                                  ||\n");
+    printf("|| [4] -> Excluir Vagas logicamente                                                ||\n");
+    printf("|| [5] -> Recuperar registro das Vagas                                             ||\n");
     printf("|| [0] -> Voltar ao Menu Principal                                                 ||\n");
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
@@ -69,11 +69,11 @@ char estacionamentos(void) {
     return op;
 }
 
-void add_estacionamentos(void) {
+void add_cadastro_vagas(void) {
     system("clear||cls");
 
-    FILE *arq_estacionamentos;
-    Estacionamentos *estacionamento;
+    FILE *arq_cadastro_vagas;
+    CV *vagas;
 
     printf("\n");
     printf("=====================================================================================\n");
@@ -82,266 +82,260 @@ void add_estacionamentos(void) {
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("||                                                                                 ||\n");
-    printf("||                -Módulo Estacionamentos -> Cadastrar Estacionamento-             ||\n");
+    printf("||                  -Módulo Cadastro de Vagas -> Cadastrar Vagas-                  ||\n");
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("\n");
-    estacionamento = (Estacionamentos*) malloc(sizeof(Estacionamentos));
-    printf(" >>Digite o Nº da vaga onde o veículo será cadastrado. \n");
-    Ler_Estacionamento(estacionamento->n_estaci);
+    vagas = (CV*)malloc(sizeof(CV));
+    Ler_qtd_vagas(&vagas->qtd_vagas);
     printf("\n");
-    Ler_Placa(estacionamento->placa);
+    Ler_num_andar(&vagas->num_andar);
     printf("\n");
 
-    estacionamento->status = True;
-    arq_estacionamentos = fopen("estacionamentos.dat", "ab");
-    if (arq_estacionamentos == NULL) {
-        printf("\t Erro ao abrir o arquivo de estacionamentos.\n");
+    vagas->status = True;
+    arq_cadastro_vagas = fopen("cadastro_vagas.dat", "ab");
+    if (arq_cadastro_vagas == NULL) {
+        printf("\t Erro ao abrir o arquivo do cadastro das vagas.\n");
+        printf("\t >>Tecle <ENTER> para continuar...\n");
+        return;
+    }
+       
+    fwrite(vagas, sizeof(CV), 1, arq_cadastro_vagas);
+    fclose(arq_cadastro_vagas);
+
+    printf("Vaga cadastrada com sucesso!\n");
+    printf("\nQuantidade de vagas no andar: %d", vagas->qtd_vagas);
+    printf("\nNúmero do andar: %d", vagas->num_andar);
+    printf("\n");
+    printf("\t >>Tecle <ENTER> para continuar...\n");
+    getchar();
+    printf("\n");
+
+    free(vagas);
+}
+
+void exib_cadastro_vagas(void) {
+    system("clear||cls");
+
+    FILE *arq_cadastro_vagas;
+    CV *vagas;
+    int num_andar_lido;
+    int encontrado = 0;
+
+    printf("\n");
+    printf("=====================================================================================\n");
+    printf("||                                                                                 ||\n");
+    printf("||                                  -SIG-Parking-                                  ||\n");
+    printf("||                                                                                 ||\n");
+    printf("=====================================================================================\n");
+    printf("||                                                                                 ||\n");
+    printf("||                 -Módulo Cadastro de Vagas -> Exibir Dados das Vagas-            ||\n");
+    printf("||                                                                                 ||\n");
+    printf("=====================================================================================\n");
+    printf("\n");
+    vagas = (CV*)malloc(sizeof(CV));
+    printf(" >>Digite o número do andar. \n");
+    Ler_num_andar(&num_andar_lido);
+    printf("\n");
+
+    arq_cadastro_vagas = fopen("cadastro_vagas.dat", "rb");
+    if (arq_cadastro_vagas == NULL) {
+        printf("\t Erro ao abrir o arquivo de cadastro das vagas.\n");
         printf("\t >>Tecle <ENTER> para continuar...\n");
         getchar();
         return;
     }
-
-    fwrite(estacionamento, sizeof(Estacionamentos), 1, arq_estacionamentos);
-    fclose(arq_estacionamentos);
-
-    printf("Veículo cadastrado no estacionamento com sucesso!\n");
-    printf("\nNº do estacionamento: %s", estacionamento->n_estaci);
-    printf("\nPlaca: %s", estacionamento->placa);
-    printf("\n");
-    printf("\t >>Tecle <ENTER> para continuar...\n");
-    getchar();
-    printf("\n");
-
-    free(estacionamento);
-}
-
-void exib_estacionamentos(void) {
-    system("clear||cls");
-
-    FILE *arq_estacionamentos;
-    Estacionamentos *estacionamento;
-    char n_estaci_lida[8];
-    int encontrado = 0;
-
-    printf("\n");
-    printf("=====================================================================================\n");
-    printf("||                                                                                 ||\n");
-    printf("||                                  -SIG-Parking-                                  ||\n");
-    printf("||                                                                                 ||\n");
-    printf("=====================================================================================\n");
-    printf("||                                                                                 ||\n");
-    printf("||                -Módulo Estacionamentos -> Exibir Estacionamento-                ||\n");
-    printf("||                                                                                 ||\n");
-    printf("=====================================================================================\n");
-    printf("\n");
-    estacionamento = (Estacionamentos*)malloc(sizeof(Estacionamentos));
-    printf(" >>Digite Nº da vaga que deseja ver. \n");
-    Ler_Estacionamento_Lida(n_estaci_lida);
-    printf("\n");
-
-    arq_estacionamentos = fopen("estacionamentos.dat", "rb");
-    if (arq_estacionamentos == NULL) {
-        printf("\t Erro ao abrir o arquivo de dono_veiculo.\n");
-        printf("\t >>Tecle <ENTER> para continuar...\n");
-        getchar();
-        return;
-    }
-    while (fread(estacionamento, sizeof(Estacionamentos), 1, arq_estacionamentos)) {
-        if ((strcmp(estacionamento->n_estaci, n_estaci_lida) == 0) && (estacionamento->status)) {
+    while (fread(vagas, sizeof(CV), 1, arq_cadastro_vagas)) {
+        if ((vagas->num_andar == num_andar_lido) && (vagas->status)){
             encontrado = 1;
-            printf("<<<estacionamento encontrado>>");
-            printf("\n");
-            printf("Nº do estacionamento: %s\n", estacionamento->n_estaci);
-            printf("placa: %s\n", estacionamento->placa);
-            printf("\t >>Tecle <ENTER> para continuar...\n");
-            getchar();
-            return;
-        }
-    }
-
-    fclose(arq_estacionamentos);
-    free(estacionamento);
-
-    if (encontrado) {
-        printf("O veículo na seguinte vaga foi exibido: %s\n", n_estaci_lida);
-    }
-    else {
-        printf("Nº da vaga não encontrado!\n");
-    }
-    printf("\n");
-    printf("\t >>Tecle <ENTER> para continuar...\n");
-    getchar();
-    printf("\n");
-}
-
-void alterar_estacionamentos(void) {
-    system("clear||cls");
-
-    FILE *arq_estacionamentos;
-    Estacionamentos *estacionamento;
-    char n_estaci_lida[8];
-    int encontrado = 0;
-
-    printf("\n");
-    printf("=====================================================================================\n");
-    printf("||                                                                                 ||\n");
-    printf("||                                  -SIG-Parking-                                  ||\n");
-    printf("||                                                                                 ||\n");
-    printf("=====================================================================================\n");
-    printf("||                                                                                 ||\n");
-    printf("||                -Módulo Estacionamentos -> Alterar Estacionamento-               ||\n");
-    printf("||                                                                                 ||\n");
-    printf("=====================================================================================\n");
-    printf("\n");
-    estacionamento = (Estacionamentos*)malloc(sizeof(Estacionamentos));
-    printf(" -Digite os novos dados do estacionamento-");
-    printf("\n");
-    printf(" >>Digite o Nº da vaga que deseja alterar. \n");
-    Ler_Estacionamento_Lida(n_estaci_lida);
-    printf("\n");
-
-    arq_estacionamentos = fopen("estacionamentos.dat", "r+b");
-    if (arq_estacionamentos == NULL) {
-        printf("\t Erro ao abrir o arquivo de veículos.\n");
-        printf("\t >>tecle <ENTER> para continuar...\n");
-        getchar();
-        return;
-    }
-
-    while (fread(estacionamento, sizeof(Estacionamentos), 1, arq_estacionamentos)){
-        if ((strcmp(estacionamento->n_estaci, n_estaci_lida) == 0) && (estacionamento->status)){
-            encontrado = 1;
-            Ler_Estacionamento(estacionamento->n_estaci);
-            printf("\n");
-            Ler_Placa(estacionamento->placa);
-
-            fseek(arq_estacionamentos, (-1)*sizeof(Estacionamentos), SEEK_CUR);
-            fwrite(estacionamento, sizeof(Estacionamentos), 1, arq_estacionamentos);
-        }
-    }
-
-    fclose(arq_estacionamentos);
-    free(estacionamento);
-
-    if (encontrado) {
-        printf("Vaga de estacionamento alterada com sucesso!\n");
-    }
-    else {
-        printf("Nº da vaga não encontrado!\n");
-    }
-
-    printf("\t >>Tecle <ENTER> para continuar...\n");
-    getchar();
-    printf("\n");
-}
-
-void exclu_logica_estacionamentos(void) {
-    system("clear||cls");
-
-    FILE *arq_estacionamentos;
-    Estacionamentos *estacionamento;
-    char n_estaci_lida[8];
-    int encontrado = 0;
-
-    printf("\n");
-    printf("=====================================================================================\n");
-    printf("||                                                                                 ||\n");
-    printf("||                                  -SIG-Parking-                                  ||\n");
-    printf("||                                                                                 ||\n");
-    printf("=====================================================================================\n");
-    printf("||                                                                                 ||\n");
-    printf("||                -Módulo Estacionamentos -> Excluir Estacionamento-               ||\n");
-    printf("||                                                                                 ||\n");
-    printf("=====================================================================================\n");
-    printf("\n");
-    estacionamento = (Estacionamentos*)malloc(sizeof(Estacionamentos));
-    printf(" >>Digite o Nº da vaga que deseja excluir. \n");
-    Ler_Estacionamento_Lida(n_estaci_lida);
-    printf("\n");
-    
-    arq_estacionamentos = fopen("estacionamentos.dat", "r+b");
-    if (arq_estacionamentos == NULL) {
-        printf("\t Erro ao abrir o arquivo de veículos.\n");
-        printf("\t >>tecle <ENTER> para continuar...\n");
-        getchar();
-        return;
-    }
-
-    while (fread(estacionamento, sizeof(Estacionamentos), 1, arq_estacionamentos)) {
-        if ((strcmp(estacionamento->n_estaci, n_estaci_lida) == 0) && (estacionamento->status)) {
-            estacionamento->status = False;
-            encontrado = 1;
-            fseek(arq_estacionamentos, (-1)*sizeof(Estacionamentos), SEEK_CUR);
-            fwrite(estacionamento, sizeof(Estacionamentos), 1, arq_estacionamentos);
-        }
-    }
-
-    fclose(arq_estacionamentos);
-    free(estacionamento);
-
-    if (encontrado) {
-        printf("O veículo na vaga %s excluído com sucesso!\n", n_estaci_lida);
-    }
-    else {
-        printf("Nº da vaga não encontrado!\n");
-    }
-
-    printf("\n");
-    printf("\t >>Tecle <ENTER> para continuar...\n");
-    getchar();
-    printf("\n");
-}
-
-void recu_registro_estacionamentos(void){
-    system("clear||cls");
-
-    FILE *arq_estacionamentos;
-    Estacionamentos *estacionamento;
-    char n_estaci_lida[8];
-    int encontrado = 0;
-
-    printf("\n");
-    printf("=====================================================================================\n");
-    printf("||                                                                                 ||\n");
-    printf("||                                  -SIG-Parking-                                  ||\n");
-    printf("||                                                                                 ||\n");
-    printf("=====================================================================================\n");
-    printf("||                                                                                 ||\n");
-    printf("||               -Módulo Estacionamentos -> Recuperar registro -                   ||\n");
-    printf("||                                                                                 ||\n");
-    printf("=====================================================================================\n");
-    printf("\n");
-    estacionamento = (Estacionamentos*)malloc(sizeof(Estacionamentos));
-    printf(" >>Digite o Nº da vaga a ser recuperada. \n");
-    Ler_Estacionamento_Lida(n_estaci_lida);
-    printf("\n");
-
-    arq_estacionamentos = fopen("estacionamentos.dat", "r+b");
-    if (arq_estacionamentos == NULL) {
-        printf("\t Erro ao abrir o arquivo de estacionamentos.\n");
-        printf("\t >>Tecle <ENTER> para continuar...\n");
-        getchar();
-        return;
-    }
-
-    while (fread(estacionamento, sizeof(Estacionamentos), 1, arq_estacionamentos)) {
-        if ((strcmp(estacionamento->n_estaci, n_estaci_lida) == 0) && (!estacionamento->status)) {
-            estacionamento->status = True;
-            encontrado = 1;
-            fseek(arq_estacionamentos, (-1)*sizeof(Estacionamentos), SEEK_CUR);
-            fwrite(estacionamento, sizeof(Estacionamentos), 1, arq_estacionamentos);
+            printf("<<<Vaga encontrada>>\n");
+            printf("Número do andar: %d\n", vagas->num_andar);
+            printf("Quantidade de vagas: %d\n", vagas->qtd_vagas);
             break;
         }
     }
 
-    fclose(arq_estacionamentos);
-    free(estacionamento);
+    fclose(arq_cadastro_vagas);
+    free(vagas);
 
     if (encontrado) {
-        printf("registro do Estacionamento com Nº %s recuperado logicamente com sucesso!\n", n_estaci_lida);
+        printf("A quantidade de vagas do seguinte andar foi exibida: %d\n", num_andar_lido);
+    }
+    else{
+        printf("\nAndar não encontrado!\n");
+    }
+
+    printf("\n");
+    printf("\t >>Tecle <ENTER> para continuar...\n");
+    getchar();
+    printf("\n");
+}
+
+void alterar_cadastro_vagas(void) {
+    system("clear||cls");
+
+    FILE *arq_cadastro_vagas;
+    CV *vagas;
+    int num_andar_lido;
+    int encontrado = 0;
+
+    printf("\n");
+    printf("=====================================================================================\n");
+    printf("||                                                                                 ||\n");
+    printf("||                                  -SIG-Parking-                                  ||\n");
+    printf("||                                                                                 ||\n");
+    printf("=====================================================================================\n");
+    printf("||                                                                                 ||\n");
+    printf("||               -Módulo Cadastro de Vagas -> Alterar Dados das Vagas-             ||\n");
+    printf("||                                                                                 ||\n");
+    printf("=====================================================================================\n");
+    printf("\n");
+    vagas = (CV*)malloc(sizeof(CV));
+    printf(" -Digite os novos dados das vagas-");
+    printf("\n");
+    printf(" >>Digite o número do andar. \n");
+    Ler_num_andar(&num_andar_lido);
+    printf("\n");
+
+    arq_cadastro_vagas = fopen("cadastro_vagas.dat", "r+b");
+    if (arq_cadastro_vagas == NULL) {
+        printf("\t Erro ao abrir o arquivo do cadastro das vagas.\n");
+        printf("\t >>Tecle <ENTER> para continuar...\n");
+        return;
+    }
+
+    while (fread(vagas, sizeof(CV), 1, arq_cadastro_vagas)) {
+        if ((vagas->num_andar == num_andar_lido) && (vagas->status)) {
+            encontrado = 1;
+            Ler_qtd_vagas(&vagas->qtd_vagas);
+            printf("\n");
+
+            fseek(arq_cadastro_vagas, (-1)*sizeof(CV), SEEK_CUR);
+            fwrite(vagas, sizeof(CV), 1, arq_cadastro_vagas);
+            break;
+        }
+    }
+
+    fclose(arq_cadastro_vagas);
+    free(vagas);
+
+    if (encontrado) {
+        printf("\nDados das vagas alterados com sucesso!\n");
     } else {
-        printf("Nº da vaga não encontrado!\n");
+        printf("\nAndar não encontrado!\n");
+    }
+
+    printf("\t >>Tecle <ENTER> para continuar...\n");
+    getchar();
+    printf("\n");
+}
+
+void exclu_logica_cadastro_vagas(void) {
+    system("clear||cls");
+
+    FILE *arq_cadastro_vagas;
+    CV *vagas;
+    int num_andar_lido;
+    int encontrado = 0;
+
+    printf("\n");
+    printf("=====================================================================================\n");
+    printf("||                                                                                 ||\n");
+    printf("||                                  -SIG-Parking-                                  ||\n");
+    printf("||                                                                                 ||\n");
+    printf("=====================================================================================\n");
+    printf("||                                                                                 ||\n");
+    printf("||                -Módulo Cadastro de Vagas -> Excluir vagas logicamente -         ||\n");
+    printf("||                                                                                 ||\n");
+    printf("=====================================================================================\n");
+    printf("\n");
+    vagas = (CV*)malloc(sizeof(CV));
+    printf(" >>Digite o número do andar que deseja excluir logicamente. \n");
+    Ler_num_andar(&num_andar_lido);
+    printf("\n");
+
+    arq_cadastro_vagas = fopen("cadastro_vagas.dat", "r+b");
+    if (arq_cadastro_vagas == NULL) {
+        printf("\t Erro ao abrir o arquivo do cadastro das vagas.\n");
+        printf("\t >>Tecle <ENTER> para continuar...\n");
+        getchar();
+        return;
+    }
+
+    while (fread(vagas, sizeof(CV), 1, arq_cadastro_vagas)) {
+        if ((vagas->num_andar == num_andar_lido) && (vagas->status)) {
+            vagas->status = False;
+            encontrado = 1;
+            fseek(arq_cadastro_vagas, (-1)*sizeof(CV), SEEK_CUR);
+            fwrite(vagas, sizeof(CV), 1, arq_cadastro_vagas);
+            break;
+        }
+    }
+
+    fclose(arq_cadastro_vagas);
+    free(vagas);
+
+    if (encontrado) {
+        printf("Vagas do andar %d excluídas logicamente com sucesso!\n", num_andar_lido);
+    } else {
+        printf("\nAndar não encontrado!\n");
+    }
+
+    printf("\n");
+    printf("\t >>Tecle <ENTER> para continuar...\n");
+    getchar();
+    printf("\n");
+}
+
+void recu_registro_cadastro_vagas(void) {
+    system("clear||cls");
+
+    FILE *arq_cadastro_vagas;
+    CV *vagas;
+    int num_andar_lido;
+    int encontrado = 0;
+
+    printf("\n");
+    printf("=====================================================================================\n");
+    printf("||                                                                                 ||\n");
+    printf("||                                  -SIG-Parking-                                  ||\n");
+    printf("||                                                                                 ||\n");
+    printf("=====================================================================================\n");
+    printf("||                                                                                 ||\n");
+    printf("||                -Módulo Cadastro de Vagas -> Recuperar registro -                ||\n");
+    printf("||                                                                                 ||\n");
+    printf("=====================================================================================\n");
+    printf("\n");
+    vagas = (CV*)malloc(sizeof(CV));
+    printf(" >>Digite o número do andar que deseja recuperar. \n");
+    Ler_num_andar(&num_andar_lido);
+    printf("\n");
+
+    arq_cadastro_vagas = fopen("cadastro_vagas.dat", "r+b");
+    if (arq_cadastro_vagas == NULL) {
+        printf("\t Erro ao abrir o arquivo do cadastro das vagas.\n");
+        printf("\t >>Tecle <ENTER> para continuar...\n");
+        getchar();
+        return;
+    }
+
+    while (fread(vagas, sizeof(CV), 1, arq_cadastro_vagas)) {
+        if ((vagas->num_andar == num_andar_lido) && (!vagas->status)) {
+            vagas->status = True;
+            encontrado = 1;
+            fseek(arq_cadastro_vagas, (-1)*sizeof(CV), SEEK_CUR);
+            fwrite(vagas, sizeof(CV), 1, arq_cadastro_vagas);
+            break;
+        }
+    }
+
+    fclose(arq_cadastro_vagas);
+    free(vagas);
+
+    if (encontrado) {
+        printf("Registro de Vagas do andar %d recuperadas logicamente com sucesso!\n", num_andar_lido);
+    } else {
+        printf("\nAndar não encontrado!\n");
     }
 
     printf("\n");

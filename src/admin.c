@@ -2,12 +2,12 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
-#include "admin.h"
-#include "dono_veiculo.h"
-#include "cadastro_vagas.h"
-#include "estacionamentos.h"
-#include "veiculos.h"
-#include "validacoes.h"
+#include "../include/admin.h"
+#include "../include/dono_veiculo.h"
+#include "../include/cadastro_vagas.h"
+#include "../include/estacionamentos.h"
+#include "../include/veiculos.h"
+#include "../include/validacoes.h"
 //==============================
 //= Funções de Administrador   =
 //==============================
@@ -88,7 +88,7 @@ void exclu_veiculo(void) {
     printf("\n");
     veiculo = (Veiculos*)malloc(sizeof(Veiculos));
     printf(" >>Digite a placa do veículo a ser excluido. \n");
-    Ler_Placa_Lida(placa_lida);
+    Ler_Placa(placa_lida);
     printf("\n");
 
     arq_veiculo = fopen("veiculos.dat", "rb");
@@ -149,7 +149,7 @@ void exclu_estacionamentos(void) {
     printf("\n");
     estacionamento = (Estacionamentos*)malloc(sizeof(Estacionamentos));
     printf(" >>Digite o número do estacionamento a ser excluido. \n");
-    Ler_Estacionamento_Lida(n_estaci_lido);
+    Ler_Estacionamento(n_estaci_lido);
     printf("\n");
 
     arq_estacionamentos = fopen("estacionamentos.dat", "rb");
@@ -210,7 +210,7 @@ void exclu_dono_veiculo(void) {
     printf("\n");
     dono = (DV*)malloc(sizeof(DV));
     printf(" >>Digite o CPF do dono a ser excluido. \n");
-    Ler_CPF_Lido(cpf_lido);
+    Ler_CPF(cpf_lido);
     printf("\n");
 
     arq_dono_veiculo = fopen("dono_veiculo.dat", "rb");

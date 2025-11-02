@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
-#include "veiculos.h"
-#include "validacoes.h"
+#include "../include/veiculos.h"
+#include "../include/validacoes.h"
 
 typedef struct veiculos Veiculos;
 
@@ -149,7 +149,7 @@ void exib_veiculo(void) {
     printf("\n");
     veiculo = (Veiculos*)malloc(sizeof(Veiculos));
     printf(" >>Digite a placa do veículo a ser exibido.  \n");
-    Ler_Placa_Lida(placa_lida);
+    Ler_Placa(placa_lida);
     printf("\n");
 
     arq_veiculos = fopen("veiculos.dat", "rb");
@@ -214,7 +214,7 @@ void alterar_veiculo(void) {
     printf(" -Digite os novos dados do veículo-");
     printf("\n");
     printf(" >>Digite a placa do veículo a ser alterado. \n");
-    Ler_Placa_Lida(placa_lida);
+    Ler_Placa(placa_lida);
     printf("\n");
 
     arq_veiculos = fopen("veiculos.dat", "r+b");
@@ -280,7 +280,7 @@ void exclu_logica_veiculo(void) {
     printf("\n");
     veiculo = (Veiculos*)malloc(sizeof(Veiculos));
     printf(" >>Digite a placa do veículo a ser excluido. \n");
-    Ler_Placa_Lida(placa_lida);
+    Ler_Placa(placa_lida);
     printf("\n");
 
     arq_veiculos = fopen("veiculos.dat", "r+b");
@@ -336,7 +336,7 @@ void recu_registro_veiculo(void){
     printf("\n");
     veiculo = (Veiculos*)malloc(sizeof(Veiculos));
     printf(" >>Digite a placa do veículo a ser recuperado. \n");
-    Ler_Placa_Lida(placa_lida);
+    Ler_Placa(placa_lida);
     printf("\n");
 
     arq_veiculos = fopen("veiculos.dat", "r+b");
