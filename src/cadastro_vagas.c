@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
-#include "cadastro_vagas.h"
-#include "validacoes.h"
+#include "../include/cadastro_vagas.h"
+#include "../include/validacoes.h"
 
 typedef struct cadastro_vagas CV;
 
@@ -64,7 +64,6 @@ char cadastro_vagas(void) {
     printf("\n");
     printf("\t >>Escolha uma opção: ");
     Ler_Opcao_Menu(&op);
-    getchar();
     printf("\n");
     return op;
 }
@@ -134,7 +133,7 @@ void exib_cadastro_vagas(void) {
     printf("=====================================================================================\n");
     printf("\n");
     vagas = (CV*)malloc(sizeof(CV));
-    printf(" >>Digite o número do andar. \n");
+    printf(" >>Digite o número do andar \n");
     Ler_num_andar(&num_andar_lido);
     printf("\n");
 

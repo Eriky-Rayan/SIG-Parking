@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
-#include "estacionamentos.h"
-#include "validacoes.h"
+#include "../include/estacionamentos.h"
+#include "../include/validacoes.h"
 
 typedef struct estacionamentos Estacionamentos;
 
@@ -64,7 +64,6 @@ char estacionamentos(void) {
     printf("\n");
     printf("\t >>Escolha uma opção: ");
     Ler_Opcao_Menu(&op);
-    getchar();
     printf("\n");
     return op;
 }
@@ -137,7 +136,7 @@ void exib_estacionamentos(void) {
     printf("\n");
     estacionamento = (Estacionamentos*)malloc(sizeof(Estacionamentos));
     printf(" >>Digite Nº da vaga que deseja ver. \n");
-    Ler_Estacionamento_Lida(n_estaci_lida);
+    Ler_Estacionamento(n_estaci_lida);
     printf("\n");
 
     arq_estacionamentos = fopen("estacionamentos.dat", "rb");
@@ -198,7 +197,7 @@ void alterar_estacionamentos(void) {
     printf(" -Digite os novos dados do estacionamento-");
     printf("\n");
     printf(" >>Digite o Nº da vaga que deseja alterar. \n");
-    Ler_Estacionamento_Lida(n_estaci_lida);
+    Ler_Estacionamento(n_estaci_lida);
     printf("\n");
 
     arq_estacionamentos = fopen("estacionamentos.dat", "r+b");
@@ -257,7 +256,7 @@ void exclu_logica_estacionamentos(void) {
     printf("\n");
     estacionamento = (Estacionamentos*)malloc(sizeof(Estacionamentos));
     printf(" >>Digite o Nº da vaga que deseja excluir. \n");
-    Ler_Estacionamento_Lida(n_estaci_lida);
+    Ler_Estacionamento(n_estaci_lida);
     printf("\n");
     
     arq_estacionamentos = fopen("estacionamentos.dat", "r+b");
@@ -314,7 +313,7 @@ void recu_registro_estacionamentos(void){
     printf("\n");
     estacionamento = (Estacionamentos*)malloc(sizeof(Estacionamentos));
     printf(" >>Digite o Nº da vaga a ser recuperada. \n");
-    Ler_Estacionamento_Lida(n_estaci_lida);
+    Ler_Estacionamento(n_estaci_lida);
     printf("\n");
 
     arq_estacionamentos = fopen("estacionamentos.dat", "r+b");

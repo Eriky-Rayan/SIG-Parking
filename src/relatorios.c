@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include "relatorios.h"
+#include "../include/relatorios.h"
 
 //===============================
 //= Funções do Módulo Relatorio =
