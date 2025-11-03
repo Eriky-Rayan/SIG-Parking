@@ -1,4 +1,4 @@
-# SIG-Parking (*EM DESENVOLVIMENTO*): Versão 0.2.0-rc1
+# SIG-Parking (*EM DESENVOLVIMENTO*): Versão 0.2.0
 Um Sistema de Controle de Estacionamentos de Carros e Motos
 
 Universidade Federal do Rio Grande do Norte
@@ -28,6 +28,8 @@ Atenção: este NÃO é um programa comercial. O autor não se responsabiliza po
 -Módulo Equipe do Projeto
 
 -Sobre o Sistema
+
+-Funções de Administrador
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -67,6 +69,9 @@ Cadastrar os donos dos veículos usando o cpf como chave do dicionario e telefon
 
 # ▶ Sobre o Sistema
 -Exibe uma breve introdução ao sistema
+
+# ▶ Funções de Administrador
+-Módulo dedicado a exclusão física dos dados cdastrados. OBS: DEVE SER UTILIZADO COM CAUTELA POIS CAUSA A PERDA PERMANENTE DE DADOS.
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
