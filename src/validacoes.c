@@ -109,7 +109,9 @@ void Ler_cor(char *destino, int tamanho) {
 
 // Validação de valores de entrada do CPF:
 int Validar_CPF(char cpf[]) {
+    // 1. Verifica o formato: XXX.XXX.XXX-XX
     if (strlen(cpf) != 14) return 0;
+
     for (int i = 0; i < 14; i++) {
         if (i == 3 || i == 7) {
             if (cpf[i] != '.') return 0;
@@ -119,13 +121,56 @@ int Validar_CPF(char cpf[]) {
             if (!isdigit(cpf[i])) return 0;
         }
     }
-    return 1;
+
+    // 2. Verifica se todos os dígitos são iguais (ignorando pontuação)
+    int iguais = 1;
+    for (int i = 1; i < 14; i++) {
+        if (isdigit(cpf[i]) && cpf[i] != cpf[0]) {
+            iguais = 0;
+            break;
+        }
+    }
+    if (iguais) return 0;
+
+    // 3. Calcula o primeiro dígito verificador
+    int soma = 0;
+    int peso = 10;
+    int indices_digitos[] = {0, 1, 2, 4, 5, 6, 8, 9, 10}; // posições dos 9 primeiros dígitos
+
+    for (int i = 0; i < 9; i++) {
+        soma += (cpf[indices_digitos[i]] - '0') * peso;
+        peso--;
+    }
+
+    int resto = soma % 11;
+    int dv1 = (resto < 2) ? 0 : 11 - resto;
+
+    if ((cpf[12] - '0') != dv1) return 0; // compara com o primeiro DV
+
+    // 4. Calcula o segundo dígito verificador
+    soma = 0;
+    peso = 11;
+    int indices_digitos2[] = {0, 1, 2, 4, 5, 6, 8, 9, 10, 12}; // inclui o primeiro DV
+
+    for (int i = 0; i < 10; i++) {
+        soma += (cpf[indices_digitos2[i]] - '0') * peso;
+        peso--;
+    }
+
+    resto = soma % 11;
+    int dv2 = (resto < 2) ? 0 : 11 - resto;
+
+    if ((cpf[13] - '0') != dv2) return 0; // compara com o segundo DV
+
+    return 1; // CPF válido
 }
 
+
+// Função para ler CPF com validação
 void Ler_CPF(char *cpf) {
     char c;
     while (1) {
-        printf(" >>CPF do Dono do Veículo: ");
+        printf(" >>CPF do Dono do Veículo (xxx.xxx.xxx-xx): ");
         if (scanf("%s", cpf) != 1) {
             while ((c = getchar()) != '\n' && c != EOF);
             printf("Entrada inválida!\n");
@@ -133,7 +178,7 @@ void Ler_CPF(char *cpf) {
         }
         while ((c = getchar()) != '\n' && c != EOF);
         if (Validar_CPF(cpf)) break;
-        else printf("CPF inválido! Formato correto: XXX.XXX.XXX-XX\n");
+        else printf("CPF inválido!\n");
     }
 }
 
