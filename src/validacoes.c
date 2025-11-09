@@ -198,7 +198,6 @@ int Validar_Estacionamento(const char *entrada) {
 
 void Ler_Estacionamento(char *destino) {
     do {
-        printf(" >>Nº do estacionamento: ");
         scanf("%s", destino);
         getchar();
 
