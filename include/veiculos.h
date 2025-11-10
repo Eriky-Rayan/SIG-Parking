@@ -1,5 +1,5 @@
-#define True 1;
-#define False 0;
+#define True 1
+#define False 0
 //Assinatura das Funções
 //Function Signature
 
