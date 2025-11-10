@@ -1,7 +1,26 @@
-#define True 1;
-#define False 0;
-//Assinatura das Funções
-//Function Signature
+#ifndef DONO_VEICULO_H
+#define DONO_VEICULO_H
+
+//=====================================
+//= Definições e Estruturas            =
+//=====================================
+
+// Definições booleanas simples
+#define True 1
+#define False 0
+
+// Estrutura do Dono de Veículo
+typedef struct dono_veiculo {
+    char cpf[15];
+    char telefone[20];
+    char nome[50];
+    int quantidade;
+    int status; // 1 = ativo (True), 0 = inativo (False)
+} DV;
+
+//=====================================
+//= Assinaturas das Funções            =
+//=====================================
 
 void switch_dono_veiculo(void);
 char dono_veiculo(void);
@@ -11,13 +30,4 @@ void alterar_dono_veiculo(void);
 void exclu_logica_dono_veiculo(void);
 void recu_registro_dono_veiculo(void);
 
-struct dono_veiculo
-{
-    char cpf[15];
-    char telefone[20];
-    char nome[50];
-    int quantidade;
-    char status;
-};
-
-typedef struct dono_veiculo DV;
+#endif // DONO_VEICULO_H
