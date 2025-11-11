@@ -11,4 +11,4 @@ void Ler_Opcao_admin(char *destino);
 void Ler_Nome(char *destino, int tamanho);
 void Ler_model(char *destino, int tamanho);
 void Ler_cor(char *destino, int tamanho);
-
+void verifica_diretorio_dados(void);

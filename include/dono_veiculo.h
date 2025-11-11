@@ -9,7 +9,15 @@
 #define True 1
 #define False 0
 
-// Estrutura do Dono de Veículo
+//=====================================
+//= Caminhos dos Arquivos              =
+//=====================================
+#define ARQ_DONO_VEICULO "dados/dono_veiculo.dat"
+#define TEMP_DONO_VEICULO "dados/temp_dono_veiculo.dat"
+
+//=====================================
+//= Estrutura do Dono de Veículo       =
+//=====================================
 typedef struct dono_veiculo {
     char cpf[15];
     char telefone[20];
@@ -21,7 +29,6 @@ typedef struct dono_veiculo {
 //=====================================
 //= Assinaturas das Funções            =
 //=====================================
-
 void switch_dono_veiculo(void);
 char dono_veiculo(void);
 void add_dono_veiculo(void);

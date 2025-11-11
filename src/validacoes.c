@@ -2,8 +2,17 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <sys/stat.h>
+#include <unistd.h>
 #include "../include/validacoes.h"
 
+
+void verifica_diretorio_dados(void) {
+    struct stat st = {0};
+    if (stat("dados", &st) == -1) {
+        mkdir("dados", 0700);
+    }
+}
 // Validação de valores de entrada da placa do veículo:
 int Validar_Placa(char placa[]) {
     if (strlen(placa) != 8) return 0;
