@@ -167,6 +167,12 @@ void equipe(void) {
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
     printf("||                                                                                 ||\n");
+    printf("|| -Jezreel Asaias da Silva Souza                                                  ||\n");
+    printf("|| -Email:jezreel.asaias.silva.129@ufrn.edu.br                                     ||\n");
+    printf("|| -GitHub:https://github.com/Jezreel-Asaias                                       ||\n");
+    printf("||                                                                                 ||\n");
+    printf("=====================================================================================\n");
+    printf("||                                                                                 ||\n");
     printf("|| -GitHub:https://github.com/Eriky-Rayan/SIG-Parking.git                          ||\n");
     printf("||                                                                                 ||\n");
     printf("=====================================================================================\n");
