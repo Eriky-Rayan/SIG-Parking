@@ -16,7 +16,7 @@
 typedef struct cadastro_vagas {
     int qtd_vagas;
     int num_andar;
-    char status;
+    int status;
 } CV;
 
 //==============================

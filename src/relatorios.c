@@ -143,45 +143,138 @@ void relatorio_estacionamentos(void) {
 //=======================================================
 //= RELATÓRIO DE DONOS DE VEÍCULOS
 //=======================================================
+#define CENTER "                    "   // 20 espaços
+#define WIDTH 76                       // largura exata da tabela
+
 void relatorio_dono_veiculo(void) {
     system("clear||cls");
 
-    FILE *arq_dono;
-    DV *dono;
-    int count = 0;
+    char op_sub;
+    printf("\n==================== RELATÓRIO - DONOS DOS VEÍCULOS ====================\n");
+    printf("1 - Mostrar relatório completo\n");
+    printf("2 - Filtrar por nome do dono\n");
+    printf("0 - Voltar\n");
+    printf("=======================================================================\n");
+    printf(" >> Escolha uma opção: ");
+    scanf(" %c", &op_sub);
+    getchar();
 
-    printf("\n=================== RELATÓRIO DE DONOS DE VEÍCULOS ==================\n\n");
+    if (op_sub == '0') return;
 
-    dono = (DV*)malloc(sizeof(DV));
-    arq_dono = fopen("dono_veiculo.dat", "rb");
+    //-----------------------------------------------------------
+    // OPÇÃO 1 → RELATÓRIO COMPLETO (SEU RELATÓRIO ORIGINAL)
+    //-----------------------------------------------------------
+    if (op_sub == '1') {
 
-    if (arq_dono == NULL) {
-        printf("Erro ao abrir o arquivo de donos dos veículos.\n");
-        printf(">>Tecle <ENTER> para continuar...\n");
+        FILE *arq_dono;
+        DV *dono;
+        int count = 0;
+
+        printf(CENTER "**************************************************************************\n");
+        printf(CENTER "***                      RELATÓRIO DE DONOS DE VEÍCULOS               ***\n");
+        printf(CENTER "**************************************************************************\n");
+        printf(CENTER "| %-20s | %-14s | %-13s | %-4s |\n",
+            "Nome", "CPF", "Telefone", "Qtde");
+        printf(CENTER "--------------------------------------------------------------------------\n");
+
+        dono = (DV*)malloc(sizeof(DV));
+        arq_dono = fopen("dados/dono_veiculo.dat", "rb");
+
+        if (arq_dono == NULL) {
+            printf("Erro ao abrir o arquivo de donos dos veículos.\n");
+            printf(">>Tecle <ENTER> para continuar...\n");
+            getchar();
+            return;
+        }
+
+        while (fread(dono, sizeof(DV), 1, arq_dono)) {
+            if (dono->status) {
+                count++;
+                printf(CENTER "| %-20s | %-14s | %-13s | %-4d |\n",
+                    dono->nome,
+                    dono->cpf,
+                    dono->telefone,
+                    dono->quantidade
+                );
+            }
+        }
+
+        if (count == 0)
+            printf(CENTER "Nenhum dono cadastrado.\n");
+
+        printf(CENTER "--------------------------------------------------------------------------\n");
+        printf(CENTER "Fim da Lista!\n");
+
+        fclose(arq_dono);
+        free(dono);
+
+        printf("\n>>Tecle <ENTER> para continuar...\n");
         getchar();
         return;
     }
 
-    while (fread(dono, sizeof(DV), 1, arq_dono)) {
-        if (dono->status) {
-            count++;
-            printf("Dono nº %d\n", count);
-            printf("Nome: %s\n", dono->nome);
-            printf("CPF: %s\n", dono->cpf);
-            printf("Telefone: %s\n", dono->telefone);
-            printf("Quantidade de veículos: %d\n", dono->quantidade);
-            printf("-----------------------------------------------------------\n");
+    //-----------------------------------------------------------
+    // OPÇÃO 2 → FILTRAR DONOS PELO NOME
+    //-----------------------------------------------------------
+    else if (op_sub == '2') {
+
+        char nome_busca[50];
+        FILE *arq_dono;
+        DV *dono;
+        int encontrou = 0;
+
+        printf("\n >> Digite o nome ou parte do nome: ");
+        fgets(nome_busca, 50, stdin);
+        nome_busca[strcspn(nome_busca, "\n")] = '\0';
+
+        dono = malloc(sizeof(DV));
+        arq_dono = fopen("dados/dono_veiculo.dat", "rb");
+
+        if (arq_dono == NULL) {
+            printf("Erro ao abrir o arquivo de donos dos veículos.\n");
+            printf(">>Tecle <ENTER> para continuar...\n");
+            getchar();
+            free(dono);
+            return;
         }
+
+        system("clear||cls");
+        printf("\n==================== RESULTADO DA PESQUISA ====================\n\n");
+
+        while (fread(dono, sizeof(DV), 1, arq_dono)) {
+            if (dono->status && strstr(dono->nome, nome_busca)) {
+
+                encontrou = 1;
+
+                printf("Nome: %s\n", dono->nome);
+                printf("CPF: %s\n", dono->cpf);
+                printf("Telefone: %s\n", dono->telefone);
+                printf("Quantidade de veículos: %d\n", dono->quantidade);
+                printf("---------------------------------------------------------\n");
+            }
+        }
+
+        if (!encontrou)
+            printf("Nenhum dono encontrado com esse nome.\n");
+
+        fclose(arq_dono);
+        free(dono);
+
+        printf("\n>>Tecle <ENTER> para continuar...\n");
+        getchar();
+        return;
     }
 
-    if (count == 0) printf("Nenhum dono de veículo cadastrado.\n");
-
-    fclose(arq_dono);
-    free(dono);
-
-    printf("\n>>Tecle <ENTER> para continuar...\n");
-    getchar();
+    //-----------------------------------------------------------
+    // OPÇÃO INVÁLIDA
+    //-----------------------------------------------------------
+    else {
+        printf("\nOpção inválida!\n");
+        printf(">>Tecle <ENTER> para continuar...\n");
+        getchar();
+    }
 }
+
 
 //=======================================================
 //= RELATÓRIO DE CADASTRO DE VAGAS
@@ -189,36 +282,120 @@ void relatorio_dono_veiculo(void) {
 void relatorio_cadastro_vagas(void) {
     system("clear||cls");
 
-    FILE *arq_vagas;
-    CV *vagas;
-    int count = 0;
+    char op_sub;
+    printf("\n==================== RELATÓRIO - CADASTRO DE VAGAS ====================\n");
+    printf("1 - Mostrar relatório completo\n");
+    printf("2 - Filtrar por andar\n");
+    printf("0 - Voltar\n");
+    printf("=======================================================================\n");
+    printf(" >> Escolha uma opção: ");
+    scanf(" %c", &op_sub);
+    getchar();
 
-    printf("\n=================== RELATÓRIO DE CADASTRO DE VAGAS ==================\n\n");
+    if (op_sub == '0') return;
 
-    vagas = (CV*)malloc(sizeof(CV));
-    arq_vagas = fopen("cadastro_vagas.dat", "rb");
+    //===========================================================
+    // OPÇÃO 1 → RELATÓRIO COMPLETO (SEU RELATÓRIO ORIGINAL)
+    //===========================================================
+    if (op_sub == '1') {
 
-    if (arq_vagas == NULL) {
-        printf("Erro ao abrir o arquivo de cadastro de vagas.\n");
-        printf(">>Tecle <ENTER> para continuar...\n");
+        FILE *arq_vagas;
+        CV *vagas = NULL;  
+        int count = 0;
+
+        printf(CENTER "************************************************************************\n");
+        printf(CENTER "***                  RELATÓRIO DE CADASTRO DE VAGAS                  ***\n");
+        printf(CENTER "************************************************************************\n");
+        printf(CENTER "| %-10s | %-20s |\n", "Andar", "Quantidade de Vagas");
+        printf(CENTER "------------------------------------------------------------------------\n");
+
+        vagas = malloc(sizeof(CV));
+        arq_vagas = fopen("dados/cadastro_vagas.dat", "rb");
+
+        if (arq_vagas == NULL) {
+            printf("Erro ao abrir o arquivo de cadastro de vagas.\n");
+            printf(">>Tecle <ENTER> para continuar...\n");
+            getchar();
+            free(vagas);
+            return;
+        }
+
+        while (fread(vagas, sizeof(CV), 1, arq_vagas)) {
+            if (vagas->status) {
+                count++;
+                printf(CENTER "| %-10d | %-20d |\n",
+                       vagas->num_andar,
+                       vagas->qtd_vagas
+                );
+            }
+        }
+
+        if (count == 0)
+            printf(CENTER "Nenhuma vaga cadastrada.\n");
+
+        printf(CENTER "------------------------------------------------------------------------\n");
+        printf(CENTER "Fim da Lista!\n");
+
+        fclose(arq_vagas);
+        free(vagas);
+
+        printf("\n>>Tecle <ENTER> para continuar...\n");
         getchar();
         return;
     }
 
-    while (fread(vagas, sizeof(CV), 1, arq_vagas)) {
-        if (vagas->status) {
-            count++;
-            printf("Andar nº %d\n", vagas->num_andar);
-            printf("Quantidade de vagas: %d\n", vagas->qtd_vagas);
-            printf("-----------------------------------------------------------\n");
+    //===========================================================
+    // OPÇÃO 2 → FILTRAR POR ANDAR
+    //===========================================================
+    else if (op_sub == '2') {
+
+        int andar_busca;
+        int encontrou = 0;
+
+        printf("\n >> Digite o número do andar: ");
+        scanf("%d", &andar_busca);
+        getchar();
+
+        FILE *arq_vagas = fopen("dados/cadastro_vagas.dat", "rb");
+        CV *vagas = malloc(sizeof(CV));
+
+        if (arq_vagas == NULL) {
+            printf("Erro ao abrir o arquivo de cadastro de vagas.\n");
+            printf(">>Tecle <ENTER> para continuar...\n");
+            getchar();
+            free(vagas);
+            return;
         }
+
+        system("clear||cls");
+        printf("\n==================== VAGAS DO ANDAR %d ====================\n\n", andar_busca);
+
+        while (fread(vagas, sizeof(CV), 1, arq_vagas)) {
+            if (vagas->status && vagas->num_andar == andar_busca) {
+                encontrou = 1;
+                printf("Andar: %d\n", vagas->num_andar);
+                printf("Quantidade de vagas: %d\n", vagas->qtd_vagas);
+                printf("--------------------------------------------------------\n");
+            }
+        }
+
+        if (!encontrou)
+            printf("Nenhuma vaga encontrada nesse andar.\n");
+
+        fclose(arq_vagas);
+        free(vagas);
+
+        printf("\n>>Tecle <ENTER> para continuar...\n");
+        getchar();
+        return;
     }
 
-    if (count == 0) printf("Nenhuma vaga cadastrada.\n");
-
-    fclose(arq_vagas);
-    free(vagas);
-
-    printf("\n>>Tecle <ENTER> para continuar...\n");
-    getchar();
+    //===========================================================
+    // OPÇÃO INVÁLIDA
+    //===========================================================
+    else {
+        printf("\nOpção inválida!\n");
+        printf(">>Tecle <ENTER> para continuar...\n");
+        getchar();
+    }
 }
