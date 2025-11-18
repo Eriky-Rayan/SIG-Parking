@@ -158,7 +158,7 @@ void relatorio_veiculos(void) {
         if (count == 0) {
             printf("Nenhum veículo cadastrado.\n");
         }
-
+        
         printf("╚═════════╩══════════╩════════════╩════════════╩═════════════════╩═════════════╝\n");
 
         fclose(arq_veiculos);
