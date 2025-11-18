@@ -60,44 +60,120 @@ char relatorio(void) {
 void relatorio_veiculos(void) {
     system("clear||cls");
 
-    FILE *arq_veiculos;
-    Veiculos *veiculo;
-    int count = 0;
+    char op_sub;
+    printf("=====================================================================================\n");
+    printf("||                         RELATÓRIO - VEÍCULOS CADASTRADOS                        ||\n");
+    printf("=====================================================================================\n");
+    printf("|| [1] -> Mostrar relatório Completo                                               ||\n");
+    printf("|| [2] -> Filtrar por Cor do veículo                                               ||\n");
+    printf("|| [0] -> Voltar ao Menu Principal                                                 ||\n");
+    printf("=====================================================================================\n");
+    printf(" >> Escolha uma opção: ");
+    scanf(" %c", &op_sub);
+    getchar();
 
-    printf("\n====================== RELATÓRIO DE VEÍCULOS ======================\n\n");
+    if (op_sub == '0') return;
 
-    veiculo = (Veiculos*)malloc(sizeof(Veiculos));
-    arq_veiculos = fopen("veiculos.dat", "rb");
+    else if (op_sub == '1') {
 
-    if (arq_veiculos == NULL) {
-        printf("Erro ao abrir o arquivo de veículos.\n");
+        FILE *arq_veiculos;
+        Veiculos *veiculo = malloc(sizeof(Veiculos));
+        int count = 0;
+
+        arq_veiculos = fopen("dados/veiculos.dat", "rb");
+        if (!arq_veiculos) {
+            printf("Erro ao abrir o arquivo de veículos.\n");
+            getchar();
+            return;
+        }
+
+        printf("╔════════════════════════════ RELATÓRIO DE VEÍCULOS ═══════════════════════════╗\n");
+        printf("║ %-7s ║ %-8s ║ %-10s ║ %-10s ║ %-15s ║ %-11s ║\n",
+               "Placa", "Tipo", "Modelo", "Cor", "Estacionamento", "CPF Dono");
+        printf("╠═════════╬══════════╬════════════╬════════════╬═════════════════╬═════════════╣\n");
+
+        while (fread(veiculo, sizeof(Veiculos), 1, arq_veiculos)) {
+            if (veiculo->status) {
+                count++;
+                printf("║ %-7s ║ %-8s ║ %-10s ║ %-10s ║ %-15s ║ %-11s ║\n",
+                    veiculo->placa,
+                    veiculo->tipo,
+                    veiculo->model,
+                    veiculo->cor,
+                    veiculo->n_estaci,
+                    veiculo->cpf
+                );
+            }
+        }
+
+        if (count == 0) {
+            printf("Nenhum veículo cadastrado\n");
+        }
+
+        printf("╚═════════╩══════════╩════════════╩════════════╩═════════════════╩═════════════╝\n");
+
+        fclose(arq_veiculos);
+        free(veiculo);
+
+        printf("\n>> Tecle ENTER para continuar...");
+        getchar();
+    }
+    else if (op_sub == '2') {
+
+        char cor_busca[15];
+        FILE *arq_veiculos;
+        Veiculos *veiculo = malloc(sizeof(Veiculos));
+        int count = 0;
+
+        printf("\n >> Digite a cor do veículo: ");
+        fgets(cor_busca, 15, stdin);
+        cor_busca[strcspn(cor_busca, "\n")] = '\0';
+
+        arq_veiculos = fopen("dados/veiculos.dat", "rb");
+        if (!arq_veiculos) {
+            printf("Erro ao abrir o arquivo de veículos.\n");
+            getchar();
+            return;
+        }
+
+        printf("╔════════════════════════════ RELATÓRIO DE VEÍCULOS ═══════════════════════════╗\n");
+        printf("║ %-7s ║ %-8s ║ %-10s ║ %-10s ║ %-15s ║ %-11s ║\n",
+               "Placa", "Tipo", "Modelo", "Cor", "Estacionamento", "CPF Dono");
+        printf("╠═════════╬══════════╬════════════╬════════════╬═════════════════╬═════════════╣\n");
+
+        while (fread(veiculo, sizeof(Veiculos), 1, arq_veiculos)) {
+            if (veiculo->status && strstr(veiculo->cor, cor_busca)) {
+                count++;
+                printf("║ %-7s ║ %-8s ║ %-10s ║ %-10s ║ %-15s ║ %-11s ║\n",
+                    veiculo->placa,
+                    veiculo->tipo,
+                    veiculo->model,
+                    veiculo->cor,
+                    veiculo->n_estaci,
+                    veiculo->cpf
+                );
+            }
+        }
+
+        if (count == 0) {
+            printf("Nenhum veículo cadastrado.\n");
+        }
+
+        printf("╚═════════╩══════════╩════════════╩════════════╩═════════════════╩═════════════╝\n");
+
+        fclose(arq_veiculos);
+        free(veiculo);
+
+        printf("\n>> Tecle ENTER para continuar...");
+        getchar();
+    }
+    else{
+        printf("\nOpção inválida!\n");
         printf(">>Tecle <ENTER> para continuar...\n");
         getchar();
-        return;
     }
-
-    while (fread(veiculo, sizeof(Veiculos), 1, arq_veiculos)) {
-        if (veiculo->status) { 
-            count++;
-            printf("Veículo nº %d\n", count);
-            printf("Placa: %s\n", veiculo->placa);
-            printf("Tipo: %s\n", veiculo->tipo);
-            printf("Modelo: %s\n", veiculo->model);
-            printf("Cor: %s\n", veiculo->cor);
-            printf("Nº do Estacionamento: %s\n", veiculo->n_estaci);
-            printf("CPF do Dono: %s\n", veiculo->cpf);
-            printf("-----------------------------------------------------------\n");
-        }
-    }
-
-    if (count == 0) printf("Nenhum veículo cadastrado.\n");
-
-    fclose(arq_veiculos);
-    free(veiculo);
-
-    printf("\n>>Tecle <ENTER> para continuar...\n");
-    getchar();
 }
+
 
 //=======================================================
 //= RELATÓRIO DE ESTACIONAMENTOS
@@ -105,39 +181,104 @@ void relatorio_veiculos(void) {
 void relatorio_estacionamentos(void) {
     system("clear||cls");
 
-    FILE *arq_estacionamentos;
-    Estacionamentos *estacionamento;
-    int count = 0;
+    char op_sub;
+    printf("=====================================================================================\n");
+    printf("||                         RELATÓRIO - ESTACIONAMENTOS                             ||\n");
+    printf("=====================================================================================\n");
+    printf("|| [1] -> Mostrar relatório Completo                                               ||\n");
+    printf("|| [2] -> Filtrar por número de vaga do veículo                                    ||\n");
+    printf("|| [0] -> Voltar ao Menu Principal                                                 ||\n");
+    printf("=====================================================================================\n");
+    printf(" >> Escolha uma opção: ");
+    scanf(" %c", &op_sub);
+    getchar();
 
-    printf("\n=================== RELATÓRIO DE ESTACIONAMENTOS ==================\n\n");
+    if (op_sub == '0') return;
 
-    estacionamento = (Estacionamentos*)malloc(sizeof(Estacionamentos));
-    arq_estacionamentos = fopen("estacionamentos.dat", "rb");
+    else if(op_sub == '1'){
 
-    if (arq_estacionamentos == NULL) {
-        printf("Erro ao abrir o arquivo de estacionamentos.\n");
+        FILE *arq_estacionamentos;
+        Estacionamentos *estacionamento;
+        estacionamento = (Estacionamentos*)malloc(sizeof(Estacionamentos));
+        int count = 0;
+
+        arq_estacionamentos = fopen("dados/estacionamentos.dat", "rb");
+        if (arq_estacionamentos == NULL) {
+            printf("Erro ao abrir o arquivo de estacionamentos.\n");
+            printf(">>Tecle <ENTER> para continuar...\n");
+            getchar();
+            return;
+        }
+
+        printf("╔══ RELATÓRIO DE ESTACIONAMENTOS  ═══╗\n");
+        printf("║ %-16s ║ %-16s ║\n", "Nº da Vaga", "Placa do Veículo");
+        printf("╠═════════════════╬══════════════════╣\n");
+
+        while (fread(estacionamento, sizeof(Estacionamentos), 1, arq_estacionamentos)) {
+            if (estacionamento->status) { 
+                count++;
+                printf("║ %-15s ║ %-16s ║\n",
+                    estacionamento->n_estaci,
+                    estacionamento->placa);
+            }
+        }
+        printf("╚═════════════════╩══════════════════╝\n");
+
+        if (count == 0) printf("Nenhum estacionamento cadastrado.\n");
+
+        fclose(arq_estacionamentos);
+        free(estacionamento);
+
+        printf("\n>>Tecle <ENTER> para continuar...\n");
+        getchar();
+    }
+    else if (op_sub == '2'){
+
+        char vaga_busca[8];
+        FILE *arq_estacionamentos;
+        Estacionamentos *estacionamento;
+        estacionamento = (Estacionamentos*)malloc(sizeof(Estacionamentos));
+        int count = 0;
+
+        printf("\n >> Digite o número da vaga: ");
+        fgets(vaga_busca, 8, stdin);
+        vaga_busca[strcspn(vaga_busca, "\n")] = '\0';
+
+        arq_estacionamentos = fopen("dados/estacionamentos.dat", "rb");
+        if (arq_estacionamentos == NULL) {
+            printf("Erro ao abrir o arquivo de estacionamentos.\n");
+            printf(">>Tecle <ENTER> para continuar...\n");
+            getchar();
+            return;
+        }
+
+        printf("╔══ RELATÓRIO DE ESTACIONAMENTOS  ═══╗\n");
+        printf("║ %-16s ║ %-16s ║\n", "Nº da Vaga", "Placa do Veículo");
+        printf("╠═════════════════╬══════════════════╣\n");
+
+        while (fread(estacionamento, sizeof(Estacionamentos), 1, arq_estacionamentos)) {
+            if (estacionamento->status && strstr(estacionamento->n_estaci, vaga_busca)) { 
+                count++;
+                printf("║ %-15s ║ %-16s ║\n",
+                    estacionamento->n_estaci,
+                    estacionamento->placa);
+            }
+        }
+        printf("╚═════════════════╩══════════════════╝\n");
+
+        if (count == 0) printf("Nenhum estacionamento cadastrado.\n");
+
+        fclose(arq_estacionamentos);
+        free(estacionamento);
+
+        printf("\n>>Tecle <ENTER> para continuar...\n");
+        getchar();
+    }
+    else{
+        printf("\nOpção inválida!\n");
         printf(">>Tecle <ENTER> para continuar...\n");
         getchar();
-        return;
     }
-
-    while (fread(estacionamento, sizeof(Estacionamentos), 1, arq_estacionamentos)) {
-        if (estacionamento->status) { 
-            count++;
-            printf("Estacionamento nº %d\n", count);
-            printf("Nº da Vaga: %s\n", estacionamento->n_estaci);
-            printf("Placa do Veículo: %s\n", estacionamento->placa);
-            printf("-----------------------------------------------------------\n");
-        }
-    }
-
-    if (count == 0) printf("Nenhum estacionamento cadastrado.\n");
-
-    fclose(arq_estacionamentos);
-    free(estacionamento);
-
-    printf("\n>>Tecle <ENTER> para continuar...\n");
-    getchar();
 }
 
 //=======================================================
