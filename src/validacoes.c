@@ -23,41 +23,33 @@ void verifica_diretorio_dados(void) {
 
 // ---- CPF ----
 int Validar_CPF(const char *cpf) {
-    int i, j, digito1 = 0, digito2 = 0, valido = 1;
-    int num[11];
+    int num[11], digito1 = 0, digito2 = 0, valido = 1;
 
-    // Remove caracteres não numéricos
+    // Extrai apenas os números
     int k = 0;
-    for (i = 0; i < strlen(cpf); i++) {
-        if (isdigit(cpf[i])) {
+    for (int i = 0; i < strlen(cpf); i++) {
+        if (isdigit(cpf[i]))
             num[k++] = cpf[i] - '0';
-        }
     }
-    if (k != 11)
-        return 0;
+    if (k != 11) return 0;
 
     // Verifica se todos os dígitos são iguais
-    for (i = 1; i < 11; i++) {
+    for (int i = 1; i < 11; i++) {
         if (num[i] != num[0]) {
             valido = 0;
             break;
         }
     }
-    if (valido)
-        return 0;
+    if (valido) return 0;
 
     // Calcula dígitos verificadores
-    for (i = 0, j = 10; i < 9; i++, j--)
-        digito1 += num[i] * j;
+    for (int i = 0, j = 10; i < 9; i++, j--) digito1 += num[i] * j;
     digito1 = 11 - (digito1 % 11);
-    if (digito1 >= 10)
-        digito1 = 0;
+    if (digito1 >= 10) digito1 = 0;
 
-    for (i = 0, j = 11; i < 10; i++, j--)
-        digito2 += num[i] * j;
+    for (int i = 0, j = 11; i < 10; i++, j--) digito2 += num[i] * j;
     digito2 = 11 - (digito2 % 11);
-    if (digito2 >= 10)
-        digito2 = 0;
+    if (digito2 >= 10) digito2 = 0;
 
     return (num[9] == digito1 && num[10] == digito2);
 }
@@ -68,31 +60,25 @@ int Validar_Telefone(const char *telefone) {
     for (int i = 0; i < strlen(telefone); i++) {
         if (isdigit(telefone[i]))
             digitos++;
-        else if (telefone[i] != '+' && telefone[i] != '(' &&
-                 telefone[i] != ')' && telefone[i] != '-' &&
-                 telefone[i] != ' ')
-            return 0; // caractere inválido
+        else if (telefone[i] != '+' && telefone[i] != '(' && telefone[i] != ')' &&
+                 telefone[i] != '-' && telefone[i] != ' ')
+            return 0;
     }
     return (digitos >= 10 && digitos <= 13);
 }
 
 // ---- Placa ----
 int Validar_Placa(const char *placa) {
-    if (strlen(placa) != 7)
-        return 0;
-    for (int i = 0; i < 3; i++) {
-        if (!isalpha(placa[i]))
-            return 0;
-    }
-    for (int i = 3; i < 7; i++) {
-        if (!isdigit(placa[i]))
-            return 0;
-    }
+    if (strlen(placa) != 7) return 0;
+    for (int i = 0; i < 3; i++)
+        if (!isalpha(placa[i])) return 0;
+    for (int i = 3; i < 7; i++)
+        if (!isdigit(placa[i])) return 0;
     return 1;
 }
 
 // ==========================================================
-// Funções de Leitura com validação e repetição segura
+// Funções de Leitura com validação
 // ==========================================================
 
 void Ler_CPF(char *cpf) {
@@ -100,9 +86,7 @@ void Ler_CPF(char *cpf) {
         printf(" >>Digite o CPF (somente números ou com pontuação): ");
         scanf("%s", cpf);
         getchar();
-        if (!Validar_CPF(cpf)) {
-            printf("CPF inválido! Tente novamente.\n\n");
-        }
+        if (!Validar_CPF(cpf)) printf("CPF inválido! Tente novamente.\n\n");
     } while (!Validar_CPF(cpf));
 }
 
@@ -111,10 +95,8 @@ void Ler_Telefone(char *destino) {
         printf(" >>Telefone (Ex: (11)91234-5678 ou +55 11 91234-5678): ");
         scanf("%[^\n]", destino);
         getchar();
-
-        if (!Validar_Telefone(destino)) {
+        if (!Validar_Telefone(destino))
             printf("\nTelefone inválido! Use apenas números e caracteres válidos (+, -, (, ), espaço).\n\n");
-        }
     } while (!Validar_Telefone(destino));
 }
 
@@ -123,45 +105,46 @@ void Ler_Placa(char *placa) {
         printf(" >>Digite a placa (formato ABC1234): ");
         scanf("%s", placa);
         getchar();
-        if (!Validar_Placa(placa)) {
+        if (!Validar_Placa(placa))
             printf("Placa inválida! Use 3 letras seguidas de 4 números.\n\n");
-        }
     } while (!Validar_Placa(placa));
 }
 
 void Ler_Tipo(char *tipo) {
     printf(" >>Digite o tipo do veículo (Ex: Carro, Moto): ");
-    scanf("%[^\n]", tipo);
-    getchar();
+    scanf(" %[^\n]", tipo);
 }
 
 void Ler_Estacionamento(char *destino) {
     printf(" >>Digite o número do estacionamento: ");
-    scanf("%[^\n]", destino);
-    getchar();
+    scanf(" %[^\n]", destino);
 }
 
 void Ler_TelefoneSimples(char *destino) {
     printf(" >>Digite o telefone: ");
-    scanf("%[^\n]", destino);
-    getchar();
-}
-
-void Ler_Quantidade(int *destino) {
-    printf(" >>Digite a quantidade: ");
-    scanf("%d", destino);
-    getchar();
-}
-
-void Ler_qtd_vagas(int *destino) {
-    printf(" >>Digite a quantidade de vagas: ");
-    scanf("%d", destino);
-    getchar();
+    scanf(" %[^\n]", destino);
 }
 
 void Ler_num_andar(int *destino) {
-    printf(" >>Digite o número do andar: ");
-    scanf("%d", destino);
+    do {
+        printf(" >>Digite o número do andar: ");
+        if (scanf("%d", destino) != 1) {
+            while(getchar() != '\n');
+            *destino = -1;
+        }
+    } while (*destino <= 0);
+    getchar();
+}
+
+// === Nova função: Ler número de vagas por andar ===
+void Ler_num_vaga(int *destino) {
+    do {
+        printf(" >>Digite quantas vagas existem neste andar: ");
+        if (scanf("%d", destino) != 1) {
+            while(getchar() != '\n');
+            *destino = -1;
+        }
+    } while (*destino <= 0);
     getchar();
 }
 

@@ -1,43 +1,28 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <string.h>
+#include <unistd.h>
 #include <sys/stat.h>
+
 #include "../include/cadastro_vagas.h"
 #include "../include/validacoes.h"
 
+// Estrutura para facilitar
 typedef struct cadastro_vagas CV;
 
-//==============================
-// Caminhos dos arquivos
-//==============================
-#define ARQ_VAGAS "dados/cadastro_vagas.dat"
-#define TEMP_VAGAS "dados/temp_cadastro_vagas.dat"
-
-//=======================================
-//= Funções do Módulo Cadastro de Vagas =
-//=======================================
-
+// ============================
+// MENU PRINCIPAL
+// ============================
 void switch_cadastro_vagas(void) {
     char op;
     do {
         op = cadastro_vagas();
         switch (op) {
-            case '1': 
-                add_cadastro_vagas();
-                break;
-            case '2': 
-                exib_cadastro_vagas();
-                break;
-            case '3': 
-                alterar_cadastro_vagas();
-                break;
-            case '4':
-                exclu_logica_cadastro_vagas();
-                break;               
-            case '5':
-                recu_registro_cadastro_vagas();
-                break;
+            case '1': add_cadastro_vagas(); break;
+            case '2': exib_cadastro_vagas(); break;
+            case '3': alterar_cadastro_vagas(); break;
+            case '4': exclu_logica_cadastro_vagas(); break;
+            case '5': recu_registro_cadastro_vagas(); break;
         }
     } while (op != '0');
 }
@@ -48,228 +33,237 @@ char cadastro_vagas(void) {
 
     printf("\n");
     printf("=====================================================================================\n");
-    printf("||                                  -SIG-Parking-                                  ||\n");
+    printf("||                                  - SIG-Parking -                                 ||\n");
     printf("=====================================================================================\n");
-    printf("||                            Módulo Cadastro de Vagas                             ||\n");
+    printf("||                          Módulo Cadastro de Andares                              ||\n");
     printf("=====================================================================================\n");
-    printf("|| [1] -> Cadastrar Vagas                                                          ||\n");
-    printf("|| [2] -> Exibir Dados das Vagas                                                   ||\n");
-    printf("|| [3] -> Alterar Dados das Vagas                                                  ||\n");
-    printf("|| [4] -> Excluir Vagas logicamente                                                ||\n");
-    printf("|| [5] -> Recuperar registro das Vagas                                             ||\n");
-    printf("|| [0] -> Voltar ao Menu Principal                                                 ||\n");
+    printf("|| [1] -> Cadastrar Andar                                                          ||\n");
+    printf("|| [2] -> Exibir Andar                                                             ||\n");
+    printf("|| [3] -> Alterar Andar                                                            ||\n");
+    printf("|| [4] -> Excluir Andar (lógico)                                                  ||\n");
+    printf("|| [5] -> Recuperar Andar                                                          ||\n");
+    printf("|| [0] -> Voltar ao Menu Principal                                                ||\n");
     printf("=====================================================================================\n");
-    printf("\t >>Escolha uma opção: ");
+
     Ler_Opcao_Menu(&op);
-    printf("\n");
     return op;
 }
 
+// ============================
+// CADASTRAR ANDAR
+// ============================
 void add_cadastro_vagas(void) {
     system("clear||cls");
     verifica_diretorio_dados();
 
-    FILE *arq_cadastro_vagas;
-    CV *vagas = (CV*)malloc(sizeof(CV));
-
-    printf("\n=====================================================================================\n");
-    printf("||                  -Módulo Cadastro de Vagas -> Cadastrar Vagas-                  ||\n");
-    printf("=====================================================================================\n");
-
-    Ler_qtd_vagas(&vagas->qtd_vagas);
-    printf("\n");
-    Ler_num_andar(&vagas->num_andar);
-    printf("\n");
-
-    vagas->status = True;
-    arq_cadastro_vagas = fopen(ARQ_VAGAS, "ab");
-    if (arq_cadastro_vagas == NULL) {
-        printf("\t Erro ao abrir o arquivo do cadastro das vagas.\n");
-        printf("\t >>Tecle <ENTER> para continuar...\n");
+    FILE *arq = fopen(ARQ_VAGAS, "ab");
+    if (!arq) {
+        printf("\nErro ao abrir arquivo de vagas!\nPressione ENTER...\n");
+        getchar();
         return;
     }
 
-    fwrite(vagas, sizeof(CV), 1, arq_cadastro_vagas);
-    fclose(arq_cadastro_vagas);
+    CV *andar = malloc(sizeof(CV));
+    if (!andar) {
+        printf("\nErro de memória!\nPressione ENTER...\n");
+        fclose(arq);
+        return;
+    }
 
-    printf("\nVaga cadastrada com sucesso!\n");
-    printf("Quantidade de vagas no andar: %d\n", vagas->qtd_vagas);
-    printf("Número do andar: %d\n", vagas->num_andar);
-    printf("\t >>Tecle <ENTER> para continuar...\n");
+    printf("\n=====================================================================================\n");
+    printf("||                   - Cadastro de Andar -> Nova Entrada -                          ||\n");
+    printf("=====================================================================================\n");
+
+    Ler_num_andar(&andar->num_andar);
+    Ler_num_vaga(&andar->total_vagas);
+    andar->status = True;
+
+    fwrite(andar, sizeof(CV), 1, arq);
+    fclose(arq);
+
+    printf("\nAndar cadastrado com sucesso!\nNúmero do andar: %d | Total de vagas: %d\n",
+           andar->num_andar, andar->total_vagas);
+    printf("Pressione ENTER...\n");
     getchar();
 
-    free(vagas);
+    free(andar);
 }
 
+// ============================
+// EXIBIR ANDAR
+// ============================
 void exib_cadastro_vagas(void) {
     system("clear||cls");
     verifica_diretorio_dados();
 
-    FILE *arq_cadastro_vagas = fopen(ARQ_VAGAS, "rb");
-    CV *vagas = (CV*)malloc(sizeof(CV));
-    int num_andar_lido, encontrado = 0;
-
-    printf("\n=====================================================================================\n");
-    printf("||                 -Módulo Cadastro de Vagas -> Exibir Dados das Vagas-            ||\n");
-    printf("=====================================================================================\n");
-    printf(" >>Digite o número do andar \n");
-    Ler_num_andar(&num_andar_lido);
-    printf("\n");
-
-    if (arq_cadastro_vagas == NULL) {
-        printf("\t Erro ao abrir o arquivo de cadastro das vagas.\n");
-        printf("\t >>Tecle <ENTER> para continuar...\n");
+    FILE *arq = fopen(ARQ_VAGAS, "rb");
+    if (!arq) {
+        printf("\nNenhum andar cadastrado!\nPressione ENTER...\n");
         getchar();
         return;
     }
 
-    while (fread(vagas, sizeof(CV), 1, arq_cadastro_vagas)) {
-        if ((vagas->num_andar == num_andar_lido) && (vagas->status)) {
+    CV *andar = malloc(sizeof(CV));
+    int num_lido, encontrado = 0;
+
+    printf("\n=====================================================================================\n");
+    printf("||               - Cadastro de Andar -> Exibir Dados -                              ||\n");
+    printf("=====================================================================================\n");
+
+    Ler_num_andar(&num_lido);
+
+    while (fread(andar, sizeof(CV), 1, arq)) {
+        if ((andar->num_andar == num_lido) && andar->status) {
             encontrado = 1;
-            printf("<<<Vaga encontrada>>>\n");
-            printf("Número do andar: %d\n", vagas->num_andar);
-            printf("Quantidade de vagas: %d\n", vagas->qtd_vagas);
+            printf("\n<<< Andar Encontrado >>>\n");
+            printf("Número do andar: %d | Total de vagas: %d\n", andar->num_andar, andar->total_vagas);
             break;
         }
     }
-
-    fclose(arq_cadastro_vagas);
-    free(vagas);
 
     if (!encontrado)
         printf("\nAndar não encontrado!\n");
 
-    printf("\n\t >>Tecle <ENTER> para continuar...\n");
+    printf("Pressione ENTER...\n");
     getchar();
+    free(andar);
+    fclose(arq);
 }
 
+// ============================
+// ALTERAR ANDAR
+// ============================
 void alterar_cadastro_vagas(void) {
     system("clear||cls");
     verifica_diretorio_dados();
 
-    FILE *arq_cadastro_vagas = fopen(ARQ_VAGAS, "r+b");
-    CV *vagas = (CV*)malloc(sizeof(CV));
-    int num_andar_lido, encontrado = 0;
-
-    printf("\n=====================================================================================\n");
-    printf("||               -Módulo Cadastro de Vagas -> Alterar Dados das Vagas-             ||\n");
-    printf("=====================================================================================\n");
-    printf(" >>Digite o número do andar: \n");
-    Ler_num_andar(&num_andar_lido);
-    printf("\n");
-
-    if (arq_cadastro_vagas == NULL) {
-        printf("\t Erro ao abrir o arquivo do cadastro das vagas.\n");
-        printf("\t >>Tecle <ENTER> para continuar...\n");
+    FILE *arq = fopen(ARQ_VAGAS, "r+b");
+    if (!arq) {
+        printf("\nErro ao abrir arquivo de vagas!\nPressione ENTER...\n");
+        getchar();
         return;
     }
 
-    while (fread(vagas, sizeof(CV), 1, arq_cadastro_vagas)) {
-        if ((vagas->num_andar == num_andar_lido) && (vagas->status)) {
+    CV *andar = malloc(sizeof(CV));
+    int andar_lido, encontrado = 0;
+
+    printf("\n=====================================================================================\n");
+    printf("||               - Cadastro de Andar -> Alterar Dados -                              ||\n");
+    printf("=====================================================================================\n");
+
+    Ler_num_andar(&andar_lido);
+
+    while (fread(andar, sizeof(CV), 1, arq)) {
+        if ((andar->num_andar == andar_lido) && andar->status) {
             encontrado = 1;
-            Ler_qtd_vagas(&vagas->qtd_vagas);
-            fseek(arq_cadastro_vagas, (-1)*sizeof(CV), SEEK_CUR);
-            fwrite(vagas, sizeof(CV), 1, arq_cadastro_vagas);
+
+            printf("\nInforme os novos dados do andar:\n");
+            Ler_num_andar(&andar->num_andar);
+            Ler_num_vaga(&andar->total_vagas);
+
+            fseek(arq, -sizeof(CV), SEEK_CUR);
+            fwrite(andar, sizeof(CV), 1, arq);
             break;
         }
     }
 
-    fclose(arq_cadastro_vagas);
-    free(vagas);
-
     if (encontrado)
-        printf("\nDados das vagas alterados com sucesso!\n");
+        printf("\nDados do andar alterados com sucesso!\n");
     else
         printf("\nAndar não encontrado!\n");
 
-    printf("\t >>Tecle <ENTER> para continuar...\n");
+    printf("Pressione ENTER...\n");
     getchar();
+    free(andar);
+    fclose(arq);
 }
 
+// ============================
+// EXCLUSÃO LÓGICA
+// ============================
 void exclu_logica_cadastro_vagas(void) {
     system("clear||cls");
     verifica_diretorio_dados();
 
-    FILE *arq_cadastro_vagas = fopen(ARQ_VAGAS, "r+b");
-    CV *vagas = (CV*)malloc(sizeof(CV));
-    int num_andar_lido, encontrado = 0;
-
-    printf("\n=====================================================================================\n");
-    printf("||                -Módulo Cadastro de Vagas -> Excluir vagas logicamente -         ||\n");
-    printf("=====================================================================================\n");
-    printf(" >>Digite o número do andar que deseja excluir logicamente. \n");
-    Ler_num_andar(&num_andar_lido);
-    printf("\n");
-
-    if (arq_cadastro_vagas == NULL) {
-        printf("\t Erro ao abrir o arquivo do cadastro das vagas.\n");
-        printf("\t >>Tecle <ENTER> para continuar...\n");
+    FILE *arq = fopen(ARQ_VAGAS, "r+b");
+    if (!arq) {
+        printf("\nErro ao abrir arquivo de vagas!\nPressione ENTER...\n");
         getchar();
         return;
     }
 
-    while (fread(vagas, sizeof(CV), 1, arq_cadastro_vagas)) {
-        if ((vagas->num_andar == num_andar_lido) && (vagas->status)) {
-            vagas->status = False;
+    CV *andar = malloc(sizeof(CV));
+    int andar_lido, encontrado = 0;
+
+    printf("\n=====================================================================================\n");
+    printf("||               - Cadastro de Andar -> Exclusão Lógica -                            ||\n");
+    printf("=====================================================================================\n");
+
+    Ler_num_andar(&andar_lido);
+
+    while (fread(andar, sizeof(CV), 1, arq)) {
+        if ((andar->num_andar == andar_lido) && andar->status) {
             encontrado = 1;
-            fseek(arq_cadastro_vagas, (-1)*sizeof(CV), SEEK_CUR);
-            fwrite(vagas, sizeof(CV), 1, arq_cadastro_vagas);
+            andar->status = False;
+
+            fseek(arq, -sizeof(CV), SEEK_CUR);
+            fwrite(andar, sizeof(CV), 1, arq);
             break;
         }
     }
 
-    fclose(arq_cadastro_vagas);
-    free(vagas);
-
     if (encontrado)
-        printf("Vagas do andar %d excluídas logicamente com sucesso!\n", num_andar_lido);
+        printf("\nAndar marcado como excluído!\n");
     else
         printf("\nAndar não encontrado!\n");
 
-    printf("\n\t >>Tecle <ENTER> para continuar...\n");
+    printf("Pressione ENTER...\n");
     getchar();
+    free(andar);
+    fclose(arq);
 }
 
+// ============================
+// RECUPERAR ANDAR
+// ============================
 void recu_registro_cadastro_vagas(void) {
     system("clear||cls");
     verifica_diretorio_dados();
 
-    FILE *arq_cadastro_vagas = fopen(ARQ_VAGAS, "r+b");
-    CV *vagas = (CV*)malloc(sizeof(CV));
-    int num_andar_lido, encontrado = 0;
-
-    printf("\n=====================================================================================\n");
-    printf("||                -Módulo Cadastro de Vagas -> Recuperar registro -                ||\n");
-    printf("=====================================================================================\n");
-    printf(" >>Digite o número do andar que deseja recuperar. \n");
-    Ler_num_andar(&num_andar_lido);
-    printf("\n");
-
-    if (arq_cadastro_vagas == NULL) {
-        printf("\t Erro ao abrir o arquivo do cadastro das vagas.\n");
-        printf("\t >>Tecle <ENTER> para continuar...\n");
+    FILE *arq = fopen(ARQ_VAGAS, "r+b");
+    if (!arq) {
+        printf("\nErro ao abrir arquivo de vagas!\nPressione ENTER...\n");
         getchar();
         return;
     }
 
-    while (fread(vagas, sizeof(CV), 1, arq_cadastro_vagas)) {
-        if ((vagas->num_andar == num_andar_lido) && (!vagas->status)) {
-            vagas->status = True;
+    CV *andar = malloc(sizeof(CV));
+    int andar_lido, encontrado = 0;
+
+    printf("\n=====================================================================================\n");
+    printf("||               - Cadastro de Andar -> Recuperar Registro -                         ||\n");
+    printf("=====================================================================================\n");
+
+    Ler_num_andar(&andar_lido);
+
+    while (fread(andar, sizeof(CV), 1, arq)) {
+        if ((andar->num_andar == andar_lido) && !andar->status) {
             encontrado = 1;
-            fseek(arq_cadastro_vagas, (-1)*sizeof(CV), SEEK_CUR);
-            fwrite(vagas, sizeof(CV), 1, arq_cadastro_vagas);
+            andar->status = True;
+
+            fseek(arq, -sizeof(CV), SEEK_CUR);
+            fwrite(andar, sizeof(CV), 1, arq);
             break;
         }
     }
 
-    fclose(arq_cadastro_vagas);
-    free(vagas);
-
     if (encontrado)
-        printf("Registro de vagas do andar %d recuperado com sucesso!\n", num_andar_lido);
+        printf("\nAndar recuperado com sucesso!\n");
     else
         printf("\nAndar não encontrado!\n");
 
-    printf("\n\t >>Tecle <ENTER> para continuar...\n");
+    printf("Pressione ENTER...\n");
     getchar();
+    free(andar);
+    fclose(arq);
 }
