@@ -5,16 +5,16 @@
 //= Assinatura das Funções (Headers)   =
 //======================================
 
-// Controla o menu de relatórios
+// Controla o menu principal de relatórios
 void switch_relatorio(void);
 
-// Exibe o menu principal do módulo Relatórios
+// Exibe o menu do módulo Relatórios e retorna a opção escolhida
 char relatorio(void);
 
 // Relatórios específicos
-void relatorio_veiculos(void);
-void relatorio_estacionamentos(void);
-void relatorio_dono_veiculo(void);
-void relatorio_cadastro_vagas(void);
+void relatorio_veiculos(void);          // Exibe relatório completo ou filtrado de veículos (inclui andar e vaga)
+void relatorio_estacionamentos(void);   // Exibe relatório de veículos por estacionamento/andars/vagas
+void relatorio_dono_veiculo(void);      // Exibe relatório dos donos dos veículos
+void relatorio_cadastro_vagas(void);    // Exibe relatório de vagas cadastradas (por andar ou completo)
 
 #endif // RELATORIOS_H

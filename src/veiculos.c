@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <string.h>
-#include <sys/stat.h>
+#include <unistd.h>
 #include "../include/veiculos.h"
 #include "../include/validacoes.h"
 
@@ -23,6 +22,9 @@ void switch_veiculos(void) {
     } while (op != '0');
 }
 
+// ========================================
+// Exibe menu e retorna opção escolhida
+// ========================================
 char veiculos(void) {
     system("clear||cls");
     char op;
@@ -38,7 +40,7 @@ char veiculos(void) {
     printf("|| [5] -> Recuperar Registro de Veículo                    ||\n");
     printf("|| [0] -> Voltar ao Menu Principal                         ||\n");
     printf("=============================================================\n");
-    printf("\t>> Escolha uma opção: ");
+
     Ler_Opcao_Menu(&op);
     return op;
 }
@@ -50,33 +52,43 @@ void add_veiculos(void) {
     system("clear||cls");
     verifica_diretorio_dados();
 
-    FILE *arq_veiculos;
-    Veiculos veiculo;
-
-    printf("\n=========== Cadastro de Veículo ===========\n");
-    Ler_Placa(veiculo.placa);
-    Ler_Tipo(veiculo.tipo);
-    Ler_model(veiculo.model, sizeof(veiculo.model));
-    Ler_cor(veiculo.cor, sizeof(veiculo.cor));
-    Ler_Estacionamento(veiculo.n_estaci);
-    Ler_CPF(veiculo.cpf);
-    veiculo.status = True;
-
-    arq_veiculos = fopen("dados/veiculos.dat", "ab");
+    FILE *arq_veiculos = fopen("dados/veiculos.dat", "ab");
     if (!arq_veiculos) {
         perror("Erro ao abrir o arquivo de veículos");
-        printf("\t>>Tecle <ENTER> para continuar...");
         getchar();
         return;
     }
+
+    Veiculos veiculo;
+
+    Ler_Placa(veiculo.placa);
+    Ler_Tipo(veiculo.tipo);
+
+    printf(" >>Digite o modelo: ");
+    scanf(" %19[^\n]", veiculo.model);
+    getchar();
+
+    printf(" >>Digite a cor: ");
+    scanf(" %14[^\n]", veiculo.cor);
+    getchar();
+
+    Ler_num_andar(&veiculo.andar);
+
+    printf(" >>Digite o número da vaga nesse andar: ");
+    scanf("%d", &veiculo.vaga);
+    getchar();
+
+    Ler_CPF(veiculo.cpf);
+
+    veiculo.status = True;
 
     fwrite(&veiculo, sizeof(Veiculos), 1, arq_veiculos);
     fclose(arq_veiculos);
 
     printf("\nVeículo cadastrado com sucesso!\n");
-    printf("Placa: %s | Tipo: %s | Modelo: %s | Cor: %s | Estac.: %s | CPF: %s\n",
-           veiculo.placa, veiculo.tipo, veiculo.model,
-           veiculo.cor, veiculo.n_estaci, veiculo.cpf);
+    printf("Placa: %s | Tipo: %s | Modelo: %s | Cor: %s | Andar: %d | Vaga: %d | CPF: %s\n",
+           veiculo.placa, veiculo.tipo, veiculo.model, veiculo.cor,
+           veiculo.andar, veiculo.vaga, veiculo.cpf);
 
     printf("\n\t>>Tecle <ENTER> para continuar...");
     getchar();
@@ -88,15 +100,7 @@ void add_veiculos(void) {
 void exib_veiculo(void) {
     system("clear||cls");
 
-    FILE *arq_veiculos;
-    Veiculos veiculo;
-    char placa_lida[12];
-    int encontrado = 0;
-
-    printf("\n=========== Exibir Veículo ===========\n");
-    Ler_Placa(placa_lida);
-
-    arq_veiculos = fopen("dados/veiculos.dat", "rb");
+    FILE *arq_veiculos = fopen("dados/veiculos.dat", "rb");
     if (!arq_veiculos) {
         printf("\tNenhum veículo cadastrado ainda.\n");
         printf("\t>>Tecle <ENTER> para continuar...");
@@ -104,18 +108,26 @@ void exib_veiculo(void) {
         return;
     }
 
+    Veiculos veiculo;
+    char placa_lida[12];
+    int encontrado = 0;
+
+    printf("\n=========== Exibir Veículo ===========\n");
+    Ler_Placa(placa_lida);
+
     while (fread(&veiculo, sizeof(Veiculos), 1, arq_veiculos)) {
-        if ((strcmp(veiculo.placa, placa_lida) == 0) && (veiculo.status)) {
+        if ((strcmp(veiculo.placa, placa_lida) == 0) && veiculo.status) {
             encontrado = 1;
             printf("\n<<< Veículo encontrado >>>\n");
-            printf("Placa: %s\nTipo: %s\nModelo: %s\nCor: %s\nEstac.: %s\nCPF: %s\n",
+            printf("Placa: %s\nTipo: %s\nModelo: %s\nCor: %s\nAndar: %d\nVaga: %d\nCPF: %s\n",
                    veiculo.placa, veiculo.tipo, veiculo.model,
-                   veiculo.cor, veiculo.n_estaci, veiculo.cpf);
+                   veiculo.cor, veiculo.andar, veiculo.vaga, veiculo.cpf);
             break;
         }
     }
 
     fclose(arq_veiculos);
+
     if (!encontrado)
         printf("\nPlaca não encontrada!\n");
 
@@ -129,15 +141,7 @@ void exib_veiculo(void) {
 void alterar_veiculo(void) {
     system("clear||cls");
 
-    FILE *arq_veiculos;
-    Veiculos veiculo;
-    char placa_lida[12];
-    int encontrado = 0;
-
-    printf("\n=========== Alterar Veículo ===========\n");
-    Ler_Placa(placa_lida);
-
-    arq_veiculos = fopen("dados/veiculos.dat", "r+b");
+    FILE *arq_veiculos = fopen("dados/veiculos.dat", "r+b");
     if (!arq_veiculos) {
         printf("\tErro ao abrir o arquivo de veículos.\n");
         printf("\t>>Tecle <ENTER> para continuar...");
@@ -145,14 +149,34 @@ void alterar_veiculo(void) {
         return;
     }
 
+    Veiculos veiculo;
+    char placa_lida[12];
+    int encontrado = 0;
+
+    printf("\n=========== Alterar Veículo ===========\n");
+    Ler_Placa(placa_lida);
+
     while (fread(&veiculo, sizeof(Veiculos), 1, arq_veiculos)) {
         if ((strcmp(veiculo.placa, placa_lida) == 0) && veiculo.status) {
             encontrado = 1;
             printf("\n--- Informe os novos dados ---\n");
+
             Ler_Tipo(veiculo.tipo);
-            Ler_model(veiculo.model, sizeof(veiculo.model));
-            Ler_cor(veiculo.cor, sizeof(veiculo.cor));
-            Ler_Estacionamento(veiculo.n_estaci);
+
+            printf(" >>Digite o modelo: ");
+            scanf(" %19[^\n]", veiculo.model);
+            getchar();
+
+            printf(" >>Digite a cor: ");
+            scanf(" %14[^\n]", veiculo.cor);
+            getchar();
+
+            Ler_num_andar(&veiculo.andar);
+
+            printf(" >>Digite o número da vaga nesse andar: ");
+            scanf("%d", &veiculo.vaga);
+            getchar();
+
             Ler_CPF(veiculo.cpf);
 
             fseek(arq_veiculos, -sizeof(Veiculos), SEEK_CUR);
@@ -173,26 +197,25 @@ void alterar_veiculo(void) {
 }
 
 // ========================================
-// Função: Exclusão lógica de veículo
+// Função: Exclusão lógica
 // ========================================
 void exclu_logica_veiculo(void) {
     system("clear||cls");
 
-    FILE *arq_veiculos;
-    Veiculos veiculo;
-    char placa_lida[12];
-    int encontrado = 0;
-
-    printf("\n=========== Excluir Veículo ===========\n");
-    Ler_Placa(placa_lida);
-
-    arq_veiculos = fopen("dados/veiculos.dat", "r+b");
+    FILE *arq_veiculos = fopen("dados/veiculos.dat", "r+b");
     if (!arq_veiculos) {
         printf("\tErro ao abrir o arquivo de veículos.\n");
         printf("\t>>Tecle <ENTER> para continuar...");
         getchar();
         return;
     }
+
+    Veiculos veiculo;
+    char placa_lida[12];
+    int encontrado = 0;
+
+    printf("\n=========== Excluir Veículo ===========\n");
+    Ler_Placa(placa_lida);
 
     while (fread(&veiculo, sizeof(Veiculos), 1, arq_veiculos)) {
         if ((strcmp(veiculo.placa, placa_lida) == 0) && veiculo.status) {
@@ -216,26 +239,25 @@ void exclu_logica_veiculo(void) {
 }
 
 // ========================================
-// Função: Recuperar Veículo
+// Função: Recuperar veículo excluído
 // ========================================
 void recu_registro_veiculo(void) {
     system("clear||cls");
 
-    FILE *arq_veiculos;
-    Veiculos veiculo;
-    char placa_lida[12];
-    int encontrado = 0;
-
-    printf("\n=========== Recuperar Veículo ===========\n");
-    Ler_Placa(placa_lida);
-
-    arq_veiculos = fopen("dados/veiculos.dat", "r+b");
+    FILE *arq_veiculos = fopen("dados/veiculos.dat", "r+b");
     if (!arq_veiculos) {
         printf("\tErro ao abrir o arquivo de veículos.\n");
         printf("\t>>Tecle <ENTER> para continuar...");
         getchar();
         return;
     }
+
+    Veiculos veiculo;
+    char placa_lida[12];
+    int encontrado = 0;
+
+    printf("\n=========== Recuperar Veículo ===========\n");
+    Ler_Placa(placa_lida);
 
     while (fread(&veiculo, sizeof(Veiculos), 1, arq_veiculos)) {
         if ((strcmp(veiculo.placa, placa_lida) == 0) && !veiculo.status) {

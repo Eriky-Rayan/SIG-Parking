@@ -22,8 +22,8 @@ typedef struct dono_veiculo {
     char cpf[15];
     char telefone[20];
     char nome[50];
-    int quantidade;
-    int status; // 1 = ativo (True), 0 = inativo (False)
+    char placa[12];  // placa do veículo cadastrado
+    int status;      // 1 = ativo (True), 0 = inativo (False)
 } DV;
 
 //=====================================
