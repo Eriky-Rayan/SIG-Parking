@@ -6,7 +6,8 @@
 #include "cadastro_vagas.h"
 #include "estacionamentos.h"
 
-// Menu principal de relatórios
+// Controla o menu de relatórios
+// Exibe o menu principal do módulo Relatórios
 void switch_relatorio(void);
 char relatorio(void);
 

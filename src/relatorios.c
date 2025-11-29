@@ -24,6 +24,9 @@ void switch_relatorio(void) {
     } while (op != '0');
 }
 
+//=======================================================
+//= Menu principal de relatórios
+//=======================================================
 char relatorio(void) {
     system("clear||cls");
     char op;
@@ -162,6 +165,7 @@ void relatorio_dono_veiculo(void) {
                         printf("║ %-20s ║ %-11s ║ %-12s ║ %-5s ║ %-5s ║ %-10s ║ %-10s ║\n",
                                temp->nome, temp->cpf, temp->telefone,
                                veiculo.placa, veiculo.tipo, veiculo.model, veiculo.cor);
+                        break;
                     }
                 }
                 fclose(arq_veiculos);
@@ -201,7 +205,7 @@ void relatorio_estacionamentos(void) {
     Veiculos veiculo;
     int count = 0;
 
-    printf("\n╔════════════╦════════════╦════════════╗\n");
+    printf("╔════════════╦════════════╦════════════╗\n");
     printf("║ Placa      ║ Andar      ║ Vaga       ║\n");
     printf("╠════════════╬════════════╬════════════╣\n");
 
@@ -276,63 +280,43 @@ void relatorio_cadastro_vagas(void) {
 void relatorio_veiculo_dono_vaga(void){
     system("clear||cls");
 
-    FILE *arq_estacionamentos = fopen("dados/estacionamentos.dat", "rb");
-    if (!arq_estacionamentos) {
-        printf("Erro ao abrir estacionamentos.\n");
-        getchar();
-        return;
-    }
+    DonoVeiculoLista* lista = newDonoVeiculoList();
+    preencherListaDonoVeiculo(lista);
 
-    Estacionamentos estacionamento;
     Veiculos veiculo;
-    DonoVeiculo dv;
+    FILE *arq_veiculos;
 
-    printf("\n╔════════════════════════╦════════════════════════╦═══════════════╗\n");
+    printf("╔════════════════════════╦════════════════════════╦═══════════════╗\n");
     printf("║ Veículo                 ║ Dono                    ║ Vaga           ║\n");
     printf("╠════════════════════════╬════════════════════════╬═══════════════╣\n");
 
-    while (fread(&estacionamento, sizeof(Estacionamentos), 1, arq_estacionamentos)) {
-        if (estacionamento.status) {
-
-            // ---- BUSCA VEÍCULO ----
-            FILE* arq_veiculos = fopen("dados/veiculos.dat", "rb");
+    DonoVeiculoLista* temp = lista->prox;
+    while(temp != NULL){
+        if(temp->status){
             int achouVeic = 0;
-            if (arq_veiculos) {
-                while (fread(&veiculo, sizeof(Veiculos), 1, arq_veiculos)) {
-                    if (veiculo.status && strcmp(veiculo.placa, estacionamento.placa) == 0) {
+            arq_veiculos = fopen("dados/veiculos.dat", "rb");
+            if(arq_veiculos){
+                while(fread(&veiculo, sizeof(Veiculos), 1, arq_veiculos)){
+                    if(veiculo.status && strcmp(veiculo.cpf, temp->cpf) == 0){
                         achouVeic = 1;
+                        printf("║ %-22s ║ %-22s ║ %-13d ║\n",
+                               veiculo.model, temp->nome, veiculo.vaga);
                         break;
                     }
                 }
                 fclose(arq_veiculos);
             }
-
-            if (achouVeic) {
-                // ---- BUSCA DONO ----
-                FILE* arq_dono = fopen("dados/dono_veiculo.dat", "rb");
-                int achouDono = 0;
-                if (arq_dono) {
-                    while (fread(&dv, sizeof(DonoVeiculo), 1, arq_dono)) {
-                        if (dv.status && strcmp(dv.cpf, veiculo.cpf) == 0) {
-                            achouDono = 1;
-                            break;
-                        }
-                    }
-                    fclose(arq_dono);
-                }
-
-                if (achouDono) {
-                    printf("║ %-22s ║ %-22s ║ %-13s ║\n",
-                           veiculo.model,
-                           dv.nome,
-                           estacionamento.n_estaci);
-                }
+            if(!achouVeic){
+                printf("║ %-22s ║ %-22s ║ %-13s ║\n",
+                       "-", temp->nome, "-");
             }
         }
+        temp = temp->prox;
     }
 
+    deleteDonoVeiculo(lista);
+
     printf("╚════════════════════════╩════════════════════════╩═══════════════╝\n");
-    fclose(arq_estacionamentos);
     printf("\n>> Tecle ENTER para continuar...");
     getchar();
 }
