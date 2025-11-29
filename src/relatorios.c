@@ -119,77 +119,7 @@ void relatorio_veiculos(void) {
 }
 
 //=======================================================
-//= RELATÓRIO DE ESTACIONAMENTOS
-//=======================================================
-void relatorio_estacionamentos(void) {
-    system("clear||cls");
-    char op_sub;
-    printf("=====================================================================================\n");
-    printf("||                         RELATÓRIO - ESTACIONAMENTOS                             ||\n");
-    printf("=====================================================================================\n");
-    printf("|| [1] -> Mostrar relatório Completo                                               ||\n");
-    printf("|| [2] -> Filtrar por vaga do veículo                                             ||\n");
-    printf("|| [0] -> Voltar ao Menu Principal                                                 ||\n");
-    printf("=====================================================================================\n");
-    printf(" >> Escolha uma opção: ");
-    scanf(" %c", &op_sub);
-    getchar();
-
-    FILE *arq_veiculos = fopen("dados/veiculos.dat", "rb");
-    if (!arq_veiculos) {
-        printf("Erro ao abrir o arquivo de veículos.\n");
-        getchar();
-        return;
-    }
-
-    Veiculos *veiculo = malloc(sizeof(Veiculos));
-    int count = 0;
-
-    printf("\n╔════════════╦════════════╦════════════╗\n");
-    printf("║ Placa      ║ Andar      ║ Vaga       ║\n");
-    printf("╠════════════╬════════════╬════════════╣\n");
-
-    if (op_sub == '1') {
-        while (fread(veiculo, sizeof(Veiculos), 1, arq_veiculos)) {
-            if (veiculo->status) {
-                count++;
-                printf("║ %-10s ║ %-10d ║ %-10d ║\n",
-                       veiculo->placa, veiculo->andar, veiculo->vaga);
-            }
-        }
-        if (count == 0)
-            printf("║        Nenhum veículo cadastrado                                               ║\n");
-    } 
-    else if (op_sub == '2') {
-        int vaga_busca;
-        printf("\n >> Digite o número da vaga: ");
-        scanf("%d", &vaga_busca);
-        getchar();
-
-        while (fread(veiculo, sizeof(Veiculos), 1, arq_veiculos)) {
-            if (veiculo->status && veiculo->vaga == vaga_busca) {
-                count++;
-                printf("║ %-10s ║ %-10d ║ %-10d ║\n",
-                       veiculo->placa, veiculo->andar, veiculo->vaga);
-            }
-        }
-        if (count == 0)
-            printf("║     Nenhum veículo encontrado nessa vaga                                       ║\n");
-    } 
-    else {
-        printf("\nOpção inválida!\n");
-    }
-
-    printf("╚════════════╩════════════╩════════════╝\n");
-
-    fclose(arq_veiculos);
-    free(veiculo);
-    printf("\n>> Tecle ENTER para continuar...");
-    getchar();
-}
-
-//=======================================================
-//= RELATÓRIO DE DONOS DE VEÍCULOS
+//= RELATÓRIO DE DONOS DE VEÍCULOS (corrigido)
 //=======================================================
 void relatorio_dono_veiculo(void) {
     system("clear||cls");
@@ -205,76 +135,98 @@ void relatorio_dono_veiculo(void) {
 
     if (op_sub == '0') return;
 
-    FILE *arq_dono;
-    DV *dono = malloc(sizeof(DV));
-    Veiculos veiculo;
-    FILE *arq_veiculos;
+    DonoVeiculoLista* lista = newDonoVeiculoList();
+    preencherListaDonoVeiculo(lista);
 
-    if (op_sub == '1' || op_sub == '2') {
-        char nome_busca[50];
-        int filtrando = 0;
-        if (op_sub == '2') {
-            printf("\n >> Digite o nome ou parte do nome: ");
-            fgets(nome_busca, 50, stdin);
-            nome_busca[strcspn(nome_busca, "\n")] = '\0';
-            filtrando = 1;
-        }
+    DonoVeiculoLista* temp = lista->prox;
+    char nome_busca[50];
+    int filtrando = 0;
 
-        arq_dono = fopen("dados/dono_veiculo.dat", "rb");
-        if (!arq_dono) {
-            printf("Erro ao abrir o arquivo de donos.\n");
-            free(dono);
-            getchar();
-            return;
-        }
+    if (op_sub == '2') {
+        printf("\n >> Digite o nome ou parte do nome: ");
+        fgets(nome_busca, sizeof(nome_busca), stdin);
+        nome_busca[strcspn(nome_busca, "\n")] = '\0';
+        filtrando = 1;
+    }
 
-        printf("\n╔══════════════════════╦═════════════╦══════════════╦═════════╦══════════╦════════════╦════════════╦══════╦═════╗\n");
-        printf("║ Nome                 ║ CPF         ║ Telefone     ║ Placa   ║ Tipo     ║ Modelo     ║ Cor        ║ Andar║ Vaga║\n");
-        printf("╠══════════════════════╬═════════════╬══════════════╬═════════╬══════════╬════════════╬════════════╬══════╬═════╣\n");
+    printf("\n╔══════════════════════╦═════════════╦══════════════╦═════════╦══════════╦════════════╦════════════╦══════╦═════╗\n");
+    printf("║ Nome                 ║ CPF         ║ Telefone     ║ Placa   ║ Tipo     ║ Modelo     ║ Cor        ║ Andar║ Vaga║\n");
+    printf("╠══════════════════════╬═════════════╬══════════════╬═════════╬══════════╬════════════╬════════════╬══════╬═════╣\n");
 
-        int encontrou_dono = 0;
-        while (fread(dono, sizeof(DV), 1, arq_dono)) {
-            if (dono->status && (!filtrando || strstr(dono->nome, nome_busca))) {
-                encontrou_dono = 1;
+    int encontrou = 0;
+    while (temp != NULL) {
+        if (temp->status && (!filtrando || strstr(temp->nome, nome_busca))) {
+            encontrou = 1;
 
-                arq_veiculos = fopen("dados/veiculos.dat", "rb");
-                int encontrou_veiculo = 0;
+            FILE* arq_veiculos = fopen("dados/veiculos.dat", "rb");
+            Veiculos veiculo;
+            int achou_veiculo = 0;
 
-                if (arq_veiculos) {
-                    while (fread(&veiculo, sizeof(Veiculos), 1, arq_veiculos)) {
-                        if (veiculo.status && strcmp(veiculo.cpf, dono->cpf) == 0) {
-                            encontrou_veiculo = 1;
-                            printf("║ %-20s ║ %-11s ║ %-12s ║ %-7s ║ %-8s ║ %-10s ║ %-10s ║ %-4d ║ %-3d ║\n",
-                                   dono->nome, dono->cpf, dono->telefone,
-                                   veiculo.placa, veiculo.tipo, veiculo.model,
-                                   veiculo.cor, veiculo.andar, veiculo.vaga);
-                        }
+            if (arq_veiculos) {
+                while (fread(&veiculo, sizeof(Veiculos), 1, arq_veiculos)) {
+                    if (veiculo.status && strcmp(veiculo.cpf, temp->cpf) == 0) {
+                        achou_veiculo = 1;
+                        printf("║ %-20s ║ %-11s ║ %-12s ║ %-7s ║ %-8s ║ %-10s ║ %-10s ║ %-4d ║ %-3d ║\n",
+                               temp->nome, temp->cpf, temp->telefone,
+                               veiculo.placa, veiculo.tipo, veiculo.model,
+                               veiculo.cor, veiculo.andar, veiculo.vaga);
                     }
-                    fclose(arq_veiculos);
                 }
+                fclose(arq_veiculos);
+            }
 
-                if (!encontrou_veiculo) {
-                    printf("║ %-20s ║ %-11s ║ %-12s ║ %-7s ║ %-8s ║ %-10s ║ %-10s ║ %-4s ║ %-3s ║\n",
-                           dono->nome, dono->cpf, dono->telefone,
-                           "-", "-", "-", "-", "-", "-");
-                }
+            if (!achou_veiculo) {
+                printf("║ %-20s ║ %-11s ║ %-12s ║ %-7s ║ %-8s ║ %-10s ║ %-10s ║ %-4s ║ %-3s ║\n",
+                       temp->nome, temp->cpf, temp->telefone,
+                       "-", "-", "-", "-", "-", "-");
             }
         }
+        temp = temp->prox;
+    }
 
-        if (!encontrou_dono)
-            printf("║                       Nenhum dono encontrado                                               ║\n");
+    if (!encontrou) {
+        printf("║                       Nenhum dono encontrado                                               ║\n");
+    }
 
-        printf("╚══════════════════════╩═════════════╩══════════════╩═════════╩══════════╩════════════╩════════════╩══════╩═════╝\n");
+    printf("╚══════════════════════╩═════════════╩══════════════╩═════════╩══════════╩════════════╩════════════╩══════╩═════╝\n");
 
-        fclose(arq_dono);
-        free(dono);
-        printf("\n>> Tecle ENTER para continuar...");
+    deleteDonoVeiculo(lista);
+    printf("\n>> Tecle ENTER para continuar...");
+    getchar();
+}
+
+
+void relatorio_estacionamentos(void) {
+    system("clear||cls");
+    FILE *arq_veiculos = fopen("dados/veiculos.dat", "rb");
+    if (!arq_veiculos) {
+        printf("Erro ao abrir o arquivo de veículos.\n");
         getchar();
         return;
     }
 
-    printf("\nOpção inválida!\n");
-    free(dono);
+    Veiculos veiculo;
+    int count = 0;
+
+    printf("\n╔════════════╦════════════╦════════════╗\n");
+    printf("║ Placa      ║ Andar      ║ Vaga       ║\n");
+    printf("╠════════════╬════════════╬════════════╣\n");
+
+    while (fread(&veiculo, sizeof(Veiculos), 1, arq_veiculos)) {
+        if (veiculo.status) {
+            count++;
+            printf("║ %-10s ║ %-10d ║ %-10d ║\n",
+                   veiculo.placa, veiculo.andar, veiculo.vaga);
+        }
+    }
+
+    if (count == 0)
+        printf("║        Nenhum veículo cadastrado                                               ║\n");
+
+    printf("╚════════════╩════════════╩════════════╝\n");
+
+    fclose(arq_veiculos);
+    printf("\n>> Tecle ENTER para continuar...");
     getchar();
 }
 
@@ -283,25 +235,6 @@ void relatorio_dono_veiculo(void) {
 //=======================================================
 void relatorio_cadastro_vagas(void) {
     system("clear||cls");
-    char op_sub;
-    printf("\n==================== RELATÓRIO - CADASTRO DE VAGAS ====================\n");
-    printf("1 - Mostrar relatório completo\n");
-    printf("2 - Filtrar por andar\n");
-    printf("0 - Voltar\n");
-    printf("=======================================================================\n");
-    printf(" >> Escolha uma opção: ");
-    scanf(" %c", &op_sub);
-    getchar();
-
-    if (op_sub == '0') return;
-
-    int andar_busca = 0;
-    if (op_sub == '2') {
-        printf("\n >> Digite o número do andar: ");
-        scanf("%d", &andar_busca);
-        getchar();
-    }
-
     FILE *arq_vagas = fopen("dados/cadastro_vagas.dat", "rb");
     if (!arq_vagas) {
         printf("Erro ao abrir o arquivo de vagas.\n");
@@ -309,41 +242,38 @@ void relatorio_cadastro_vagas(void) {
         return;
     }
 
-    CV *vagas = malloc(sizeof(CV));
+    CV vagas;
     Veiculos veiculo;
     FILE *arq_veiculos;
-    int encontrou;
 
-    rewind(arq_vagas);
-    while (fread(vagas, sizeof(CV), 1, arq_vagas)) {
-        if (vagas->status && (op_sub == '1' || (op_sub == '2' && vagas->num_andar == andar_busca))) {
-            printf("\n╔═══════════════════════════════════════════════════════════════════╗\n");
-            printf("║                   ANDAR %2d | TOTAL DE VAGAS: %2d                   ║\n", vagas->num_andar, vagas->total_vagas);
-            printf("╠═════════╦══════════╦════════════╦════════════╦══════╦═════════════╣\n");
-            printf("║ Placa   ║ Tipo     ║ Modelo     ║ Cor        ║ Vaga ║ CPF Dono    ║\n");
-            printf("╠═════════╬══════════╬════════════╬════════════╬══════╬═════════════╣\n");
+    while (fread(&vagas, sizeof(CV), 1, arq_vagas)) {
+        if (vagas.status) {
+            printf("\n╔══════════════════════════════════════╗\n");
+            printf("║ ANDAR %2d | TOTAL DE VAGAS: %2d       ║\n", vagas.num_andar, vagas.total_vagas);
+            printf("╠═════════╦════════════╦═══════╦════════╗\n");
+            printf("║ Placa   ║ Tipo       ║ Vaga  ║ CPF    ║\n");
+            printf("╠═════════╬════════════╬═══════╬════════╣\n");
 
             arq_veiculos = fopen("dados/veiculos.dat", "rb");
             if (arq_veiculos) {
-                encontrou = 0;
+                int encontrou = 0;
                 while (fread(&veiculo, sizeof(Veiculos), 1, arq_veiculos)) {
-                    if (veiculo.status && veiculo.andar == vagas->num_andar) {
+                    if (veiculo.status && veiculo.andar == vagas.num_andar) {
                         encontrou = 1;
-                        printf("║ %-7s ║ %-8s ║ %-10s ║ %-10s ║ %-4d ║ %-11s ║\n",
-                               veiculo.placa, veiculo.tipo, veiculo.model,
-                               veiculo.cor, veiculo.vaga, veiculo.cpf);
+                        printf("║ %-7s ║ %-10s ║ %-5d ║ %-7s ║\n",
+                               veiculo.placa, veiculo.tipo, veiculo.vaga, veiculo.cpf);
                     }
                 }
                 if (!encontrou)
-                    printf("║                      Nenhum veículo nessa vaga                            ║\n");
+                    printf("║       Nenhum veículo nessa vaga       ║\n");
+
                 fclose(arq_veiculos);
             }
 
-            printf("╚═════════╩══════════╩════════════╩════════════╩══════╩═════════════╝\n\n");
+            printf("╚═════════╩════════════╩═══════╩════════╝\n");
         }
     }
 
-    free(vagas);
     fclose(arq_vagas);
     printf("\n>> Tecle ENTER para continuar...");
     getchar();

@@ -1,10 +1,23 @@
-//Assinatura das Funções
-//Function Signature
+#ifndef ADMIN_H
+#define ADMIN_H
 
-void switch_admin(void);
-char admin(void);
-void exclu_veiculo(void);
-void exclu_estacionamentos(void);
-void exclu_dono_veiculo(void);
-void exclu_cadastro_vagas(void);
+#include "veiculos.h"
+#include "estacionamentos.h"
+#include "dono_veiculo.h"
+#include "cadastro_vagas.h"
+#include "validacoes.h"
 
+//=====================================================
+// Assinatura das Funções do Administrador
+//=====================================================
+
+void switch_admin(void);            // Menu principal do administrador
+char admin(void);                   // Exibe menu e lê opção do usuário
+
+// Funções de exclusão física
+void exclu_veiculo(void);           // Excluir veículo fisicamente
+void exclu_estacionamentos(void);   // Excluir estacionamento fisicamente
+void exclu_dono_veiculo(void);      // Excluir dono de veículo fisicamente
+void exclu_cadastro_vagas(void);    // Excluir cadastro de vagas fisicamente
+
+#endif // ADMIN_H

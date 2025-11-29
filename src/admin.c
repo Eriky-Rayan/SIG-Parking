@@ -13,93 +13,62 @@
 //= Funções de Administrador   =
 //==============================
 
-void switch_admin(void){
-    
+void switch_admin(void) {
     char op;
-
     do {
         op = admin();
         switch (op) {
-            case '1': 
-                exclu_veiculo();
-                break;
-            case '2': 
-                exclu_estacionamentos();
-                break;
-            case '3': 
-                exclu_dono_veiculo();
-                break;
-            case '4': 
-                exclu_cadastro_vagas();
-                break;
+            case '1': exclu_veiculo(); break;
+            case '2': exclu_estacionamentos(); break;
+            case '3': exclu_dono_veiculo(); break;
+            case '4': exclu_cadastro_vagas(); break;
         }
     } while (op != '0');
 }
 
 char admin(void) {
     system("clear||cls");
-
     char op;
 
     printf("\n");
     printf("========================================================================================\n");
-    printf("||                                                                                    ||\n");
     printf("||                                  -SIG-Parking-                                     ||\n");
-    printf("||                                                                                    ||\n");
-    printf("========================================================================================\n");
-    printf("||                                                                                    ||\n");
     printf("||                             -Funções de Administrador-                             ||\n");
-    printf("||                                                                                    ||\n");
     printf("========================================================================================\n");
-    printf("||                                                                                    ||\n");
     printf("|| [1] -> Excluir Veículo                                                             ||\n");
     printf("|| [2] -> Excluir Estacionamentos                                                     ||\n");
     printf("|| [3] -> Excluir Dono de Veículo                                                     ||\n");
     printf("|| [4] -> Excluir Cadastro de Vagas                                                   ||\n");
     printf("|| [0] -> Voltar ao Menu Principal                                                    ||\n");
-    printf("||                                                                                    ||\n");
     printf("========================================================================================\n");
-    printf("\n");
     printf("\t >>Escolha uma opção: ");
     Ler_Opcao_admin(&op);
     printf("\n");
     return op;
 }
 
+//==============================
+//= Excluir Veículo
+//==============================
 void exclu_veiculo(void) {
     system("clear||cls");
 
     FILE *arq_veiculo;
     FILE *arq_veiculo_temp;
-    Veiculos *veiculo;
+    Veiculos *veiculo = (Veiculos*)malloc(sizeof(Veiculos));
     char placa_lida[12];
     int encontrado = 0;
 
-    printf("\n");
-    printf("======================================================================================\n");
-    printf("||                                                                                  ||\n");
-    printf("||                                  -SIG-Parking-                                   ||\n");
-    printf("||                                                                                  ||\n");
-    printf("======================================================================================\n");
-    printf("||                                                                                  ||\n");
-    printf("||                   -Módulo Veículos -> Excluir Dados Fisicamente-                 ||\n");
-    printf("||                                                                                  ||\n");
-    printf("======================================================================================\n");
-    printf("\n");
-
-    veiculo = (Veiculos*)malloc(sizeof(Veiculos));
-    printf(" >>Digite a placa do veículo a ser excluido. \n");
+    printf("\n>> Digite a placa do veículo a ser excluído: ");
     Ler_Placa(placa_lida);
-    printf("\n");
 
-    
     arq_veiculo = fopen("dados/veiculos.dat", "rb");
     arq_veiculo_temp = fopen("dados/veiculos_temp.dat", "wb");
 
     if (arq_veiculo == NULL) {
-        printf("\t Erro ao abrir o arquivo de veículos.\n");
-        printf("\t >>Tecle <ENTER> para continuar...\n");
+        printf("\nErro ao abrir arquivo de veículos.\nTecle <ENTER> para continuar...");
         getchar();
+        free(veiculo);
         return;
     }
 
@@ -118,52 +87,37 @@ void exclu_veiculo(void) {
     remove("dados/veiculos.dat");
     rename("dados/veiculos_temp.dat", "dados/veiculos.dat");
 
-    if (encontrado) {
-        printf("Veículo com placa %s excluído fisicamente com sucesso!\n", placa_lida);
-    } else {
-        printf("Placa não encontrada!\n");
-    }
+    if (encontrado)
+        printf("\nVeículo com placa %s excluído fisicamente!\n", placa_lida);
+    else
+        printf("\nPlaca não encontrada!\n");
 
-    printf("\n");
-    printf("\t >>Tecle <ENTER> para continuar...\n");
+    printf("Tecle <ENTER> para continuar...");
     getchar();
-    printf("\n");
 }
 
+//==============================
+//= Excluir Estacionamento
+//==============================
 void exclu_estacionamentos(void) {
     system("clear||cls");
 
     FILE *arq_estacionamentos;
     FILE *arq_estacionamentos_temp;
-    Estacionamentos *estacionamento;
+    Estacionamentos *estacionamento = (Estacionamentos*)malloc(sizeof(Estacionamentos));
     char n_estaci_lido[8];
     int encontrado = 0;
 
-    printf("\n");
-    printf("======================================================================================\n");
-    printf("||                                                                                  ||\n");
-    printf("||                                  -SIG-Parking-                                   ||\n");
-    printf("||                                                                                  ||\n");
-    printf("======================================================================================\n");
-    printf("||                                                                                  ||\n");
-    printf("||               -Módulo Estacionamentos -> Excluir Dados Fisicamente-              ||\n");
-    printf("||                                                                                  ||\n");
-    printf("======================================================================================\n");
-    printf("\n");
-
-    estacionamento = (Estacionamentos*)malloc(sizeof(Estacionamentos));
-    printf(" >>Digite o número do estacionamento a ser excluido. \n");
+    printf("\n>> Digite o número do estacionamento a ser excluído: ");
     Ler_Estacionamento(n_estaci_lido);
-    printf("\n");
 
-    
     arq_estacionamentos = fopen("dados/estacionamentos.dat", "rb");
     arq_estacionamentos_temp = fopen("dados/estacionamentos_temp.dat", "wb");
 
     if (arq_estacionamentos == NULL) {
-        printf("\t Erro ao abrir o arquivo de estacionamentos.\n");
-        printf("\t >>Tecle <ENTER> para continuar...\n");
+        printf("\nErro ao abrir arquivo de estacionamentos.\nTecle <ENTER> para continuar...");
         getchar();
+        free(estacionamento);
         return;
     }
 
@@ -182,142 +136,109 @@ void exclu_estacionamentos(void) {
     remove("dados/estacionamentos.dat");
     rename("dados/estacionamentos_temp.dat", "dados/estacionamentos.dat");
 
-    if (encontrado) {
-        printf("Estacionamento com número %s excluído fisicamente com sucesso!\n", n_estaci_lido);
-    } else {
-        printf("Número do estacionamento não encontrado!\n");
-    }
+    if (encontrado)
+        printf("\nEstacionamento %s excluído fisicamente!\n", n_estaci_lido);
+    else
+        printf("\nNúmero do estacionamento não encontrado!\n");
 
-    printf("\n");
-    printf("\t >>Tecle <ENTER> para continuar...\n");
+    printf("Tecle <ENTER> para continuar...");
     getchar();
-    printf("\n");
 }
 
+//==============================
+//= Excluir Dono de Veículo
+//==============================
 void exclu_dono_veiculo(void) {
     system("clear||cls");
 
-    FILE *arq_dono_veiculo;
-    FILE *arq_dono_veiculo_temp;
-    DV *dono;
-    char cpf_lido[12];
+    FILE *arq_dono;
+    FILE *arq_dono_temp;
+    DonoVeiculo *dono = (DonoVeiculo*)malloc(sizeof(DonoVeiculo));
+    char cpf_lido[15];
     int encontrado = 0;
 
-    printf("\n");
-    printf("======================================================================================\n");
-    printf("||                                                                                  ||\n");
-    printf("||                                  -SIG-Parking-                                   ||\n");
-    printf("||                                                                                  ||\n");
-    printf("======================================================================================\n");
-    printf("||                                                                                  ||\n");
-    printf("||                  -Módulo Donos dos Veículos -> Excluir Dados Fisicamente-        ||\n");
-    printf("||                                                                                  ||\n");
-    printf("======================================================================================\n");
-    printf("\n");
-
-    dono = (DV*)malloc(sizeof(DV));
-    printf(" >>Digite o CPF do dono a ser excluido. \n");
+    printf("\n>> Digite o CPF do dono a ser excluído: ");
     Ler_CPF(cpf_lido);
-    printf("\n");
 
-    
-    arq_dono_veiculo = fopen("dados/dono_veiculo.dat", "rb");
-    arq_dono_veiculo_temp = fopen("dados/dono_veiculo_temp.dat", "wb");
+    arq_dono = fopen("dados/dono_veiculo.dat", "rb");
+    arq_dono_temp = fopen("dados/dono_veiculo_temp.dat", "wb");
 
-    if (arq_dono_veiculo == NULL) {
-        printf("\t Erro ao abrir o arquivo de dono_veiculo.\n");
-        printf("\t >>Tecle <ENTER> para continuar...\n");
+    if (arq_dono == NULL) {
+        printf("\nErro ao abrir arquivo de donos.\nTecle <ENTER> para continuar...");
         getchar();
+        free(dono);
         return;
     }
 
-    while (fread(dono, sizeof(DV), 1, arq_dono_veiculo)) {
+    while (fread(dono, sizeof(DonoVeiculo), 1, arq_dono)) {
         if (strcmp(dono->cpf, cpf_lido) != 0) {
-            fwrite(dono, sizeof(DV), 1, arq_dono_veiculo_temp);
+            fwrite(dono, sizeof(DonoVeiculo), 1, arq_dono_temp);
         } else {
             encontrado = 1;
         }
     }
 
-    fclose(arq_dono_veiculo);
-    fclose(arq_dono_veiculo_temp);
+    fclose(arq_dono);
+    fclose(arq_dono_temp);
     free(dono);
 
     remove("dados/dono_veiculo.dat");
     rename("dados/dono_veiculo_temp.dat", "dados/dono_veiculo.dat");
 
-    if (encontrado) {
-        printf("Dono do veículo com CPF %s excluído fisicamente com sucesso!\n", cpf_lido);
-    } else {
-        printf("CPF não encontrado!\n");
-    }
+    if (encontrado)
+        printf("\nDono com CPF %s excluído fisicamente!\n", cpf_lido);
+    else
+        printf("\nCPF não encontrado!\n");
 
-    printf("\n");
-    printf("\t >>Tecle <ENTER> para continuar...\n");
+    printf("Tecle <ENTER> para continuar...");
     getchar();
-    printf("\n");
 }
 
+//==============================
+//= Excluir Cadastro de Vagas
+//==============================
 void exclu_cadastro_vagas(void) {
     system("clear||cls");
 
-    FILE *arq_cadastro_vagas;
-    FILE *arq_cadastro_vagas_temp;
-    CV *vagas;
+    FILE *arq_vagas;
+    FILE *arq_vagas_temp;
+    CV *vagas = (CV*)malloc(sizeof(CV));
     int num_andar_lido;
     int encontrado = 0;
 
-    printf("\n");
-    printf("=====================================================================================\n");
-    printf("||                                                                                 ||\n");
-    printf("||                                  -SIG-Parking-                                  ||\n");
-    printf("||                                                                                 ||\n");
-    printf("=====================================================================================\n");
-    printf("||                                                                                 ||\n");
-    printf("||                -Módulo Cadastro de Vagas -> Excluir Vagas fisicamenente -       ||\n");
-    printf("||                                                                                 ||\n");
-    printf("=====================================================================================\n");
-    printf("\n");
-
-    vagas = (CV*)malloc(sizeof(CV));
-    printf(" >>Digite o número do andar que deseja excluir. \n");
+    printf("\n>> Digite o número do andar a excluir: ");
     Ler_num_andar(&num_andar_lido);
-    printf("\n");
 
-    
-    arq_cadastro_vagas = fopen("dados/cadastro_vagas.dat", "rb");
-    arq_cadastro_vagas_temp = fopen("dados/cadastro_vagas_temp.dat", "wb");
+    arq_vagas = fopen("dados/cadastro_vagas.dat", "rb");
+    arq_vagas_temp = fopen("dados/cadastro_vagas_temp.dat", "wb");
 
-    if (arq_cadastro_vagas == NULL) {
-        printf("\t Erro ao abrir o arquivo do cadastro das vagas.\n");
-        printf("\t >>Tecle <ENTER> para continuar...\n");
+    if (arq_vagas == NULL) {
+        printf("\nErro ao abrir arquivo de vagas.\nTecle <ENTER> para continuar...");
         getchar();
+        free(vagas);
         return;
     }
 
-    while (fread(vagas, sizeof(CV), 1, arq_cadastro_vagas)) {
+    while (fread(vagas, sizeof(CV), 1, arq_vagas)) {
         if (vagas->num_andar != num_andar_lido) {
-            fwrite(vagas, sizeof(CV), 1, arq_cadastro_vagas_temp);
+            fwrite(vagas, sizeof(CV), 1, arq_vagas_temp);
         } else {
             encontrado = 1;
         }
     }
 
-    fclose(arq_cadastro_vagas);
-    fclose(arq_cadastro_vagas_temp);
+    fclose(arq_vagas);
+    fclose(arq_vagas_temp);
     free(vagas);
 
     remove("dados/cadastro_vagas.dat");
     rename("dados/cadastro_vagas_temp.dat", "dados/cadastro_vagas.dat");
 
-    if (encontrado) {
-        printf("Vagas do andar %d excluídas fisicamente com sucesso!\n", num_andar_lido);
-    } else {
+    if (encontrado)
+        printf("\nVagas do andar %d excluídas fisicamente!\n", num_andar_lido);
+    else
         printf("\nAndar não encontrado!\n");
-    }
 
-    printf("\n");
-    printf("\t >>Tecle <ENTER> para continuar...\n");
+    printf("Tecle <ENTER> para continuar...");
     getchar();
-    printf("\n");
 }
