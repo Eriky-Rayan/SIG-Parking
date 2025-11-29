@@ -5,6 +5,7 @@
 #include "../include/dono_veiculo.h"
 #include "../include/cadastro_vagas.h"
 #include "../include/veiculos.h"
+#include "../include/estacionamentos.h"
 
 //===============================
 //= Funções do Módulo Relatório =
@@ -19,6 +20,7 @@ void switch_relatorio(void) {
             case '2': relatorio_estacionamentos(); break;
             case '3': relatorio_dono_veiculo(); break;
             case '4': relatorio_cadastro_vagas(); break;
+            case '5': relatorio_veiculo_dono_vaga(); break;
         }
     } while (op != '0');
 }
@@ -34,6 +36,7 @@ char relatorio(void) {
     printf("|| [2] -> Relatório de Estacionamentos                                             ||\n");
     printf("|| [3] -> Relatório de Donos dos Veículos                                          ||\n");
     printf("|| [4] -> Relatório de Cadastro de Vagas                                           ||\n");
+    printf("|| [5] -> Relatório de Veículos Estacionados com Dono                               ||\n");
     printf("|| [0] -> Voltar ao Menu Principal                                                 ||\n");
     printf("=====================================================================================\n");
     printf("\t >>Escolha uma opção: ");
@@ -68,21 +71,20 @@ void relatorio_veiculos(void) {
         return;
     }
 
-    Veiculos *veiculo = malloc(sizeof(Veiculos));
+    Veiculos veiculo;
     int count = 0;
 
-    // Cabeçalho da tabela
     printf("\n╔════════════╦════════════╦══════════════╦════════════╦════════╦═══════╦═════════════╗\n");
     printf("║ Placa      ║ Tipo       ║ Modelo       ║ Cor        ║ Andar  ║ Vaga  ║ CPF Dono    ║\n");
     printf("╠════════════╬════════════╬══════════════╬════════════╬════════╬═══════╬═════════════╣\n");
 
     if (op_sub == '1') {
-        while (fread(veiculo, sizeof(Veiculos), 1, arq_veiculos)) {
-            if (veiculo->status) {
+        while (fread(&veiculo, sizeof(Veiculos), 1, arq_veiculos)) {
+            if (veiculo.status) {
                 count++;
                 printf("║ %-10s ║ %-10s ║ %-12s ║ %-10s ║ %-6d ║ %-5d ║ %-11s ║\n",
-                       veiculo->placa, veiculo->tipo, veiculo->model,
-                       veiculo->cor, veiculo->andar, veiculo->vaga, veiculo->cpf);
+                       veiculo.placa, veiculo.tipo, veiculo.model,
+                       veiculo.cor, veiculo.andar, veiculo.vaga, veiculo.cpf);
             }
         }
         if (count == 0)
@@ -94,12 +96,12 @@ void relatorio_veiculos(void) {
         fgets(cor_busca, sizeof(cor_busca), stdin);
         cor_busca[strcspn(cor_busca, "\n")] = '\0';
 
-        while (fread(veiculo, sizeof(Veiculos), 1, arq_veiculos)) {
-            if (veiculo->status && strstr(veiculo->cor, cor_busca)) {
+        while (fread(&veiculo, sizeof(Veiculos), 1, arq_veiculos)) {
+            if (veiculo.status && strstr(veiculo.cor, cor_busca)) {
                 count++;
                 printf("║ %-10s ║ %-10s ║ %-12s ║ %-10s ║ %-6d ║ %-5d ║ %-11s ║\n",
-                       veiculo->placa, veiculo->tipo, veiculo->model,
-                       veiculo->cor, veiculo->andar, veiculo->vaga, veiculo->cpf);
+                       veiculo.placa, veiculo.tipo, veiculo.model,
+                       veiculo.cor, veiculo.andar, veiculo.vaga, veiculo.cpf);
             }
         }
         if (count == 0)
@@ -109,17 +111,15 @@ void relatorio_veiculos(void) {
         printf("\nOpção inválida!\n");
     }
 
-    // Rodapé da tabela
     printf("╚════════════╩════════════╩══════════════╩════════════╩════════╩═══════╩═════════════╝\n");
 
     fclose(arq_veiculos);
-    free(veiculo);
     printf("\n>> Tecle ENTER para continuar...");
     getchar();
 }
 
 //=======================================================
-//= RELATÓRIO DE DONOS DE VEÍCULOS (corrigido)
+//= RELATÓRIO DE DONOS DE VEÍCULOS
 //=======================================================
 void relatorio_dono_veiculo(void) {
     system("clear||cls");
@@ -195,7 +195,9 @@ void relatorio_dono_veiculo(void) {
     getchar();
 }
 
-
+//=======================================================
+//= RELATÓRIO DE ESTACIONAMENTOS
+//=======================================================
 void relatorio_estacionamentos(void) {
     system("clear||cls");
     FILE *arq_veiculos = fopen("dados/veiculos.dat", "rb");
@@ -275,6 +277,76 @@ void relatorio_cadastro_vagas(void) {
     }
 
     fclose(arq_vagas);
+    printf("\n>> Tecle ENTER para continuar...");
+    getchar();
+}
+
+//=======================================================
+//= RELATÓRIO DE VEÍCULOS ESTACIONADOS COM DONO
+//=======================================================
+void relatorio_veiculo_dono_vaga(void){
+    system("clear||cls");
+
+    FILE *arq_estacionamentos = fopen("dados/estacionamentos.dat", "rb");
+    if (!arq_estacionamentos) {
+        printf("Erro ao abrir estacionamentos.\n");
+        getchar();
+        return;
+    }
+
+    Estacionamentos estacionamento;
+    Veiculos veiculo;
+    DonoVeiculo dv;
+
+    printf("╔═════════════════════════════════════════════════════════════════╗\n");
+    printf("║                RELATÓRIO — VEÍCULOS ESTACIONADOS                ║\n");
+    printf("╠════════════════════════╦════════════════════════╦═══════════════╣\n");
+    printf("║ Veículo                 ║ Dono                    ║ Vaga           ║\n");
+    printf("╠════════════════════════╬════════════════════════╬═══════════════╣\n");
+
+    while (fread(&estacionamento, sizeof(Estacionamentos), 1, arq_estacionamentos)) {
+        if (estacionamento.status) {
+
+            // ---- BUSCA VEÍCULO ----
+            FILE* arq_veiculos = fopen("dados/veiculos.dat", "rb");
+            int achouVeic = 0;
+            if (arq_veiculos) {
+                while (fread(&veiculo, sizeof(Veiculos), 1, arq_veiculos)) {
+                    if (veiculo.status && strcmp(veiculo.placa, estacionamento.placa) == 0) {
+                        achouVeic = 1;
+                        break;
+                    }
+                }
+                fclose(arq_veiculos);
+            }
+
+            if (achouVeic) {
+
+                // ---- BUSCA DONO ----
+                FILE* arq_dono = fopen("dados/dono_veiculo.dat", "rb");
+                int achouDono = 0;
+                if (arq_dono) {
+                    while (fread(&dv, sizeof(DonoVeiculo), 1, arq_dono)) {
+                        if (dv.status && strcmp(dv.cpf, veiculo.cpf) == 0) {
+                            achouDono = 1;
+                            break;
+                        }
+                    }
+                    fclose(arq_dono);
+                }
+
+                if (achouDono) {
+                    printf("║ %-22s ║ %-22s ║ %-13s ║\n",
+                           veiculo.model,
+                           dv.nome,
+                           estacionamento.n_estaci);
+                }
+            }
+        }
+    }
+
+    printf("╚════════════════════════╩════════════════════════╩═══════════════╝\n");
+    fclose(arq_estacionamentos);
     printf("\n>> Tecle ENTER para continuar...");
     getchar();
 }

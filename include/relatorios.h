@@ -17,4 +17,7 @@ void relatorio_estacionamentos(void);   // Exibe relatório de veículos por est
 void relatorio_dono_veiculo(void);      // Exibe relatório dos donos dos veículos
 void relatorio_cadastro_vagas(void);    // Exibe relatório de vagas cadastradas (por andar ou completo)
 
+// NOVA FUNÇÃO ADICIONADA
+void relatorio_veiculo_dono_vaga(void); // Exibe relatório cruzando veículo, dono e vaga
+
 #endif // RELATORIOS_H
