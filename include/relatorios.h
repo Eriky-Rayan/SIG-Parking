@@ -1,14 +1,14 @@
 #ifndef RELATORIOS_H
 #define RELATORIOS_H
 
-//======================================
-//= Assinatura das Funções (Headers)   =
-//======================================
+#include "veiculos.h"
+#include "dono_veiculo.h"
+#include "cadastro_vagas.h"
+#include "estacionamentos.h"
 
 // Controla o menu de relatórios
-void switch_relatorio(void);
-
 // Exibe o menu principal do módulo Relatórios
+void switch_relatorio(void);
 char relatorio(void);
 
 // Relatórios específicos
