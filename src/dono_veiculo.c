@@ -6,110 +6,69 @@
 #include "../include/validacoes.h"
 #include "../include/veiculos.h"
 
-// ================
-// Funções de lista 
-// ================
+// ============================
+// Lista dinâmica inversa
+// ============================
 
 DonoVeiculoLista* newDonoVeiculoList(void) {
     DonoVeiculoLista* l = (DonoVeiculoLista*) malloc(sizeof(DonoVeiculoLista));
-    if (l == NULL) {
+    if (!l) {
         fprintf(stderr, "Memoria indisponivel\n");
         exit(EXIT_FAILURE);
     }
+    l->dados = NULL;
     l->prox = NULL;
     return l;
 }
 
+// Inserção no início da lista (inversa)
 void appendDonoVeiculo(DonoVeiculoLista *l, DonoVeiculo *data) {
     DonoVeiculoLista* novo = (DonoVeiculoLista*) malloc(sizeof(DonoVeiculoLista));
-    if (novo == NULL) {
+    if (!novo) {
         fprintf(stderr, "Memoria indisponivel\n");
         exit(EXIT_FAILURE);
     }
 
-    /* copiar campo a campo */
-    strcpy(novo->cpf, data->cpf);
-    strcpy(novo->telefone, data->telefone);
-    strcpy(novo->nome, data->nome);
-    strcpy(novo->placa, data->placa);
-    novo->status = data->status;
-
-    novo->prox = NULL;
-
-    DonoVeiculoLista* temp = l;
-    while (temp->prox != NULL) {
-        temp = temp->prox;
+    novo->dados = (DonoVeiculo*) malloc(sizeof(DonoVeiculo));
+    if (!novo->dados) {
+        fprintf(stderr, "Memoria indisponivel\n");
+        free(novo);
+        exit(EXIT_FAILURE);
     }
-    temp->prox = novo;
+
+    *(novo->dados) = *data;  // copia os dados
+    
+    novo->prox = l->prox;
+    l->prox = novo;
 }
 
 void preencherListaDonoVeiculo(DonoVeiculoLista *lista) {
-    int encontrado = 0;
-    DonoVeiculo leitura;
     FILE *arq = fopen(ARQ_DONO_VEICULO, "rb");
-    if (arq == NULL) {
-        /* nenhum dono cadastrado ainda (arquivo pode não existir) */
-        return;
-    }
+    if (!arq) return;
 
+    DonoVeiculo leitura;
     while (fread(&leitura, sizeof(DonoVeiculo), 1, arq)) {
-        if (leitura.status == 1) {
-            encontrado = 1;
-            /* cria um DonoVeiculo temporário com os dados lidos e adiciona */
-            DonoVeiculo dvTemp;
-            strcpy(dvTemp.cpf, leitura.cpf);
-            strcpy(dvTemp.telefone, leitura.telefone);
-            strcpy(dvTemp.nome, leitura.nome);
-            strcpy(dvTemp.placa, leitura.placa);
-            dvTemp.status = leitura.status;
-
-            appendDonoVeiculo(lista, &dvTemp);
-        }
+        if (leitura.status == True)
+            appendDonoVeiculo(lista, &leitura);
     }
-
-    if (!encontrado) {
-        /* opcional: comentar para não poluir saída durante execução normal */
-        /* printf("Nenhum dono ativo encontrado.\n"); */
-    }
-
     fclose(arq);
-    return;
 }
 
-/* Carrega TODOS os registros (ativos e inativos) — usado para recuperar */
 void preencherListaDonoVeiculo_Tudo(DonoVeiculoLista *lista) {
-    int encontrouAlgo = 0;
-    DonoVeiculo leitura;
     FILE *arq = fopen(ARQ_DONO_VEICULO, "rb");
-    if (arq == NULL) {
-        return;
-    }
+    if (!arq) return;
 
-    while (fread(&leitura, sizeof(DonoVeiculo), 1, arq)) {
-        encontrouAlgo = 1;
-        DonoVeiculo dvTemp;
-        strcpy(dvTemp.cpf, leitura.cpf);
-        strcpy(dvTemp.telefone, leitura.telefone);
-        strcpy(dvTemp.nome, leitura.nome);
-        strcpy(dvTemp.placa, leitura.placa);
-        dvTemp.status = leitura.status;
-
-        appendDonoVeiculo(lista, &dvTemp);
-    }
-
-    if (!encontrouAlgo) {
-        /* printf("Nenhum registro encontrado no arquivo.\n"); */
-    }
-
+    DonoVeiculo leitura;
+    while (fread(&leitura, sizeof(DonoVeiculo), 1, arq))
+        appendDonoVeiculo(lista, &leitura);
     fclose(arq);
-    return;
 }
 
 void clearDonoVeiculo(DonoVeiculoLista* l) {
     DonoVeiculoLista* temp = l->prox;
-    DonoVeiculoLista* next;
-    while (temp != NULL) {
-        next = temp->prox;
+    while (temp) {
+        DonoVeiculoLista* next = temp->prox;
+        free(temp->dados);
         free(temp);
         temp = next;
     }
@@ -121,52 +80,40 @@ void deleteDonoVeiculo(DonoVeiculoLista* l) {
     free(l);
 }
 
-/* grava toda a lista no arquivo (reescreve o arquivo) */
 int gravarListaDonoVeiculoEmArquivo(DonoVeiculoLista* l) {
     FILE *arq = fopen(ARQ_DONO_VEICULO, "wb");
     if (!arq) return 0;
 
-    DonoVeiculoLista *temp = l->prox;
-    while (temp != NULL) {
-        /* criar um DonoVeiculo temporário para escrever */
-        DonoVeiculo dvWrite;
-        strcpy(dvWrite.cpf, temp->cpf);
-        strcpy(dvWrite.telefone, temp->telefone);
-        strcpy(dvWrite.nome, temp->nome);
-        strcpy(dvWrite.placa, temp->placa);
-        dvWrite.status = temp->status;
-
-        fwrite(&dvWrite, sizeof(DonoVeiculo), 1, arq);
+    DonoVeiculoLista* temp = l->prox;
+    while (temp) {
+        fwrite(temp->dados, sizeof(DonoVeiculo), 1, arq);
         temp = temp->prox;
     }
-
     fclose(arq);
     return 1;
 }
 
-/* ===========================================================
-   Função auxiliar - verifica se o veículo existe no arquivo
-   =========================================================== */
+// ===========================================================
+// Verifica se veículo existe no arquivo
+// ===========================================================
 int verifica_veiculo_existe(const char *placa) {
     FILE *arq = fopen("dados/veiculos.dat", "rb");
-    Veiculos v;
-
     if (!arq) return 0;
 
+    Veiculos v;
     while (fread(&v, sizeof(Veiculos), 1, arq)) {
         if (strcmp(v.placa, placa) == 0 && v.status == True) {
             fclose(arq);
             return 1;
         }
     }
-
     fclose(arq);
     return 0;
 }
 
-/* ===========================================================
-   Menu principal
-   =========================================================== */
+// ===========================================================
+// Menu principal
+// ===========================================================
 void switch_dono_veiculo(void) {
     char op;
     do {
@@ -201,189 +148,118 @@ char dono_veiculo(void) {
     return op;
 }
 
-/* ===========================================================
-   Cadastrar dono do veículo
-   - carrega lista de ativos
-   - append
-   - grava lista inteira
-   =========================================================== */
+// ===========================================================
+// CRUD DONO
+// ===========================================================
 void add_dono_veiculo(void) {
     system("clear||cls");
     verifica_diretorio_dados();
-
-    FILE *arq = fopen(ARQ_DONO_VEICULO, "ab");
-    if (!arq) {
-        printf("\nERRO ao abrir o arquivo de donos!\nTecle ENTER...");
-        getchar();
-        return;
-    }
-    fclose(arq);
 
     DonoVeiculo dono;
     char placa[12];
 
     printf("\n====================== Cadastro do Dono ======================\n\n");
-
     Ler_CPF(dono.cpf);
     Ler_Telefone(dono.telefone);
     Ler_Nome(dono.nome, sizeof(dono.nome));
 
-    /* Solicitar placa do carro */
     printf("\nInforme a PLACA do carro: ");
     Ler_Placa(placa);
 
     if (!verifica_veiculo_existe(placa)) {
-        printf("\n>>> ERRO: Este veículo NÃO existe! Cadastre-o primeiro no módulo Veículos.\n");
-        printf("Tecle ENTER para voltar...");
-        getchar();
-        return;
+        printf("\n>>> ERRO: Veículo não existe!\nTecle ENTER..."); getchar(); return;
     }
 
     strcpy(dono.placa, placa);
     dono.status = True;
 
-    /* carregar lista atual de ativos, adicionar e gravar lista inteira */
-    DonoVeiculoLista *lista = newDonoVeiculoList();
-    preencherListaDonoVeiculo(lista); /* carrega apenas ativos */
+    DonoVeiculoLista* lista = newDonoVeiculoList();
+    preencherListaDonoVeiculo(lista);
     appendDonoVeiculo(lista, &dono);
 
-    if (gravarListaDonoVeiculoEmArquivo(lista)) {
+    if (gravarListaDonoVeiculoEmArquivo(lista))
         printf("\nDono cadastrado com sucesso!\n");
-        printf("CPF: %s\nNome: %s\nTelefone: %s\nPlaca: %s\n",
-               dono.cpf, dono.nome, dono.telefone, dono.placa);
-    } else {
-        printf("\nErro ao gravar o arquivo de donos!\n");
-    }
+    else
+        printf("\nErro ao gravar arquivo!\n");
 
-    printf("\nTecle ENTER para continuar...");
-    getchar();
+    printf("\nTecle ENTER..."); getchar();
     deleteDonoVeiculo(lista);
 }
 
-/* ===========================================================
-   Exibir dono (busca por CPF)
-   =========================================================== */
 void exib_dono_veiculo(void) {
     system("clear||cls");
-
-    FILE *arq = fopen(ARQ_DONO_VEICULO, "rb");
-    if (!arq) {
-        printf("\nNenhum dono cadastrado ainda.\nTecle ENTER...");
-        getchar();
-        return;
-    }
-    fclose(arq);
-
     char cpf_busca[15];
     int achou = 0;
 
     printf("\nDigite o CPF para buscar: ");
     Ler_CPF(cpf_busca);
 
-    DonoVeiculoLista *lista = newDonoVeiculoList();
+    DonoVeiculoLista* lista = newDonoVeiculoList();
     preencherListaDonoVeiculo(lista);
 
-    DonoVeiculoLista *temp = lista->prox;
-    while (temp != NULL) {
-        if (strcmp(temp->cpf, cpf_busca) == 0 && temp->status == True) {
+    DonoVeiculoLista* temp = lista->prox;
+    while (temp) {
+        if (strcmp(temp->dados->cpf, cpf_busca) == 0 && temp->dados->status == True) {
             achou = 1;
             printf("\n=== Dono Encontrado ===\n");
             printf("CPF: %s\nNome: %s\nTelefone: %s\nPlaca: %s\n",
-                   temp->cpf, temp->nome, temp->telefone, temp->placa);
+                   temp->dados->cpf, temp->dados->nome, temp->dados->telefone, temp->dados->placa);
             break;
         }
         temp = temp->prox;
     }
 
     deleteDonoVeiculo(lista);
-
-    if (!achou)
-        printf("\nCPF não encontrado!\n");
-
-    printf("Tecle ENTER...");
-    getchar();
+    if (!achou) printf("\nCPF não encontrado!\n");
+    printf("Tecle ENTER..."); getchar();
 }
 
-/* ===========================================================
-   Alterar dono
-   - carrega lista de ativos, altera nó, regrava arquivo
-   =========================================================== */
 void alterar_dono_veiculo(void) {
     system("clear||cls");
-
-    FILE *arq = fopen(ARQ_DONO_VEICULO, "rb");
-    if (!arq) {
-        printf("\nErro ao abrir arquivo!\nTecle ENTER...");
-        getchar();
-        return;
-    }
-    fclose(arq);
-
     char cpf_busca[15];
     int achou = 0;
 
     printf("\nCPF para alterar: ");
     Ler_CPF(cpf_busca);
 
-    DonoVeiculoLista *lista = newDonoVeiculoList();
+    DonoVeiculoLista* lista = newDonoVeiculoList();
     preencherListaDonoVeiculo(lista);
 
-    DonoVeiculoLista *temp = lista->prox;
-    while (temp != NULL) {
-        if (strcmp(temp->cpf, cpf_busca) == 0 && temp->status == True) {
+    DonoVeiculoLista* temp = lista->prox;
+    while (temp) {
+        if (strcmp(temp->dados->cpf, cpf_busca) == 0 && temp->dados->status == True) {
             achou = 1;
-
-            Ler_Telefone(temp->telefone);
-            Ler_Nome(temp->nome, sizeof(temp->nome));
-
+            Ler_Telefone(temp->dados->telefone);
+            Ler_Nome(temp->dados->nome, sizeof(temp->dados->nome));
             break;
         }
         temp = temp->prox;
     }
 
     if (achou) {
-        if (gravarListaDonoVeiculoEmArquivo(lista))
-            printf("\nDados alterados com sucesso!\n");
-        else
-            printf("\nErro ao gravar alterações no arquivo!\n");
-    } else {
-        printf("\nCPF não encontrado!\n");
-    }
+        if (gravarListaDonoVeiculoEmArquivo(lista)) printf("\nDados alterados com sucesso!\n");
+        else printf("\nErro ao gravar arquivo!\n");
+    } else printf("\nCPF não encontrado!\n");
 
     deleteDonoVeiculo(lista);
-    printf("Tecle ENTER...");
-    getchar();
+    printf("Tecle ENTER..."); getchar();
 }
 
-/* ===========================================================
-   Exclusão lógica
-   - marca status = 0 e regrava arquivo
-   =========================================================== */
 void exclu_logica_dono_veiculo(void) {
     system("clear||cls");
-
-    FILE *arq = fopen(ARQ_DONO_VEICULO, "rb");
-    if (!arq) {
-        printf("\nErro ao abrir arquivo!\nTecle ENTER...");
-        getchar();
-        return;
-    }
-    fclose(arq);
-
     char cpf_busca[15];
     int achou = 0;
 
     printf("\nCPF para excluir: ");
     Ler_CPF(cpf_busca);
 
-    /* carregar lista (ativos) */
-    DonoVeiculoLista *lista = newDonoVeiculoList();
+    DonoVeiculoLista* lista = newDonoVeiculoList();
     preencherListaDonoVeiculo(lista);
 
-    DonoVeiculoLista *temp = lista->prox;
-    while (temp != NULL) {
-        if (strcmp(temp->cpf, cpf_busca) == 0 && temp->status == True) {
-            temp->status = False;
+    DonoVeiculoLista* temp = lista->prox;
+    while (temp) {
+        if (strcmp(temp->dados->cpf, cpf_busca) == 0 && temp->dados->status == True) {
+            temp->dados->status = False;
             achou = 1;
             break;
         }
@@ -391,47 +267,29 @@ void exclu_logica_dono_veiculo(void) {
     }
 
     if (achou) {
-        if (gravarListaDonoVeiculoEmArquivo(lista))
-            printf("\nExclusão lógica feita.\n");
-        else
-            printf("\nErro ao gravar arquivo após exclusão lógica.\n");
-    } else {
-        printf("\nCPF não encontrado!\n");
-    }
+        if (gravarListaDonoVeiculoEmArquivo(lista)) printf("\nExclusão lógica feita.\n");
+        else printf("\nErro ao gravar arquivo.\n");
+    } else printf("\nCPF não encontrado!\n");
 
     deleteDonoVeiculo(lista);
-    printf("Tecle ENTER...");
-    getchar();
+    printf("Tecle ENTER..."); getchar();
 }
 
-/* ===========================================================
-   Recuperar registro
-   - carrega TODOS os registros (ativos e inativos), marca ativo e regrava
-   =========================================================== */
 void recu_registro_dono_veiculo(void) {
     system("clear||cls");
-
-    FILE *arq = fopen(ARQ_DONO_VEICULO, "rb");
-    if (!arq) {
-        printf("\nErro ao abrir arquivo!\nTecle ENTER...");
-        getchar();
-        return;
-    }
-    fclose(arq);
-
     char cpf_busca[15];
     int achou = 0;
 
     printf("\nCPF para recuperar: ");
     Ler_CPF(cpf_busca);
 
-    DonoVeiculoLista *lista = newDonoVeiculoList();
+    DonoVeiculoLista* lista = newDonoVeiculoList();
     preencherListaDonoVeiculo_Tudo(lista);
 
-    DonoVeiculoLista *temp = lista->prox;
-    while (temp != NULL) {
-        if (strcmp(temp->cpf, cpf_busca) == 0 && temp->status == False) {
-            temp->status = True;
+    DonoVeiculoLista* temp = lista->prox;
+    while (temp) {
+        if (strcmp(temp->dados->cpf, cpf_busca) == 0 && temp->dados->status == False) {
+            temp->dados->status = True;
             achou = 1;
             break;
         }
@@ -439,15 +297,10 @@ void recu_registro_dono_veiculo(void) {
     }
 
     if (achou) {
-        if (gravarListaDonoVeiculoEmArquivo(lista))
-            printf("\nRegistro recuperado!\n");
-        else
-            printf("\nErro ao gravar arquivo ao recuperar registro.\n");
-    } else {
-        printf("\nCPF não encontrado ou já está ativo!\n");
-    }
+        if (gravarListaDonoVeiculoEmArquivo(lista)) printf("\nRegistro recuperado!\n");
+        else printf("\nErro ao gravar arquivo.\n");
+    } else printf("\nCPF não encontrado ou já ativo!\n");
 
     deleteDonoVeiculo(lista);
-    printf("Tecle ENTER...");
-    getchar();
+    printf("Tecle ENTER..."); getchar();
 }

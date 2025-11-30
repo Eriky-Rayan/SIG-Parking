@@ -3,9 +3,10 @@
 #include <string.h>
 #include <unistd.h>
 #include "../include/admin.h"
+#include "../include/cadastro_vagas.h"
 
 //==============================
-//= Funções de Administrador
+// Funções de Administrador
 //==============================
 
 void switch_admin(void) {
@@ -43,7 +44,7 @@ char admin(void) {
 }
 
 //==============================
-//= Função genérica de exclusão física
+// Função genérica de exclusão física
 //==============================
 int excluir_fisicamente(const char *arquivo, const char *arquivo_temp, void *registro, size_t tamanho,
                         int (*comparar)(void *, void *), void *param) {
@@ -75,7 +76,7 @@ int excluir_fisicamente(const char *arquivo, const char *arquivo_temp, void *reg
 }
 
 //==============================
-//= Funções de comparação
+// Funções de comparação
 //==============================
 int comparar_veiculo(void *v, void *param) {
     Veiculos *veic = (Veiculos*)v;
@@ -95,14 +96,8 @@ int comparar_dono(void *d, void *param) {
     return strcmp(dv->cpf, cpf) == 0;
 }
 
-int comparar_vagas(void *v, void *param) {
-    CV *cv = (CV*)v;
-    int *andar = (int*)param;
-    return cv->num_andar == *andar;
-}
-
 //==============================
-//= Excluir Veículo
+// Excluir Veículo
 //==============================
 void exclu_veiculo(void) {
     system("clear||cls");
@@ -127,7 +122,7 @@ void exclu_veiculo(void) {
 }
 
 //==============================
-//= Excluir Estacionamento
+// Excluir Estacionamento
 //==============================
 void exclu_estacionamentos(void) {
     system("clear||cls");
@@ -152,7 +147,7 @@ void exclu_estacionamentos(void) {
 }
 
 //==============================
-//= Excluir Dono de Veículo
+// Excluir Dono de Veículo
 //==============================
 void exclu_dono_veiculo(void) {
     system("clear||cls");
@@ -177,26 +172,42 @@ void exclu_dono_veiculo(void) {
 }
 
 //==============================
-//= Excluir Cadastro de Vagas
+// Excluir Cadastro de Vagas (listas diretas)
 //==============================
 void exclu_cadastro_vagas(void) {
     system("clear||cls");
-    CV vagas;
     int num_andar_lido;
 
     printf("\n>> Digite o número do andar a excluir: ");
     Ler_num_andar(&num_andar_lido);
 
-    int resultado = excluir_fisicamente(ARQ_VAGAS, TEMP_VAGAS, &vagas, sizeof(CV),
-                                        comparar_vagas, &num_andar_lido);
+    // Carregar todos os registros ativos e inativos
+    VagaLista *lista = newVagaList();
+    preencherListaVagas_Tudo(lista);
 
-    if (resultado == 1)
-        printf("\nVagas do andar %d excluídas fisicamente!\n", num_andar_lido);
-    else if (resultado == 0)
+    VagaLista *temp = lista->prox;
+    int encontrado = 0;
+
+    while (temp != NULL) {
+        // CORREÇÃO: acessar os dados dentro do struct
+        if (temp->dados.num_andar == num_andar_lido && temp->dados.status == 1) {
+            temp->dados.status = 0; // exclusão lógica
+            encontrado = 1;
+            break;
+        }
+        temp = temp->prox;
+    }
+
+    if (encontrado) {
+        if (gravarListaVagasEmArquivo(lista))
+            printf("\nVagas do andar %d excluídas logicamente!\n", num_andar_lido);
+        else
+            printf("\nErro ao gravar arquivo de vagas.\n");
+    } else {
         printf("\nAndar não encontrado!\n");
-    else
-        printf("\nErro ao abrir arquivo de vagas.\n");
+    }
 
+    deleteVagas(lista);
     printf("Tecle <ENTER> para continuar...");
     getchar();
 }
