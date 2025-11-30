@@ -26,13 +26,9 @@ typedef struct dono_veiculo {
     int status;      // TRUE = ativo, FALSE = inativo
 } DonoVeiculo;
 
-// Estrutura da lista encadeada
+// Estrutura da lista encadeada (lista inversa)
 typedef struct dono_veiculo_lista {
-    char cpf[15];
-    char telefone[20];
-    char nome[50];
-    char placa[12];
-    int status;
+    DonoVeiculo *dados;          // ponteiro para os dados do dono
     struct dono_veiculo_lista *prox;
 } DonoVeiculoLista;
 
