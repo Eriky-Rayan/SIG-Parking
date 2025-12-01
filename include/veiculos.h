@@ -15,20 +15,49 @@
 #define TAM_COR 15
 #define TAM_CPF 15
 
+// ============================
+// Struct principal do arquivo
+// ============================
 typedef struct veiculos {
-    char placa[TAM_PLACA];   // Placa do veículo (Ex: ABC1234)
-    char tipo[TAM_TIPO];     // Tipo do veículo: Carro, Moto, etc.
-    char model[TAM_MODELO];  // Modelo do veículo
-    char cor[TAM_COR];       // Cor do veículo
-    int andar;               // Andar onde o veículo será cadastrado
-    int vaga;                // Número da vaga nesse andar
-    char cpf[TAM_CPF];       // CPF do dono
-    int status;              // True = ativo, False = excluído
+    char placa[TAM_PLACA];   
+    char tipo[TAM_TIPO];     
+    char model[TAM_MODELO];  
+    char cor[TAM_COR];       
+    int andar;               
+    int vaga;                
+    char cpf[TAM_CPF];       
+    int status;              // 1 = ativo, 0 = excluído
 } Veiculos;
 
-// Funções do módulo Veículos
+// ============================
+// Lista Dinâmica Direta
+// ============================
+typedef struct VeiculoLista {
+    Veiculos dados;          
+    struct VeiculoLista *prox;
+} VeiculoLista;
+
+// Funções da lista dinâmica
+VeiculoLista* newVeiculoList(void);
+void appendVeiculo(VeiculoLista *l, Veiculos *data);
+void preencherListaVeiculos(VeiculoLista *lista);
+void preencherListaVeiculos_Tudo(VeiculoLista *lista);
+void clearVeiculos(VeiculoLista* l);
+void deleteVeiculos(VeiculoLista* l);
+int gravarListaVeiculosEmArquivo(VeiculoLista* l);
+
+// Caminho do arquivo
+#define ARQ_VEICULOS "dados/veiculos.dat"
+
+// ============================
+// Menu principal
+// ============================
 void switch_veiculos(void);
 char veiculos(void);
+
+// ============================
+// CRUD
+// ============================
 void add_veiculos(void);
 void exib_veiculo(void);
 void alterar_veiculo(void);

@@ -5,6 +5,89 @@
 #include "../include/veiculos.h"
 #include "../include/validacoes.h"
 
+#define ARQ_VEICULOS "dados/veiculos.dat"
+
+
+// ============================
+// Funções de lista dinâmica
+// ============================
+VeiculoLista* newVeiculoList(void) {
+    VeiculoLista* l = (VeiculoLista*) malloc(sizeof(VeiculoLista));
+    if (!l) {
+        fprintf(stderr, "Memoria indisponivel\n");
+        exit(EXIT_FAILURE);
+    }
+    l->prox = NULL;
+    return l;
+}
+
+void appendVeiculo(VeiculoLista *l, Veiculos *data) {
+    VeiculoLista* novo = (VeiculoLista*) malloc(sizeof(VeiculoLista));
+    if (!novo) {
+        fprintf(stderr, "Memoria indisponivel\n");
+        exit(EXIT_FAILURE);
+    }
+
+    novo->dados = *data;  // copia o struct Veiculos para o nó
+    novo->prox = NULL;
+
+    VeiculoLista* temp = l;
+    while (temp->prox != NULL) temp = temp->prox;
+    temp->prox = novo;
+}
+
+void preencherListaVeiculos(VeiculoLista *lista) {
+    FILE *arq = fopen(ARQ_VEICULOS, "rb");
+    if (!arq) return;
+
+    Veiculos v;
+    while (fread(&v, sizeof(Veiculos), 1, arq)) {
+        if (v.status == True) appendVeiculo(lista, &v);
+    }
+    fclose(arq);
+}
+
+void preencherListaVeiculos_Tudo(VeiculoLista *lista) {
+    FILE *arq = fopen(ARQ_VEICULOS, "rb");
+    if (!arq) return;
+
+    Veiculos v;
+    while (fread(&v, sizeof(Veiculos), 1, arq)) {
+        appendVeiculo(lista, &v);
+    }
+    fclose(arq);
+}
+
+void clearVeiculos(VeiculoLista* l) {
+    VeiculoLista* temp = l->prox;
+    while (temp) {
+        VeiculoLista* next = temp->prox;
+        free(temp);
+        temp = next;
+    }
+    l->prox = NULL;
+}
+
+void deleteVeiculos(VeiculoLista* l) {
+    clearVeiculos(l);
+    free(l);
+}
+
+int gravarListaVeiculosEmArquivo(VeiculoLista* l) {
+    FILE *arq = fopen(ARQ_VEICULOS, "wb");
+    if (!arq) return 0;
+
+    VeiculoLista* temp = l->prox;
+    while (temp) {
+        Veiculos vWrite = temp->dados;
+        fwrite(&vWrite, sizeof(Veiculos), 1, arq);
+        temp = temp->prox;
+    }
+
+    fclose(arq);
+    return 1;
+}
+
 // ========================================
 // Menu principal de veículos
 // ========================================
@@ -52,15 +135,9 @@ void add_veiculos(void) {
     system("clear||cls");
     verifica_diretorio_dados();
 
-    FILE *arq_veiculos = fopen("dados/veiculos.dat", "ab");
-    if (!arq_veiculos) {
-        perror("Erro ao abrir o arquivo de veículos");
-        getchar();
-        return;
-    }
-
     Veiculos veiculo;
 
+    printf("\n=== Cadastro de Veículo ===\n");
     Ler_Placa(veiculo.placa);
     Ler_Tipo(veiculo.tipo);
 
@@ -82,13 +159,21 @@ void add_veiculos(void) {
 
     veiculo.status = True;
 
-    fwrite(&veiculo, sizeof(Veiculos), 1, arq_veiculos);
-    fclose(arq_veiculos);
+    // Carrega lista existente (apenas ativos), adiciona novo e grava tudo
+    VeiculoLista* lista = newVeiculoList();
+    preencherListaVeiculos(lista);
+    appendVeiculo(lista, &veiculo);
 
-    printf("\nVeículo cadastrado com sucesso!\n");
+    if (gravarListaVeiculosEmArquivo(lista))
+        printf("\nVeículo cadastrado com sucesso!\n");
+    else
+        printf("\nErro ao gravar arquivo!\n");
+
     printf("Placa: %s | Tipo: %s | Modelo: %s | Cor: %s | Andar: %d | Vaga: %d | CPF: %s\n",
            veiculo.placa, veiculo.tipo, veiculo.model, veiculo.cor,
            veiculo.andar, veiculo.vaga, veiculo.cpf);
+
+    deleteVeiculos(lista);
 
     printf("\n\t>>Tecle <ENTER> para continuar...");
     getchar();
@@ -100,33 +185,30 @@ void add_veiculos(void) {
 void exib_veiculo(void) {
     system("clear||cls");
 
-    FILE *arq_veiculos = fopen("dados/veiculos.dat", "rb");
-    if (!arq_veiculos) {
-        printf("\tNenhum veículo cadastrado ainda.\n");
-        printf("\t>>Tecle <ENTER> para continuar...");
-        getchar();
-        return;
-    }
+    VeiculoLista* lista = newVeiculoList();
+    preencherListaVeiculos(lista);
 
-    Veiculos veiculo;
-    char placa_lida[12];
+    VeiculoLista* temp;
+    char placa_lida[TAM_PLACA];
     int encontrado = 0;
 
     printf("\n=========== Exibir Veículo ===========\n");
     Ler_Placa(placa_lida);
 
-    while (fread(&veiculo, sizeof(Veiculos), 1, arq_veiculos)) {
-        if ((strcmp(veiculo.placa, placa_lida) == 0) && veiculo.status) {
+    temp = lista->prox;
+    while (temp) {
+        if ((strcmp(temp->dados.placa, placa_lida) == 0) && temp->dados.status) {
             encontrado = 1;
             printf("\n<<< Veículo encontrado >>>\n");
             printf("Placa: %s\nTipo: %s\nModelo: %s\nCor: %s\nAndar: %d\nVaga: %d\nCPF: %s\n",
-                   veiculo.placa, veiculo.tipo, veiculo.model,
-                   veiculo.cor, veiculo.andar, veiculo.vaga, veiculo.cpf);
+                   temp->dados.placa, temp->dados.tipo, temp->dados.model,
+                   temp->dados.cor, temp->dados.andar, temp->dados.vaga, temp->dados.cpf);
             break;
         }
+        temp = temp->prox;
     }
 
-    fclose(arq_veiculos);
+    deleteVeiculos(lista);
 
     if (!encontrado)
         printf("\nPlaca não encontrada!\n");
@@ -141,57 +223,55 @@ void exib_veiculo(void) {
 void alterar_veiculo(void) {
     system("clear||cls");
 
-    FILE *arq_veiculos = fopen("dados/veiculos.dat", "r+b");
-    if (!arq_veiculos) {
-        printf("\tErro ao abrir o arquivo de veículos.\n");
-        printf("\t>>Tecle <ENTER> para continuar...");
-        getchar();
-        return;
-    }
+    VeiculoLista* lista = newVeiculoList();
+    preencherListaVeiculos(lista);
 
-    Veiculos veiculo;
-    char placa_lida[12];
+    VeiculoLista* temp;
+    char placa_lida[TAM_PLACA];
     int encontrado = 0;
 
     printf("\n=========== Alterar Veículo ===========\n");
     Ler_Placa(placa_lida);
 
-    while (fread(&veiculo, sizeof(Veiculos), 1, arq_veiculos)) {
-        if ((strcmp(veiculo.placa, placa_lida) == 0) && veiculo.status) {
+    temp = lista->prox;
+    while (temp) {
+        if ((strcmp(temp->dados.placa, placa_lida) == 0) && temp->dados.status) {
             encontrado = 1;
             printf("\n--- Informe os novos dados ---\n");
 
-            Ler_Tipo(veiculo.tipo);
+            Ler_Tipo(temp->dados.tipo);
 
             printf(" >>Digite o modelo: ");
-            scanf(" %19[^\n]", veiculo.model);
+            scanf(" %19[^\n]", temp->dados.model);
             getchar();
 
             printf(" >>Digite a cor: ");
-            scanf(" %14[^\n]", veiculo.cor);
+            scanf(" %14[^\n]", temp->dados.cor);
             getchar();
 
-            Ler_num_andar(&veiculo.andar);
+            Ler_num_andar(&temp->dados.andar);
 
             printf(" >>Digite o número da vaga nesse andar: ");
-            scanf("%d", &veiculo.vaga);
+            scanf("%d", &temp->dados.vaga);
             getchar();
 
-            Ler_CPF(veiculo.cpf);
+            Ler_CPF(temp->dados.cpf);
 
-            fseek(arq_veiculos, -sizeof(Veiculos), SEEK_CUR);
-            fwrite(&veiculo, sizeof(Veiculos), 1, arq_veiculos);
             break;
         }
+        temp = temp->prox;
     }
 
-    fclose(arq_veiculos);
-
-    if (encontrado)
-        printf("\nDados do veículo alterados com sucesso!\n");
-    else
+    if (encontrado) {
+        if (gravarListaVeiculosEmArquivo(lista))
+            printf("\nDados do veículo alterados com sucesso!\n");
+        else
+            printf("\nErro ao gravar arquivo!\n");
+    } else {
         printf("\nPlaca não encontrada!\n");
+    }
 
+    deleteVeiculos(lista);
     printf("\t>>Tecle <ENTER> para continuar...");
     getchar();
 }
@@ -202,38 +282,36 @@ void alterar_veiculo(void) {
 void exclu_logica_veiculo(void) {
     system("clear||cls");
 
-    FILE *arq_veiculos = fopen("dados/veiculos.dat", "r+b");
-    if (!arq_veiculos) {
-        printf("\tErro ao abrir o arquivo de veículos.\n");
-        printf("\t>>Tecle <ENTER> para continuar...");
-        getchar();
-        return;
-    }
+    VeiculoLista* lista = newVeiculoList();
+    preencherListaVeiculos(lista);
 
-    Veiculos veiculo;
-    char placa_lida[12];
+    VeiculoLista* temp;
+    char placa_lida[TAM_PLACA];
     int encontrado = 0;
 
     printf("\n=========== Excluir Veículo ===========\n");
     Ler_Placa(placa_lida);
 
-    while (fread(&veiculo, sizeof(Veiculos), 1, arq_veiculos)) {
-        if ((strcmp(veiculo.placa, placa_lida) == 0) && veiculo.status) {
-            veiculo.status = False;
-            fseek(arq_veiculos, -sizeof(Veiculos), SEEK_CUR);
-            fwrite(&veiculo, sizeof(Veiculos), 1, arq_veiculos);
+    temp = lista->prox;
+    while (temp) {
+        if ((strcmp(temp->dados.placa, placa_lida) == 0) && temp->dados.status) {
+            temp->dados.status = False;
             encontrado = 1;
             break;
         }
+        temp = temp->prox;
     }
 
-    fclose(arq_veiculos);
-
-    if (encontrado)
-        printf("\nVeículo excluído logicamente.\n");
-    else
+    if (encontrado) {
+        if (gravarListaVeiculosEmArquivo(lista))
+            printf("\nVeículo excluído logicamente.\n");
+        else
+            printf("\nErro ao gravar arquivo!\n");
+    } else {
         printf("\nPlaca não encontrada!\n");
+    }
 
+    deleteVeiculos(lista);
     printf("\t>>Tecle <ENTER> para continuar...");
     getchar();
 }
@@ -244,38 +322,36 @@ void exclu_logica_veiculo(void) {
 void recu_registro_veiculo(void) {
     system("clear||cls");
 
-    FILE *arq_veiculos = fopen("dados/veiculos.dat", "r+b");
-    if (!arq_veiculos) {
-        printf("\tErro ao abrir o arquivo de veículos.\n");
-        printf("\t>>Tecle <ENTER> para continuar...");
-        getchar();
-        return;
-    }
+    VeiculoLista* lista = newVeiculoList();
+    preencherListaVeiculos_Tudo(lista); // carrega todos, inclusive inativos
 
-    Veiculos veiculo;
-    char placa_lida[12];
+    VeiculoLista* temp;
+    char placa_lida[TAM_PLACA];
     int encontrado = 0;
 
     printf("\n=========== Recuperar Veículo ===========\n");
     Ler_Placa(placa_lida);
 
-    while (fread(&veiculo, sizeof(Veiculos), 1, arq_veiculos)) {
-        if ((strcmp(veiculo.placa, placa_lida) == 0) && !veiculo.status) {
-            veiculo.status = True;
-            fseek(arq_veiculos, -sizeof(Veiculos), SEEK_CUR);
-            fwrite(&veiculo, sizeof(Veiculos), 1, arq_veiculos);
+    temp = lista->prox;
+    while (temp) {
+        if ((strcmp(temp->dados.placa, placa_lida) == 0) && !temp->dados.status) {
+            temp->dados.status = True;
             encontrado = 1;
             break;
         }
+        temp = temp->prox;
     }
 
-    fclose(arq_veiculos);
-
-    if (encontrado)
-        printf("\nVeículo recuperado com sucesso!\n");
-    else
+    if (encontrado) {
+        if (gravarListaVeiculosEmArquivo(lista))
+            printf("\nVeículo recuperado com sucesso!\n");
+        else
+            printf("\nErro ao gravar arquivo!\n");
+    } else {
         printf("\nPlaca não encontrada!\n");
+    }
 
+    deleteVeiculos(lista);
     printf("\t>>Tecle <ENTER> para continuar...");
     getchar();
 }
