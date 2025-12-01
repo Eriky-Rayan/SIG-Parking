@@ -14,9 +14,9 @@ static void clear_screen(void) {
     system("clear||cls");
 }
 
-//=======================================================
+//==============================
 // Menu principal de relatórios
-//=======================================================
+//==============================
 char relatorio(void) {
     clear_screen();
     char op;
@@ -51,18 +51,23 @@ void switch_relatorio(void) {
     } while (op != '0');
 }
 
-//=======================================================
-// RELATÓRIO DE VEÍCULOS
-//=======================================================
+//-------------------------------------------------------------
+//  Função auxiliar: converte string para minúscula (in-place)
+//-------------------------------------------------------------
+static void str_tolower_inplace(char *s) {
+    if (!s) return;
+    for (int i = 0; s[i]; i++) s[i] = tolower((unsigned char)s[i]);
+}
+
+//--------------------------------------------
+// RELATÓRIO DE VEÍCULOS (COM FILTRO POR COR)
+//--------------------------------------------
 void relatorio_veiculos(void) {
     clear_screen();
 
-    // ================================
-    // NOVO MENU DE FILTRO POR COR
-    // ================================
     char op_filtro;
-    char cor_filtro[20];
-    
+    char cor_filtro[64];
+
     printf("\n===== RELATÓRIO DE VEÍCULOS =====\n");
     printf("[1] Mostrar todos\n");
     printf("[2] Filtrar por cor\n");
@@ -75,12 +80,13 @@ void relatorio_veiculos(void) {
     if (op_filtro == '0') return;
 
     int usar_filtro = 0;
-    if(op_filtro == '2'){
+
+    if (op_filtro == '2') {
         usar_filtro = 1;
         printf("\n >> Digite a cor que deseja filtrar: ");
         fgets(cor_filtro, sizeof(cor_filtro), stdin);
         cor_filtro[strcspn(cor_filtro, "\n")] = 0;
-        for(int i=0;i<strlen(cor_filtro);i++) cor_filtro[i] = tolower(cor_filtro[i]);
+        str_tolower_inplace(cor_filtro);
     }
 
     FILE *arq = fopen("dados/veiculos.dat", "rb");
@@ -91,6 +97,7 @@ void relatorio_veiculos(void) {
     }
 
     Veiculos v;
+
     int w_placa = strlen("Placa");
     int w_tipo  = strlen("Tipo");
     int w_modelo= strlen("Modelo");
@@ -99,18 +106,19 @@ void relatorio_veiculos(void) {
     int w_vaga  = strlen("Vaga");
     int w_cpf   = strlen("CPF Dono");
 
-    // Primeira varredura para medir largura
-    while (fread(&v, sizeof(Veiculos), 1, arq)) {
+    //-------------------------------------
+    // PRIMEIRA PASSADA – calcula larguras
+    //-------------------------------------
+    while (fread(&v, sizeof(Veiculos), 1, arq) == 1) {
 
         if (!v.status) continue;
 
-        // Se estiver filtrando, mas não corresponde, pula
-        if(usar_filtro){
-            char cor_aux[20];
-            strcpy(cor_aux, v.cor);
-            for(int i=0;i<strlen(cor_aux);i++) cor_aux[i] = tolower(cor_aux[i]);
+        if (usar_filtro) {
+            char aux[64];
+            strncpy(aux, v.cor, sizeof(aux)-1); aux[sizeof(aux)-1]=0;
+            str_tolower_inplace(aux);
 
-            if(!strstr(cor_aux, cor_filtro)) continue;
+            if (!strstr(aux, cor_filtro)) continue;
         }
 
         if ((int)strlen(v.placa) > w_placa) w_placa = strlen(v.placa);
@@ -118,10 +126,11 @@ void relatorio_veiculos(void) {
         if ((int)strlen(v.model) > w_modelo) w_modelo = strlen(v.model);
         if ((int)strlen(v.cor) > w_cor) w_cor = strlen(v.cor);
 
-        char buf[20];
-        snprintf(buf,sizeof(buf),"%d",v.andar);
+        char buf[32];
+        snprintf(buf, sizeof(buf), "%d", v.andar);
         if ((int)strlen(buf) > w_andar) w_andar = strlen(buf);
-        snprintf(buf,sizeof(buf),"%d",v.vaga);
+
+        snprintf(buf, sizeof(buf), "%d", v.vaga);
         if ((int)strlen(buf) > w_vaga) w_vaga = strlen(buf);
 
         if ((int)strlen(v.cpf) > w_cpf) w_cpf = strlen(v.cpf);
@@ -129,244 +138,295 @@ void relatorio_veiculos(void) {
 
     rewind(arq);
 
-    // ==== Cabeçalho ====
-    printf("\n╔");
-    for (int i=0;i<w_placa+2;i++) printf("═");
-    printf("╦");
-    for (int i=0;i<w_tipo+2;i++) printf("═");
-    printf("╦");
-    for (int i=0;i<w_modelo+2;i++) printf("═");
-    printf("╦");
-    for (int i=0;i<w_cor+2;i++) printf("═");
-    printf("╦");
-    for (int i=0;i<w_andar+2;i++) printf("═");
-    printf("╦");
-    for (int i=0;i<w_vaga+2;i++) printf("═");
-    printf("╦");
-    for (int i=0;i<w_cpf+2;i++) printf("═");
+    //------------------
+    // CABEÇALHO TABELA
+    //------------------
+    printf("\n╔"); for (int i=0;i<w_placa+2;i++) printf("═");
+    printf("╦");  for (int i=0;i<w_tipo+2;i++) printf("═");
+    printf("╦");  for (int i=0;i<w_modelo+2;i++) printf("═");
+    printf("╦");  for (int i=0;i<w_cor+2;i++) printf("═");
+    printf("╦");  for (int i=0;i<w_andar+2;i++) printf("═");
+    printf("╦");  for (int i=0;i<w_vaga+2;i++) printf("═");
+    printf("╦");  for (int i=0;i<w_cpf+2;i++) printf("═");
     printf("╗\n");
 
     printf("║ %-*s ║ %-*s ║ %-*s ║ %-*s ║ %-*s ║ %-*s ║ %-*s ║\n",
-           w_placa,"Placa", w_tipo,"Tipo", w_modelo,"Modelo", w_cor,"Cor",
-           w_andar,"Andar", w_vaga,"Vaga", w_cpf,"CPF Dono");
+        w_placa,"Placa", w_tipo,"Tipo", w_modelo,"Modelo",
+        w_cor,"Cor", w_andar,"Andar", w_vaga,"Vaga", w_cpf,"CPF Dono");
 
-    printf("╠");
-    for (int i=0;i<w_placa+2;i++) printf("═");
-    printf("╬");
-    for (int i=0;i<w_tipo+2;i++) printf("═");
-    printf("╬");
-    for (int i=0;i<w_modelo+2;i++) printf("═");
-    printf("╬");
-    for (int i=0;i<w_cor+2;i++) printf("═");
-    printf("╬");
-    for (int i=0;i<w_andar+2;i++) printf("═");
-    printf("╬");
-    for (int i=0;i<w_vaga+2;i++) printf("═");
-    printf("╬");
-    for (int i=0;i<w_cpf+2;i++) printf("═");
+    printf("╠"); for(int i=0;i<w_placa+2;i++) printf("═");
+    printf("╬"); for(int i=0;i<w_tipo+2;i++) printf("═");
+    printf("╬"); for(int i=0;i<w_modelo+2;i++) printf("═");
+    printf("╬"); for(int i=0;i<w_cor+2;i++) printf("═");
+    printf("╬"); for(int i=0;i<w_andar+2;i++) printf("═");
+    printf("╬"); for(int i=0;i<w_vaga+2;i++) printf("═");
+    printf("╬"); for(int i=0;i<w_cpf+2;i++) printf("═");
     printf("╣\n");
 
-    int count=0;
-    while(fread(&v,sizeof(Veiculos),1,arq)) {
+    //---------------------------------
+    // SEGUNDA PASSADA – imprime dados
+    //---------------------------------
+    int count = 0;
+    while (fread(&v, sizeof(Veiculos), 1, arq) == 1) {
 
-        if(!v.status) continue;
+        if (!v.status) continue;
 
-        // filtro funcionando
-        if(usar_filtro){
-            char cor_aux[20];
-            strcpy(cor_aux, v.cor);
-            for(int i=0;i<strlen(cor_aux);i++) cor_aux[i] = tolower(cor_aux[i]);
+        if (usar_filtro) {
+            char aux[64];
+            strncpy(aux, v.cor, sizeof(aux)-1); aux[sizeof(aux)-1]=0;
+            str_tolower_inplace(aux);
 
-            if(!strstr(cor_aux, cor_filtro)) continue;
+            if (!strstr(aux, cor_filtro)) continue;
         }
 
         count++;
 
         printf("║ %-*s ║ %-*s ║ %-*s ║ %-*s ║ %-*d ║ %-*d ║ %-*s ║\n",
-               w_placa,v.placa,
-               w_tipo,v.tipo,
-               w_modelo,v.model,
-               w_cor,v.cor,
-               w_andar,v.andar,
-               w_vaga,v.vaga,
-               w_cpf,v.cpf);
+            w_placa,v.placa, w_tipo,v.tipo, w_modelo,v.model,
+            w_cor,v.cor, w_andar,v.andar, w_vaga,v.vaga, w_cpf,v.cpf);
     }
 
-    if(count==0){
+    if (count == 0) {
         printf("║ %-*s ║\n",
-               w_placa+w_tipo+w_modelo+w_cor+w_andar+w_vaga+w_cpf+18,
-               "Nenhum veículo encontrado");
+            w_placa+w_tipo+w_modelo+w_cor+w_andar+w_vaga+w_cpf+18,
+            "Nenhum veículo encontrado");
     }
 
-    printf("╚");
-    for (int i=0;i<w_placa+2;i++) printf("═");
-    printf("╩");
-    for (int i=0;i<w_tipo+2;i++) printf("═");
-    printf("╩");
-    for (int i=0;i<w_modelo+2;i++) printf("═");
-    printf("╩");
-    for (int i=0;i<w_cor+2;i++) printf("═");
-    printf("╩");
-    for (int i=0;i<w_andar+2;i++) printf("═");
-    printf("╩");
-    for (int i=0;i<w_vaga+2;i++) printf("═");
-    printf("╩");
-    for (int i=0;i<w_cpf+2;i++) printf("═");
+    //--------
+    // RODAPÉ
+    //--------
+    printf("╚"); for(int i=0;i<w_placa+2;i++) printf("═");
+    printf("╩"); for(int i=0;i<w_tipo+2;i++) printf("═");
+    printf("╩"); for(int i=0;i<w_modelo+2;i++) printf("═");
+    printf("╩"); for(int i=0;i<w_cor+2;i++) printf("═");
+    printf("╩"); for(int i=0;i<w_andar+2;i++) printf("═");
+    printf("╩"); for(int i=0;i<w_vaga+2;i++) printf("═");
+    printf("╩"); for(int i=0;i<w_cpf+2;i++) printf("═");
     printf("╝\n");
 
     fclose(arq);
+
     printf("\n>> Tecle ENTER para continuar...");
     getchar();
 }
 
-//=======================================================
-// RELATÓRIO DE ESTACIONAMENTOS
-//=======================================================
+//----------------------------------------
+// RELATÓRIO DE ESTACIONAMENTOS (simples)
+//----------------------------------------
 void relatorio_estacionamentos(void) {
     clear_screen();
+
     FILE *arq = fopen("dados/veiculos.dat","rb");
-    if(!arq){
-        printf("Erro ao abrir arquivo de veículos.\nTecle ENTER para continuar...");
+    if (!arq) {
+        printf("Erro ao abrir arquivo.\n");
         getchar();
         return;
     }
 
     Veiculos v;
     int count = 0;
+
     printf("╔════════════╦════════════╦════════════╗\n");
     printf("║ Placa      ║ Andar      ║ Vaga       ║\n");
     printf("╠════════════╬════════════╬════════════╣\n");
-    while(fread(&v,sizeof(Veiculos),1,arq)){
-        if(v.status){
+
+    while (fread(&v, sizeof(Veiculos), 1, arq) == 1) {
+        if (v.status) {
+            printf("║ %-10s ║ %-10d ║ %-10d ║\n", v.placa, v.andar, v.vaga);
             count++;
-            printf("║ %-10s ║ %-10d ║ %-10d ║\n",v.placa,v.andar,v.vaga);
         }
     }
-    if(count==0)
-        printf("║ %-32s ║\n","Nenhum veículo cadastrado");
+
+    if (count == 0)
+        printf("║ %-32s ║\n", "Nenhum veículo cadastrado");
 
     printf("╚════════════╩════════════╩════════════╝\n");
+
     fclose(arq);
     printf("\n>> Tecle ENTER para continuar...");
     getchar();
 }
 
-//=======================================================
-// RELATÓRIO DE DONOS DE VEÍCULOS
-//=======================================================
+
+//-----------------------------------------------
+// RELATÓRIO DONO DE VEÍCULO (ORDENADO + FILTRO)
+//-----------------------------------------------
 void relatorio_dono_veiculo(void) {
     clear_screen();
     char op_sub;
+
     printf("\n==================== RELATÓRIO - DONOS DOS VEÍCULOS ====================\n");
     printf("1 - Mostrar relatório completo\n");
     printf("2 - Filtrar por nome do dono\n");
     printf("0 - Voltar\n");
     printf("=======================================================================\n");
     printf(" >> Escolha uma opção: ");
+
     scanf(" %c", &op_sub);
     getchar();
-    if(op_sub=='0') return;
+
+    if (op_sub == '0') return;
 
     DonoVeiculoLista* lista = newDonoVeiculoList();
     preencherListaDonoVeiculo(lista);
+    ordenarListaDono(lista);   // ordenação A–Z
 
-    int w_nome = strlen("Nome");
-    int w_cpf = strlen("CPF");
-    int w_tel = strlen("Telefone");
-    int w_placas = strlen("Placas Vinculadas");
+    //-----------------
+    // Filtro opcional
+    //-----------------
+    char nome_busca[64];
+    int filtrando = 0;
 
-    DonoVeiculoLista* temp = lista->prox;
-    char nome_busca[50]; int filtrando=0;
-    if(op_sub=='2'){
+    if (op_sub == '2') {
         printf("\n >> Digite o nome ou parte do nome: ");
-        fgets(nome_busca,sizeof(nome_busca),stdin);
-        nome_busca[strcspn(nome_busca,"\n")] = 0;
+        fgets(nome_busca, sizeof(nome_busca), stdin);
+        nome_busca[strcspn(nome_busca, "\n")] = 0;
+        str_tolower_inplace(nome_busca);
         filtrando = 1;
     }
 
-    // Calcula larguras das colunas
-    while(temp){
-        if(temp->dados->status && (!filtrando || strstr(temp->dados->nome,nome_busca))){
-            if(strlen(temp->dados->nome) > w_nome) w_nome = strlen(temp->dados->nome);
-            if(strlen(temp->dados->cpf) > w_cpf) w_cpf = strlen(temp->dados->cpf);
-            if(strlen(temp->dados->telefone) > w_tel) w_tel = strlen(temp->dados->telefone);
+    //--------------------------------
+    // Descobrir larguras das colunas
+    //--------------------------------
+    int w_nome   = strlen("Nome");
+    int w_cpf    = strlen("CPF");
+    int w_tel    = strlen("Telefone");
+    int w_placas = strlen("Placas Vinculadas");
 
-            FILE *arq_v = fopen("dados/veiculos.dat","rb");
-            if(arq_v){
-                Veiculos v; char placas_temp[256]="";
-                while(fread(&v,sizeof(Veiculos),1,arq_v)){
-                    if(v.status && strcmp(v.cpf,temp->dados->cpf)==0){
-                        if(strlen(placas_temp)>0) strncat(placas_temp,", ",sizeof(placas_temp)-strlen(placas_temp)-1);
-                        strncat(placas_temp,v.placa,sizeof(placas_temp)-strlen(placas_temp)-1);
+    DonoVeiculoLista* temp = lista->prox;
+
+    while (temp) {
+        if (temp->dados->status) {
+
+            char nome_lower[64];
+            strncpy(nome_lower, temp->dados->nome, sizeof(nome_lower)-1);
+            nome_lower[sizeof(nome_lower)-1] = 0;
+            str_tolower_inplace(nome_lower);
+
+            if (!filtrando || strstr(nome_lower, nome_busca)) {
+
+                if ((int)strlen(temp->dados->nome)     > w_nome)   w_nome   = strlen(temp->dados->nome);
+                if ((int)strlen(temp->dados->cpf)      > w_cpf)    w_cpf    = strlen(temp->dados->cpf);
+                if ((int)strlen(temp->dados->telefone) > w_tel)    w_tel    = strlen(temp->dados->telefone);
+
+                FILE *arq_v = fopen("dados/veiculos.dat", "rb");
+                char placas_temp[512] = "";
+
+                if (arq_v) {
+                    Veiculos v;
+                    while (fread(&v, sizeof(Veiculos), 1, arq_v)) {
+                        if (v.status && strcmp(v.cpf, temp->dados->cpf) == 0) {
+                            if (strlen(placas_temp) > 0)
+                                strncat(placas_temp, ", ", sizeof(placas_temp)-strlen(placas_temp)-1);
+                            strncat(placas_temp, v.placa, sizeof(placas_temp)-strlen(placas_temp)-1);
+                        }
                     }
+                    fclose(arq_v);
                 }
-                fclose(arq_v);
-                if(strlen(placas_temp) > w_placas) w_placas = strlen(placas_temp);
+
+                
+                if ((int)strlen(placas_temp) == 0)
+                    strcpy(placas_temp, "-");
+
+                if ((int)strlen(placas_temp) > w_placas)
+                    w_placas = strlen(placas_temp);
             }
         }
         temp = temp->prox;
     }
 
-    // Cabeçalho
-    printf("\n╔"); for(int i=0;i<w_nome+2;i++) printf("═");
-    printf("╦"); for(int i=0;i<w_cpf+2;i++) printf("═");
-    printf("╦"); for(int i=0;i<w_tel+2;i++) printf("═");
-    printf("╦"); for(int i=0;i<w_placas+2;i++) printf("═");
+    //---------------------
+    // CABEÇALHO DA TABELA
+    //---------------------
+    printf("\n╔"); for (int i=0; i<w_nome+2; i++) printf("═");
+    printf("╦"); for (int i=0; i<w_cpf+2; i++) printf("═");
+    printf("╦"); for (int i=0; i<w_tel+2; i++) printf("═");
+    printf("╦"); for (int i=0; i<w_placas+2; i++) printf("═");
     printf("╗\n");
 
-    printf("║ %-*s ║ %-*s ║ %-*s ║ %-*s ║\n", w_nome,"Nome", w_cpf,"CPF", w_tel,"Telefone", w_placas,"Placas Vinculadas");
+    printf("║ %-*s ║ %-*s ║ %-*s ║ %-*s ║\n",
+           w_nome,   "Nome",
+           w_cpf,    "CPF",
+           w_tel,    "Telefone",
+           w_placas, "Placas Vinculadas");
 
-    printf("╠"); for(int i=0;i<w_nome+2;i++) printf("═");
-    printf("╬"); for(int i=0;i<w_cpf+2;i++) printf("═");
-    printf("╬"); for(int i=0;i<w_tel+2;i++) printf("═");
-    printf("╬"); for(int i=0;i<w_placas+2;i++) printf("═");
+    printf("╠"); for (int i=0; i<w_nome+2; i++) printf("═");
+    printf("╬"); for (int i=0; i<w_cpf+2; i++) printf("═");
+    printf("╬"); for (int i=0; i<w_tel+2; i++) printf("═");
+    printf("╬"); for (int i=0; i<w_placas+2; i++) printf("═");
     printf("╣\n");
 
-    // Preenche linhas
-    temp = lista->prox; int encontrou=0;
-    while(temp){
-        if(temp->dados->status && (!filtrando || strstr(temp->dados->nome,nome_busca))){
-            encontrou=1;
-            FILE *arq_v = fopen("dados/veiculos.dat","rb");
-            Veiculos v; char placas[256]="";
-            if(arq_v){
-                while(fread(&v,sizeof(Veiculos),1,arq_v)){
-                    if(v.status && strcmp(v.cpf,temp->dados->cpf)==0){
-                        if(strlen(placas)>0) strncat(placas,", ",sizeof(placas)-strlen(placas)-1);
-                        strncat(placas,v.placa,sizeof(placas)-strlen(placas)-1);
+    //------------------
+    // LINHAS DA TABELA
+    //------------------
+    temp = lista->prox;
+    int encontrou = 0;
+
+    while (temp) {
+        if (temp->dados->status) {
+
+            char nome_lower[64];
+            strncpy(nome_lower, temp->dados->nome, sizeof(nome_lower)-1);
+            nome_lower[sizeof(nome_lower)-1] = 0;
+            str_tolower_inplace(nome_lower);
+
+            if (!filtrando || strstr(nome_lower, nome_busca)) {
+                encontrou = 1;
+
+                FILE *arq_v = fopen("dados/veiculos.dat", "rb");
+                char placas[512] = "";
+
+                if (arq_v) {
+                    Veiculos v;
+                    while (fread(&v, sizeof(Veiculos), 1, arq_v)) {
+                        if (v.status && strcmp(v.cpf, temp->dados->cpf) == 0) {
+                            if (strlen(placas) > 0)
+                                strncat(placas, ", ", sizeof(placas)-strlen(placas)-1);
+                            strncat(placas, v.placa, sizeof(placas)-strlen(placas)-1);
+                        }
                     }
+                    fclose(arq_v);
                 }
-                fclose(arq_v);
+
+                if (strlen(placas) == 0)
+                    strcpy(placas, "-");
+
+                printf("║ %-*s ║ %-*s ║ %-*s ║ %-*s ║\n",
+                        w_nome,   temp->dados->nome,
+                        w_cpf,    temp->dados->cpf,
+                        w_tel,    temp->dados->telefone,
+                        w_placas, placas);
             }
-            if(strlen(placas)==0) strcpy(placas,"-");
-            printf("║ %-*s ║ %-*s ║ %-*s ║ %-*s ║\n",
-                   w_nome,temp->dados->nome,
-                   w_cpf,temp->dados->cpf,
-                   w_tel,temp->dados->telefone,
-                   w_placas,placas);
         }
         temp = temp->prox;
     }
 
-    if(!encontrou)
-        printf("║ %-*s ║\n",w_nome+w_cpf+w_tel+w_placas+9,"Nenhum dono encontrado");
+    if (!encontrou) {
+        printf("║ %-*s ║\n", w_nome + w_cpf + w_tel + w_placas + 9,
+               "Nenhum dono encontrado");
+    }
 
-    printf("╚"); for(int i=0;i<w_nome+2;i++) printf("═");
-    printf("╩"); for(int i=0;i<w_cpf+2;i++) printf("═");
-    printf("╩"); for(int i=0;i<w_tel+2;i++) printf("═");
-    printf("╩"); for(int i=0;i<w_placas+2;i++) printf("═");
+    //--------
+    // RODAPÉ
+    //--------
+    printf("╚"); for (int i=0; i<w_nome+2; i++) printf("═");
+    printf("╩"); for (int i=0; i<w_cpf+2; i++) printf("═");
+    printf("╩"); for (int i=0; i<w_tel+2; i++) printf("═");
+    printf("╩"); for (int i=0; i<w_placas+2; i++) printf("═");
     printf("╝\n");
 
-    deleteDonoVeiculo(lista);
+    deleteDonoVeiculo(lista);   // ✔ garante liberar tudo
+
     printf("\n>> Tecle ENTER para continuar...");
     getchar();
 }
 
-//=======================================================
-// RELATÓRIO DE CADASTRO DE VAGAS
-//=======================================================
+//--------------------------------------------
+// RELATÓRIO DE CADASTRO DE VAGAS (por andar)
+//--------------------------------------------
 void relatorio_cadastro_vagas(void) {
     clear_screen();
+
     int num_andar;
     printf("\n=== Exibir Andar ===\n");
     Ler_num_andar(&num_andar);
@@ -377,40 +437,48 @@ void relatorio_cadastro_vagas(void) {
     VagaLista* temp = lista->prox;
     int achou = 0;
 
-    while(temp){
-        if(temp->dados.num_andar==num_andar && temp->dados.status==1){
-            achou=1;
+    while (temp) {
+        if (temp->dados.num_andar == num_andar && temp->dados.status == 1) {
+            achou = 1;
 
-            FILE* arq_veic = fopen("dados/veiculos.dat","rb");
-            if(arq_veic){
+            FILE *arq_v = fopen("dados/veiculos.dat","rb");
+            if (arq_v) {
                 Veiculos v;
-                while(fread(&v,sizeof(Veiculos),1,arq_veic)){
-                    if(v.status && v.andar==num_andar){
-                        int idx = v.vaga-1;
-                        if(idx>=0 && idx<MAX_VAGAS){
-                            temp->dados.ocupado[idx]=1;
-                            strcpy(temp->dados.placa[idx],v.placa);
+                while (fread(&v, sizeof(Veiculos), 1, arq_v) == 1) {
+                    if (v.status && v.andar == num_andar) {
+                        int i = v.vaga - 1;
+
+                        if (i >= 0 && i < MAX_VAGAS) {
+                            temp->dados.ocupado[i] = 1;
+                            strncpy(temp->dados.placa[i], v.placa, sizeof(temp->dados.placa[i])-1);
+                            temp->dados.placa[i][sizeof(temp->dados.placa[i])-1] = 0;
                         }
                     }
                 }
-                fclose(arq_veic);
+                fclose(arq_v);
             }
+
+            char placas[1024] = "";
+            int first = 1;
+
+            for (int i=0; i < temp->dados.total_vagas; i++) {
+                if (temp->dados.ocupado[i]) {
+                    if (!first) strncat(placas, ", ", sizeof(placas)-strlen(placas)-1);
+                    strncat(placas, temp->dados.placa[i], sizeof(placas)-strlen(placas)-1);
+                    first = 0;
+                }
+            }
+
+            if (strlen(placas) == 0) strcpy(placas, "-");
 
             int w_andar = strlen("Andar");
             int w_total = strlen("Total Vagas");
             int w_status = strlen("Status");
             int w_placas = strlen("Vagas Ocupadas (Placas)");
 
-            char placas[256]=""; int primeira=1;
-            for(int i=0;i<temp->dados.total_vagas;i++){
-                if(temp->dados.ocupado[i]){
-                    if(!primeira) strncat(placas,", ",sizeof(placas)-strlen(placas)-1);
-                    strncat(placas,temp->dados.placa[i],sizeof(placas)-strlen(placas)-1);
-                    primeira=0;
-                }
-            }
-            if(strlen(placas)==0) strcpy(placas,"-");
-
+            //--------
+            // TABELA
+            //--------
             printf("\n╔"); for(int i=0;i<w_andar+2;i++) printf("═");
             printf("╦"); for(int i=0;i<w_total+2;i++) printf("═");
             printf("╦"); for(int i=0;i<w_status+2;i++) printf("═");
@@ -418,7 +486,8 @@ void relatorio_cadastro_vagas(void) {
             printf("╗\n");
 
             printf("║ %-*s ║ %-*s ║ %-*s ║ %-*s ║\n",
-                   w_andar,"Andar", w_total,"Total Vagas", w_status,"Status", w_placas,"Vagas Ocupadas (Placas)");
+                    w_andar,"Andar", w_total,"Total Vagas",
+                    w_status,"Status", w_placas,"Vagas Ocupadas (Placas)");
 
             printf("╠"); for(int i=0;i<w_andar+2;i++) printf("═");
             printf("╬"); for(int i=0;i<w_total+2;i++) printf("═");
@@ -427,10 +496,9 @@ void relatorio_cadastro_vagas(void) {
             printf("╣\n");
 
             printf("║ %-*d ║ %-*d ║ %-*s ║ %-*s ║\n",
-                   w_andar,temp->dados.num_andar,
-                   w_total,temp->dados.total_vagas,
-                   w_status,"Ativo",
-                   w_placas,placas);
+                    w_andar, temp->dados.num_andar,
+                    w_total, temp->dados.total_vagas,
+                    w_status,"Ativo", w_placas, placas);
 
             printf("╚"); for(int i=0;i<w_andar+2;i++) printf("═");
             printf("╩"); for(int i=0;i<w_total+2;i++) printf("═");
@@ -440,19 +508,21 @@ void relatorio_cadastro_vagas(void) {
 
             break;
         }
-        temp=temp->prox;
+        temp = temp->prox;
     }
 
-    if(!achou) printf("\nAndar não encontrado!\n");
+    if (!achou)
+        printf("\nAndar não encontrado!\n");
 
     deleteVagas(lista);
+
     printf("\n>> Tecle ENTER para continuar...");
     getchar();
 }
 
-//=======================================================
-// RELATÓRIO DE VEÍCULOS COM DONO E VAGA
-//=======================================================
+//--------------------------------------------
+// RELATÓRIO COMPLETO (VEÍCULO + DONO + VAGA)
+//--------------------------------------------
 void relatorio_veiculo_dono_vaga(void) {
     clear_screen();
 
@@ -469,110 +539,143 @@ void relatorio_veiculo_dono_vaga(void) {
 
     if (op_sub == '0') return;
 
-    char nome_busca[50];
+    char nome_busca[64];
     int filtrando = 0;
 
     if (op_sub == '2') {
         printf("\n >> Digite o nome do dono: ");
         fgets(nome_busca, sizeof(nome_busca), stdin);
         nome_busca[strcspn(nome_busca, "\n")] = 0;
+        str_tolower_inplace(nome_busca);
         filtrando = 1;
     }
 
     DonoVeiculoLista* lista = newDonoVeiculoList();
     preencherListaDonoVeiculo(lista);
 
-    int w_veiculo = strlen("Veículo");
-    int w_dono = strlen("Dono");
-    int w_vaga = strlen("Vaga");
-
-    DonoVeiculoLista* temp = lista->prox;
-    Veiculos v;
-
-    FILE *arq_veiculos = fopen("dados/veiculos.dat","rb");
-    if(!arq_veiculos){
+    FILE *arq_v = fopen("dados/veiculos.dat","rb");
+    if (!arq_v) {
         printf("Erro ao abrir arquivo de veículos.\n");
         deleteDonoVeiculo(lista);
-        getchar();
         return;
     }
 
-    // PRIMEIRO PASSO: Calcular larguras
-    while(temp){
-        if(temp->dados->status && (!filtrando || strstr(temp->dados->nome, nome_busca))) {
-            rewind(arq_veiculos);
-            while(fread(&v,sizeof(Veiculos),1,arq_veiculos)){
-                if(v.status && strcmp(v.cpf,temp->dados->cpf)==0){
-                    if(strlen(v.model) > w_veiculo) w_veiculo = strlen(v.model);
-                    if(strlen(temp->dados->nome) > w_dono) w_dono = strlen(temp->dados->nome);
+    int w_veiculo = strlen("Veículo");
+    int w_dono    = strlen("Dono");
+    int w_vaga    = strlen("Vaga");
 
-                    char buf[10];
-                    snprintf(buf,sizeof(buf),"%d",v.vaga);
-                    if(strlen(buf) > w_vaga) w_vaga = strlen(buf);
-                }
+    //------------------
+    // CALCULA LARGURAS
+    //------------------
+    DonoVeiculoLista* temp = lista->prox;
+    Veiculos v;
+
+    while (temp) {
+        if (!temp || !temp->dados) { temp = temp ? temp->prox : NULL; continue; }
+
+        char nome_lower[64];
+        strncpy(nome_lower, temp->dados->nome, sizeof(nome_lower)-1); nome_lower[sizeof(nome_lower)-1]=0;
+        str_tolower_inplace(nome_lower);
+
+        if (!temp->dados->status || (filtrando && !strstr(nome_lower, nome_busca))) {
+            temp = temp->prox;
+            continue;
+        }
+
+        rewind(arq_v);
+        while (fread(&v, sizeof(Veiculos), 1, arq_v) == 1) {
+
+            if (v.status && strcmp(v.cpf, temp->dados->cpf) == 0) {
+
+                if ((int)strlen(v.model) > w_veiculo)
+                    w_veiculo = strlen(v.model);
+
+                if ((int)strlen(temp->dados->nome) > w_dono)
+                    w_dono = strlen(temp->dados->nome);
+
+                char buf[32];
+                snprintf(buf,sizeof(buf),"%d",v.vaga);
+                if ((int)strlen(buf) > w_vaga)
+                    w_vaga = strlen(buf);
             }
         }
+
         temp = temp->prox;
     }
-    rewind(arq_veiculos);
 
+    //-----------
     // CABEÇALHO
+    //-----------
     printf("\n╔"); for(int i=0;i<w_veiculo+2;i++) printf("═");
     printf("╦"); for(int i=0;i<w_dono+2;i++) printf("═");
     printf("╦"); for(int i=0;i<w_vaga+2;i++) printf("═");
     printf("╗\n");
 
     printf("║ %-*s ║ %-*s ║ %-*s ║\n",
-           w_veiculo,"Veículo", w_dono,"Dono", w_vaga,"Vaga");
+           w_veiculo, "Veículo", w_dono, "Dono", w_vaga, "Vaga");
 
     printf("╠"); for(int i=0;i<w_veiculo+2;i++) printf("═");
     printf("╬"); for(int i=0;i<w_dono+2;i++) printf("═");
     printf("╬"); for(int i=0;i<w_vaga+2;i++) printf("═");
     printf("╣\n");
 
-    // LINHAS
+    //----------------
+    // IMPRIME LINHAS
+    //----------------
     temp = lista->prox;
     int encontrou = 0;
 
-    while(temp){
-        if(temp->dados->status && (!filtrando || strstr(temp->dados->nome, nome_busca))) {
+    while (temp) {
+        if (!temp || !temp->dados) { temp = temp ? temp->prox : NULL; continue; }
 
-            rewind(arq_veiculos);
-            int achouVeic = 0;
+        char nome_lower[64];
+        strncpy(nome_lower, temp->dados->nome, sizeof(nome_lower)-1); nome_lower[sizeof(nome_lower)-1]=0;
+        str_tolower_inplace(nome_lower);
 
-            while(fread(&v,sizeof(Veiculos),1,arq_veiculos)){
-                if(v.status && strcmp(v.cpf,temp->dados->cpf)==0){
-                    achouVeic = 1;
-                    encontrou = 1;
+        if (!temp->dados->status || (filtrando && !strstr(nome_lower, nome_busca))) {
+            temp = temp->prox;
+            continue;
+        }
 
-                    printf("║ %-*s ║ %-*s ║ %-*d ║\n",
-                           w_veiculo, v.model,
-                           w_dono, temp->dados->nome,
-                           w_vaga, v.vaga);
-                }
-            }
+        rewind(arq_v);
+        int achouVeic = 0;
 
-            if(!achouVeic) {
+        while (fread(&v,sizeof(Veiculos),1,arq_v) == 1) {
+
+            if (v.status && strcmp(v.cpf, temp->dados->cpf) == 0) {
+                achouVeic = 1;
                 encontrou = 1;
-                printf("║ %-*s ║ %-*s ║ %-*s ║\n",
-                       w_veiculo,"-",
-                       w_dono,temp->dados->nome,
-                       w_vaga,"-");
+
+                printf("║ %-*s ║ %-*s ║ %-*d ║\n",
+                       w_veiculo, v.model,
+                       w_dono, temp->dados->nome,
+                       w_vaga, v.vaga);
             }
         }
+
+        if (!achouVeic) {
+            encontrou = 1;
+
+            printf("║ %-*s ║ %-*s ║ %-*s ║\n",
+                   w_veiculo, "-", w_dono, temp->dados->nome, w_vaga, "-");
+        }
+
         temp = temp->prox;
     }
 
-    if(!encontrou)
-        printf("║ %-*s ║\n", w_veiculo+w_dono+w_vaga+6,"Nenhum registro encontrado");
+    if (!encontrou)
+        printf("║ %-*s ║\n", w_veiculo+w_dono+w_vaga+6,
+               "Nenhum registro encontrado");
 
+    //--------
     // RODAPÉ
+    //--------
     printf("╚"); for(int i=0;i<w_veiculo+2;i++) printf("═");
     printf("╩"); for(int i=0;i<w_dono+2;i++) printf("═");
     printf("╩"); for(int i=0;i<w_vaga+2;i++) printf("═");
     printf("╝\n");
 
-    fclose(arq_veiculos);
+    fclose(arq_v);
     deleteDonoVeiculo(lista);
 
     printf("\n>> Tecle ENTER para continuar...");
