@@ -43,9 +43,9 @@ char admin(void) {
     return op;
 }
 
-//==============================
+//====================================
 // Função genérica de exclusão física
-//==============================
+//====================================
 int excluir_fisicamente(const char *arquivo, const char *arquivo_temp, void *registro, size_t tamanho,
                         int (*comparar)(void *, void *), void *param) {
     FILE *arq = fopen(arquivo, "rb");
@@ -171,9 +171,9 @@ void exclu_dono_veiculo(void) {
     getchar();
 }
 
-//==============================
+//============================================
 // Excluir Cadastro de Vagas (listas diretas)
-//==============================
+//============================================
 void exclu_cadastro_vagas(void) {
     system("clear||cls");
     int num_andar_lido;
@@ -189,7 +189,7 @@ void exclu_cadastro_vagas(void) {
     int encontrado = 0;
 
     while (temp != NULL) {
-        // CORREÇÃO: acessar os dados dentro do struct
+        
         if (temp->dados.num_andar == num_andar_lido && temp->dados.status == 1) {
             temp->dados.status = 0; // exclusão lógica
             encontrado = 1;

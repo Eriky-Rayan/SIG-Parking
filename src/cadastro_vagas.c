@@ -76,7 +76,7 @@ int gravarListaVagasEmArquivo(VagaLista* l) {
 
     VagaLista* temp = l->prox;
     while (temp) {
-        VagaArquivo vWrite = temp->dados;  // agora usamos corretamente o struct
+        VagaArquivo vWrite = temp->dados; 
         fwrite(&vWrite, sizeof(VagaArquivo), 1, arq);
         temp = temp->prox;
     }
@@ -206,8 +206,7 @@ void exib_cadastro_vagas(void) {
     getchar();
 }
 
-// As demais funções (`alterar_cadastro_vagas`, `exclu_logica_cadastro_vagas`, `recu_registro_cadastro_vagas`) 
-// devem ter a mesma correção: usar temp->dados.num_andar, temp->dados.total_vagas e temp->dados.status.
+
 void alterar_cadastro_vagas(void) {
     system("clear||cls");
     int num_andar;

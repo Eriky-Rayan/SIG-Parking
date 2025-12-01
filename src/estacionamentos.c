@@ -66,7 +66,7 @@ void add_estacionamentos(void) {
     FILE *arq_estacionamentos;
     Estacionamentos *estacionamento;
 
-    verifica_diretorio_dados(); // ✅ Garante diretório
+    verifica_diretorio_dados();
 
     printf("\n=====================================================================================\n");
     printf("||                -Módulo Estacionamentos -> Cadastrar Estacionamento-             ||\n");
@@ -93,7 +93,7 @@ void add_estacionamentos(void) {
     fwrite(estacionamento, sizeof(Estacionamentos), 1, arq_estacionamentos);
     fclose(arq_estacionamentos);
 
-    printf("✅ Veículo cadastrado e salvo no arquivo com sucesso!\n");
+    printf(" Veículo cadastrado e salvo no arquivo com sucesso!\n");
     printf("\nNº da vaga: %s\nPlaca: %s\n", estacionamento->n_estaci, estacionamento->placa);
     printf("\n\t>>Tecle <ENTER> para continuar...\n");
     getchar();
@@ -109,7 +109,7 @@ void exib_estacionamentos(void) {
     char n_estaci_lida[8];
     int encontrado = 0;
 
-    verifica_diretorio_dados(); // ✅
+    verifica_diretorio_dados();
 
     printf("\n=====================================================================================\n");
     printf("||                -Módulo Estacionamentos -> Exibir Estacionamento-                ||\n");
@@ -132,7 +132,7 @@ void exib_estacionamentos(void) {
     while (fread(estacionamento, sizeof(Estacionamentos), 1, arq_estacionamentos)) {
         if ((strcmp(estacionamento->n_estaci, n_estaci_lida) == 0) && (estacionamento->status)) {
             encontrado = 1;
-            printf("\n✅ Estacionamento encontrado!\n");
+            printf("\n Estacionamento encontrado!\n");
             printf("Nº da vaga: %s\n", estacionamento->n_estaci);
             printf("Placa: %s\n", estacionamento->placa);
             break;
@@ -143,7 +143,7 @@ void exib_estacionamentos(void) {
     free(estacionamento);
 
     if (!encontrado)
-        printf("❌ Nº da vaga não encontrado!\n");
+        printf(" Nº da vaga não encontrado!\n");
 
     printf("\n\t>>Tecle <ENTER> para continuar...\n");
     getchar();
@@ -157,7 +157,7 @@ void alterar_estacionamentos(void) {
     char n_estaci_lida[8];
     int encontrado = 0;
 
-    verifica_diretorio_dados(); // ✅
+    verifica_diretorio_dados();
 
     printf("\n=====================================================================================\n");
     printf("||                -Módulo Estacionamentos -> Alterar Estacionamento-               ||\n");
@@ -194,9 +194,9 @@ void alterar_estacionamentos(void) {
     free(estacionamento);
 
     if (encontrado)
-        printf("✅ Vaga alterada e salva com sucesso!\n");
+        printf(" Vaga alterada e salva com sucesso!\n");
     else
-        printf("❌ Nº da vaga não encontrado!\n");
+        printf(" Nº da vaga não encontrado!\n");
 
     printf("\n\t>>Tecle <ENTER> para continuar...\n");
     getchar();
@@ -210,7 +210,7 @@ void exclu_logica_estacionamentos(void) {
     char n_estaci_lida[8];
     int encontrado = 0;
 
-    verifica_diretorio_dados(); // ✅
+    verifica_diretorio_dados();
 
     printf("\n=====================================================================================\n");
     printf("||                -Módulo Estacionamentos -> Excluir Estacionamento-               ||\n");
@@ -244,9 +244,9 @@ void exclu_logica_estacionamentos(void) {
     free(estacionamento);
 
     if (encontrado)
-        printf("✅ Vaga %s excluída e salva no arquivo!\n", n_estaci_lida);
+        printf(" Vaga %s excluída e salva no arquivo!\n", n_estaci_lida);
     else
-        printf("❌ Nº da vaga não encontrado!\n");
+        printf(" Nº da vaga não encontrado!\n");
 
     printf("\n\t>>Tecle <ENTER> para continuar...\n");
     getchar();
@@ -260,7 +260,7 @@ void recu_registro_estacionamentos(void) {
     char n_estaci_lida[8];
     int encontrado = 0;
 
-    verifica_diretorio_dados(); // ✅
+    verifica_diretorio_dados();
 
     printf("\n=====================================================================================\n");
     printf("||               -Módulo Estacionamentos -> Recuperar registro-                    ||\n");
@@ -294,9 +294,9 @@ void recu_registro_estacionamentos(void) {
     free(estacionamento);
 
     if (encontrado)
-        printf("✅ Registro do estacionamento %s recuperado e salvo com sucesso!\n", n_estaci_lida);
+        printf(" Registro do estacionamento %s recuperado e salvo com sucesso!\n", n_estaci_lida);
     else
-        printf("❌ Nº da vaga não encontrado!\n");
+        printf(" Nº da vaga não encontrado!\n");
 
     printf("\n\t>>Tecle <ENTER> para continuar...\n");
     getchar();

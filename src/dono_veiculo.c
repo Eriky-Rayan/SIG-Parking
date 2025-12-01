@@ -6,9 +6,63 @@
 #include "../include/validacoes.h"
 #include "../include/veiculos.h"
 
-// ============================
+// =========================================
+// Funções de ordenação usadas em relatórios
+// =========================================
+
+// Código cedido por Thomas, do projeto SIG-Recipes
+void trocarDadosDono(DonoVeiculoLista* a, DonoVeiculoLista* b){
+    DonoVeiculo temp;
+
+    // Copiar A → temp
+    strcpy(temp.cpf, a->dados->cpf);
+    strcpy(temp.nome, a->dados->nome);
+    strcpy(temp.telefone, a->dados->telefone);
+    strcpy(temp.placa, a->dados->placa);
+    temp.status = a->dados->status;
+
+    // Copiar B → A
+    strcpy(a->dados->cpf, b->dados->cpf);
+    strcpy(a->dados->nome, b->dados->nome);
+    strcpy(a->dados->telefone, b->dados->telefone);
+    strcpy(a->dados->placa, b->dados->placa);
+    a->dados->status = b->dados->status;
+
+    // Copiar temp → B
+    strcpy(b->dados->cpf, temp.cpf);
+    strcpy(b->dados->nome, temp.nome);
+    strcpy(b->dados->telefone, temp.telefone);
+    strcpy(b->dados->placa, temp.placa);
+    b->dados->status = temp.status;
+}
+
+void ordenarListaDono(DonoVeiculoLista* lista){
+    DonoVeiculoLista *temp, *aux, *next;
+
+    temp = lista->prox;
+
+    while (temp != NULL && temp->prox != NULL) {
+
+        aux = temp;
+        next = temp->prox;
+
+        while (next != NULL) {
+
+            if (strcmp(aux->dados->nome, next->dados->nome) > 0) {
+                aux = next;
+            }
+
+            next = next->prox;
+        }
+
+        trocarDadosDono(temp, aux);
+        temp = temp->prox;
+    }
+}
+
+// ======================
 // Lista dinâmica inversa
-// ============================
+// ======================
 
 DonoVeiculoLista* newDonoVeiculoList(void) {
     DonoVeiculoLista* l = (DonoVeiculoLista*) malloc(sizeof(DonoVeiculoLista));
@@ -36,8 +90,8 @@ void appendDonoVeiculo(DonoVeiculoLista *l, DonoVeiculo *data) {
         exit(EXIT_FAILURE);
     }
 
-    *(novo->dados) = *data;  // copia os dados
-    
+    *(novo->dados) = *data;
+
     novo->prox = l->prox;
     l->prox = novo;
 }
@@ -48,7 +102,7 @@ void preencherListaDonoVeiculo(DonoVeiculoLista *lista) {
 
     DonoVeiculo leitura;
     while (fread(&leitura, sizeof(DonoVeiculo), 1, arq)) {
-        if (leitura.status == True)
+        if (leitura.status == TRUE)
             appendDonoVeiculo(lista, &leitura);
     }
     fclose(arq);
@@ -93,16 +147,13 @@ int gravarListaDonoVeiculoEmArquivo(DonoVeiculoLista* l) {
     return 1;
 }
 
-// ===========================================================
-// Verifica se veículo existe no arquivo
-// ===========================================================
 int verifica_veiculo_existe(const char *placa) {
     FILE *arq = fopen("dados/veiculos.dat", "rb");
     if (!arq) return 0;
 
     Veiculos v;
     while (fread(&v, sizeof(Veiculos), 1, arq)) {
-        if (strcmp(v.placa, placa) == 0 && v.status == True) {
+        if (strcmp(v.placa, placa) == 0 && v.status == TRUE) {
             fclose(arq);
             return 1;
         }
@@ -111,9 +162,9 @@ int verifica_veiculo_existe(const char *placa) {
     return 0;
 }
 
-// ===========================================================
-// Menu principal
-// ===========================================================
+// =====
+// Menu
+// =====
 void switch_dono_veiculo(void) {
     char op;
     do {
@@ -148,9 +199,9 @@ char dono_veiculo(void) {
     return op;
 }
 
-// ===========================================================
-// CRUD DONO
-// ===========================================================
+// ==================
+// CRUD DONO VEICULO
+// ==================
 void add_dono_veiculo(void) {
     system("clear||cls");
     verifica_diretorio_dados();
@@ -171,7 +222,7 @@ void add_dono_veiculo(void) {
     }
 
     strcpy(dono.placa, placa);
-    dono.status = True;
+    dono.status = TRUE;
 
     DonoVeiculoLista* lista = newDonoVeiculoList();
     preencherListaDonoVeiculo(lista);
@@ -199,7 +250,7 @@ void exib_dono_veiculo(void) {
 
     DonoVeiculoLista* temp = lista->prox;
     while (temp) {
-        if (strcmp(temp->dados->cpf, cpf_busca) == 0 && temp->dados->status == True) {
+        if (strcmp(temp->dados->cpf, cpf_busca) == 0 && temp->dados->status == TRUE) {
             achou = 1;
             printf("\n=== Dono Encontrado ===\n");
             printf("CPF: %s\nNome: %s\nTelefone: %s\nPlaca: %s\n",
@@ -227,7 +278,7 @@ void alterar_dono_veiculo(void) {
 
     DonoVeiculoLista* temp = lista->prox;
     while (temp) {
-        if (strcmp(temp->dados->cpf, cpf_busca) == 0 && temp->dados->status == True) {
+        if (strcmp(temp->dados->cpf, cpf_busca) == 0 && temp->dados->status == TRUE) {
             achou = 1;
             Ler_Telefone(temp->dados->telefone);
             Ler_Nome(temp->dados->nome, sizeof(temp->dados->nome));
@@ -258,8 +309,8 @@ void exclu_logica_dono_veiculo(void) {
 
     DonoVeiculoLista* temp = lista->prox;
     while (temp) {
-        if (strcmp(temp->dados->cpf, cpf_busca) == 0 && temp->dados->status == True) {
-            temp->dados->status = False;
+        if (strcmp(temp->dados->cpf, cpf_busca) == 0 && temp->dados->status == TRUE) {
+            temp->dados->status = FALSE;
             achou = 1;
             break;
         }
@@ -288,8 +339,8 @@ void recu_registro_dono_veiculo(void) {
 
     DonoVeiculoLista* temp = lista->prox;
     while (temp) {
-        if (strcmp(temp->dados->cpf, cpf_busca) == 0 && temp->dados->status == False) {
-            temp->dados->status = True;
+        if (strcmp(temp->dados->cpf, cpf_busca) == 0 && temp->dados->status == FALSE) {
+            temp->dados->status = TRUE;
             achou = 1;
             break;
         }
