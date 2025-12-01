@@ -163,7 +163,7 @@ void add_dono_veiculo(void) {
     Ler_Telefone(dono.telefone);
     Ler_Nome(dono.nome, sizeof(dono.nome));
 
-    printf("\nInforme a PLACA do carro: ");
+    printf("\nInforme a placa do veiculo: ");
     Ler_Placa(placa);
 
     if (!verifica_veiculo_existe(placa)) {
